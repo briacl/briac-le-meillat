@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Synapseo - Projet Caducée </title>
+    <style>
+        :root {
+            --bg-color: #050a14;
+            --primary-color: #00f2ff;
+            --secondary-color: #0066cc;
+            --text-color: #ffffff;
+            --node-color: rgba(0, 242, 255, 0.8);
+            --line-color: rgba(0, 102, 204, 0.4);
+        }
+
+        @font-face {
+            font-family: 'Monad';
+            src: url('fonts/Monad.otf') format('opentype');
+        }
+
+        @font-face {
+            font-family: 'Montserrat';
+            src: url('fonts/Montserrat-Regular.ttf') format('truetype');
+        }
+
+        @font-face {
+            font-family: 'Montserrat Alternates';
+            src: url('fonts/MontserratAlternates-Regular.otf') format('opentype');
+        }
+
+        @font-face {
+            font-family: 'Paris2024';
+            src: url('fonts/Paris2024-Variable.ttf') format('truetype');
+        }
+
+        @font-face {
+            font-family: 'Roboto Mono';
+            src: url('fonts/RobotoMono-Regular.ttf') format('truetype');
+        }
+
+        @font-face {
+            font-family: 'Plus Jakarta Sans';
+            src: url('fonts/PlusJakartaSans.ttf') format('truetype');
+        }
+
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow-x: hidden;
+            overflow-y: auto;
+            /* Explicitly allow vertical scroll */
+            background-color: var(--bg-color);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        #synapse-canvas {
+            position: fixed;
+            /* Fixed so it stays while scrolling */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .content-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+            text-align: center;
+            pointer-events: none;
+            /* Let clicks pass through to canvas if needed */
+            color: var(--text-color);
+            text-shadow: 0 0 20px rgba(0, 242, 255, 0.5);
+        }
+
+        h1 {
+            font-family: 'Monad', sans-serif;
+            font-size: 5rem;
+            font-weight: 200;
+            letter-spacing: 12px;
+            margin: 0;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, #fff 0%, #00f2ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            opacity: 0;
+            animation: fadeIn 2s ease-out forwards;
+        }
+
+        .content-overlay p {
+            font-family: 'Paris2024', sans-serif;
+        }
+
+        p {
+            font-size: 1.2rem;
+            letter-spacing: 4px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-top: 1rem;
+            opacity: 0;
+            animation: fadeIn 2s ease-out 1s forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .scroll-btn {
+            pointer-events: auto;
+            /* Re-enable clicks */
+            margin-top: 3rem;
+            background: transparent;
+            border: 2px solid rgba(0, 242, 255, 0.3);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 10;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0;
+            animation: fadeIn 2s ease-out 2s forwards, bounce 2s infinite 3s;
+        }
+
+        .scroll-btn:hover {
+            border-color: #00f2ff;
+            box-shadow: 0 0 15px rgba(0, 242, 255, 0.5);
+        }
+
+        .scroll-btn svg {
+            width: 24px;
+            height: 24px;
+            fill: #fff;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateY(0);
+            }
+
+            40% {
+                transform: translateY(-10px);
+            }
+
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        #next-section {
+            height: 100vh;
+            background-color: #02050a;
+            position: relative;
+            z-index: 2;
+            margin-top: 100vh;
+            /* Push it below the fold */
+            box-shadow: 0 -20px 50px rgba(0, 0, 0, 0.8);
+            /* Shadow to blend */
+        }
+
+        #font-tests {
+            min-height: 100vh;
+            /* Allow it to grow */
+            background-color: #050a14;
+            position: relative;
+            z-index: 2;
+            padding: 4rem 2rem;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .font-row {
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 2rem;
+            width: 100%;
+            max-width: 1000px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .font-row-header {
+            grid-column: 1 / -1;
+            font-size: 0.9rem;
+            color: #00f2ff;
+            opacity: 0.8;
+            margin-bottom: 1rem;
+            font-family: 'Inter', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-bottom: 1px dashed rgba(0, 242, 255, 0.3);
+            padding-bottom: 0.5rem;
+        }
+
+        .font-display-large {
+            font-size: 3.5rem;
+            line-height: 1.2;
+        }
+
+        .font-display-tagline {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            line-height: 1.4;
+        }
+
+        .uppercase {
+            text-transform: uppercase;
+        }
+
+        .capitalize {
+            text-transform: capitalize;
+        }
+
+        /* Temp Nav */
+        .temp-nav {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 100;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            border-radius: 8px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .temp-nav a {
+            color: #00f2ff;
+            text-decoration: none;
+            font-size: 12px;
+            border: 1px solid #00f2ff;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="content-overlay">
+        <h1>Synapseo</h1>
+        <p>LA CONNEXION FLUIDE ENTRE <br>MÉDECINS, PHARMACIENS ET PATIENTS</p>
+
+        <a href="#next-section" class="scroll-btn">
+            <svg viewBox="0 0 24 24">
+                <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" />
+            </svg>
+        </a>
+    </div>
+
+    <canvas id="synapse-canvas"></canvas>
+
+    <!-- Next Section Placeholder -->
+    <div id="next-section"
+        style="display: flex; align-items: center; justify-content: center; flex-direction: column; color: white; padding: 2rem;">
+        <h2 style="font-size: 3rem; margin-bottom: 2rem; color: #00f2ff;">Notre Vision</h2>
+        <p
+            style="max-width: 800px; text-align: center; line-height: 1.6; font-size: 1.1rem; font-family: 'Montserrat Alternates', sans-serif; text-transform: lowercase;">
+            Synapseo redéfinit la manière dont les informations de santé circulent. <br>
+            En connectant instantanément les acteurs clés du parcours de soin, nous créons un écosystème
+            où la donnée médicale est sécurisée, fluide et au service du patient.
+        </p>
+    </div>
+
+    <!-- Font Tests Section -->
+    <div id="font-tests">
+        <h2 style="font-family: 'Inter'; font-weight: 200; margin-bottom: 3rem;">Propositions Finales</h2>
+
+        <!-- Option 1: Paris2024 MAJ + Montserrat Alt min -->
+        <div class="font-row">
+            <div class="font-row-header">Option 1 : Paris2024 (MAJ) + Montserrat Alt (min)</div>
+            <div class="font-display-large uppercase" style="font-family: 'Paris2024', sans-serif;">Synapseo</div>
+            <div class="font-display-tagline" style="font-family: 'Montserrat Alternates', sans-serif;">La connexion
+                fluide entre médecins, pharmaciens et patients</div>
+        </div>
+
+        <!-- Option 2: Paris2024 min + Montserrat Alt min -->
+        <div class="font-row">
+            <div class="font-row-header">Option 2 : Paris2024 (min) + Montserrat Alt (min)</div>
+            <div class="font-display-large" style="font-family: 'Paris2024', sans-serif;">Synapseo</div>
+            <div class="font-display-tagline" style="font-family: 'Montserrat Alternates', sans-serif;">La connexion
+                fluide entre médecins, pharmaciens et patients</div>
+        </div>
+
+        <!-- Option 3: Monad MAJ + Montserrat Alt min -->
+        <div class="font-row">
+            <div class="font-row-header">Option 3 : Monad (MAJ) + Montserrat Alt (min)</div>
+            <div class="font-display-large uppercase" style="font-family: 'Monad', sans-serif;">Synapseo</div>
+            <div class="font-display-tagline" style="font-family: 'Montserrat Alternates', sans-serif;">La connexion
+                fluide entre médecins, pharmaciens et patients</div>
+        </div>
+    </div>
+
+    <!-- Temp Nav -->
+    <div class="temp-nav">
+        <a href="#next-section">Vision</a>
+        <a href="#font-tests">Fonts</a>
+    </div>
+
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        const canvas = document.getElementById('synapse-canvas');
+        const ctx = canvas.getContext('2d');
+
+        let width, height;
+        let particles = [];
+
+        // Configuration
+        const particleCount = 70; // Total nodes
+        const connectionDistance = 200; // Max distance to connect
+        const mouseDistance = 250; // Interaction radius
+        const speedBase = 0.8;
+
+        // Specific Terms to embedded in the network
+        const labelledNodes = [
+            { text: "PATIENTS", isActive: true },
+            { text: "MÉDECINS", isActive: true },
+            { text: "PHARMACIES", isActive: true },
+            { text: "ÉTUDIANTS", isActive: true }
+        ];
+
+        let mouse = { x: null, y: null };
+
+        // Particle Class
+        class Particle {
+            constructor(label = null) {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * speedBase;
+                this.vy = (Math.random() - 0.5) * speedBase;
+                this.size = label ? 4 : Math.random() * 2 + 1; // Bigger if labelled
+                this.label = label;
+
+                // Color differs if labelled
+                this.color = label ? '#ffffff' : '#00f2ff';
+                this.shadowBlur = label ? 20 : 10;
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                // Bounce off edges
+                if (this.x < 0 || this.x > width) this.vx *= -1;
+                if (this.y < 0 || this.y > height) this.vy *= -1;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.shadowBlur = this.shadowBlur;
+                ctx.shadowColor = this.color;
+                ctx.fill();
+                ctx.shadowBlur = 0; // Reset for text/lines to save perf
+
+                // Draw Label if exists
+                if (this.label) {
+                    ctx.font = "bold 14px Inter, sans-serif";
+                    ctx.fillStyle = "#ffffff";
+                    ctx.textAlign = "center";
+                    ctx.textBaseline = "middle";
+                    // Offset text slightly above dot
+                    ctx.fillText(this.label, this.x, this.y - 15);
+                }
+            }
+        }
+
+        // Init
+        function init() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            particles = [];
+
+            // specific labelled particles first
+            labelledNodes.forEach(item => {
+                particles.push(new Particle(item.text));
+            });
+
+            // fill the rest with random nodes
+            for (let i = 0; i < particleCount - labelledNodes.length; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        // Animation Loop
+        function animate() {
+            requestAnimationFrame(animate);
+            ctx.clearRect(0, 0, width, height);
+
+            // Update and draw particles
+            particles.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
+
+            // Draw Connections
+            connectParticles();
+        }
+
+        function connectParticles() {
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const p1 = particles[i];
+                    const p2 = particles[j];
+
+                    const dx = p1.x - p2.x;
+                    const dy = p1.y - p2.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < connectionDistance) {
+                        // Opacity based on distance
+                        let opacity = 1 - (dist / connectionDistance);
+
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(0, 242, 255, ${opacity * 0.4})`; // Cyan glow
+                        ctx.lineWidth = 1;
+
+                        // If connecting to a label, make it slightly stronger
+                        if (p1.label || p2.label) {
+                            ctx.strokeStyle = `rgba(255, 255, 255, ${opacity * 0.3})`;
+                            ctx.lineWidth = 1.5;
+                        }
+
+                        ctx.moveTo(p1.x, p1.y);
+                        ctx.lineTo(p2.x, p2.y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        // Event Listeners
+        window.addEventListener('resize', init);
+
+        // Start
+        init();
+        animate();
+
+    </script>
+</body>
+
+</html>

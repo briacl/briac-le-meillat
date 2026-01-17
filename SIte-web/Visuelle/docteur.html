@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Synapseo - Médecin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="privacy-overlay">
+    <div style="background: var(--surface-card); padding: 2rem; border-radius: var(--radius-lg); text-align: center; box-shadow: var(--shadow-glow); border: 1px solid var(--glass-border);">
+      <div style="width: 64px; height: 64px; background: rgba(239, 68, 68, 0.1); color: var(--accent-danger); border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 1rem;">
+        <i class="fa-solid fa-lock" style="font-size: 1.5rem;"></i>
+      </div>
+      <h3 style="margin-bottom: 0.5rem; color: var(--text-main);">Session Sécurisée Verrouillée</h3>
+      <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">Aucune activité détectée. Cliquez pour reprendre.</p>
+      <button class="btn btn-primary" onclick="security.resumeSession()">Reprendre la session</button>
+    </div>
+  </div>
+
+  <div id="toast-container"></div>
+
+  <div style="display: flex; height: 100vh; overflow: hidden;">
+    <nav class="sidebar">
+      <div class="logo">
+        <div class="logo-icon"><i class="fa-solid fa-user-doctor"></i></div>
+        <div class="logo-text">Synapseo <span style="font-size:0.8rem; color:var(--text-light); font-weight:400;">Pro</span></div>
+      </div>
+      <div class="nav-links">
+        <a href="#" class="nav-item active" onclick="showPatientList()"><i class="fa-solid fa-users"></i> <span>Mes Patients</span></a>
+        <a href="#" class="nav-item"><i class="fa-solid fa-calendar-day"></i> <span>Agenda</span></a>
+        <a href="#" class="nav-item"><i class="fa-solid fa-inbox"></i> <span>Messagerie</span></a>
+        <a href="#" class="nav-item" onclick="auth.logout()"><i class="fa-solid fa-arrow-right-from-bracket"></i> <span>Déconnexion</span></a>
+      </div>
+      <div class="user-profile" onclick="document.getElementById('session-modal').classList.add('active')" style="cursor: pointer;">
+        <div class="avatar" style="background: var(--secondary);">DR</div>
+        <div class="user-info">
+          <h4>Dr. House</h4>
+          <p>Cardiologie</p>
+        </div>
+      </div>
+    </nav>
+
+    <main class="main-content" id="patient-list-view" style="position: relative;">
+      <header>
+        <div class="header-title">
+          <h2>Liste des Patients</h2>
+          <p>32 patients suivis - 4 nouveaux cette semaine</p>
+        </div>
+        <div class="header-actions">
+          <button class="icon-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+          <button class="icon-btn"><i class="fa-solid fa-filter"></i></button>
+        </div>
+      </header>
+
+      <div class="content-scroll" style="padding: 0;">
+        <div style="display: grid; grid-template-columns: 2fr 1.5fr 1.5fr 1fr; padding: 1rem 2rem; border-bottom: 1px solid var(--glass-border); background: var(--surface-hover); font-weight: 600; color: var(--text-secondary); font-size: 0.9rem;">
+          <div>Patient</div>
+          <div>Dernière visite</div>
+          <div>Statut</div>
+          <div style="text-align: right;">Action</div>
+        </div>
+
+        <div id="patient-list-skeletons"></div>
+
+        <div id="patient-list-data" style="display: none;">
+          <div class="list-item" style="display: grid; grid-template-columns: 2fr 1.5fr 1.5fr 1fr; padding: 1.25rem 2rem; cursor: pointer; transition: background 0.2s;" onclick="showPatientRecord()">
+            <div style="display: flex; align-items: center; gap: 1rem;">
+              <div class="avatar" style="width: 32px; height: 32px; font-size: 0.8rem; background: var(--text-light);">AL</div>
+              <div><span style="display: block; font-weight: 500; color:white;">Anne Lopez</span><span style="font-size: 0.8rem; color: #6B7280;">ID: #9021</span></div>
+            </div>
+            <div style="align-self: center; font-size: 0.9rem; color: var(--text-secondary);">12 Jan 2026</div>
+            <div style="align-self: center;"><span class="status-pill status-confirmed">Stable</span></div>
+            <div style="text-align: right; align-self: center;"><i class="fa-solid fa-chevron-right" style="color: var(--text-secondary);"></i></div>
+          </div>
+          <div class="list-item" style="display: grid; grid-template-columns: 2fr 1.5fr 1.5fr 1fr; padding: 1.25rem 2rem; cursor: pointer; transition: background 0.2s;">
+            <div style="display: flex; align-items: center; gap: 1rem;">
+              <div class="avatar" style="width: 32px; height: 32px; font-size: 0.8rem; background: var(--accent-warning); color: black;">MP</div>
+              <div><span style="display: block; font-weight: 500; color:white;">Marc Petit</span><span style="font-size: 0.8rem; color: #6B7280;">ID: #3321</span></div>
+            </div>
+            <div style="align-self: center; font-size: 0.9rem; color: var(--text-secondary);">10 Jan 2026</div>
+            <div style="align-self: center;"><span class="status-pill status-pending">Suivi requis</span></div>
+            <div style="text-align: right; align-self: center;"><i class="fa-solid fa-chevron-right" style="color: var(--text-secondary);"></i></div>
+          </div>
+          <div class="list-item" style="display: grid; grid-template-columns: 2fr 1.5fr 1.5fr 1fr; padding: 1.25rem 2rem; cursor: pointer; transition: background 0.2s;">
+            <div style="display: flex; align-items: center; gap: 1rem;">
+              <div class="avatar" style="width: 32px; height: 32px; font-size: 0.8rem; background: var(--primary); color: black;">JD</div>
+              <div><span style="display: block; font-weight: 500; color:white;">Jean Dupont</span><span style="font-size: 0.8rem; color: #6B7280;">ID: #8492</span></div>
+            </div>
+            <div style="align-self: center; font-size: 0.9rem; color: var(--text-secondary);">08 Jan 2026</div>
+            <div style="align-self: center;"><span class="status-pill status-confirmed">Stable</span></div>
+            <div style="text-align: right; align-self: center;"><i class="fa-solid fa-chevron-right" style="color: var(--text-secondary);"></i></div>
+          </div>
+        </div>
+      </div>
+
+      <button class="fab-btn" onclick="security.triggerToast('Création nouveau patient...')" style="position: absolute; bottom: 2rem; right: 2rem; width: 56px; height: 56px; border-radius: 50%; background: var(--primary); color: #000; border: none; box-shadow: 0 0 20px var(--primary-glow); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; transition: transform 0.2s;">
+        <i class="fa-solid fa-plus"></i>
+      </button>
+    </main>
+
+    <main class="main-content" id="patient-record-view" style="display: none; max-width: 1000px; margin: 0 auto; border-left: 1px solid var(--glass-border); border-right: 1px solid var(--glass-border);">
+      <header style="padding: 1rem 2rem; height: auto;">
+        <button class="btn btn-outline" onclick="showPatientList()" style="margin-right: 1rem; border: none; padding-left: 0; color: var(--text-main);"><i class="fa-solid fa-arrow-left"></i> Retour</button>
+        <div class="header-title">
+          <h2>Dossier : Anne Lopez</h2>
+          <span style="font-size: 0.8rem; color: var(--accent-success); display: flex; align-items: center; gap: 0.4rem; margin-top: 0.2rem;">
+            <i class="fa-solid fa-lock"></i> Chiffré de bout en bout
+          </span>
+        </div>
+        <div class="header-actions">
+          <button class="btn btn-primary" onclick="security.triggerToast('Dossier sauvegardé et chiffré')">Sauvegarder</button>
+        </div>
+      </header>
+
+      <div class="content-scroll" style="padding: 2rem;">
+        <div style="margin-bottom: 2rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+            <h3 style="font-size: 1.1rem; color: white;">Notes de consultation</h3>
+            <div id="editor-status" style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.8rem; color: var(--text-light); transition: color 0.3s;">
+              <div id="status-dot" style="width: 8px; height: 8px; border-radius: 50%; background: #9CA3AF;"></div>
+              <span id="status-text">Prêt</span>
+            </div>
+          </div>
+
+          <div class="secure-editor-wrapper" style="border: 1px solid var(--glass-border); border-radius: var(--radius-lg); overflow: hidden; background: var(--surface-card);">
+            <div class="toolbar" style="background: var(--surface-hover); border-bottom: 1px solid var(--glass-border); padding: 0.5rem 1rem; display: flex; gap: 0.5rem;">
+              <button class="icon-btn" style="width: 32px; height: 32px;"><i class="fa-solid fa-bold"></i></button>
+              <button class="icon-btn" style="width: 32px; height: 32px;"><i class="fa-solid fa-italic"></i></button>
+              <button class="icon-btn" style="width: 32px; height: 32px;"><i class="fa-solid fa-list"></i></button>
+            </div>
+            <div id="secure-editor" contenteditable="true" style="min-height: 200px; padding: 1.5rem; outline: none; line-height: 1.6; color: var(--text-main);" oninput="editor.onInput()" onblur="editor.onBlur()">
+Patient présente une légère fatigue. Constantes normales.
+Tension artérielle : 120/80 mmHg
+Fréquence cardiaque : 72 BPM
+Traitement en cours : Kardegic 75mg
+            </div>
+          </div>
+        </div>
+
+        <h3 style="font-size: 1.1rem; margin-bottom: 1rem; color: white;">Documents & Imagerie</h3>
+        <div id="dropzone" style="border: 2px dashed var(--glass-border); border-radius: var(--radius-lg); padding: 3rem; text-align: center; color: var(--text-secondary); cursor: pointer; transition: all 0.2s; background: rgba(15, 23, 42, 0.4);" ondragover="workspace.onDragOver(event)" ondragleave="workspace.onDragLeave(event)" ondrop="workspace.onDrop(event)">
+          <div id="upload-idle">
+            <i class="fa-solid fa-cloud-arrow-up" style="font-size: 2.5rem; color: var(--text-light); margin-bottom: 1rem;"></i>
+            <p style="font-weight: 500; color: var(--text-main);">Glissez-déposez vos fichiers ici</p>
+            <p style="font-size: 0.85rem; margin-top: 0.5rem;">ou cliquez pour parcourir</p>
+            <p style="font-size: 0.75rem; color: var(--text-light); margin-top: 1rem;"><i class="fa-solid fa-shield"></i> Chiffrement local avant envoi</p>
+          </div>
+          <div id="upload-progress" style="display: none;">
+            <p style="font-weight: 600; margin-bottom: 0.5rem; color: var(--primary);">Chiffrement en cours...</p>
+            <div style="height: 6px; width: 200px; background: #334155; border-radius: 3px; margin: 0 auto; overflow: hidden;">
+              <div id="progress-bar" style="height: 100%; width: 0%; background: var(--primary); transition: width 0.1s; box-shadow: 0 0 10px var(--primary-glow);"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div id="session-modal">
+    <div class="session-card">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+        <h3 style="font-size: 1.25rem; color: var(--text-main);"><i class="fa-solid fa-laptop-medical"></i> Gestion des Sessions</h3>
+        <button class="icon-btn" onclick="document.getElementById('session-modal').classList.remove('active')"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <p style="margin-bottom: 1rem; color: var(--text-secondary);">Vos appareils connectés actuellement.</p>
+      <div class="session-list">
+        <div class="session-item active">
+          <div class="session-icon"><i class="fa-brands fa-chrome"></i></div>
+          <div class="session-info">
+            <h4 style="color: white;">Chrome sur Windows (Vous)</h4>
+            <p>Actif maintenant • Paris, FR</p>
+          </div>
+          <div class="session-status">Actuel</div>
+        </div>
+        <div class="session-item">
+          <div class="session-icon"><i class="fa-solid fa-mobile-screen"></i></div>
+          <div class="session-info">
+            <h4 style="color: white;">iPhone 14 Pro</h4>
+            <p>Il y a 3 heures • Lyon, FR</p>
+          </div>
+          <button class="btn btn-outline btn-sm" onclick="security.revokeSession(this)">Révoquer</button>
+        </div>
+      </div>
+      <div style="margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--glass-border); text-align: center;">
+        <button class="btn" style="color: var(--accent-danger); font-weight: 500; background: transparent;" onclick="auth.logoutAll()">
+          <i class="fa-solid fa-power-off"></i> Déconnecter tous les appareils
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+  <script>
+    function showPatientList() {
+      document.getElementById('patient-list-view').style.display = 'flex';
+      document.getElementById('patient-record-view').style.display = 'none';
+      dashboard.init();
+    }
+
+    function showPatientRecord() {
+      document.getElementById('patient-list-view').style.display = 'none';
+      document.getElementById('patient-record-view').style.display = 'flex';
+    }
+
+    // Init on load
+    dashboard.init();
+  </script>
+</body>
+</html>

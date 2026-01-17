@@ -1,0 +1,783 @@
+prescription_id,medication_id,frequency,qty_per_take
+eeab1f56-2148-4ca8-b999-995bc1dc20cb,7,"Matin, Midi, Soir",1
+eeab1f56-2148-4ca8-b999-995bc1dc20cb,4,Mantin,2
+d17b499e-3ec1-4396-b167-245f576d42af,7,Mantin,2
+36d1a3b7-ad5c-45f1-8276-a4724dfaf227,9,"Matin, Midi, Soir",1
+36d1a3b7-ad5c-45f1-8276-a4724dfaf227,2,Mantin,2
+d74e7134-6487-47ac-ba01-467307149856,7,"Matin, Midi, Soir",2
+5b183f2f-3894-4280-971c-9ba5f4973bc2,6,Au coucher,1
+5b183f2f-3894-4280-971c-9ba5f4973bc2,9,Matin et Soir,2
+5b183f2f-3894-4280-971c-9ba5f4973bc2,10,Matin et Soir,1
+e6d79872-b9c4-48de-8a1c-b7bcf13bbd14,9,Mantin,2
+e6d79872-b9c4-48de-8a1c-b7bcf13bbd14,3,Matin et Soir,2
+7564de30-9cc2-4624-b207-57129293f84e,4,Matin et Soir,2
+7564de30-9cc2-4624-b207-57129293f84e,2,"Matin, Midi, Soir",2
+0aa07203-3bda-41f3-8efd-27c469587aba,4,Mantin,2
+0aa07203-3bda-41f3-8efd-27c469587aba,10,"Matin, Midi, Soir",1
+0aa07203-3bda-41f3-8efd-27c469587aba,5,Mantin,2
+02d66db5-8e29-4e43-b6fb-68c4b8ea5540,10,"Matin, Midi, Soir",2
+02d66db5-8e29-4e43-b6fb-68c4b8ea5540,4,"Matin, Midi, Soir",2
+02d66db5-8e29-4e43-b6fb-68c4b8ea5540,8,"Matin, Midi, Soir",1
+bd15c437-eec6-446b-aa9f-982b55d8872e,8,Au coucher,1
+bd15c437-eec6-446b-aa9f-982b55d8872e,6,Matin et Soir,2
+bd15c437-eec6-446b-aa9f-982b55d8872e,3,"Matin, Midi, Soir",2
+bd15c437-eec6-446b-aa9f-982b55d8872e,7,"Matin, Midi, Soir",1
+88314f97-368d-47f8-a068-062bf9c4421a,5,"Matin, Midi, Soir",1
+88314f97-368d-47f8-a068-062bf9c4421a,8,Mantin,2
+88314f97-368d-47f8-a068-062bf9c4421a,10,"Matin, Midi, Soir",1
+88314f97-368d-47f8-a068-062bf9c4421a,4,"Matin, Midi, Soir",1
+7b4fb3a5-3936-49fc-a1de-d16f7267847f,10,"Matin, Midi, Soir",1
+7b4fb3a5-3936-49fc-a1de-d16f7267847f,1,Mantin,1
+caa5d845-4f2d-419a-94f9-c7d0df4bd9a7,9,Au coucher,1
+caa5d845-4f2d-419a-94f9-c7d0df4bd9a7,4,"Matin, Midi, Soir",1
+caa5d845-4f2d-419a-94f9-c7d0df4bd9a7,3,Mantin,2
+cd452e57-b25c-4b6a-b947-9596aed74e3d,4,Au coucher,1
+cd452e57-b25c-4b6a-b947-9596aed74e3d,1,Matin et Soir,1
+cd452e57-b25c-4b6a-b947-9596aed74e3d,8,"Matin, Midi, Soir",2
+3a735510-e352-4cc2-9c55-ee3ff1d9498a,3,"Matin, Midi, Soir",2
+3a735510-e352-4cc2-9c55-ee3ff1d9498a,10,"Matin, Midi, Soir",2
+cade6722-33b0-443e-b820-e9c044411aca,6,Au coucher,1
+b45a80df-e4d7-4601-8d72-bce361d5133b,4,Matin et Soir,2
+b45a80df-e4d7-4601-8d72-bce361d5133b,10,"Matin, Midi, Soir",1
+67cbd3da-22b3-4cfd-97ff-dbf1413b41f4,9,Mantin,2
+67cbd3da-22b3-4cfd-97ff-dbf1413b41f4,4,Mantin,2
+67cbd3da-22b3-4cfd-97ff-dbf1413b41f4,10,"Matin, Midi, Soir",2
+67cbd3da-22b3-4cfd-97ff-dbf1413b41f4,2,Au coucher,2
+09446fbc-2cf7-4d4e-9709-ed86297d32d2,1,Matin et Soir,2
+86109cb4-1ff0-4294-81f2-8eec362a6c79,5,"Matin, Midi, Soir",1
+4e3f3b06-a629-4bd5-bf55-6083c9301fa4,7,Au coucher,2
+6cc011dd-0045-4a2a-a532-7565d3ae0824,9,Mantin,1
+6cc011dd-0045-4a2a-a532-7565d3ae0824,7,Mantin,1
+6cc011dd-0045-4a2a-a532-7565d3ae0824,1,"Matin, Midi, Soir",2
+6cc011dd-0045-4a2a-a532-7565d3ae0824,8,Mantin,1
+46c503b6-ccf7-4f4d-a3e4-acaaa0df6213,6,Matin et Soir,2
+46c503b6-ccf7-4f4d-a3e4-acaaa0df6213,1,Au coucher,2
+00f65631-224e-4acf-85f0-e2fc80faf6ab,1,Matin et Soir,2
+00f65631-224e-4acf-85f0-e2fc80faf6ab,3,Mantin,2
+00f65631-224e-4acf-85f0-e2fc80faf6ab,8,Au coucher,2
+00f65631-224e-4acf-85f0-e2fc80faf6ab,7,Mantin,2
+fcd29662-59dd-42b2-8ea3-1c45cd9095f4,3,Au coucher,2
+fcd29662-59dd-42b2-8ea3-1c45cd9095f4,2,Matin et Soir,2
+90892fd0-b814-482b-9a64-6778cf01bc1f,2,"Matin, Midi, Soir",2
+d2dfc8ea-ef87-4f51-bd45-067cd07afcc1,7,Au coucher,2
+4a8bc67f-a066-40b3-ab38-f8e060d6b4b1,5,Mantin,2
+4a8bc67f-a066-40b3-ab38-f8e060d6b4b1,10,Mantin,1
+d32fe4ea-7bf7-4b0d-b4f3-aec16b1ef8ce,1,Mantin,2
+72bc63db-8d30-4c79-a858-3572b9dbd229,9,Matin et Soir,1
+72bc63db-8d30-4c79-a858-3572b9dbd229,1,Mantin,1
+f7678177-890a-495d-92e5-b7eebe7b9d56,2,Matin et Soir,2
+f7678177-890a-495d-92e5-b7eebe7b9d56,5,Matin et Soir,1
+4ea7db0a-1bb6-4fdb-9eef-610d4834921b,4,Matin et Soir,1
+4ea7db0a-1bb6-4fdb-9eef-610d4834921b,7,"Matin, Midi, Soir",1
+4ea7db0a-1bb6-4fdb-9eef-610d4834921b,2,Mantin,1
+80a5a4aa-793a-41b9-a607-0f19231ec82b,10,Mantin,2
+80a5a4aa-793a-41b9-a607-0f19231ec82b,2,Matin et Soir,2
+1f68773c-9b23-4af7-9778-a88312d5c207,5,Matin et Soir,2
+9c1d6818-9e7d-45a4-9422-988a1db13ce3,8,Matin et Soir,2
+5ff7fec1-863e-48fe-81ae-a6bdd18a149e,3,Mantin,2
+5760de46-6c43-49fd-ae30-e533857c7623,4,"Matin, Midi, Soir",1
+5760de46-6c43-49fd-ae30-e533857c7623,2,Au coucher,1
+5760de46-6c43-49fd-ae30-e533857c7623,6,Mantin,2
+5760de46-6c43-49fd-ae30-e533857c7623,9,Au coucher,1
+f0ebc315-56b4-4e34-a045-d186e8411db4,6,Au coucher,2
+0f5098fc-29b8-4fc3-b98e-30eb5658f944,6,Mantin,2
+0f5098fc-29b8-4fc3-b98e-30eb5658f944,7,Au coucher,1
+0f5098fc-29b8-4fc3-b98e-30eb5658f944,9,Mantin,2
+0f5098fc-29b8-4fc3-b98e-30eb5658f944,8,Matin et Soir,1
+3708f77d-a544-4ddb-8485-9c8e943219a0,8,"Matin, Midi, Soir",2
+3708f77d-a544-4ddb-8485-9c8e943219a0,10,Au coucher,2
+b80b7cf8-7757-489e-ab4b-cf97555bc710,4,Au coucher,1
+b80b7cf8-7757-489e-ab4b-cf97555bc710,5,Mantin,1
+b80b7cf8-7757-489e-ab4b-cf97555bc710,6,Au coucher,2
+b80b7cf8-7757-489e-ab4b-cf97555bc710,3,Matin et Soir,2
+83a77e0c-fe9c-4055-9185-d35dd82f490e,4,Au coucher,2
+83a77e0c-fe9c-4055-9185-d35dd82f490e,9,Au coucher,1
+83a77e0c-fe9c-4055-9185-d35dd82f490e,1,"Matin, Midi, Soir",2
+2e66dd7e-6980-4a70-ab55-01b1da56e9ef,9,"Matin, Midi, Soir",2
+2e66dd7e-6980-4a70-ab55-01b1da56e9ef,4,Matin et Soir,2
+2e66dd7e-6980-4a70-ab55-01b1da56e9ef,6,Mantin,1
+30c9fcf3-d390-4423-b84d-d0e25c9654a9,1,Mantin,2
+fb34a544-340d-4a0d-af97-3cd2ac9e135b,2,"Matin, Midi, Soir",1
+070070a8-7050-482f-83c7-793a7814c85e,7,"Matin, Midi, Soir",1
+5e12d821-02d2-4c49-997d-4d2f7fedaf75,10,"Matin, Midi, Soir",2
+5e12d821-02d2-4c49-997d-4d2f7fedaf75,1,Mantin,2
+5e12d821-02d2-4c49-997d-4d2f7fedaf75,9,"Matin, Midi, Soir",2
+5e12d821-02d2-4c49-997d-4d2f7fedaf75,5,Mantin,1
+868f660b-9a27-4257-b855-16a0d6c0c490,8,Au coucher,1
+868f660b-9a27-4257-b855-16a0d6c0c490,10,Mantin,2
+dbcca822-344c-4691-95c0-d449305137bb,5,Mantin,2
+dbcca822-344c-4691-95c0-d449305137bb,1,Matin et Soir,2
+dbcca822-344c-4691-95c0-d449305137bb,8,Mantin,2
+60b7896f-d7a2-4f4e-b27e-b9f6322edb08,9,Matin et Soir,2
+c6cca485-9a45-4314-9217-e9d77a67d9c5,9,"Matin, Midi, Soir",2
+c6cca485-9a45-4314-9217-e9d77a67d9c5,6,Mantin,1
+c6cca485-9a45-4314-9217-e9d77a67d9c5,7,Matin et Soir,2
+0d603329-0792-48a8-ae0a-dab2a6ce0178,7,Matin et Soir,1
+3db67fad-cf0e-4287-a8f6-4317aec653e1,1,Matin et Soir,2
+b4fce99e-8ba7-49bc-92ec-809f135f78b8,3,Au coucher,2
+b4fce99e-8ba7-49bc-92ec-809f135f78b8,5,Matin et Soir,2
+b4fce99e-8ba7-49bc-92ec-809f135f78b8,8,"Matin, Midi, Soir",2
+b4fce99e-8ba7-49bc-92ec-809f135f78b8,6,Mantin,1
+4f03ef78-0b23-47a7-9757-a274e976fca6,9,Matin et Soir,1
+4f03ef78-0b23-47a7-9757-a274e976fca6,5,Mantin,2
+cd92340b-72af-4a3a-941f-42420007973c,4,Au coucher,2
+cd92340b-72af-4a3a-941f-42420007973c,10,Au coucher,2
+cd92340b-72af-4a3a-941f-42420007973c,9,"Matin, Midi, Soir",1
+cd92340b-72af-4a3a-941f-42420007973c,3,Mantin,2
+7ec50a4b-eed3-49ba-b163-a8c7c2cbeb46,9,Mantin,2
+7ec50a4b-eed3-49ba-b163-a8c7c2cbeb46,2,Au coucher,2
+7ec50a4b-eed3-49ba-b163-a8c7c2cbeb46,4,Mantin,1
+7ec50a4b-eed3-49ba-b163-a8c7c2cbeb46,3,Au coucher,1
+5d9703ee-63af-4d1b-b1f3-12e37f01802c,2,Matin et Soir,2
+a8c4db72-3587-4e1b-adc7-e0c15eb73366,10,Matin et Soir,2
+a8c4db72-3587-4e1b-adc7-e0c15eb73366,1,"Matin, Midi, Soir",2
+bc3a42fd-8479-45a1-becf-c39ae4cc60db,8,Mantin,2
+b8a3fa24-9478-4979-9176-3ae9b6488b56,4,Matin et Soir,1
+b8a3fa24-9478-4979-9176-3ae9b6488b56,10,Au coucher,1
+b8a3fa24-9478-4979-9176-3ae9b6488b56,2,"Matin, Midi, Soir",1
+b8a3fa24-9478-4979-9176-3ae9b6488b56,9,Au coucher,1
+2123e1c4-6ad7-473a-908b-daf268b10364,8,Mantin,2
+2123e1c4-6ad7-473a-908b-daf268b10364,3,Mantin,2
+2123e1c4-6ad7-473a-908b-daf268b10364,2,Au coucher,2
+2123e1c4-6ad7-473a-908b-daf268b10364,7,Au coucher,2
+20e99c6f-afbc-4686-a834-1d590ea84b2f,5,Au coucher,1
+99f3289c-32dc-4437-ba95-6bc84a68ae37,3,Matin et Soir,2
+99f3289c-32dc-4437-ba95-6bc84a68ae37,4,"Matin, Midi, Soir",1
+99f3289c-32dc-4437-ba95-6bc84a68ae37,5,Au coucher,1
+cd7d5ea2-6a09-4a2c-ba1e-7a57d94ee281,2,Au coucher,2
+cd7d5ea2-6a09-4a2c-ba1e-7a57d94ee281,5,Mantin,2
+42346670-bb42-4024-901d-b8deb48dd05a,5,"Matin, Midi, Soir",1
+42346670-bb42-4024-901d-b8deb48dd05a,1,"Matin, Midi, Soir",1
+42346670-bb42-4024-901d-b8deb48dd05a,2,Mantin,1
+8a5f15ee-b704-4d29-9315-f9781963910c,4,"Matin, Midi, Soir",2
+8a5f15ee-b704-4d29-9315-f9781963910c,1,Matin et Soir,1
+5eb1bc15-bc08-43f0-bacf-fe7f92f8ae92,8,Matin et Soir,2
+e528d2f9-065d-4ef4-af72-ade00a476e47,8,Matin et Soir,1
+e528d2f9-065d-4ef4-af72-ade00a476e47,9,Mantin,1
+2ed56752-09f9-4d48-bfbb-91085bfe6d2f,5,Au coucher,2
+2ed56752-09f9-4d48-bfbb-91085bfe6d2f,10,"Matin, Midi, Soir",2
+2ed56752-09f9-4d48-bfbb-91085bfe6d2f,1,Matin et Soir,2
+2ed56752-09f9-4d48-bfbb-91085bfe6d2f,6,Mantin,2
+8d0c1c9e-fc0c-45c1-809a-02dc2ed6fd27,6,"Matin, Midi, Soir",2
+8d0c1c9e-fc0c-45c1-809a-02dc2ed6fd27,1,Mantin,2
+8d0c1c9e-fc0c-45c1-809a-02dc2ed6fd27,3,Mantin,2
+8d0c1c9e-fc0c-45c1-809a-02dc2ed6fd27,9,Au coucher,2
+c6eeaa61-fd26-4be5-a527-a62cb4a641c3,10,Mantin,2
+4a586f43-f5d0-42c3-bb13-961ca256c682,6,Mantin,1
+4a586f43-f5d0-42c3-bb13-961ca256c682,7,Au coucher,2
+4a586f43-f5d0-42c3-bb13-961ca256c682,4,Mantin,2
+c468dd5c-9f5d-45c6-9d14-62759df4a492,4,"Matin, Midi, Soir",2
+c468dd5c-9f5d-45c6-9d14-62759df4a492,2,Matin et Soir,1
+d0ec2b8a-8592-436c-aa06-b4e3afd8e545,2,Mantin,2
+d0ec2b8a-8592-436c-aa06-b4e3afd8e545,1,Mantin,1
+d0ec2b8a-8592-436c-aa06-b4e3afd8e545,6,Mantin,1
+d0ec2b8a-8592-436c-aa06-b4e3afd8e545,9,Au coucher,2
+bf055c96-47eb-4a0c-9a72-e54a32f2a57c,8,"Matin, Midi, Soir",2
+bf055c96-47eb-4a0c-9a72-e54a32f2a57c,4,"Matin, Midi, Soir",2
+5571ee98-8739-44a6-ae68-759434fcf1f3,4,"Matin, Midi, Soir",1
+5571ee98-8739-44a6-ae68-759434fcf1f3,5,"Matin, Midi, Soir",1
+5571ee98-8739-44a6-ae68-759434fcf1f3,3,"Matin, Midi, Soir",1
+5571ee98-8739-44a6-ae68-759434fcf1f3,8,Au coucher,2
+1e4030a7-4b34-4d16-8991-17184f53ad5d,2,Matin et Soir,2
+1e4030a7-4b34-4d16-8991-17184f53ad5d,4,Mantin,1
+1e4030a7-4b34-4d16-8991-17184f53ad5d,8,"Matin, Midi, Soir",2
+3f2c9574-2cbc-4b76-8be1-81779b8c3272,4,Matin et Soir,1
+3f2c9574-2cbc-4b76-8be1-81779b8c3272,6,"Matin, Midi, Soir",2
+3f2c9574-2cbc-4b76-8be1-81779b8c3272,3,"Matin, Midi, Soir",1
+3f2c9574-2cbc-4b76-8be1-81779b8c3272,2,Mantin,2
+f6657592-7b3c-4461-9d68-49864156bb2d,3,Mantin,2
+f6657592-7b3c-4461-9d68-49864156bb2d,4,"Matin, Midi, Soir",1
+f6657592-7b3c-4461-9d68-49864156bb2d,7,Matin et Soir,2
+8764399e-e430-4620-bcec-360fd41776f3,8,Matin et Soir,1
+8764399e-e430-4620-bcec-360fd41776f3,2,Matin et Soir,1
+8764399e-e430-4620-bcec-360fd41776f3,1,Mantin,2
+8764399e-e430-4620-bcec-360fd41776f3,6,Mantin,1
+f2ae60f4-a7e6-49c3-aa1c-83432c93998c,10,Matin et Soir,2
+f2ae60f4-a7e6-49c3-aa1c-83432c93998c,6,Matin et Soir,1
+f2ae60f4-a7e6-49c3-aa1c-83432c93998c,9,Matin et Soir,1
+b5f4e9db-2562-4ecf-a3a9-cdb17d575453,4,Mantin,2
+b5f4e9db-2562-4ecf-a3a9-cdb17d575453,7,"Matin, Midi, Soir",1
+b5f4e9db-2562-4ecf-a3a9-cdb17d575453,1,Au coucher,2
+b5f4e9db-2562-4ecf-a3a9-cdb17d575453,9,Au coucher,1
+384259c1-2de4-4781-885e-e4d7ec9fdf91,3,"Matin, Midi, Soir",2
+384259c1-2de4-4781-885e-e4d7ec9fdf91,7,Matin et Soir,2
+f92fced2-c0d7-4d81-8047-fb604ce35a54,7,Au coucher,2
+f92fced2-c0d7-4d81-8047-fb604ce35a54,2,Au coucher,2
+f92fced2-c0d7-4d81-8047-fb604ce35a54,3,Matin et Soir,1
+f92fced2-c0d7-4d81-8047-fb604ce35a54,4,Matin et Soir,2
+576bd2ec-0565-4810-aa94-5703e0967f7d,6,Au coucher,2
+87bea5b8-6829-4f7f-8192-7662b8fe7d49,7,Mantin,2
+8f1532cb-699c-485d-8971-cd896e84d2e4,9,Matin et Soir,2
+5ae78078-1b3e-4dd3-a0fa-8641b8435830,10,Matin et Soir,2
+5ae78078-1b3e-4dd3-a0fa-8641b8435830,1,Mantin,1
+5ae78078-1b3e-4dd3-a0fa-8641b8435830,7,Au coucher,2
+5ae78078-1b3e-4dd3-a0fa-8641b8435830,6,Mantin,2
+69ccc4f2-24f0-48fc-b11c-90e0dae683bd,6,Au coucher,2
+f9a6a5e3-7649-49f5-be5e-bd3d6d6da39d,10,Au coucher,1
+f9a6a5e3-7649-49f5-be5e-bd3d6d6da39d,9,"Matin, Midi, Soir",1
+887b89c5-8e8e-4867-a789-1042eb3d60bb,2,"Matin, Midi, Soir",1
+55e8f7df-1d66-4208-9f6f-ea4aece5c1de,9,Matin et Soir,1
+55e8f7df-1d66-4208-9f6f-ea4aece5c1de,6,Mantin,2
+55e8f7df-1d66-4208-9f6f-ea4aece5c1de,2,Au coucher,1
+85463af1-2fa0-4948-b9a7-c588d1d7164e,10,Au coucher,1
+85463af1-2fa0-4948-b9a7-c588d1d7164e,9,Mantin,1
+85463af1-2fa0-4948-b9a7-c588d1d7164e,2,"Matin, Midi, Soir",1
+85463af1-2fa0-4948-b9a7-c588d1d7164e,3,Matin et Soir,2
+d6c258c4-260c-436b-88a4-ece4e5d865be,10,"Matin, Midi, Soir",1
+d52ac2be-dab9-430c-a729-f928899d78c5,1,Mantin,1
+d52ac2be-dab9-430c-a729-f928899d78c5,4,Matin et Soir,2
+d52ac2be-dab9-430c-a729-f928899d78c5,9,Au coucher,1
+ab2212d3-7f61-4611-b3c7-e2bcf8d8e752,10,Au coucher,1
+d9adb155-89b8-4de4-9ddc-bbd9e28bc714,10,Matin et Soir,2
+d9adb155-89b8-4de4-9ddc-bbd9e28bc714,7,Au coucher,1
+c23503b5-9779-40bf-be60-2fd61a889309,5,Matin et Soir,2
+c23503b5-9779-40bf-be60-2fd61a889309,10,Matin et Soir,1
+c23503b5-9779-40bf-be60-2fd61a889309,4,"Matin, Midi, Soir",1
+c8671764-a8dd-411c-b582-2e22d0ebd6c5,7,Au coucher,2
+9c588f8e-3607-43ce-9b27-5d2f0462ae33,5,Au coucher,2
+d0180bcf-b4c1-43cd-ace9-7e66599d118b,5,Mantin,2
+d0180bcf-b4c1-43cd-ace9-7e66599d118b,4,Mantin,2
+d0180bcf-b4c1-43cd-ace9-7e66599d118b,3,Matin et Soir,1
+2e63a6ac-e728-4d5a-9ad2-9cd21ab5e622,2,Matin et Soir,1
+2e63a6ac-e728-4d5a-9ad2-9cd21ab5e622,9,"Matin, Midi, Soir",2
+2e63a6ac-e728-4d5a-9ad2-9cd21ab5e622,5,Matin et Soir,2
+b196c8e9-18c5-4088-886b-ae3a20f15ba0,7,Matin et Soir,1
+b196c8e9-18c5-4088-886b-ae3a20f15ba0,4,Mantin,2
+b196c8e9-18c5-4088-886b-ae3a20f15ba0,8,Mantin,2
+b196c8e9-18c5-4088-886b-ae3a20f15ba0,6,Matin et Soir,1
+c89b551b-5028-4944-a8d4-3420fe73a9b6,2,Mantin,2
+c89b551b-5028-4944-a8d4-3420fe73a9b6,4,"Matin, Midi, Soir",2
+bcaeb382-f931-4e5c-a41b-4a67fab77be2,3,"Matin, Midi, Soir",1
+bcaeb382-f931-4e5c-a41b-4a67fab77be2,4,Matin et Soir,2
+bcaeb382-f931-4e5c-a41b-4a67fab77be2,1,"Matin, Midi, Soir",1
+bcaeb382-f931-4e5c-a41b-4a67fab77be2,10,"Matin, Midi, Soir",2
+e8f8eb17-59ad-4f50-a417-c5fc5a171e47,9,"Matin, Midi, Soir",2
+203be2cc-e614-4b98-82b6-e4d4335ae7c0,9,Au coucher,2
+203be2cc-e614-4b98-82b6-e4d4335ae7c0,10,"Matin, Midi, Soir",1
+203be2cc-e614-4b98-82b6-e4d4335ae7c0,2,Au coucher,2
+203be2cc-e614-4b98-82b6-e4d4335ae7c0,7,"Matin, Midi, Soir",2
+204e557f-aa3d-4caf-88f2-22a551e9bc78,2,Au coucher,1
+75ddd227-eadb-4506-8902-7932b2c270c1,8,Matin et Soir,2
+75ddd227-eadb-4506-8902-7932b2c270c1,9,"Matin, Midi, Soir",1
+75ddd227-eadb-4506-8902-7932b2c270c1,7,Mantin,2
+75ddd227-eadb-4506-8902-7932b2c270c1,1,"Matin, Midi, Soir",2
+019d915f-1ac2-4291-abb3-a59852718804,6,Au coucher,1
+019d915f-1ac2-4291-abb3-a59852718804,1,Au coucher,2
+019d915f-1ac2-4291-abb3-a59852718804,5,Au coucher,1
+019d915f-1ac2-4291-abb3-a59852718804,7,"Matin, Midi, Soir",2
+023f9772-4c40-4fc3-899c-9bfd6a3ed942,7,Mantin,1
+023f9772-4c40-4fc3-899c-9bfd6a3ed942,5,Au coucher,2
+023f9772-4c40-4fc3-899c-9bfd6a3ed942,8,Matin et Soir,1
+45d56ae3-7d15-4674-9c2b-feef8e389e98,5,Au coucher,1
+45d56ae3-7d15-4674-9c2b-feef8e389e98,3,Matin et Soir,1
+5a87ae76-6f6e-44fc-a7e9-4c28cf3bc517,6,"Matin, Midi, Soir",2
+5a87ae76-6f6e-44fc-a7e9-4c28cf3bc517,5,Au coucher,1
+e8220666-4580-4de0-9301-984571d5946a,2,Au coucher,2
+e8220666-4580-4de0-9301-984571d5946a,5,"Matin, Midi, Soir",2
+1854ee21-1100-484c-ba33-eecfb2c01140,4,Matin et Soir,2
+46e149f4-197d-4096-b681-25d898d46d4d,6,"Matin, Midi, Soir",2
+46e149f4-197d-4096-b681-25d898d46d4d,7,Matin et Soir,1
+46e149f4-197d-4096-b681-25d898d46d4d,5,Mantin,1
+46e149f4-197d-4096-b681-25d898d46d4d,9,Au coucher,2
+44e605a2-e68c-4eab-a2b0-59f5c908d8bd,4,"Matin, Midi, Soir",2
+38843b50-9669-4452-a5fb-649099b4934c,9,Matin et Soir,2
+38843b50-9669-4452-a5fb-649099b4934c,4,Au coucher,1
+38843b50-9669-4452-a5fb-649099b4934c,6,Mantin,1
+38843b50-9669-4452-a5fb-649099b4934c,7,Mantin,2
+dfa15663-5ae3-4024-b150-dc87c39b578f,2,Au coucher,1
+dfa15663-5ae3-4024-b150-dc87c39b578f,1,"Matin, Midi, Soir",2
+11274249-c95b-4054-b19e-696a25dfe633,7,"Matin, Midi, Soir",2
+5f4bd680-4f15-4900-9ca6-78f0425208d3,3,Matin et Soir,2
+5f4bd680-4f15-4900-9ca6-78f0425208d3,10,Matin et Soir,1
+ab1d9ce6-8ebe-4c80-8d50-1919886fe101,4,Matin et Soir,1
+ab1d9ce6-8ebe-4c80-8d50-1919886fe101,2,Au coucher,1
+fa9fc3a7-c5da-4191-9d12-29f0396cddfc,3,"Matin, Midi, Soir",2
+fa9fc3a7-c5da-4191-9d12-29f0396cddfc,10,Matin et Soir,1
+fa9fc3a7-c5da-4191-9d12-29f0396cddfc,2,Mantin,2
+140e30b5-059c-447d-8af7-ae6eb067b834,3,Au coucher,2
+140e30b5-059c-447d-8af7-ae6eb067b834,10,Au coucher,1
+140e30b5-059c-447d-8af7-ae6eb067b834,7,Matin et Soir,2
+140e30b5-059c-447d-8af7-ae6eb067b834,1,Mantin,2
+6a9c1a28-3756-40ed-8a77-5c334762d859,1,"Matin, Midi, Soir",1
+6a9c1a28-3756-40ed-8a77-5c334762d859,3,Matin et Soir,1
+6a9c1a28-3756-40ed-8a77-5c334762d859,8,Au coucher,1
+6a9c1a28-3756-40ed-8a77-5c334762d859,2,Mantin,1
+d9c472c5-6ad4-44b7-a5eb-d85e8c74e38b,5,Matin et Soir,1
+d9c472c5-6ad4-44b7-a5eb-d85e8c74e38b,9,"Matin, Midi, Soir",1
+d9c472c5-6ad4-44b7-a5eb-d85e8c74e38b,1,"Matin, Midi, Soir",2
+fcc56a57-55b1-44a2-9de5-4fdee9ec8f1c,2,"Matin, Midi, Soir",1
+d5390aa9-b420-47a9-b509-574eb3339d99,3,Matin et Soir,2
+d5390aa9-b420-47a9-b509-574eb3339d99,4,Mantin,1
+d5390aa9-b420-47a9-b509-574eb3339d99,8,Matin et Soir,1
+28ca8143-bf49-4d70-8cfd-026ceb1cbe9e,2,Mantin,1
+28ca8143-bf49-4d70-8cfd-026ceb1cbe9e,9,Mantin,1
+28ca8143-bf49-4d70-8cfd-026ceb1cbe9e,5,"Matin, Midi, Soir",1
+8ac06c98-c1bf-4ced-87ae-17ab0849c71c,2,Mantin,2
+8ac06c98-c1bf-4ced-87ae-17ab0849c71c,1,"Matin, Midi, Soir",2
+8ac06c98-c1bf-4ced-87ae-17ab0849c71c,3,Au coucher,1
+8ac06c98-c1bf-4ced-87ae-17ab0849c71c,7,Au coucher,2
+504df504-ef9e-4f69-9ece-3c8fd94aa524,3,Mantin,1
+504df504-ef9e-4f69-9ece-3c8fd94aa524,7,Matin et Soir,2
+504df504-ef9e-4f69-9ece-3c8fd94aa524,9,Au coucher,2
+504df504-ef9e-4f69-9ece-3c8fd94aa524,6,Au coucher,1
+6eb044a7-126a-4cf7-bc6b-b30aa3cf97c9,5,Matin et Soir,2
+6eb044a7-126a-4cf7-bc6b-b30aa3cf97c9,1,"Matin, Midi, Soir",2
+6eb044a7-126a-4cf7-bc6b-b30aa3cf97c9,10,Au coucher,1
+33fb2ec8-a6fc-49b8-af2e-ecb34c06b551,2,Mantin,2
+33fb2ec8-a6fc-49b8-af2e-ecb34c06b551,6,Matin et Soir,2
+33fb2ec8-a6fc-49b8-af2e-ecb34c06b551,8,Mantin,2
+cda98f3b-63dd-4272-9933-37ca8fc051d6,7,Matin et Soir,1
+cda98f3b-63dd-4272-9933-37ca8fc051d6,4,Mantin,1
+cda98f3b-63dd-4272-9933-37ca8fc051d6,10,"Matin, Midi, Soir",2
+cda98f3b-63dd-4272-9933-37ca8fc051d6,8,Au coucher,1
+c27fa70e-02b3-4e4a-8023-bbd0494e2026,9,"Matin, Midi, Soir",2
+c27fa70e-02b3-4e4a-8023-bbd0494e2026,1,Matin et Soir,1
+e9115f13-1327-4570-ba84-74b2af40519b,9,Au coucher,2
+e9115f13-1327-4570-ba84-74b2af40519b,3,"Matin, Midi, Soir",2
+e9115f13-1327-4570-ba84-74b2af40519b,1,Mantin,1
+e9115f13-1327-4570-ba84-74b2af40519b,7,Au coucher,2
+e1f96a7f-95b2-41e2-bba3-261cde96da40,8,Matin et Soir,2
+e1f96a7f-95b2-41e2-bba3-261cde96da40,6,Mantin,1
+097c9a6d-a719-4311-bb75-5d4f2aec6f1c,6,Au coucher,2
+097c9a6d-a719-4311-bb75-5d4f2aec6f1c,10,"Matin, Midi, Soir",1
+097c9a6d-a719-4311-bb75-5d4f2aec6f1c,2,Mantin,2
+36a7e7f6-125c-42c0-8d50-0551ad74c5a3,7,"Matin, Midi, Soir",2
+36a7e7f6-125c-42c0-8d50-0551ad74c5a3,10,Au coucher,2
+30bcd293-cd0b-4b70-b02f-05e43f022a70,9,Au coucher,1
+aa1087dc-d99f-41f5-ac3e-c173241e2c2c,3,"Matin, Midi, Soir",2
+aa1087dc-d99f-41f5-ac3e-c173241e2c2c,4,Mantin,2
+9a43f717-7b11-4c6d-a7cd-272b69a10b39,1,"Matin, Midi, Soir",1
+9a43f717-7b11-4c6d-a7cd-272b69a10b39,10,Matin et Soir,1
+9a43f717-7b11-4c6d-a7cd-272b69a10b39,2,Au coucher,2
+9a43f717-7b11-4c6d-a7cd-272b69a10b39,5,"Matin, Midi, Soir",2
+9ac42c73-51ea-4d05-a3cb-da278b852bde,8,Matin et Soir,2
+9ac42c73-51ea-4d05-a3cb-da278b852bde,10,Mantin,1
+6c054421-8386-417c-94f6-4663bd1b585d,6,Matin et Soir,2
+e04565ab-93cc-4d4a-b73c-e4ab5a494c75,7,Au coucher,1
+e04565ab-93cc-4d4a-b73c-e4ab5a494c75,6,Matin et Soir,2
+e04565ab-93cc-4d4a-b73c-e4ab5a494c75,8,"Matin, Midi, Soir",1
+e04565ab-93cc-4d4a-b73c-e4ab5a494c75,3,Au coucher,2
+bb49ec0b-943b-4f98-82e9-ba926753f5ff,8,Au coucher,2
+bb49ec0b-943b-4f98-82e9-ba926753f5ff,2,Au coucher,1
+bb49ec0b-943b-4f98-82e9-ba926753f5ff,1,"Matin, Midi, Soir",2
+baf95a59-8336-42f4-9972-f04fa33ab884,2,Au coucher,2
+12fd7be8-3192-4591-b49d-9301c332a4aa,9,Au coucher,2
+63963726-b0af-4b62-ab34-d0c33785685e,9,Mantin,2
+63963726-b0af-4b62-ab34-d0c33785685e,10,Matin et Soir,2
+cb124f13-b7d0-4db9-aceb-09351c830f7d,9,Matin et Soir,1
+cb124f13-b7d0-4db9-aceb-09351c830f7d,10,Mantin,1
+3804e9cc-43f7-46b7-982f-338ad7ecf933,1,Au coucher,2
+e4f8cb5c-8fc2-44b6-977b-295650c59468,8,Matin et Soir,2
+e4f8cb5c-8fc2-44b6-977b-295650c59468,10,Matin et Soir,2
+e4f8cb5c-8fc2-44b6-977b-295650c59468,2,Au coucher,1
+e4f8cb5c-8fc2-44b6-977b-295650c59468,4,Matin et Soir,1
+869ffa4c-87e7-41ec-b332-84139dbcf5d8,7,Au coucher,2
+869ffa4c-87e7-41ec-b332-84139dbcf5d8,9,"Matin, Midi, Soir",1
+869ffa4c-87e7-41ec-b332-84139dbcf5d8,1,Au coucher,2
+7b883fa7-6a7d-4081-87c9-11f051e35360,4,"Matin, Midi, Soir",2
+7b883fa7-6a7d-4081-87c9-11f051e35360,3,Matin et Soir,1
+7b883fa7-6a7d-4081-87c9-11f051e35360,10,"Matin, Midi, Soir",2
+7737eab6-144a-45f1-bd71-70bb6b096703,9,"Matin, Midi, Soir",2
+7737eab6-144a-45f1-bd71-70bb6b096703,4,Matin et Soir,2
+a2f82175-5b60-4e80-8a5f-32fdde5a366d,3,Au coucher,2
+a2f82175-5b60-4e80-8a5f-32fdde5a366d,1,"Matin, Midi, Soir",2
+a2f82175-5b60-4e80-8a5f-32fdde5a366d,9,Mantin,2
+2253e312-aa50-4446-a997-5c1375985bee,3,"Matin, Midi, Soir",1
+2253e312-aa50-4446-a997-5c1375985bee,2,"Matin, Midi, Soir",1
+2253e312-aa50-4446-a997-5c1375985bee,6,"Matin, Midi, Soir",1
+2253e312-aa50-4446-a997-5c1375985bee,7,"Matin, Midi, Soir",2
+8ccaa346-fc20-4b54-839c-d4dba72a321e,6,Au coucher,1
+8ccaa346-fc20-4b54-839c-d4dba72a321e,10,Matin et Soir,2
+8ccaa346-fc20-4b54-839c-d4dba72a321e,8,"Matin, Midi, Soir",1
+f8ec8637-68c4-445d-a5e6-0cb47dbf6f1d,1,Matin et Soir,1
+c1853871-ba0b-4ede-96a1-bf49cab31227,7,Matin et Soir,1
+b9c5a08b-c6b4-4628-ab3e-29992f0487fa,1,Mantin,2
+8d343dd3-270c-4414-a3ab-40cd9e0de7c1,5,Au coucher,1
+8d343dd3-270c-4414-a3ab-40cd9e0de7c1,7,Matin et Soir,1
+8d343dd3-270c-4414-a3ab-40cd9e0de7c1,6,Matin et Soir,2
+15e94e1e-e9e0-4587-8e98-6c48a62d4c38,2,Au coucher,1
+15e94e1e-e9e0-4587-8e98-6c48a62d4c38,4,"Matin, Midi, Soir",2
+15e94e1e-e9e0-4587-8e98-6c48a62d4c38,9,"Matin, Midi, Soir",1
+15e94e1e-e9e0-4587-8e98-6c48a62d4c38,7,Mantin,1
+14a0f0b4-1624-4a3b-9f3c-d377777023eb,9,Matin et Soir,2
+6b05fb1e-c0d7-4095-8b11-ac0d5e269446,6,Mantin,2
+6b05fb1e-c0d7-4095-8b11-ac0d5e269446,4,Au coucher,1
+76d6b866-9f78-4753-88e4-de6cc01e04a1,4,Mantin,1
+76d6b866-9f78-4753-88e4-de6cc01e04a1,1,"Matin, Midi, Soir",1
+76d6b866-9f78-4753-88e4-de6cc01e04a1,8,"Matin, Midi, Soir",2
+6a115126-911e-450f-8692-b20fb3211b24,7,Au coucher,1
+6a115126-911e-450f-8692-b20fb3211b24,9,Au coucher,2
+6a115126-911e-450f-8692-b20fb3211b24,10,Matin et Soir,1
+6a115126-911e-450f-8692-b20fb3211b24,4,"Matin, Midi, Soir",1
+2a3194c6-db41-4346-8545-a94d6b9ad787,9,"Matin, Midi, Soir",1
+2a3194c6-db41-4346-8545-a94d6b9ad787,10,Mantin,2
+2a3194c6-db41-4346-8545-a94d6b9ad787,1,"Matin, Midi, Soir",1
+2a3194c6-db41-4346-8545-a94d6b9ad787,4,Matin et Soir,2
+459d834c-b362-4bf1-8937-49f07f512b8d,3,"Matin, Midi, Soir",1
+459d834c-b362-4bf1-8937-49f07f512b8d,6,Au coucher,1
+459d834c-b362-4bf1-8937-49f07f512b8d,9,Matin et Soir,1
+459d834c-b362-4bf1-8937-49f07f512b8d,4,Au coucher,2
+ccadddec-9f03-4f37-af47-9681e469c3dd,1,Mantin,2
+ccadddec-9f03-4f37-af47-9681e469c3dd,4,Au coucher,1
+1fa5b1ca-5a32-486f-a9ae-28952ec015ae,5,"Matin, Midi, Soir",2
+1fa5b1ca-5a32-486f-a9ae-28952ec015ae,10,"Matin, Midi, Soir",1
+1fa5b1ca-5a32-486f-a9ae-28952ec015ae,3,"Matin, Midi, Soir",2
+1fa5b1ca-5a32-486f-a9ae-28952ec015ae,2,Matin et Soir,1
+b72eaaf8-2afc-4abe-a63e-1932a5b883bf,6,Au coucher,2
+85b66ff5-036e-48f9-a530-1db1e22d4da0,4,Au coucher,2
+85b66ff5-036e-48f9-a530-1db1e22d4da0,5,Mantin,2
+a6440e78-222f-423b-ab63-ae80b5aa97cd,8,Matin et Soir,1
+a6440e78-222f-423b-ab63-ae80b5aa97cd,9,Matin et Soir,2
+a6440e78-222f-423b-ab63-ae80b5aa97cd,2,Matin et Soir,2
+1201f072-13c7-4ad4-973f-9f5e6983b466,2,Au coucher,2
+1201f072-13c7-4ad4-973f-9f5e6983b466,3,Matin et Soir,1
+1201f072-13c7-4ad4-973f-9f5e6983b466,9,Mantin,2
+00e864aa-9b67-4541-b896-0ee9b662a666,6,Mantin,1
+00e864aa-9b67-4541-b896-0ee9b662a666,5,Mantin,1
+00e864aa-9b67-4541-b896-0ee9b662a666,1,Matin et Soir,1
+c7a1191c-17e8-4806-90f6-37227ace562e,1,Au coucher,1
+c7a1191c-17e8-4806-90f6-37227ace562e,5,Matin et Soir,2
+c7a1191c-17e8-4806-90f6-37227ace562e,2,Mantin,2
+0cc78a74-bcec-421f-9a7a-1fa875598e41,5,Au coucher,1
+02d07e3a-7a48-4ae8-b53a-cfeefdcae965,9,Au coucher,1
+02d07e3a-7a48-4ae8-b53a-cfeefdcae965,10,Au coucher,2
+02d07e3a-7a48-4ae8-b53a-cfeefdcae965,4,Mantin,2
+02d07e3a-7a48-4ae8-b53a-cfeefdcae965,3,"Matin, Midi, Soir",1
+d638df2d-f96f-4677-899d-8a7afcaa2f75,10,Mantin,1
+d638df2d-f96f-4677-899d-8a7afcaa2f75,9,Au coucher,2
+8c834d64-2bb9-4677-a7b9-eef52e0e16e8,6,Mantin,1
+8571e41c-9c4b-4de4-a35b-686e2cd03524,10,Mantin,2
+8571e41c-9c4b-4de4-a35b-686e2cd03524,4,Au coucher,1
+8571e41c-9c4b-4de4-a35b-686e2cd03524,3,Matin et Soir,2
+8571e41c-9c4b-4de4-a35b-686e2cd03524,6,"Matin, Midi, Soir",2
+e460a67d-a0aa-441c-a711-fcaa71381a0d,10,Au coucher,2
+e460a67d-a0aa-441c-a711-fcaa71381a0d,6,Mantin,1
+e460a67d-a0aa-441c-a711-fcaa71381a0d,3,"Matin, Midi, Soir",1
+e460a67d-a0aa-441c-a711-fcaa71381a0d,7,Matin et Soir,2
+0373cded-1c3f-4d7c-a88f-136a4e90c016,1,Matin et Soir,1
+0373cded-1c3f-4d7c-a88f-136a4e90c016,10,Mantin,2
+faeb3998-d869-4912-aeae-5046fa6fcd6a,1,Au coucher,2
+faeb3998-d869-4912-aeae-5046fa6fcd6a,9,Matin et Soir,1
+faeb3998-d869-4912-aeae-5046fa6fcd6a,8,Au coucher,2
+faeb3998-d869-4912-aeae-5046fa6fcd6a,6,Matin et Soir,2
+a16fe297-1b4e-4257-b371-866baab2f7ae,8,Mantin,1
+a16fe297-1b4e-4257-b371-866baab2f7ae,2,Au coucher,1
+9a051a61-fd9c-4a45-99fc-3e03de9396ca,7,Matin et Soir,1
+9a051a61-fd9c-4a45-99fc-3e03de9396ca,4,Mantin,1
+3deb2dee-3d19-4e9d-99a3-e8b656f14b02,7,Mantin,1
+3deb2dee-3d19-4e9d-99a3-e8b656f14b02,6,Mantin,2
+3deb2dee-3d19-4e9d-99a3-e8b656f14b02,10,Au coucher,1
+3deb2dee-3d19-4e9d-99a3-e8b656f14b02,8,Matin et Soir,1
+5ce084ab-8fdb-4f69-8ce8-ecdd65065b93,5,"Matin, Midi, Soir",1
+5ce084ab-8fdb-4f69-8ce8-ecdd65065b93,3,"Matin, Midi, Soir",2
+aecef75b-1045-44d1-b36c-312e2f6b35d1,7,"Matin, Midi, Soir",1
+aecef75b-1045-44d1-b36c-312e2f6b35d1,3,Matin et Soir,2
+ebbd06d6-e354-4a39-b56d-50d3aa9538d0,8,"Matin, Midi, Soir",1
+ebbd06d6-e354-4a39-b56d-50d3aa9538d0,9,Matin et Soir,2
+ebbd06d6-e354-4a39-b56d-50d3aa9538d0,2,Au coucher,1
+fcfb9789-67e4-46d5-baf2-19655ddcb0c3,1,Au coucher,2
+fcfb9789-67e4-46d5-baf2-19655ddcb0c3,3,Au coucher,2
+fcfb9789-67e4-46d5-baf2-19655ddcb0c3,10,Matin et Soir,2
+8746f83f-d3c3-4c8b-ba3a-3e8d2723dcf5,5,Matin et Soir,2
+8746f83f-d3c3-4c8b-ba3a-3e8d2723dcf5,10,Matin et Soir,1
+8746f83f-d3c3-4c8b-ba3a-3e8d2723dcf5,2,"Matin, Midi, Soir",1
+8746f83f-d3c3-4c8b-ba3a-3e8d2723dcf5,4,Au coucher,1
+9c32ecd8-2df9-4ff0-bc15-7cae7da056d7,4,Au coucher,1
+9c32ecd8-2df9-4ff0-bc15-7cae7da056d7,9,Au coucher,1
+9c32ecd8-2df9-4ff0-bc15-7cae7da056d7,1,"Matin, Midi, Soir",1
+9c32ecd8-2df9-4ff0-bc15-7cae7da056d7,2,"Matin, Midi, Soir",1
+d4d1b778-c6a0-4b03-83bc-9adf6769837c,3,"Matin, Midi, Soir",1
+d4d1b778-c6a0-4b03-83bc-9adf6769837c,2,Matin et Soir,1
+d4d1b778-c6a0-4b03-83bc-9adf6769837c,10,"Matin, Midi, Soir",2
+d4d1b778-c6a0-4b03-83bc-9adf6769837c,6,Mantin,1
+faa08b51-c0b8-4d01-8707-db75d2bd5a1b,1,Matin et Soir,2
+faa08b51-c0b8-4d01-8707-db75d2bd5a1b,6,Matin et Soir,2
+177aba2c-a06a-408f-9b93-d491833865fa,6,Mantin,1
+177aba2c-a06a-408f-9b93-d491833865fa,2,Matin et Soir,1
+177aba2c-a06a-408f-9b93-d491833865fa,1,Au coucher,1
+69d800c7-8f7b-4074-ba3f-6ba70f7f3251,1,Au coucher,1
+69d800c7-8f7b-4074-ba3f-6ba70f7f3251,5,"Matin, Midi, Soir",2
+75e03b6e-cd42-4e19-a12f-10d6c07536f3,10,Au coucher,2
+75e03b6e-cd42-4e19-a12f-10d6c07536f3,4,"Matin, Midi, Soir",2
+75e03b6e-cd42-4e19-a12f-10d6c07536f3,2,"Matin, Midi, Soir",2
+75e03b6e-cd42-4e19-a12f-10d6c07536f3,7,Au coucher,1
+f5216886-9473-434f-a28e-f9d06f7c68d7,10,"Matin, Midi, Soir",1
+f5216886-9473-434f-a28e-f9d06f7c68d7,2,"Matin, Midi, Soir",2
+f5216886-9473-434f-a28e-f9d06f7c68d7,3,Au coucher,1
+f5216886-9473-434f-a28e-f9d06f7c68d7,5,Matin et Soir,1
+e8996831-1f5a-42ad-934e-dc6957b2e09c,5,"Matin, Midi, Soir",2
+8a39b59b-9bb6-46ed-bdb8-3a2c05da2920,4,Matin et Soir,1
+8a39b59b-9bb6-46ed-bdb8-3a2c05da2920,5,"Matin, Midi, Soir",1
+8a39b59b-9bb6-46ed-bdb8-3a2c05da2920,9,Au coucher,1
+7d8f4948-ffa3-41c9-8944-82edbd18c0ae,3,"Matin, Midi, Soir",2
+7d8f4948-ffa3-41c9-8944-82edbd18c0ae,9,Au coucher,2
+7d8f4948-ffa3-41c9-8944-82edbd18c0ae,10,Au coucher,1
+7d8f4948-ffa3-41c9-8944-82edbd18c0ae,8,"Matin, Midi, Soir",1
+2a1dca13-8a7b-4248-9198-220c2d9c3341,6,Au coucher,1
+2a1dca13-8a7b-4248-9198-220c2d9c3341,1,Mantin,1
+c3955ff8-0ca0-4267-9b49-6da4236cb997,6,Mantin,1
+ac27fa61-44a7-44f9-9866-788ef3c7d85e,4,Matin et Soir,1
+ac27fa61-44a7-44f9-9866-788ef3c7d85e,2,Mantin,1
+ac27fa61-44a7-44f9-9866-788ef3c7d85e,5,Mantin,1
+ac27fa61-44a7-44f9-9866-788ef3c7d85e,8,Au coucher,2
+3dada5fc-2b48-4ef6-9ba3-93947aa08305,5,Au coucher,2
+a25390e4-a9fa-4f2e-b7db-076fffa545ba,9,Mantin,2
+054b15fa-acef-4e45-ae86-a94a1fbc21a8,8,Mantin,2
+cc2619be-a07a-4ff9-b544-d50d0b340d05,7,Mantin,2
+cc2619be-a07a-4ff9-b544-d50d0b340d05,4,Matin et Soir,1
+cc2619be-a07a-4ff9-b544-d50d0b340d05,6,Mantin,1
+63c63cd9-1661-4ee1-8cc6-aa1468589dde,1,Matin et Soir,2
+63c63cd9-1661-4ee1-8cc6-aa1468589dde,6,"Matin, Midi, Soir",2
+f3640364-5df8-4721-ba19-2f263c297217,1,Mantin,2
+f3640364-5df8-4721-ba19-2f263c297217,4,Au coucher,2
+f3640364-5df8-4721-ba19-2f263c297217,5,Matin et Soir,1
+f3640364-5df8-4721-ba19-2f263c297217,2,"Matin, Midi, Soir",1
+694de4b3-c4d1-466e-abb3-fa58deff395e,1,Mantin,2
+61870fab-200a-480e-988e-ffeb767762a2,9,Au coucher,2
+61870fab-200a-480e-988e-ffeb767762a2,7,Mantin,1
+61870fab-200a-480e-988e-ffeb767762a2,4,Matin et Soir,1
+61870fab-200a-480e-988e-ffeb767762a2,5,Au coucher,2
+20313d55-ba3b-40c4-ac96-cc70e76e0289,10,Mantin,1
+20313d55-ba3b-40c4-ac96-cc70e76e0289,2,Matin et Soir,1
+20313d55-ba3b-40c4-ac96-cc70e76e0289,5,Au coucher,2
+d16e8b09-28d5-4e72-ba60-6b64896b4b97,10,Mantin,2
+f21331a2-05c3-431c-87bb-2e8ef8a212e1,3,Matin et Soir,2
+c51d7564-d875-4e40-98ad-c0476d898934,10,Matin et Soir,1
+b40df795-089e-4579-9785-c33710d7c686,8,Mantin,2
+b40df795-089e-4579-9785-c33710d7c686,10,Matin et Soir,1
+b40df795-089e-4579-9785-c33710d7c686,4,Au coucher,2
+b40df795-089e-4579-9785-c33710d7c686,6,Au coucher,1
+37472363-a81a-4260-b652-990f648a3cef,5,"Matin, Midi, Soir",1
+000c988e-3c68-4bbb-b1cc-23c1d3da603d,8,Au coucher,1
+2d65bd0a-46ba-4f2e-bc3b-e599520e0ff4,7,"Matin, Midi, Soir",2
+e59eeea7-384b-4935-aa9d-83e1d0c5d63c,9,Mantin,2
+e59eeea7-384b-4935-aa9d-83e1d0c5d63c,1,Au coucher,2
+e59eeea7-384b-4935-aa9d-83e1d0c5d63c,3,Matin et Soir,2
+c68ba63d-bc64-46d5-878c-01af23a014d0,3,Au coucher,1
+c68ba63d-bc64-46d5-878c-01af23a014d0,5,Au coucher,1
+c68ba63d-bc64-46d5-878c-01af23a014d0,2,"Matin, Midi, Soir",1
+c68ba63d-bc64-46d5-878c-01af23a014d0,8,Mantin,1
+17d4c0b3-27cb-4472-b68a-81eb2a86b438,4,Matin et Soir,2
+17d4c0b3-27cb-4472-b68a-81eb2a86b438,3,Matin et Soir,2
+17d4c0b3-27cb-4472-b68a-81eb2a86b438,5,"Matin, Midi, Soir",2
+9f016c45-99ca-42ff-9db5-a0e1b3870b10,2,Mantin,1
+38509ad9-638a-40b8-9b48-56b735d6f0c8,10,Au coucher,2
+38509ad9-638a-40b8-9b48-56b735d6f0c8,8,"Matin, Midi, Soir",1
+38509ad9-638a-40b8-9b48-56b735d6f0c8,2,Matin et Soir,1
+8c718e61-a3ab-4610-a2ff-4e72f8d9d16a,4,Au coucher,2
+8c718e61-a3ab-4610-a2ff-4e72f8d9d16a,3,Au coucher,1
+06494cb1-c89a-4f98-8971-5a2c35223b5e,9,Mantin,2
+7fa04131-853c-46a2-8ccc-239e92214f8a,3,"Matin, Midi, Soir",2
+f9baf046-6ae2-452c-b6f5-81e8c0bbb5be,9,"Matin, Midi, Soir",2
+7be2f424-3b5a-4678-9874-92cac01d0ae3,6,Mantin,1
+7be2f424-3b5a-4678-9874-92cac01d0ae3,4,Matin et Soir,2
+7be2f424-3b5a-4678-9874-92cac01d0ae3,5,Matin et Soir,1
+7be2f424-3b5a-4678-9874-92cac01d0ae3,3,"Matin, Midi, Soir",2
+6072a73e-8195-4e98-8f64-e8a3169e63fe,8,Au coucher,1
+6072a73e-8195-4e98-8f64-e8a3169e63fe,10,Mantin,1
+6072a73e-8195-4e98-8f64-e8a3169e63fe,5,Au coucher,2
+d6f25402-f9d2-4499-aca5-c8c72b58e342,5,"Matin, Midi, Soir",2
+d6f25402-f9d2-4499-aca5-c8c72b58e342,2,Mantin,2
+d6f25402-f9d2-4499-aca5-c8c72b58e342,1,"Matin, Midi, Soir",1
+d6f25402-f9d2-4499-aca5-c8c72b58e342,4,Au coucher,1
+2753e067-d631-4f35-a7f3-87e78b7bb835,1,Mantin,1
+2753e067-d631-4f35-a7f3-87e78b7bb835,8,"Matin, Midi, Soir",1
+2753e067-d631-4f35-a7f3-87e78b7bb835,3,Au coucher,2
+2753e067-d631-4f35-a7f3-87e78b7bb835,5,Au coucher,2
+3babeddf-68ca-4fc6-ba5a-9d0337aca2cb,5,"Matin, Midi, Soir",2
+3babeddf-68ca-4fc6-ba5a-9d0337aca2cb,10,Matin et Soir,2
+3babeddf-68ca-4fc6-ba5a-9d0337aca2cb,8,"Matin, Midi, Soir",1
+3babeddf-68ca-4fc6-ba5a-9d0337aca2cb,3,Au coucher,2
+33df9ffd-484f-4dd7-9d7d-6bd5c80c0522,7,Au coucher,2
+33df9ffd-484f-4dd7-9d7d-6bd5c80c0522,4,"Matin, Midi, Soir",2
+003274db-14c3-4a96-a5be-933e6a79f7e7,9,"Matin, Midi, Soir",2
+003274db-14c3-4a96-a5be-933e6a79f7e7,8,"Matin, Midi, Soir",2
+ab9d7d82-d4b5-4dfb-8bd8-317e89c95b24,8,Mantin,1
+ab9d7d82-d4b5-4dfb-8bd8-317e89c95b24,1,Matin et Soir,1
+ab9d7d82-d4b5-4dfb-8bd8-317e89c95b24,4,Au coucher,1
+a5f39d80-7663-48af-b8b1-aab096b40126,8,"Matin, Midi, Soir",1
+a5f39d80-7663-48af-b8b1-aab096b40126,2,Au coucher,2
+a5f39d80-7663-48af-b8b1-aab096b40126,4,Matin et Soir,2
+a5f39d80-7663-48af-b8b1-aab096b40126,3,Matin et Soir,2
+b7ac03d4-0d73-4c37-961c-dd28c9221b8e,1,Au coucher,2
+b7ac03d4-0d73-4c37-961c-dd28c9221b8e,10,Mantin,2
+7450d76b-7ac5-4ebc-a217-7db11346d7f2,5,Au coucher,2
+7450d76b-7ac5-4ebc-a217-7db11346d7f2,1,Mantin,2
+7450d76b-7ac5-4ebc-a217-7db11346d7f2,2,Mantin,1
+7450d76b-7ac5-4ebc-a217-7db11346d7f2,8,Matin et Soir,2
+1a716230-0b29-4d38-9cfb-809aa7f858ca,2,Mantin,2
+1a716230-0b29-4d38-9cfb-809aa7f858ca,7,"Matin, Midi, Soir",2
+6a3a5f99-b17e-4f69-8563-6158e50d57aa,4,Mantin,1
+106dfc7f-b41c-4075-80cc-46176c9c132c,8,Matin et Soir,1
+106dfc7f-b41c-4075-80cc-46176c9c132c,4,Au coucher,2
+106dfc7f-b41c-4075-80cc-46176c9c132c,3,Au coucher,2
+d51c678e-e73c-4df5-9b4a-5a96df9c5b5b,10,"Matin, Midi, Soir",1
+d51c678e-e73c-4df5-9b4a-5a96df9c5b5b,5,Au coucher,1
+19f4ea54-3ac4-4ab1-8e52-92dc7d698cd2,1,Au coucher,1
+19f4ea54-3ac4-4ab1-8e52-92dc7d698cd2,6,Mantin,1
+19f4ea54-3ac4-4ab1-8e52-92dc7d698cd2,2,"Matin, Midi, Soir",2
+cf7191ad-f0a1-4446-913c-8e26a77d40e5,7,Au coucher,1
+cf7191ad-f0a1-4446-913c-8e26a77d40e5,6,Au coucher,2
+cf7191ad-f0a1-4446-913c-8e26a77d40e5,9,Au coucher,1
+dfd785a2-5a15-45b9-bc89-bcc737fc6421,4,Au coucher,2
+dfd785a2-5a15-45b9-bc89-bcc737fc6421,3,Mantin,2
+dfd785a2-5a15-45b9-bc89-bcc737fc6421,6,Mantin,1
+dfd785a2-5a15-45b9-bc89-bcc737fc6421,5,Mantin,2
+68235134-8d4b-4c8a-9c2a-9f9ead4fcfe7,2,Matin et Soir,1
+77051af5-58d7-4e2f-a571-ce1323e6a784,2,Matin et Soir,2
+77051af5-58d7-4e2f-a571-ce1323e6a784,7,Au coucher,2
+ef4f1617-3421-45e0-abe3-6607dc3cc51d,6,Au coucher,1
+ef4f1617-3421-45e0-abe3-6607dc3cc51d,8,Matin et Soir,2
+3c1a2bf8-5b8f-41d2-ac53-ebf37ae84821,5,Mantin,1
+3c1a2bf8-5b8f-41d2-ac53-ebf37ae84821,1,Au coucher,2
+3c1a2bf8-5b8f-41d2-ac53-ebf37ae84821,7,Au coucher,1
+3c1a2bf8-5b8f-41d2-ac53-ebf37ae84821,8,Matin et Soir,1
+69dd8647-6f87-4ad1-ae04-fea0bbcccbc8,6,Mantin,1
+69dd8647-6f87-4ad1-ae04-fea0bbcccbc8,1,Matin et Soir,2
+69dd8647-6f87-4ad1-ae04-fea0bbcccbc8,5,"Matin, Midi, Soir",1
+ecb10681-ce08-4c02-8e4f-6713fe04fa61,1,Mantin,2
+ecb10681-ce08-4c02-8e4f-6713fe04fa61,8,Au coucher,2
+ecb10681-ce08-4c02-8e4f-6713fe04fa61,3,Au coucher,2
+ecb10681-ce08-4c02-8e4f-6713fe04fa61,9,Mantin,2
+0f916121-4b86-423a-85d2-8e436b3dafae,5,Au coucher,1
+0f916121-4b86-423a-85d2-8e436b3dafae,7,"Matin, Midi, Soir",1
+0f916121-4b86-423a-85d2-8e436b3dafae,3,Matin et Soir,2
+989c4965-620f-4269-86e8-bbaea2444aa1,8,Matin et Soir,2
+579224d7-9205-4e98-884b-8afbdb61cf8b,5,Matin et Soir,2
+6abd6181-77e4-4740-8e32-92d5d60fcc02,7,Au coucher,2
+6abd6181-77e4-4740-8e32-92d5d60fcc02,6,Matin et Soir,2
+a698513d-d67b-47e8-ad3c-25e3514b9b39,3,Matin et Soir,2
+a698513d-d67b-47e8-ad3c-25e3514b9b39,4,Matin et Soir,1
+a698513d-d67b-47e8-ad3c-25e3514b9b39,9,Au coucher,2
+a698513d-d67b-47e8-ad3c-25e3514b9b39,5,Matin et Soir,1
+0d00cc44-f3eb-4a30-8ab2-4b2b0b8b151f,7,Au coucher,1
+0d00cc44-f3eb-4a30-8ab2-4b2b0b8b151f,1,"Matin, Midi, Soir",1
+0d00cc44-f3eb-4a30-8ab2-4b2b0b8b151f,4,Au coucher,1
+7fdd80cb-24d4-46d9-8b51-1436d67f52cd,2,Au coucher,2
+7fdd80cb-24d4-46d9-8b51-1436d67f52cd,1,Au coucher,2
+f6feb8c7-b289-44e2-94b2-769a5c4f15b5,3,Au coucher,2
+f6feb8c7-b289-44e2-94b2-769a5c4f15b5,5,Matin et Soir,1
+f6feb8c7-b289-44e2-94b2-769a5c4f15b5,10,Mantin,1
+f6feb8c7-b289-44e2-94b2-769a5c4f15b5,8,"Matin, Midi, Soir",1
+5732419a-075a-4f12-9952-b7f75770ba29,10,Matin et Soir,2
+5732419a-075a-4f12-9952-b7f75770ba29,3,Matin et Soir,2
+5732419a-075a-4f12-9952-b7f75770ba29,8,Au coucher,1
+ae6c494c-537b-4ea7-abe9-a822c5123d0a,6,"Matin, Midi, Soir",2
+7df653c6-9b9c-4155-b8dd-ceaf08e9e124,5,Au coucher,1
+d351f57d-e1ae-49fa-9e2d-180a84562f12,2,Mantin,1
+d351f57d-e1ae-49fa-9e2d-180a84562f12,5,"Matin, Midi, Soir",1
+d351f57d-e1ae-49fa-9e2d-180a84562f12,1,Au coucher,2
+d351f57d-e1ae-49fa-9e2d-180a84562f12,8,"Matin, Midi, Soir",1
+7ae370a1-e26a-4cc4-b678-b12ad7c18e48,10,Mantin,1
+7ae370a1-e26a-4cc4-b678-b12ad7c18e48,2,Matin et Soir,2
+7ae370a1-e26a-4cc4-b678-b12ad7c18e48,6,Au coucher,1
+7ae370a1-e26a-4cc4-b678-b12ad7c18e48,3,Matin et Soir,1
+674d8489-ee65-409e-9d09-00867fe0a9c0,8,Mantin,2
+674d8489-ee65-409e-9d09-00867fe0a9c0,4,"Matin, Midi, Soir",1
+4894b6c9-5dd2-4ec8-9d68-5bbb04b623d9,7,"Matin, Midi, Soir",2
+4894b6c9-5dd2-4ec8-9d68-5bbb04b623d9,2,"Matin, Midi, Soir",1
+4894b6c9-5dd2-4ec8-9d68-5bbb04b623d9,3,Matin et Soir,2
+18e10c56-f610-4ff7-bba2-50b179edf414,7,"Matin, Midi, Soir",1
+66ee8500-771f-4695-ba27-332f13202e28,3,Matin et Soir,1
+66ee8500-771f-4695-ba27-332f13202e28,9,"Matin, Midi, Soir",1
+d841ec10-b972-4373-ac28-2a679e409c5c,4,Au coucher,1
+d841ec10-b972-4373-ac28-2a679e409c5c,10,"Matin, Midi, Soir",2
+d841ec10-b972-4373-ac28-2a679e409c5c,9,Au coucher,2
+d841ec10-b972-4373-ac28-2a679e409c5c,7,Mantin,1
+63f8eacd-e539-4991-8e13-428251573d68,10,"Matin, Midi, Soir",2
+63f8eacd-e539-4991-8e13-428251573d68,7,Au coucher,2
+63f8eacd-e539-4991-8e13-428251573d68,5,"Matin, Midi, Soir",1
+63f8eacd-e539-4991-8e13-428251573d68,2,Mantin,2
+fbd88a4e-8bea-4768-9c3b-923221c0ad4c,7,Mantin,2
+fbd88a4e-8bea-4768-9c3b-923221c0ad4c,5,Matin et Soir,2
+fbd88a4e-8bea-4768-9c3b-923221c0ad4c,8,Matin et Soir,2
+4d5803c5-42c6-4e76-84b5-86cb2a0cb5cc,7,"Matin, Midi, Soir",2
+4d5803c5-42c6-4e76-84b5-86cb2a0cb5cc,9,"Matin, Midi, Soir",1
+4d5803c5-42c6-4e76-84b5-86cb2a0cb5cc,5,Au coucher,2
+1dbc2c2e-aae0-4e91-8bc8-2eb54665252f,10,Mantin,1
+780927b8-2a66-4098-abfa-4e91a23ba777,10,Mantin,1
+780927b8-2a66-4098-abfa-4e91a23ba777,5,Matin et Soir,2
+780927b8-2a66-4098-abfa-4e91a23ba777,7,Au coucher,1
+780927b8-2a66-4098-abfa-4e91a23ba777,2,Au coucher,1
+5078b733-4677-4c12-a6bc-c5df399aea88,1,"Matin, Midi, Soir",1
+5078b733-4677-4c12-a6bc-c5df399aea88,7,"Matin, Midi, Soir",1
+7ba82244-a800-4637-8ffa-0e3fd47ab405,6,"Matin, Midi, Soir",1
+7ba82244-a800-4637-8ffa-0e3fd47ab405,1,"Matin, Midi, Soir",1
+7ba82244-a800-4637-8ffa-0e3fd47ab405,4,Mantin,2
+54f61a0c-6c9e-46f1-905d-5552a455e2fe,5,Matin et Soir,2
+54f61a0c-6c9e-46f1-905d-5552a455e2fe,7,Mantin,1
+54f61a0c-6c9e-46f1-905d-5552a455e2fe,1,Mantin,1
+948596e6-ee75-4e21-992b-b2eebd990e7d,8,Mantin,1
+948596e6-ee75-4e21-992b-b2eebd990e7d,9,Matin et Soir,2
+948596e6-ee75-4e21-992b-b2eebd990e7d,2,Mantin,1
+948596e6-ee75-4e21-992b-b2eebd990e7d,7,"Matin, Midi, Soir",1
+8db3e55a-75f9-4e94-a2c3-f636ce46c1ac,3,Matin et Soir,2
+8db3e55a-75f9-4e94-a2c3-f636ce46c1ac,6,Mantin,1
+8db3e55a-75f9-4e94-a2c3-f636ce46c1ac,5,Au coucher,1
+8db3e55a-75f9-4e94-a2c3-f636ce46c1ac,8,Mantin,1
+42a0c8af-c9c5-4860-8e28-3aa69eb39aa6,5,"Matin, Midi, Soir",2
+42a0c8af-c9c5-4860-8e28-3aa69eb39aa6,8,Matin et Soir,2
+42a0c8af-c9c5-4860-8e28-3aa69eb39aa6,10,Matin et Soir,1
+0bb90b22-34b1-426e-9bb1-bda9f475f651,5,Mantin,1
+65ffdd73-9b6e-4343-9fd4-12293d3d117a,8,"Matin, Midi, Soir",1
+65ffdd73-9b6e-4343-9fd4-12293d3d117a,7,Matin et Soir,2
+65ffdd73-9b6e-4343-9fd4-12293d3d117a,10,Au coucher,1
+65ffdd73-9b6e-4343-9fd4-12293d3d117a,3,Mantin,1
+39fc9f59-6e43-4a7c-b718-e0281270344e,7,Mantin,2
+39fc9f59-6e43-4a7c-b718-e0281270344e,6,"Matin, Midi, Soir",2
+7ccaf2a6-32ab-4807-8182-a641c7f74d8d,9,Matin et Soir,1
+7ccaf2a6-32ab-4807-8182-a641c7f74d8d,7,"Matin, Midi, Soir",1
+7ccaf2a6-32ab-4807-8182-a641c7f74d8d,4,Matin et Soir,2
+0a7fe386-042f-4867-9ef9-4820450a7ff2,5,"Matin, Midi, Soir",1
+795b4c80-1ee4-4b52-b437-3ea7f71cb9a3,8,Au coucher,2
+795b4c80-1ee4-4b52-b437-3ea7f71cb9a3,6,Mantin,1
+149a16ec-6522-4bc6-8429-8c2a9ba2df31,8,Au coucher,1
+149a16ec-6522-4bc6-8429-8c2a9ba2df31,6,Matin et Soir,2
+149a16ec-6522-4bc6-8429-8c2a9ba2df31,5,Mantin,1
+149a16ec-6522-4bc6-8429-8c2a9ba2df31,9,"Matin, Midi, Soir",2
+fd0e9efb-3b9d-469d-884f-970e8e1a0c48,10,Au coucher,2
+fd0e9efb-3b9d-469d-884f-970e8e1a0c48,4,"Matin, Midi, Soir",1
+562dfac1-5c12-42e9-8b22-d6c717684769,7,Mantin,1
+562dfac1-5c12-42e9-8b22-d6c717684769,10,Mantin,1
+562dfac1-5c12-42e9-8b22-d6c717684769,3,"Matin, Midi, Soir",1
+562dfac1-5c12-42e9-8b22-d6c717684769,5,Mantin,1
+dafd7b5a-3deb-4e82-9c8c-6f98b84be29f,5,"Matin, Midi, Soir",2
+dafd7b5a-3deb-4e82-9c8c-6f98b84be29f,2,Au coucher,2
+dafd7b5a-3deb-4e82-9c8c-6f98b84be29f,9,Mantin,1
+dafd7b5a-3deb-4e82-9c8c-6f98b84be29f,10,"Matin, Midi, Soir",1
+273dec1c-e454-440b-9b9c-8c7bdfebb663,3,Mantin,1
+273dec1c-e454-440b-9b9c-8c7bdfebb663,10,Matin et Soir,2
+273dec1c-e454-440b-9b9c-8c7bdfebb663,1,Au coucher,1
+fbd45e44-6228-4022-9af4-c232c609038e,5,Au coucher,1
+fbd45e44-6228-4022-9af4-c232c609038e,10,Mantin,1
+fbd45e44-6228-4022-9af4-c232c609038e,9,Mantin,2
+2c032094-2a4a-4182-ba6c-c196c368440b,4,Au coucher,1
+651fd141-c70e-49b2-8bfe-634e934edb6a,7,Matin et Soir,1
+651fd141-c70e-49b2-8bfe-634e934edb6a,9,Mantin,1
+651fd141-c70e-49b2-8bfe-634e934edb6a,8,Mantin,1
+103515f1-00de-4a5c-a056-560393ddc121,5,"Matin, Midi, Soir",2
+103515f1-00de-4a5c-a056-560393ddc121,7,Matin et Soir,2
+103515f1-00de-4a5c-a056-560393ddc121,8,Matin et Soir,2
+103515f1-00de-4a5c-a056-560393ddc121,4,Mantin,1
+c941c7d1-7189-45e2-a8d3-6a8f465df72f,9,Au coucher,2
+c941c7d1-7189-45e2-a8d3-6a8f465df72f,5,Mantin,2
+c941c7d1-7189-45e2-a8d3-6a8f465df72f,8,Mantin,2
+ede34288-e60a-4aca-a31b-a18c5b496c57,4,"Matin, Midi, Soir",1
+ede34288-e60a-4aca-a31b-a18c5b496c57,6,Au coucher,1
+ede34288-e60a-4aca-a31b-a18c5b496c57,8,"Matin, Midi, Soir",1
+ede34288-e60a-4aca-a31b-a18c5b496c57,2,"Matin, Midi, Soir",1
+79ec5f4f-22f0-4df2-b907-d9d0f8d57502,10,Matin et Soir,1
+ab922c64-3046-4d04-a5c7-18a5344edb8c,8,Mantin,1
+31d106c6-d290-4631-8379-108548e93b92,3,Au coucher,2
+9fc120f1-cbcf-4ad8-81e7-bf955edbb5a3,6,Matin et Soir,1
+9fc120f1-cbcf-4ad8-81e7-bf955edbb5a3,3,Mantin,2
+9fc120f1-cbcf-4ad8-81e7-bf955edbb5a3,7,Matin et Soir,2
+9fc120f1-cbcf-4ad8-81e7-bf955edbb5a3,9,Matin et Soir,2
+46bc6619-2755-4c4f-a639-add06aecc42e,6,"Matin, Midi, Soir",1
+46bc6619-2755-4c4f-a639-add06aecc42e,8,"Matin, Midi, Soir",1
+46bc6619-2755-4c4f-a639-add06aecc42e,3,Mantin,1
+454084d8-b5d5-46b3-922e-c0dc3bb65c77,9,Mantin,2
+454084d8-b5d5-46b3-922e-c0dc3bb65c77,7,Mantin,2
+df01e9c6-e208-4c6d-9412-b9535cec606f,2,"Matin, Midi, Soir",2
+df01e9c6-e208-4c6d-9412-b9535cec606f,6,Mantin,2
+df01e9c6-e208-4c6d-9412-b9535cec606f,5,Mantin,2

@@ -1,0 +1,77 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --bg-color: #050a14;
+    --primary-color: #00f2ff;
+    --secondary-color: #0066cc;
+    --text-color: #ffffff;
+    --node-color: rgba(0, 242, 255, 0.8);
+    --line-color: rgba(0, 102, 204, 0.4);
+}
+
+@font-face {
+    font-family: 'Monad';
+    src: url('/fonts/Monad.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('/fonts/Montserrat-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Montserrat Alternates';
+    src: url('/fonts/MontserratAlternates-Regular.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'Paris2024';
+    src: url('/fonts/Paris2024-Variable.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Roboto Mono';
+    src: url('/fonts/RobotoMono-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Plus Jakarta Sans';
+    src: url('/fonts/PlusJakartaSans.ttf') format('truetype');
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+/* Animation pour le fade-in du logo */
+@keyframes fade-in {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.animate-fade-in {
+    animation: fade-in 2s ease-out forwards;
+}
+
+/* Animation pulse lente pour le logo */
+@keyframes pulse-slow {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.8;
+    }
+}
+
+.animate-pulse-slow {
+    animation: pulse-slow 3s ease-in-out infinite;
+}

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Synapseo - Pharmacien</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="privacy-overlay">
+    <div style="background: var(--surface-card); padding: 2rem; border-radius: var(--radius-lg); text-align: center; box-shadow: var(--shadow-glow); border: 1px solid var(--glass-border);">
+      <div style="width: 64px; height: 64px; background: rgba(239, 68, 68, 0.1); color: var(--accent-danger); border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 1rem;">
+        <i class="fa-solid fa-lock" style="font-size: 1.5rem;"></i>
+      </div>
+      <h3 style="margin-bottom: 0.5rem; color: var(--text-main);">Session Sécurisée Verrouillée</h3>
+      <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">Aucune activité détectée. Cliquez pour reprendre.</p>
+      <button class="btn btn-primary" onclick="security.resumeSession()">Reprendre la session</button>
+    </div>
+  </div>
+
+  <div id="toast-container"></div>
+
+  <div style="display: flex; height: 100vh; overflow: hidden;">
+    <nav class="sidebar">
+      <div class="logo">
+        <div class="logo-icon"><i class="fa-solid fa-pills"></i></div>
+        <div class="logo-text">Synapseo <span style="font-size:0.8rem; color:var(--text-light); font-weight:400;">Pharma</span></div>
+      </div>
+      <div class="nav-links">
+        <a href="#" class="nav-item active"><i class="fa-solid fa-receipt"></i> <span>Ordonnances</span></a>
+        <a href="#" class="nav-item"><i class="fa-solid fa-boxes-stacked"></i> <span>Stock</span></a>
+        <a href="#" class="nav-item"><i class="fa-solid fa-truck-medical"></i> <span>Commandes</span></a>
+        <a href="#" class="nav-item" onclick="auth.logout()"><i class="fa-solid fa-arrow-right-from-bracket"></i> <span>Déconnexion</span></a>
+      </div>
+      <div class="user-profile" onclick="document.getElementById('session-modal').classList.add('active')" style="cursor: pointer;">
+        <div class="avatar" style="background: #10B981; color: black;">PH</div>
+        <div class="user-info">
+          <h4>Paul Henry</h4>
+          <p>Pharmacien</p>
+        </div>
+      </div>
+    </nav>
+    
+    <main class="main-content">
+      <header>
+        <div class="header-title">
+          <h2>File d'attente (3)</h2>
+          <p>Ordonnances à préparer</p>
+        </div>
+      </header>
+      
+      <div class="content-scroll" style="padding: 2rem;">
+        <div class="card" style="margin-bottom: 1rem;">
+          <div style="display: flex; justify-content: space-between; align-items: start;">
+            <div style="display: flex; gap: 1rem;">
+              <div style="width: 48px; height: 48px; background: rgba(16, 185, 129, 0.1); color: #10B981; display: flex; align-items: center; justify-content: center; border-radius: 8px;">
+                <i class="fa-solid fa-file-prescription" style="font-size: 1.2rem;"></i>
+              </div>
+              <div>
+                <h4 style="font-weight: 600; color: white;">Ord. #9923 - M. Petit</h4>
+                <p style="font-size: 0.9rem; color: var(--text-secondary);">Dr. House • Cardiologie</p>
+                <div style="margin-top: 0.5rem; display: flex; gap: 0.5rem;">
+                  <span class="status-pill" style="background: var(--surface-hover); color: var(--text-main);">Doliprane 1000mg</span>
+                  <span class="status-pill" style="background: var(--surface-hover); color: var(--text-main);">Amoxicilline</span>
+                </div>
+              </div>
+            </div>
+            <button class="btn btn-primary" onclick="this.innerText='Prête'; this.style.background='#10B981'; security.triggerToast('Ordonnance prête pour délivrance')">Préparer</button>
+          </div>
+        </div>
+
+        <div class="card" style="margin-bottom: 1rem;">
+          <div style="display: flex; justify-content: space-between; align-items: start;">
+            <div style="display: flex; gap: 1rem;">
+              <div style="width: 48px; height: 48px; background: rgba(249, 115, 22, 0.1); color: #F97316; display: flex; align-items: center; justify-content: center; border-radius: 8px;">
+                <i class="fa-solid fa-file-prescription" style="font-size: 1.2rem;"></i>
+              </div>
+              <div>
+                <h4 style="font-weight: 600; color: white;">Ord. #9922 - Mme. Lopez</h4>
+                <p style="font-size: 0.9rem; color: var(--text-secondary);">Dr. House • Cardiologie</p>
+                <div style="margin-top: 0.5rem; display: flex; gap: 0.5rem;">
+                  <span class="status-pill" style="background: var(--surface-hover); color: var(--text-main);">Kardegic 75</span>
+                </div>
+              </div>
+            </div>
+            <button class="btn btn-primary" onclick="this.innerText='Prête'; this.style.background='#10B981'; security.triggerToast('Ordonnance prête pour délivrance')">Préparer</button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div id="session-modal">
+    <div class="session-card">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+        <h3 style="font-size: 1.25rem; color: var(--text-main);"><i class="fa-solid fa-laptop-medical"></i> Gestion des Sessions</h3>
+        <button class="icon-btn" onclick="document.getElementById('session-modal').classList.remove('active')"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <p style="margin-bottom: 1rem; color: var(--text-secondary);">Vos appareils connectés actuellement.</p>
+      <div class="session-list">
+        <div class="session-item active">
+          <div class="session-icon"><i class="fa-brands fa-chrome"></i></div>
+          <div class="session-info">
+            <h4 style="color: white;">Chrome sur Windows (Vous)</h4>
+            <p>Actif maintenant • Paris, FR</p>
+          </div>
+          <div class="session-status">Actuel</div>
+        </div>
+      </div>
+      <div style="margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--glass-border); text-align: center;">
+        <button class="btn" style="color: var(--accent-danger); font-weight: 500; background: transparent;" onclick="auth.logoutAll()">
+          <i class="fa-solid fa-power-off"></i> Déconnecter tous les appareils
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
