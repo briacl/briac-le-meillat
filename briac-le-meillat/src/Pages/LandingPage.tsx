@@ -34,17 +34,25 @@ export default function LandingPage() {
                     <p className="font-['Paris2024'] text-[1.2rem] tracking-[4px] text-gray-700 mt-4 leading-normal text-center">
                         ÉTUDIANT EN <br />DÉVELOPPEMENT WEB, RÉSEAUX INFORMATIQUES, IA, ET TÉLÉCOMMUNICATIONS
                     </p>
-                </div>
 
-                <a
-                    href="#next-section"
-                    onClick={scrollToNext}
-                    className="scroll-btn pointer-events-auto absolute bottom-12 bg-transparent border-2 border-blue-400 rounded-full w-[50px] h-[50px] flex items-center justify-center cursor-pointer transition-all duration-300 animate-bounce hover:border-blue-600 hover:shadow-[0_0_15px_rgba(0,140,255,0.5)]"
-                >
-                    <svg viewBox="0 0 24 24" className="w-6 h-6 fill-blue-500">
-                        <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" />
-                    </svg>
-                </a>
+                    <a
+                        href="#next-section"
+                        onClick={scrollToNext}
+                        className="scroll-btn pointer-events-auto mt-12 bg-transparent border-2 border-blue-400 rounded-full w-[50px] h-[50px] flex items-center justify-center cursor-pointer transition-all duration-300 animate-bounce hover:border-blue-600 hover:shadow-[0_0_15px_rgba(0,140,255,0.5)]"
+                    >
+                        <svg viewBox="0 0 24 24" className="w-6 h-6 fill-blue-500">
+                            <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            {/* Clear View Section --> Allows clicking on the background canvas */}
+            <div className="min-h-[150vh] w-full relative z-[1] pointer-events-none">
+                <div className="sticky top-0 h-screen flex items-center justify-center">
+                    {/* This section is transparent and passes clicks through to the fixed background */}
+
+                </div>
             </div>
 
             <div id="next-section" className="min-h-screen bg-white relative z-[2] shadow-xl flex flex-col items-center justify-center text-gray-900 p-8 overflow-hidden">
