@@ -1,6 +1,6 @@
-# Synapseo
+# Briac Le Meillat's Website
 
-Synapseo est une plateforme innovante visant à fluidifier la connexion entre médecins, pharmaciens et patients pour optimiser le parcours de soin.
+Ceci est mon site web
 
 ## Crédits
 
@@ -11,7 +11,7 @@ Synapseo est une plateforme innovante visant à fluidifier la connexion entre m�
 *email : * **briac.le.meillat@gmail.com**
 
 ## Introduction
-Le projet Synapseo propose une solution centralisée pour la gestion des prescriptions, l'observance thérapeutique et la communication inter-professionnelle.
+Ceci est mon site web
 
 > **Note**: Ce projet a évolué d'une architecture full-stack Laravel vers une **Single Page Application (SPA) React**.
 
