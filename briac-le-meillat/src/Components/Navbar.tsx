@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 export default function Navbar() {
     return (
-        <nav className="fixed top-8 left-1/2 -translate-x-1/2 w-3/4 bg-white/5 backdrop-blur-[10px] rounded-full px-8 py-4 flex items-center justify-between z-50 border border-white/10 shadow-xl shadow-blue-900/5">
+        <nav className="fixed top-8 left-1/2 -translate-x-1/2 w-3/4 bg-white/10 backdrop-blur-md rounded-full px-8 py-4 flex items-center justify-between z-50 border border-white/20 shadow-xl shadow-blue-900/10" style={{ backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)' }}>
             {/* Left: Title */}
             <Link to="/" className="font-['Monad'] text-2xl bg-gradient-to-br from-[#00f2ff] to-[#0055ff] bg-clip-text text-transparent tracking-widest drop-shadow-sm transition-all duration-300 hover:drop-shadow-[0_0_12px_rgba(0,85,255,0.8)] hover:scale-105">
                 Synapseo

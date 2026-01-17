@@ -1,8 +1,8 @@
 # ⚡ Commandes de Développement
 
-Voici les commandes essentielles pour travailler sur le projet **Synapseo** (React SPA).
+Voici les commandes essentielles pour travailler sur le projet **Briac Le Meillat** (React SPA).
 
-> **Note importante** : Le projet se trouve dans le sous-dossier `synapseo`. Assurez-vous d'être dans le bon dossier avant de lancer les commandes !
+> **Note importante** : Le projet se trouve dans le sous-dossier `briac-le-meillat`. Assurez-vous d'être dans le bon dossier avant de lancer les commandes !
 
 ---
 

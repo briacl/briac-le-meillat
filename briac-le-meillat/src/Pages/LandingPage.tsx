@@ -17,7 +17,7 @@ export default function LandingPage() {
     const [bgColor, setBgColor] = useState('#f8f9fa'); // Customizable white
 
     return (
-        <div className="relative w-full h-screen overflow-x-hidden overflow-y-auto font-sans text-gray-900" style={{ backgroundColor: bgColor }}>
+        <div className="relative w-full min-h-screen overflow-x-hidden font-sans text-gray-900" style={{ backgroundColor: bgColor }}>
             <Navbar />
 
             {/* Container for the Neural Network Background */}
@@ -28,11 +28,11 @@ export default function LandingPage() {
             {/* Overlay Content */}
             <div className="relative h-screen flex flex-col items-center justify-center z-[2] pointer-events-none content-overlay">
                 <div className="flex flex-col items-center justify-center text-center">
-                    <h1 className="font-['Monad'] text-[5rem] font-[200] tracking-[12px] m-0 uppercase bg-gradient-to-br from-[#00f2ff] to-[#0055ff] bg-clip-text text-transparent select-none drop-shadow-sm">
-                        Synapseo
+                    <h1 className="font-['Paris2024'] text-[5rem] font-[200] tracking-[12px] m-0 uppercase bg-gradient-to-br from-[#00f2ff] to-[#0055ff] bg-clip-text text-transparent select-none drop-shadow-sm">
+                        Briac Le Meillat
                     </h1>
                     <p className="font-['Paris2024'] text-[1.2rem] tracking-[4px] text-gray-700 mt-4 leading-normal text-center">
-                        LA CONNEXION FLUIDE ENTRE <br />MÉDECINS, PHARMACIENS, INFIRMIERS, PATIENTS ET ÉTUDIANTS
+                        ÉTUDIANT EN <br />DÉVELOPPEMENT WEB, RÉSEAUX INFORMATIQUES, IA, ET TÉLÉCOMMUNICATIONS
                     </p>
                 </div>
 

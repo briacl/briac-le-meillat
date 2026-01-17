@@ -36,9 +36,9 @@ Ceci est mon site web
     ```
 
 2.  **Se placer dans le dossier du projet**
-    L'application React se trouve dans le sous-dossier `synapseo`.
+    L'application React se trouve dans le sous-dossier `briac-le-meillat`.
     ```bash
-    cd synapseo
+    cd briac-le-meillat
     ```
 
 3.  **Installer les dépendances**
