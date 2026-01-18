@@ -1,8 +1,10 @@
 import React, { useEffect, useRef } from 'react';
+import { useTheme } from '@/Contexts/ThemeProvider';
 
-export default function NeuralNetworkBackground({ className = "", theme = "dark" }: { className?: string, theme?: "light" | "dark" }) {
+export default function NeuralNetworkBackground({ className = "" }: { className?: string }) {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const [selectedNode, setSelectedNode] = React.useState<string | null>(null);
+    const { theme } = useTheme();
 
     // Camera state managed in ref to be accessible in animation loop without re-triggering effects
     const cameraRef = useRef({ x: 0, y: 0, zoom: 1, targetX: 0, targetY: 0, targetZoom: 1 });
@@ -17,6 +19,26 @@ export default function NeuralNetworkBackground({ className = "", theme = "dark"
 
         const ctx = canvas.getContext('2d');
         if (!ctx) return;
+
+        // FETCH COLORS FROM CSS VARIABLES
+        const styles = getComputedStyle(document.documentElement);
+        const nodeColor = styles.getPropertyValue('--node-color').trim();
+        // Helpers to parse color if needed, or just use string for fillStyle
+        // For rgba manipulation in connection lines, we might need to parse. 
+        // For now, let's assume --node-color is rgba or hex.
+
+        // Simpler approach: define colors based on theme if parsing is complex, 
+        // BUT user asked for easy config. 
+        // Let's assume standard RGB format or simple hex for main colors.
+        // Actually, connection opacity relies on string manipulation "0, 255, 255".
+        // Let's grab the raw values.
+
+        const isLight = theme === 'light';
+        const particleColor = nodeColor;
+        const textColor = styles.getPropertyValue('--text-primary').trim();
+
+        // Hardcoded fallback for connection baselines if var parsing is too brittle for this snippet:
+        // We will try to rely on the var.
 
         let width = canvas.width = canvas.parentElement?.clientWidth || window.innerWidth;
         let height = canvas.height = canvas.parentElement?.clientHeight || window.innerHeight;
@@ -39,12 +61,6 @@ export default function NeuralNetworkBackground({ className = "", theme = "dark"
         const particleCount = 70;
         const connectionDistance = 200;
         const speedBase = 0.8;
-
-        const isLight = theme === 'light';
-        // Using brand blue for light mode
-        const particleColor = isLight ? '#0055ff' : '#00f2ff';
-        const textColor = isLight ? '#0044cc' : '#ffffff';
-        const connectionColor = isLight ? '0, 85, 255' : '0, 242, 255'; // RGB for opacity manipulation
 
         const labelledNodes = [
             { text: "DÉVELOPPEMENT WEB", isActive: true },
@@ -70,7 +86,7 @@ export default function NeuralNetworkBackground({ className = "", theme = "dark"
                 this.vy = (Math.random() - 0.5) * speedBase;
                 this.size = label ? 4 : Math.random() * 2 + 1;
                 this.label = label;
-                this.color = label ? (isLight ? '#334155' : '#ffffff') : particleColor;
+                this.color = particleColor; // Use the fetched color
                 this.shadowBlur = label ? 20 : 10;
             }
 
@@ -99,7 +115,7 @@ export default function NeuralNetworkBackground({ className = "", theme = "dark"
                 if (this.label) {
                     ctx.font = "bold 14px Inter, sans-serif";
 
-                    if (isLight) {
+                    if (true) { // Always use gradient as requested
                         const metrics = ctx.measureText(this.label);
                         const textWidth = metrics.width;
                         const textHeight = 14;
@@ -113,8 +129,6 @@ export default function NeuralNetworkBackground({ className = "", theme = "dark"
                         gradient.addColorStop(0, '#00f2ff');
                         gradient.addColorStop(1, '#0055ff');
                         ctx.fillStyle = gradient;
-                    } else {
-                        ctx.fillStyle = textColor;
                     }
 
                     ctx.textAlign = "center";
@@ -152,17 +166,22 @@ export default function NeuralNetworkBackground({ className = "", theme = "dark"
                     if (dist < connectionDistance) {
                         let opacity = 1 - (dist / connectionDistance);
                         ctx.beginPath();
-                        ctx.strokeStyle = `rgba(${connectionColor}, ${opacity * 0.4})`;
+                        // Naive color adaptation: use particle color but apply opacity
+                        // This assumes particleColor is in a format we can hack or we just use globalAlpha
+                        ctx.save();
+                        ctx.globalAlpha = opacity * 0.4;
+                        ctx.strokeStyle = particleColor;
                         ctx.lineWidth = 1;
 
                         if (p1.label || p2.label) {
-                            ctx.strokeStyle = `rgba(${isLight ? '15, 23, 42' : '255, 255, 255'}, ${opacity * 0.3})`;
+                            ctx.globalAlpha = opacity * 0.6;
                             ctx.lineWidth = 1.5;
                         }
 
                         ctx.moveTo(p1.x, p1.y);
                         ctx.lineTo(p2.x, p2.y);
                         ctx.stroke();
+                        ctx.restore();
                     }
                 }
             }

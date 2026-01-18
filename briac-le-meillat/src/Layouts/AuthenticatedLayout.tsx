@@ -77,7 +77,7 @@ export default function Authenticated({
                                         </Dropdown.Link>
                                         <Dropdown.Link
                                             to="/logout"
-                                            as="button"
+
                                             onClick={() => alert('Logout clicked')}
                                         >
                                             Log Out

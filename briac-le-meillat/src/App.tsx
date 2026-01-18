@@ -12,25 +12,29 @@ import Pharmacist from './Pages/Pharmacist';
 import Devop from './Pages/Devop';
 import LoginCustom from './Pages/LoginCustom';
 
+import { ThemeProvider } from './Contexts/ThemeProvider';
+
 function App() {
     return (
-        <HeroUIProvider>
-            <BrowserRouter>
-                <Routes>
-                    <Route path="/" element={<LandingPage />} />
-                    <Route path="/subscribe" element={<Subscribe />} />
-                    <Route path="/dashboard" element={<Dashboard />} />
-                    <Route path="/custom-login" element={<Login />} />
-                    <Route path="/connexion" element={<LoginCustom />} />
+        <ThemeProvider>
+            <HeroUIProvider>
+                <BrowserRouter>
+                    <Routes>
+                        <Route path="/" element={<LandingPage />} />
+                        <Route path="/subscribe" element={<Subscribe />} />
+                        <Route path="/dashboard" element={<Dashboard />} />
+                        <Route path="/custom-login" element={<Login />} />
+                        <Route path="/connexion" element={<LoginCustom />} />
 
-                    <Route path="/doctor" element={<Doctor />} />
-                    <Route path="/nurse" element={<Nurse />} />
-                    <Route path="/patient" element={<Patient />} />
-                    <Route path="/pharmacist" element={<Pharmacist />} />
-                    <Route path="/devop" element={<Devop />} />
-                </Routes>
-            </BrowserRouter>
-        </HeroUIProvider>
+                        <Route path="/doctor" element={<Doctor />} />
+                        <Route path="/nurse" element={<Nurse />} />
+                        <Route path="/patient" element={<Patient />} />
+                        <Route path="/pharmacist" element={<Pharmacist />} />
+                        <Route path="/devop" element={<Devop />} />
+                    </Routes>
+                </BrowserRouter>
+            </HeroUIProvider>
+        </ThemeProvider>
     );
 }
 

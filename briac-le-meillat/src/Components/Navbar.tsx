@@ -1,24 +1,41 @@
 import { Link } from 'react-router-dom';
+import { useTheme } from '@/Contexts/ThemeProvider';
 
 export default function Navbar() {
+    const { theme, toggleTheme } = useTheme();
+
     return (
         <nav className="fixed top-8 left-1/2 -translate-x-1/2 w-3/4 bg-white/10 backdrop-blur-md rounded-full px-8 py-4 flex items-center justify-between z-50 border border-white/20 shadow-xl shadow-blue-900/10" style={{ backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)' }}>
             {/* Left: Title */}
             <Link to="/" className="font-['Paris2024'] text-2xl bg-gradient-to-br from-[#00f2ff] to-[#0055ff] bg-clip-text text-transparent tracking-widest drop-shadow-sm transition-all duration-300 hover:drop-shadow-[0_0_12px_rgba(0,85,255,0.8)] hover:scale-105">
-                Briac Le Meillat
+                BRIAC LE MEILLAT
             </Link>
 
             {/* Center: Links */}
             <div className="flex gap-8 font-['Paris2024'] text-[#0055ff]/80 uppercase tracking-wider text-sm font-sm">
                 <Link to="/" className="hover:text-[#0055ff] transition-all duration-300 hover:drop-shadow-[0_0_12px_rgba(0,85,255,0.8)] hover:scale-105">accueil</Link>
                 <Link to="/vision" className="hover:text-[#0055ff] transition-all duration-300 hover:drop-shadow-[0_0_12px_rgba(0,85,255,0.8)] hover:scale-105">vision</Link>
-                <Link to="/fonctionnalites" className="hover:text-[#0055ff] transition-all duration-300 hover:drop-shadow-[0_0_12px_rgba(0,85,255,0.8)] hover:scale-105">fonctionnalités</Link>
-                <Link to="/tarifs" className="hover:text-[#0055ff] transition-all duration-300 hover:drop-shadow-[0_0_12px_rgba(0,85,255,0.8)] hover:scale-105">tarifs</Link>
+                <Link to="/cv" className="hover:text-[#0055ff] transition-all duration-300 hover:drop-shadow-[0_0_12px_rgba(0,85,255,0.8)] hover:scale-105">cv</Link>
                 <Link to="/contact" className="hover:text-[#0055ff] transition-all duration-300 hover:drop-shadow-[0_0_12px_rgba(0,85,255,0.8)] hover:scale-105">contact</Link>
             </div>
 
             {/* Right: Buttons */}
             <div className="flex gap-4 font-['Paris2024'] items-center">
+                <button
+                    onClick={toggleTheme}
+                    className="p-2 rounded-full hover:bg-white/10 transition-colors"
+                >
+                    {theme === 'dark' ? (
+                        <svg className="w-5 h-5 text-[#00f2ff]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                        </svg>
+                    ) : (
+                        <svg className="w-5 h-5 text-[#0055ff]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                        </svg>
+                    )}
+                </button>
+
                 <Link to="/custom-login" className="text-[#0055ff] hover:text-[#0044cc] transition-colors uppercase tracking-wider text-sm">
                     Log in
                 </Link>
