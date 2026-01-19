@@ -1,10 +1,83 @@
 import React, { useEffect, useRef } from 'react';
 import { useTheme } from '@/Contexts/ThemeProvider';
+import { useProjects, Project } from '@/Contexts/ProjectContext';
+import { motion } from 'framer-motion';
+
+const CODE_CARDS = [
+    {
+        title: "ProjectContext.tsx",
+        language: "typescript",
+        code: `export const ProjectProvider = ({ children }) => {
+  const [projects, setProjects] = useState<Project[]>([]);
+  
+  const addProject = (project: Omit<Project, 'id'>) => {
+    const newProject = { ...project, id: uuidv4() };
+    setProjects(prev => [...prev, newProject]);
+  };
+
+  useEffect(() => {
+    // Sync with backend
+    api.sync(projects).then(console.log);
+  }, [projects]);
+  
+  return (
+    <ProjectContext.Provider value={{ projects }}>
+      {children}
+    </ProjectContext.Provider>
+  );
+};`
+    },
+    {
+        title: "NeuralNetwork.css",
+        language: "css",
+        code: `.neuron-node {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, #00f2ff, #0055ff);
+  box-shadow: 0 0 20px rgba(0, 242, 255, 0.6);
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.neuron-node:hover {
+  transform: scale(1.5);
+  z-index: 100;
+}
+
+.connection-line {
+  stroke: rgba(255, 255, 255, 0.2);
+  stroke-width: 1px;
+}`
+    },
+    {
+        title: "ApiHandler.ts",
+        language: "typescript",
+        code: `async function fetchData(endpoint: string) {
+  try {
+    const response = await fetch(\`\${API_URL}/\${endpoint}\`);
+    if (!response.ok) throw new Error('Network error');
+    
+    const data = await response.json();
+    return data.map(item => ({
+      ...item,
+      processed: true,
+      timestamp: new Date()
+    }));
+  } catch (error) {
+    console.error('Fetch failed:', error);
+    return null;
+  }
+}`
+    }
+];
+
+// ... (existing constants or code if any need to be preserved, but in this replacement block we are replacing snippets)
 
 export default function NeuralNetworkBackground({ className = "" }: { className?: string }) {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const [selectedNode, setSelectedNode] = React.useState<string | null>(null);
     const { theme } = useTheme();
+    const { getProjectsByDomain, projects } = useProjects();
 
     // Camera state managed in ref to be accessible in animation loop without re-triggering effects
     const cameraRef = useRef({ x: 0, y: 0, zoom: 1, targetX: 0, targetY: 0, targetZoom: 1 });
@@ -64,7 +137,7 @@ export default function NeuralNetworkBackground({ className = "" }: { className?
 
         const labelledNodes = [
             { text: "DÉVELOPPEMENT WEB", isActive: true },
-            { text: "RÉSEAUX INFORMAIQUES", isActive: true },
+            { text: "RÉSEAUX INFORMATIQUES", isActive: true },
             { text: "IA", isActive: true },
             { text: "TÉLÉCOMMUNICATIONS", isActive: true },
         ];
@@ -166,8 +239,6 @@ export default function NeuralNetworkBackground({ className = "" }: { className?
                     if (dist < connectionDistance) {
                         let opacity = 1 - (dist / connectionDistance);
                         ctx.beginPath();
-                        // Naive color adaptation: use particle color but apply opacity
-                        // This assumes particleColor is in a format we can hack or we just use globalAlpha
                         ctx.save();
                         ctx.globalAlpha = opacity * 0.4;
                         ctx.strokeStyle = particleColor;
@@ -256,9 +327,6 @@ export default function NeuralNetworkBackground({ className = "" }: { className?
 
             // Find clicked particle
             let clickedInfo: string | null = null;
-
-            // Check distance to particles (consider zoom for hit radius?)
-            // Hit area should be reasonable.
             const hitRadius = 30; // 30px radius around node
 
             for (const p of particles) {
@@ -301,41 +369,212 @@ export default function NeuralNetworkBackground({ className = "" }: { className?
         <>
             <canvas
                 ref={canvasRef}
-                className={`absolute top-0 left-0 w-full h-full cursor-pointer z-[0] ${className}`}
+                className={`absolute top-0 left-0 w-full h-full cursor-pointer z-[0] \${className}`}
                 style={{ pointerEvents: 'auto' }}
             />
 
             {/* Overlay Card */}
             {selectedNode && (
                 <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 
-                            bg-white/10 backdrop-blur-md rounded-3xl px-12 py-8 flex flex-col items-center justify-center 
-                            border border-white/20 shadow-xl shadow-blue-900/10 z-50 text-center animate-in fade-in zoom-in duration-300"
+                            bg-white/10 backdrop-blur-md rounded-3xl overflow-hidden
+                            border border-white/20 shadow-xl shadow-blue-900/10 z-50 animate-in fade-in zoom-in duration-300
+                            max-w-6xl w-[95vw] h-[85vh] flex relative"
                     style={{ backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)' }}>
 
-                    <h3 className="text-3xl font-bold mb-2 bg-gradient-to-br from-[#00f2ff] to-[#0055ff] bg-clip-text text-transparent drop-shadow-sm font-['Paris2024'] tracking-widest">
-                        {selectedNode}
-                    </h3>
-                    <p className="text-black font-['Montserrat_Alternates'] mt-2">
-                        (en chantier)
-                    </p>
-                    <button
-                        onClick={() => {
-                            setSelectedNode(null);
-                            cameraRef.current.targetZoom = 1;
-                            // Reset camera target to center
-                            const canvas = canvasRef.current;
-                            if (canvas) {
-                                cameraRef.current.targetX = canvas.width / 2;
-                                cameraRef.current.targetY = canvas.height / 2;
-                            }
-                            if (selectedNodeRef.current) selectedNodeRef.current = null;
-                        }}
-                        className="absolute top-4 right-6 text-[#0055ff]/50 hover:text-[#0055ff] transition-colors"
-                    >
-                        ✕
-                    </button>
-                </div>
-            )}
+                    {/* BACKGROUND ANIMATION - IMPROVED CODE CARDS */}
+                    <div className="absolute top-0 right-0 w-[50%] h-full overflow-hidden pointer-events-none z-0">
+                        {/* Gradient Mask to fade top/bottom */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-transparent via-black/5 to-transparent z-10"></div>
+
+                        <div className="flex justify-between h-full w-full gap-6 px-10 pt-10">
+                            {CODE_CARDS.map((card, index) => (
+                                <motion.div
+                                    key={index}
+                                    animate={{ y: [0, -1000] }}
+                                    transition={{
+                                        repeat: Infinity,
+                                        duration: 25 + index * 5,
+                                        ease: "linear"
+                                    }}
+                                    className="flex flex-col gap-8 w-1/3"
+                                    style={{ marginTop: `${index * 100}px` }}
+                                >
+                                    {/* Duplicated items for endless scroll illusion */}
+                                    {[1, 2, 3, 4].map((i) => (
+                                        <div key={i} className="bg-[#0d1117]/80 backdrop-blur-sm rounded-lg border border-gray-700/50 shadow-2xl overflow-hidden">
+                                            {/* Window Header */}
+                                            <div className="flex items-center px-3 py-2 bg-white/5 border-b border-white/5 gap-2">
+                                                <div className="flex gap-1.5">
+                                                    <div className="w-2.5 h-2.5 rounded-full bg-[#ff5f56]"></div>
+                                                    <div className="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]"></div>
+                                                    <div className="w-2.5 h-2.5 rounded-full bg-[#27c93f]"></div>
+                                                </div>
+                                                <span className="text-[10px] text-gray-400 font-mono ml-2 opacity-50">{card.title}</span>
+                                            </div>
+                                            {/* Code Body */}
+                                            <div className="p-3">
+                                                <pre className="text-[10px] leading-relaxed font-mono text-gray-300 overflow-hidden">
+                                                    <code className={card.language === 'typescript' ? 'text-blue-300' : 'text-purple-300'}>
+                                                        {card.code}
+                                                    </code>
+                                                </pre>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </motion.div>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* CONTENT CONTAINER - Full width but z-10 above animation */}
+                    <div className="relative z-10 w-full h-full flex flex-col p-8 md:p-12 overflow-hidden">
+
+                        <button
+                            onClick={() => {
+                                setSelectedNode(null);
+                                cameraRef.current.targetZoom = 1;
+                                const canvas = canvasRef.current;
+                                if (canvas) {
+                                    cameraRef.current.targetX = canvas.width / 2;
+                                    cameraRef.current.targetY = canvas.height / 2;
+                                }
+                                if (selectedNodeRef.current) selectedNodeRef.current = null;
+                            }}
+                            className="absolute top-6 right-8 text-[#0055ff]/50 hover:text-[#0055ff] transition-colors z-[60] text-4xl font-light"
+                        >
+                            ✕
+                        </button>
+
+                        {/* HEADERS - Left Aligned */}
+                        <div className="mb-10 text-left border-b border-white/10 pb-6 w-full max-w-2xl">
+                            <h3 className="text-5xl font-bold mb-2 bg-gradient-to-br from-[#00f2ff] to-[#0055ff] bg-clip-text text-transparent drop-shadow-sm font-['Paris2024'] tracking-widest">
+                                {selectedNode}
+                            </h3>
+                            <p className="text-gray-500 font-['Montserrat_Alternates'] text-sm uppercase tracking-widest">
+                                EXPLORATION DES PROJETS & EXPERTISES
+                            </p>
+                        </div>
+
+                        {/* SCROLLABLE PROJECTS AREA */}
+                        <div className="flex-1 overflow-y-auto w-full custom-scrollbar pr-4">
+                            <div className="w-full flex flex-col gap-16 text-left pb-12">
+                                {(() => {
+                                    const normalize = (str: string) => str.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+                                    const domainProjects = projects.filter(p =>
+                                        normalize(p.domain) === normalize(selectedNode || "")
+                                    );
+
+                                    const bestProjects = domainProjects.filter(p => p.isBest);
+                                    const recentProjects = domainProjects.filter(p => p.isRecent);
+
+                                    if (domainProjects.length === 0) {
+                                        return (
+                                            <div className="flex flex-col items-center justify-center p-12 opacity-50">
+                                                <i className="fa-solid fa-code text-4xl mb-4 text-[#0055ff]"></i>
+                                                <p className="font-['Montserrat_Alternates'] text-xl italic">
+                                                    Projets à venir dans ce secteur...
+                                                </p>
+                                            </div>
+                                        );
+                                    }
+
+                                    return (
+                                        <>
+                                            {/* BEST PROJECTS */}
+                                            {bestProjects.length > 0 && (
+                                                <div className="relative">
+                                                    <h4 className="sticky top-0 bg-white/5 backdrop-blur-sm z-20 py-2 font-['Paris2024'] text-2xl text-gray-800 mb-6 pl-4 border-l-4 border-[#00f2ff] w-full shadow-sm">
+                                                        UNE SÉLECTION DE MES MEILLEURS TRAVAUX
+                                                    </h4>
+                                                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                                                        {bestProjects.map(project => (
+                                                            <div key={project.id} className="group relative bg-white/40 rounded-2xl overflow-hidden border border-white/40 hover:shadow-2xl hover:shadow-[#00f2ff]/10 transition-all duration-300 hover:scale-[1.02] flex flex-col h-full">
+                                                                <div className="h-48 bg-gray-100 w-full overflow-hidden relative">
+                                                                    {project.imageUrl ? (
+                                                                        <img src={project.imageUrl} alt={project.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                                                                    ) : (
+                                                                        <div className="w-full h-full flex items-center justify-center text-gray-400 bg-gray-50/50">
+                                                                            <span className="text-3xl opacity-20"><i className="fa-solid fa-image"></i></span>
+                                                                        </div>
+                                                                    )}
+                                                                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity"></div>
+
+                                                                    <div className="absolute bottom-4 left-4 right-4">
+                                                                        <div className="flex gap-2 mb-2 flex-wrap">
+                                                                            {project.languages.slice(0, 3).map((l, idx) => (
+                                                                                <span key={idx} className="text-[9px] uppercase font-bold px-2 py-0.5 rounded-full bg-white/20 text-white backdrop-blur-sm border border-white/10">
+                                                                                    {l}
+                                                                                </span>
+                                                                            ))}
+                                                                        </div>
+                                                                        <h3 className="text-white font-['Paris2024'] text-lg tracking-wider group-hover:text-[#00f2ff] transition-colors leading-tight">
+                                                                            {project.title}
+                                                                        </h3>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div className="p-6 flex flex-col flex-1 bg-white/30 backdrop-blur-md">
+                                                                    <p className="text-sm text-gray-600 line-clamp-3 mb-6 font-['Montserrat_Alternates'] leading-relaxed flex-1">
+                                                                        {project.description}
+                                                                    </p>
+
+                                                                    {project.link && (
+                                                                        <a href={project.link} target="_blank" rel="noopener noreferrer" className="mt-auto self-start inline-flex items-center gap-2 text-xs uppercase font-bold text-[#0055ff] hover:text-[#00f2ff] transition-colors group/link">
+                                                                            Voir le projet
+                                                                            <span className="transform group-hover/link:translate-x-1 transition-transform">→</span>
+                                                                        </a>
+                                                                    )}
+                                                                </div>
+                                                            </div>
+                                                        ))}
+                                                    </div>
+                                                </div>
+                                            )}
+
+                                            {/* RECENT PROJECTS */}
+                                            {recentProjects.length > 0 && (
+                                                <div className="relative">
+                                                    <h4 className="sticky top-0 bg-white/5 backdrop-blur-sm z-20 py-2 font-['Paris2024'] text-2xl text-gray-800 mb-6 pl-4 border-l-4 border-[#0055ff] w-full shadow-sm">
+                                                        PROJETS RÉCENTS
+                                                    </h4>
+                                                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                                                        {recentProjects.map(project => (
+                                                            <div key={project.id} className="group relative bg-white/30 rounded-2xl overflow-hidden border border-white/30 hover:shadow-xl transition-all duration-300 hover:translate-y-[-4px] flex flex-col h-full">
+                                                                <div className="h-40 bg-gray-100 w-full overflow-hidden relative">
+                                                                    {project.imageUrl ? (
+                                                                        <img src={project.imageUrl} alt={project.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                                                                    ) : (
+                                                                        <div className="w-full h-full flex items-center justify-center text-gray-400">No Image</div>
+                                                                    )}
+                                                                    <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors"></div>
+                                                                    <div className="absolute top-3 right-3 bg-white/90 text-black text-[10px] font-bold px-2 py-1 rounded shadow-sm">
+                                                                        RÉCENT
+                                                                    </div>
+                                                                </div>
+                                                                <div className="p-5 flex flex-col flex-1">
+                                                                    <h4 className="font-['Paris2024'] text-lg mb-2 text-gray-900 group-hover:text-[#0055ff] transition-colors">{project.title}</h4>
+                                                                    <p className="text-xs text-gray-600 line-clamp-2 mb-4 font-['Montserrat_Alternates'] flex-1">{project.description}</p>
+                                                                    {project.link && (
+                                                                        <a href={project.link} target="_blank" rel="noopener noreferrer" className="text-[10px] uppercase font-bold text-gray-500 hover:text-[#0055ff] self-end">
+                                                                            Découvrir +
+                                                                        </a>
+                                                                    )}
+                                                                </div>
+                                                            </div>
+                                                        ))}
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </>
+                                    );
+                                })()}
+                            </div>
+                        </div>
+
+                    </div>
+                </div >
+            )
+            }
         </>
     );
 }

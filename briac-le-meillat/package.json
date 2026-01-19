@@ -14,12 +14,14 @@
         "@heroui/theme": "^2.4.25",
         "@react-three/drei": "^10.7.7",
         "@react-three/fiber": "^8.18.0",
+        "@types/uuid": "^10.0.0",
         "framer-motion": "^12.24.10",
         "lucide-react": "^0.562.0",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "react-router-dom": "^6.20.0",
-        "three": "^0.182.0"
+        "three": "^0.182.0",
+        "uuid": "^13.0.0"
     },
     "devDependencies": {
         "@tailwindcss/forms": "^0.5.3",

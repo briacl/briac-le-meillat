@@ -5,6 +5,7 @@ import NeuralNetworkBackground from '@/Components/NeuralNetworkBackground';
 import GlassCard from '@/Components/GlassCard';
 import CVSection from './CVSection';
 
+
 export default function LandingPage() {
     useEffect(() => {
         document.title = "Synapseo - App Sécurisée";
@@ -72,6 +73,9 @@ export default function LandingPage() {
                     <div id="cv-section" className="min-h-[50vh] flex items-center justify-center">
                         <CVSection />
                     </div>
+
+                    {/* PROJECTS SECTION - Moved to NeuralNetworkBackground Interaction */}
+                    {/* <DomainProjectsSection /> */}
 
                     {/* CONTACT SECTION */}
                     <div id="contact-section" className="min-h-[50vh] flex items-center justify-center">
