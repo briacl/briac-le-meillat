@@ -1,0 +1,16 @@
+[
+    {
+        "title": "machine-learning",
+        "description": "découverte du machine learning",
+        "imageUrl": "/briac-le-meillat/assets-inspi/What-are-neural-networks-Banner.webp",
+        "languages": [
+            "Python"
+        ],
+        "link": "https://github.com/briacl/machine-learning.git",
+        "domain": "INTELLIGENCE ARTIFICIELLE",
+        "isBest": true,
+        "isRecent": true,
+        "id": "8e22569d-ddb6-4402-be52-7c1623b5fdb1",
+        "createdAt": 1769011426345
+    }
+]

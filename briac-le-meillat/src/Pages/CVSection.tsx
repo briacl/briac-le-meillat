@@ -46,7 +46,7 @@ export default function CVSection() {
                 <GlassCard className="h-full flex flex-col justify-start !p-0 overflow-hidden">
 
                     {/* Top: Timeline */}
-                    <div className="w-full p-8 pb-4 bg-white/30 border-b border-white/20">
+                    <div className="w-full p-8 pb-4">
                         <Timeline
                             steps={cvData.map(d => ({ year: d.year, title: d.title }))}
                             activeStep={activeStep}

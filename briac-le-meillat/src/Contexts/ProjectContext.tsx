@@ -27,26 +27,28 @@ interface ProjectContextType {
 const ProjectContext = createContext<ProjectContextType | undefined>(undefined);
 
 export function ProjectProvider({ children }: { children: React.ReactNode }) {
-    const [projects, setProjects] = useState<Project[]>(() => {
-        const stored = localStorage.getItem('projects_data');
-        return stored ? JSON.parse(stored) : [];
-    });
+    const [projects, setProjects] = useState<Project[]>([]);
 
-    // Listen for changes in other tabs
+    const saveProjects = async (newProjects: Project[]) => {
+        try {
+            await fetch('/api/projects', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(newProjects),
+            });
+        } catch (error) {
+            console.error('Failed to save projects:', error);
+        }
+    };
+
     useEffect(() => {
-        const handleStorageChange = (e: StorageEvent) => {
-            if (e.key === 'projects_data' && e.newValue) {
-                setProjects(JSON.parse(e.newValue));
-            }
-        };
-
-        window.addEventListener('storage', handleStorageChange);
-        return () => window.removeEventListener('storage', handleStorageChange);
+        fetch('/api/projects')
+            .then(res => res.json())
+            .then(data => {
+                if (Array.isArray(data)) setProjects(data);
+            })
+            .catch(console.error);
     }, []);
-
-    useEffect(() => {
-        localStorage.setItem('projects_data', JSON.stringify(projects));
-    }, [projects]);
 
     const addProject = (projectData: Omit<Project, 'id' | 'createdAt'>) => {
         const newProject: Project = {
@@ -54,15 +56,21 @@ export function ProjectProvider({ children }: { children: React.ReactNode }) {
             id: uuidv4(),
             createdAt: Date.now(),
         };
-        setProjects(prev => [newProject, ...prev]);
+        const updatedProjects = [newProject, ...projects];
+        setProjects(updatedProjects);
+        saveProjects(updatedProjects);
     };
 
     const updateProject = (id: string, updates: Partial<Project>) => {
-        setProjects(prev => prev.map(p => p.id === id ? { ...p, ...updates } : p));
+        const updatedProjects = projects.map(p => p.id === id ? { ...p, ...updates } : p);
+        setProjects(updatedProjects);
+        saveProjects(updatedProjects);
     };
 
     const deleteProject = (id: string) => {
-        setProjects(prev => prev.filter(p => p.id !== id));
+        const updatedProjects = projects.filter(p => p.id !== id);
+        setProjects(updatedProjects);
+        saveProjects(updatedProjects);
     };
 
     const getProjectsByDomain = (domain: string) => {
