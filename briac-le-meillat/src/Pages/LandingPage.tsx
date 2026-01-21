@@ -53,7 +53,7 @@ const Typewriter = ({ text, delay = 0 }: { text: string | string[], delay?: numb
     }, [currentIndex, text, started]);
 
     return (
-        <div className="font-['Paris2024'] text-[1.2rem] tracking-[4px] text-gray-700 mt-4 leading-normal text-center min-h-[3.6rem]">
+        <div className="font-['Paris2024'] text-[1.2rem] tracking-[4px] text-skin-text-main mt-4 leading-normal text-center min-h-[3.6rem]">
             {displayedText.map((line, i) => (
                 <React.Fragment key={i}>
                     <span>

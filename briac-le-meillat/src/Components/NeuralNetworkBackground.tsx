@@ -93,7 +93,8 @@ export default function NeuralNetworkBackground({ className = "" }: { className?
 
         const styles = getComputedStyle(document.documentElement);
         const nodeColor = styles.getPropertyValue('--node-color').trim();
-        const linkColorRaw = "255, 255, 255"; // Simplified for now, or fetch from CSS
+        const textColorRaw = theme === 'light' ? "0, 0, 0" : "255, 255, 255";
+        const linkColorRaw = textColorRaw;
 
         let width = canvas.width = canvas.parentElement?.clientWidth || window.innerWidth;
         let height = canvas.height = canvas.parentElement?.clientHeight || window.innerHeight;
@@ -234,7 +235,7 @@ export default function NeuralNetworkBackground({ className = "" }: { className?
                         const metrics = ctx.measureText(this.label);
                         const pad = 4;
 
-                        ctx.fillStyle = "rgba(255, 255, 255, 0.8)";
+                        ctx.fillStyle = `rgba(${textColorRaw}, 0.8)`;
                         ctx.fillText(this.label, this.x, this.y - 10);
                     }
                 }
@@ -469,7 +470,7 @@ export default function NeuralNetworkBackground({ className = "" }: { className?
                             <h3 className="text-5xl font-bold mb-2 bg-gradient-to-br from-[#00f2ff] to-[#0055ff] bg-clip-text text-transparent drop-shadow-sm font-['Paris2024'] tracking-widest">
                                 {selectedNode}
                             </h3>
-                            <p className="text-white font-['Paris2024'] text-sm tracking-widest">
+                            <p className="text-skin-text-main font-['Paris2024'] text-sm tracking-widest">
                                 {(() => {
                                     const node = MAJOR_NODES.find(n => n.text === selectedNode);
                                     return node?.description || "Ce domaine occupe une place importante dans mon parcours. Il me permet de développer des compétences variées.";
@@ -508,7 +509,7 @@ export default function NeuralNetworkBackground({ className = "" }: { className?
                                                     <h4 className="font-['Paris2024'] text-3xl mb-8 bg-gradient-to-br from-[#00f2ff] to-[#0055ff] bg-clip-text text-transparent drop-shadow-sm tracking-widest">
                                                         Mes meilleurs projets
                                                     </h4>
-                                                    <p className="text-white font-['Roboto_Mono'] text-sm tracking-widest mb-12">
+                                                    <p className="text-skin-text-main font-['Roboto_Mono'] text-sm tracking-widest mb-12">
                                                         Vous trouverez ici une sélection de mes projets les plus aboutis, ceux qui reflètent le mieux mon niveau actuel, ma rigueur et mon investissement.
                                                         Ils mettent en avant ma capacité à mener un projet de bout en bout, de la conception à la réalisation.
                                                     </p>
@@ -570,7 +571,7 @@ export default function NeuralNetworkBackground({ className = "" }: { className?
                                                     <h4 className="font-['Paris2024'] text-3xl mb-8 bg-gradient-to-br from-[#00f2ff] to-[#0055ff] bg-clip-text text-transparent drop-shadow-sm tracking-widest">
                                                         Mes récents projets
                                                     </h4>
-                                                    <p className="text-white font-['Roboto_Mono'] text-sm tracking-widest mb-12">
+                                                    <p className="text-skin-text-main font-['Roboto_Mono'] text-sm tracking-widest mb-12">
                                                         Vous trouverez ici une sélection de mes projets les plus aboutis, ceux qui reflètent le mieux mon niveau actuel, ma rigueur et mon investissement.
                                                         Ils mettent en avant ma capacité à mener un projet de bout en bout, de la conception à la réalisation.
                                                     </p>
@@ -621,7 +622,7 @@ export default function NeuralNetworkBackground({ className = "" }: { className?
                                                             </div>
                                                         ))}
                                                     </div>
-                                                    <p className="text-white font-['Baskerville'] text-sm tracking-widest mt-16 mb-8 leading-loose">
+                                                    <p className="text-skin-text-main font-['Baskerville'] text-sm tracking-widest mt-16 mb-8 leading-loose">
                                                         Pour plus d’informations, veuillez cliquer sur les vignettes afin d’accéder aux pages détaillées des projets, consulter les liens associés et explorer le reste du site.
                                                         Pour toute information complémentaire ou prise de contact, la section Contact est à votre disposition.
                                                     </p>
