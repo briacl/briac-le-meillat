@@ -11,7 +11,7 @@ TARGET_FILES = [
     "ps-libreacces-savoirfaire.txt"
 ]
 # Determine the absolute path for storage/app/data
-# Assuming this script is in synapseo/scripts/ and we want synapseo/storage/app/data/
+# Assuming this script is in briac-le-meillat/scripts/ and we want briac-le-meillat/storage/app/data/
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_ROOT = os.path.dirname(SCRIPT_DIR)
 OUTPUT_DIR = os.path.join(PROJECT_ROOT, "storage", "app", "data")

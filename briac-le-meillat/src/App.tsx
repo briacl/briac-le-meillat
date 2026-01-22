@@ -11,6 +11,8 @@ import Patient from './Pages/Patient';
 import Pharmacist from './Pages/Pharmacist';
 import Devop from './Pages/Devop';
 import LoginCustom from './Pages/LoginCustom';
+import Research from './Pages/Research';
+import OptimisationNeurones from './Pages/Researches/OptimisationNeurones';
 
 import { ThemeProvider } from './Contexts/ThemeProvider';
 import { ProjectProvider } from './Contexts/ProjectContext';
@@ -27,6 +29,9 @@ function App() {
                             <Route path="/dashboard" element={<Dashboard />} />
                             <Route path="/custom-login" element={<Login />} />
                             <Route path="/connexion" element={<LoginCustom />} />
+
+                            <Route path="/recherches" element={<Research />} />
+                            <Route path="/recherches/optimisation-neurones" element={<OptimisationNeurones />} />
 
                             <Route path="/doctor" element={<Doctor />} />
                             <Route path="/nurse" element={<Nurse />} />

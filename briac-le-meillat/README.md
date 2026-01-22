@@ -1,4 +1,4 @@
-# Synapseo
+# briac-le-meillat
 
 A modern React Single Page Application (SPA) for healthcare coordination.
 Migrated from Laravel + Inertia.js to standalone React + Vite.

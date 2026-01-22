@@ -7,7 +7,7 @@ export default function LoginCustom() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        document.title = "Connexion - Synapseo";
+        document.title = "Connexion - briac-le-meillat";
     }, []);
 
     const [step, setStep] = useState(1);
@@ -46,7 +46,7 @@ export default function LoginCustom() {
                         <i className="fa-solid fa-brain"></i>
                     </div>
                     <div className="font-['Plus_Jakarta_Sans'] font-bold text-2xl text-gray-900 uppercase tracking-wide">
-                        Synapseo <span className="text-sm font-normal text-[#0055ff] ml-1">Connect</span>
+                        briac-le-meillat <span className="text-sm font-normal text-[#0055ff] ml-1">Connect</span>
                     </div>
                 </div>
 

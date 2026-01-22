@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 export default function Login({ status, canResetPassword }: { status?: string, canResetPassword?: boolean }) {
     useEffect(() => {
-        document.title = "Log in - Synapseo";
+        document.title = "Log in - briac-le-meillat";
     }, []);
 
     return (

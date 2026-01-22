@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 export default function Register() {
     useEffect(() => {
-        document.title = "Register - Synapseo";
+        document.title = "Register - briac-le-meillat";
     }, []);
 
     return (

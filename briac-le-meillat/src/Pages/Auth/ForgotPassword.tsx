@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 export default function ForgotPassword({ status }: { status?: string }) {
     useEffect(() => {
-        document.title = "Forgot Password - Synapseo";
+        document.title = "Forgot Password - briac-le-meillat";
     }, []);
 
     return (

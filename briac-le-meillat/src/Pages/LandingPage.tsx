@@ -76,7 +76,7 @@ const Typewriter = ({ text, delay = 0 }: { text: string | string[], delay?: numb
 
 export default function LandingPage() {
     useEffect(() => {
-        document.title = "Synapseo - App Sécurisée";
+        document.title = "briac-le-meillat - App Sécurisée";
     }, []);
 
     const { scrollY } = useScroll();

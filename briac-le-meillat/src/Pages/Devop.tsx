@@ -26,7 +26,7 @@ export default function Devop() {
     ];
 
     useEffect(() => {
-        document.title = "Administration Projets - Synapseo";
+        document.title = "Administration Projets - briac-le-meillat";
     }, []);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {

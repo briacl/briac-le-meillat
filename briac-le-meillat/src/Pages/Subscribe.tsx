@@ -4,7 +4,7 @@ import NeuralNetworkBackground from '@/Components/NeuralNetworkBackground';
 
 const Subscribe = () => {
     useEffect(() => {
-        document.title = "Inscription Professionnel - Synapseo";
+        document.title = "Inscription Professionnel - briac-le-meillat";
     }, []);
 
     const [step, setStep] = useState(1);

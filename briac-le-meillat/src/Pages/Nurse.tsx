@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 
 export default function Nurse() {
     useEffect(() => {
-        document.title = "Espace Infirmier - Synapseo";
+        document.title = "Espace Infirmier - briac-le-meillat";
     }, []);
 
     return (

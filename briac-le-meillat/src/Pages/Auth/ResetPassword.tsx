@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 export default function ResetPassword() {
     useEffect(() => {
-        document.title = "Reset Password - Synapseo";
+        document.title = "Reset Password - briac-le-meillat";
     }, []);
 
     return (

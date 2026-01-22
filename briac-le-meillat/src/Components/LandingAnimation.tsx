@@ -212,7 +212,7 @@ export default function LandingAnimation() {
             {/* OVERLAY UI FOR LOGO REVEAL */}
             <div className={`absolute inset-0 flex flex-col items-center justify-center pointer-events-none transition-opacity duration-2000 ${phase === 'LOGO' ? 'opacity-100' : 'opacity-0'}`}>
                 <h1 className="font-['Monad'] text-[5rem] font-[200] tracking-[12px] m-0 uppercase bg-gradient-to-br from-[#00f2ff] to-[#ffffff] bg-clip-text text-transparent select-none drop-shadow-[0_0_20px_rgba(0,242,255,0.6)]">
-                    Synapseo
+                    briac-le-meillat
                 </h1>
                 <p className="font-['Paris2024'] text-[1.2rem] tracking-[4px] text-white/90 mt-4 leading-normal text-center drop-shadow-md">
                     LA CONNEXION FLUIDE ENTRE <br />MÉDECINS, PHARMACIENS, INFIRMIERS, PATIENTS ET ÉTUDIANTS

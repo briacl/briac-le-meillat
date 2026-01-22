@@ -1,16 +1,315 @@
 [
     {
-        "title": "machine-learning",
-        "description": "découverte du machine learning",
-        "imageUrl": "/briac-le-meillat/assets-inspi/What-are-neural-networks-Banner.webp",
+        "title": "sae15-traitement-de-donnees",
+        "description": "projet de SAE15 réalisé dans le cadre de la formation BUT Réseaux & Télécommunications, dont l'objectif est de savoir traiter des données.",
+        "imageUrl": "/briac-le-meillat/assets-inspi/387.png",
         "languages": [
             "Python"
         ],
-        "link": "https://github.com/briacl/machine-learning.git",
+        "link": "https://github.com/briacl/sae15-traitement-de-donnees",
+        "domain": "PROGRAMMATION",
+        "isBest": false,
+        "isRecent": true,
+        "id": "sae15-traitement-de-donnees",
+        "createdAt": 1737490000000
+    },
+    {
+        "title": "machine-learning",
+        "description": "projet personnel de découverte du Machine Learning, Deep Learning & Data Science via le langage Python et les bibliothèques associées",
+        "imageUrl": "/briac-le-meillat/assets-inspi/What-are-neural-networks-Banner.webp",
+        "languages": [
+            "Machine Learning"
+        ],
+        "link": "https://github.com/briacl/machine-learning",
         "domain": "INTELLIGENCE ARTIFICIELLE",
         "isBest": true,
         "isRecent": true,
-        "id": "8e22569d-ddb6-4402-be52-7c1623b5fdb1",
-        "createdAt": 1769011426345
+        "id": "machine-learning",
+        "createdAt": 1737490000001
+    },
+    {
+        "title": "visualisation de réseau",
+        "description": "initialisation d'un petit projet pédagogique de simulation et de visualisation de l'encapsulation réseau (Ethernet, IP, ICMP)",
+        "imageUrl": "/briac-le-meillat/assets-inspi/387.png",
+        "languages": [
+            "Python"
+        ],
+        "link": "https://github.com/briacl/reseau",
+        "domain": "RÉSEAU",
+        "isBest": false,
+        "isRecent": true,
+        "id": "visualisation-de-reseau",
+        "createdAt": 1737490000002
+    },
+    {
+        "title": "own-cli-template",
+        "description": "projet qui permet d'importer le template de visuel moderne cli que j'ai codé dans willkommen_v2 dans n'importe quel projet",
+        "imageUrl": "/briac-le-meillat/assets-inspi/387.png",
+        "languages": [
+            "Python"
+        ],
+        "link": "https://github.com/briacl/own-cli-template",
+        "domain": "PROGRAMMATION",
+        "isBest": false,
+        "isRecent": true,
+        "id": "own-cli-template",
+        "createdAt": 1737490000003
+    },
+    {
+        "title": "readme-generator",
+        "description": "petit projet qui me permet, via une unique commande, de créer un fichier readme pour n'importe lequel de mes projets",
+        "imageUrl": "/briac-le-meillat/assets-inspi/387.png",
+        "languages": [
+            "Python"
+        ],
+        "link": "https://github.com/briacl/readme-generator",
+        "domain": "PROGRAMMATION",
+        "isBest": false,
+        "isRecent": true,
+        "id": "readme-generator",
+        "createdAt": 1737490000004
+    },
+    {
+        "title": "sae103 - découverte d'un dispositif de transmission",
+        "description": "Etude d'un câble coaxial et de ses caractéristiques, via LTSpice et MathLab",
+        "imageUrl": "/briac-le-meillat/assets-inspi/image-illustration-ltspice.png",
+        "languages": [
+            "LTSpice",
+            "MATLAB"
+        ],
+        "link": "#",
+        "domain": "TÉLÉCOMMUNICATION",
+        "isBest": false,
+        "isRecent": true,
+        "id": "sae103",
+        "createdAt": 1737490000005
+    },
+    {
+        "title": "scraper-cinema",
+        "description": "Projet de scraping pour rechercher un film sur allociné et afficher les horaires du cinéma de harnes",
+        "imageUrl": "/briac-le-meillat/assets-inspi/387.png",
+        "languages": [
+            "Python"
+        ],
+        "link": "https://github.com/briacl/scraper-cinema",
+        "domain": "PROGRAMMATION",
+        "isBest": false,
+        "isRecent": true,
+        "id": "scraper-cinema",
+        "createdAt": 1737490000006
+    },
+    {
+        "title": "Mise en place d'un DHCP et DNS pour le LAN Homelab",
+        "description": "amélioration de mon LAN Homelab par la mise en place d'un DHCP et DNS",
+        "imageUrl": "/briac-le-meillat/assets-inspi/computer-network-management-isometric-illustration_7209-328.webp",
+        "languages": [
+            "LAN",
+            "DHCP",
+            "DNS"
+        ],
+        "link": "#",
+        "domain": "ADMINISTRATION RÉSEAU",
+        "isBest": false,
+        "isRecent": false,
+        "id": "dhcp-dns-homelab",
+        "createdAt": 1737490000007
+    },
+    {
+        "title": "Réalisation LAN Homelab",
+        "description": "Réalisation de mon 1er réseau LAN Homelab",
+        "imageUrl": "/briac-le-meillat/assets-inspi/computer-network-management-isometric-illustration_7209-328.webp",
+        "languages": [
+            "Linux",
+            "LAN",
+            "VLAN",
+            "IPv4",
+            "SSH"
+        ],
+        "link": "#",
+        "domain": "ADMINISTRATION RÉSEAU",
+        "isBest": false,
+        "isRecent": false,
+        "id": "lan-homelab",
+        "createdAt": 1737490000008
+    },
+    {
+        "title": "Cartographie basique LAN & VLAN",
+        "description": "apprentissage de cartographie basique LAN & VLAN via le logiciel Cisco Packet Tracer",
+        "imageUrl": "/briac-le-meillat/assets-inspi/computer-network-management-isometric-illustration_7209-328.webp",
+        "languages": [
+            "Linux",
+            "LAN",
+            "VLAN",
+            "IPv4"
+        ],
+        "link": "#",
+        "domain": "ADMINISTRATION RÉSEAU",
+        "isBest": false,
+        "isRecent": false,
+        "id": "cartographie-lan-vlan",
+        "createdAt": 1737490000009
+    },
+    {
+        "title": "Analyse de trame via Wireshark",
+        "description": "apprentissage d'analyse de trame Ethernet, IP et ICMP via le logiciel Wireshark",
+        "imageUrl": "/briac-le-meillat/assets-inspi/Wireshark-Marquer-des-paquets-dans-une-capture.jpg.webp",
+        "languages": [
+            "Réseau",
+            "Linux"
+        ],
+        "link": "#",
+        "domain": "ADMINISTRATION RÉSEAU",
+        "isBest": false,
+        "isRecent": false,
+        "id": "analyse-wireshark",
+        "createdAt": 1737490000010
+    },
+    {
+        "title": "willkommen_v2",
+        "description": "amélioration du programme willkommen, visuel plus moderne",
+        "imageUrl": "/briac-le-meillat/assets-inspi/387.png",
+        "languages": [
+            "Python"
+        ],
+        "link": "#",
+        "domain": "PROGRAMMATION",
+        "isBest": false,
+        "isRecent": false,
+        "id": "willkommen-v2",
+        "createdAt": 1737490000011
+    },
+    {
+        "title": "Installation Linux",
+        "description": "apprentissage d'installation de linux",
+        "imageUrl": "/briac-le-meillat/assets-inspi/OOmxgdF1SROoG_Rf9PcqAQ_副本.webp",
+        "languages": [
+            "Linux"
+        ],
+        "link": "#",
+        "domain": "ADMINISTRATION",
+        "isBest": false,
+        "isRecent": false,
+        "id": "install-linux",
+        "createdAt": 1737490000012
+    },
+    {
+        "title": "Installation Windows",
+        "description": "apprentissage d'installation de windows",
+        "imageUrl": "/briac-le-meillat/assets-inspi/OOmxgdF1SROoG_Rf9PcqAQ_副本.webp",
+        "languages": [
+            "Windows"
+        ],
+        "link": "#",
+        "domain": "ADMINISTRATION",
+        "isBest": false,
+        "isRecent": false,
+        "id": "install-windows",
+        "createdAt": 1737490000013
+    },
+    {
+        "title": "Site Mesvoyages",
+        "description": "Site codé en PHP/Symfony, apprentissage MVC et BDD.",
+        "imageUrl": "/briac-le-meillat/assets-inspi/mesvoyages.png",
+        "languages": [
+            "Symfony",
+            "Frontend",
+            "Backend"
+        ],
+        "link": "#",
+        "domain": "DÉVELOPPEMENT WEB",
+        "isBest": true,
+        "isRecent": false,
+        "id": "mesvoyages",
+        "createdAt": 1737490000014
+    },
+    {
+        "title": "willkommen_v1",
+        "description": "petit programme permettant de créer d'autres programmes",
+        "imageUrl": "/briac-le-meillat/assets-inspi/387.png",
+        "languages": [
+            "Python"
+        ],
+        "link": "https://github.com/briacl/willkommen_v1",
+        "domain": "PROGRAMMATION",
+        "isBest": false,
+        "isRecent": false,
+        "id": "willkommen-v1",
+        "createdAt": 1737490000015
+    },
+    {
+        "title": "two-years-leaning-python",
+        "description": "dossier de tous les projets python que j'ai codé durant les deux ans d'apprentissage autodidacte de python",
+        "imageUrl": "/briac-le-meillat/assets-inspi/387.png",
+        "languages": [
+            "Python"
+        ],
+        "link": "https://github.com/briacl/two-years-learning-python",
+        "domain": "PROGRAMMATION",
+        "isBest": false,
+        "isRecent": false,
+        "id": "two-years-learning-python",
+        "createdAt": 1737490000016
+    },
+    {
+        "title": "Site personnel de Briac",
+        "description": "1er site codé en tailwindcss pour MMI Lens",
+        "imageUrl": "/briac-le-meillat/assets-inspi/briac_website.png",
+        "languages": [
+            "Frontend",
+            "TailwindCSS"
+        ],
+        "link": "https://github.com/briacl/vue-briac",
+        "domain": "DÉVELOPPEMENT WEB",
+        "isBest": false,
+        "isRecent": false,
+        "id": "site-perso-briac",
+        "createdAt": 1737490000017
+    },
+    {
+        "title": "Le Faux Instagram",
+        "description": "Réseau social type Instagram en PHP/MySQL",
+        "imageUrl": "/briac-le-meillat/assets-inspi/lefauxinstagram.png",
+        "languages": [
+            "MySQL",
+            "Frontend",
+            "Backend"
+        ],
+        "link": "#",
+        "domain": "DÉVELOPPEMENT WEB",
+        "isBest": false,
+        "isRecent": false,
+        "id": "le-faux-instagram",
+        "createdAt": 1737490000018
+    },
+    {
+        "title": "QEL : Questionnaire en ligne",
+        "description": "Questionnaire en ligne PHP/MySQL",
+        "imageUrl": "/briac-le-meillat/assets-inspi/qel_questionnaire_en_ligne.png",
+        "languages": [
+            "MySQL",
+            "Frontend",
+            "Backend"
+        ],
+        "link": "#",
+        "domain": "DÉVELOPPEMENT",
+        "isBest": false,
+        "isRecent": false,
+        "id": "qel",
+        "createdAt": 1737490000019
+    },
+    {
+        "title": "Weackers",
+        "description": "1er site web codé en PHP/HTML/CSS",
+        "imageUrl": "/briac-le-meillat/assets-inspi/weackers.png",
+        "languages": [
+            "HTML/CSS",
+            "PHP"
+        ],
+        "link": "#",
+        "domain": "DÉVELOPPEMENT WEB",
+        "isBest": false,
+        "isRecent": false,
+        "id": "weackers",
+        "createdAt": 1737490000020
     }
 ]

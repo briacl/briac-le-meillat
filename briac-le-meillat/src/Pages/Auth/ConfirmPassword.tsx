@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 
 export default function ConfirmPassword() {
     useEffect(() => {
-        document.title = "Confirm Password - Synapseo";
+        document.title = "Confirm Password - briac-le-meillat";
     }, []);
 
     return (

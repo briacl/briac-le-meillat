@@ -15,6 +15,7 @@ export default function Navbar() {
             <div className="flex gap-8 font-['Paris2024'] text-skin-text-main uppercase tracking-wider text-sm font-sm">
                 <Link to="/" className="text-skin-text-main hover:text-skin-text-main transition-all duration-300 hover:drop-shadow-[0_0_12px_rgba(0,85,255,0.8)] hover:scale-105">accueil</Link>
                 <Link to="/vision" className="text-skin-text-main hover:text-skin-text-main transition-all duration-300 hover:drop-shadow-[0_0_12px_rgba(0,85,255,0.8)] hover:scale-105">vision</Link>
+                <Link to="/recherches" className="text-skin-text-main hover:text-skin-text-main transition-all duration-300 hover:drop-shadow-[0_0_12px_rgba(0,85,255,0.8)] hover:scale-105">recherches</Link>
                 <Link to="/cv" className="text-skin-text-main hover:text-skin-text-main transition-all duration-300 hover:drop-shadow-[0_0_12px_rgba(0,85,255,0.8)] hover:scale-105">cv</Link>
                 <Link to="/contact" className="text-skin-text-main hover:text-skin-text-main transition-all duration-300 hover:drop-shadow-[0_0_12px_rgba(0,85,255,0.8)] hover:scale-105">contact</Link>
             </div>

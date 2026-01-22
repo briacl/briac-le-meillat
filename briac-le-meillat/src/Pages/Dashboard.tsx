@@ -18,7 +18,7 @@ export default function Dashboard() {
     });
 
     useEffect(() => {
-        document.title = "Dashboard - Synapseo";
+        document.title = "Dashboard - briac-le-meillat";
     }, []);
 
     const handleSubmit = (e: React.FormEvent) => {

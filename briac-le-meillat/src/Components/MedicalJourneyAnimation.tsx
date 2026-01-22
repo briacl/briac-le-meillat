@@ -16,7 +16,7 @@ function HumanBodyScene({ isActive }: { isActive: boolean }) {
             const i3 = i * 3;
             const angle = Math.random() * Math.PI * 2;
             const height = (Math.random() - 0.5) * 6;
-            
+
             let radius;
             if (height > 2) {
                 // Tête
@@ -38,9 +38,9 @@ function HumanBodyScene({ isActive }: { isActive: boolean }) {
 
     useFrame((state) => {
         if (!isActive || !groupRef.current || !particlesRef.current) return;
-        
+
         groupRef.current.rotation.y = Math.sin(state.clock.elapsedTime * 0.3) * 0.2;
-        
+
         const positions = particlesRef.current.geometry.attributes.position.array as Float32Array;
         for (let i = 0; i < positions.length; i += 3) {
             positions[i] += Math.sin(state.clock.elapsedTime + i) * 0.001;
@@ -130,7 +130,7 @@ function HeartScene({ isActive }: { isActive: boolean }) {
 
     useFrame((state) => {
         if (!isActive || !heartRef.current || !groupRef.current) return;
-        
+
         const pulse = 1 + Math.sin(state.clock.elapsedTime * 2) * 0.15;
         heartRef.current.scale.setScalar(pulse);
         groupRef.current.rotation.y = state.clock.elapsedTime * 0.3;
@@ -148,7 +148,7 @@ function HeartScene({ isActive }: { isActive: boolean }) {
                     roughness={0.3}
                 />
             </mesh>
-            
+
             {/* Particules autour du cœur */}
             {Array.from({ length: 100 }).map((_, i) => {
                 const angle = (i / 100) * Math.PI * 2;
@@ -174,7 +174,7 @@ function HeartScene({ isActive }: { isActive: boolean }) {
 // Scène 4: Cerveau (structure complexe)
 function BrainScene({ isActive }: { isActive: boolean }) {
     const groupRef = useRef<THREE.Group>(null);
-    
+
     const brainStructure = useMemo(() => {
         const positions = new Float32Array(5000 * 3);
         for (let i = 0; i < 5000; i++) {
@@ -182,7 +182,7 @@ function BrainScene({ isActive }: { isActive: boolean }) {
             const theta = Math.random() * Math.PI * 2;
             const phi = Math.acos(Math.random() * 2 - 1);
             const r = 0.8 + Math.random() * 0.4;
-            
+
             positions[i3] = r * Math.sin(phi) * Math.cos(theta);
             positions[i3 + 1] = r * Math.cos(phi) * 1.2;
             positions[i3 + 2] = r * Math.sin(phi) * Math.sin(theta);
@@ -213,7 +213,7 @@ function BrainScene({ isActive }: { isActive: boolean }) {
                     opacity={0.9}
                 />
             </points>
-            
+
             {/* Lobes du cerveau */}
             <mesh position={[0.5, 0, 0]}>
                 <sphereGeometry args={[0.7, 32, 32]} />
@@ -365,7 +365,7 @@ function DNAScene({ isActive }: { isActive: boolean }) {
 
     useFrame((state) => {
         if (!isActive || !dnaRef.current || !groupRef.current || !particlesRef.current) return;
-        
+
         dnaRef.current.rotation.y = state.clock.elapsedTime * 0.5;
         groupRef.current.rotation.y = state.clock.elapsedTime * 0.1;
 
@@ -461,7 +461,7 @@ function DNAScene({ isActive }: { isActive: boolean }) {
 // Contrôleur de caméra pour l'animation
 function CameraController({ currentScene }: { currentScene: number }) {
     const { camera } = useThree();
-    
+
     useFrame(() => {
         const targetPositions = [
             { x: 0, y: 0, z: 5 },      // Corps
@@ -473,7 +473,7 @@ function CameraController({ currentScene }: { currentScene: number }) {
         ];
 
         const target = targetPositions[currentScene] || targetPositions[0];
-        
+
         camera.position.lerp(new THREE.Vector3(target.x, target.y, target.z), 0.05);
         camera.lookAt(0, 0, 0);
     });
@@ -488,7 +488,7 @@ export default function MedicalJourneyAnimation() {
 
     useEffect(() => {
         const sceneTimings = [3000, 4000, 4000, 4000, 4000, 5000]; // Durée de chaque scène en ms
-        
+
         const interval = setInterval(() => {
             setCurrentScene((prev) => {
                 if (prev < sceneTimings.length - 1) {
@@ -509,7 +509,7 @@ export default function MedicalJourneyAnimation() {
             <Canvas>
                 <PerspectiveCamera makeDefault position={[0, 0, 5]} fov={75} />
                 <CameraController currentScene={currentScene} />
-                
+
                 {/* Lumières */}
                 <ambientLight intensity={0.3} />
                 <pointLight position={[10, 10, 10]} intensity={1} />
@@ -531,7 +531,7 @@ export default function MedicalJourneyAnimation() {
             {showLogo && (
                 <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none animate-fade-in">
                     <h1 className="font-['Monad'] text-[6rem] font-[200] tracking-[16px] uppercase bg-gradient-to-br from-white via-[#00f2ff] to-[#0066cc] bg-clip-text text-transparent animate-pulse-slow">
-                        Synapseo
+                        briac-le-meillat
                     </h1>
                     <p className="font-['Paris2024'] text-[1.5rem] tracking-[6px] text-white/90 mt-4">
                         L'INNOVATION AU SERVICE DE LA SANTÉ
@@ -544,9 +544,8 @@ export default function MedicalJourneyAnimation() {
                 {[0, 1, 2, 3, 4, 5].map((idx) => (
                     <div
                         key={idx}
-                        className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                            idx === currentScene ? 'bg-[#00f2ff] w-8' : 'bg-white/30'
-                        }`}
+                        className={`w-2 h-2 rounded-full transition-all duration-300 ${idx === currentScene ? 'bg-[#00f2ff] w-8' : 'bg-white/30'
+                            }`}
                     />
                 ))}
             </div>
