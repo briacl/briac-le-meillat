@@ -26,7 +26,7 @@ function App() {
             <AuthProvider>
                 <ProjectProvider>
                     <HeroUIProvider>
-                        <BrowserRouter>
+                        <BrowserRouter basename={import.meta.env.BASE_URL}>
                             <Routes>
                                 <Route path="/" element={<LandingPage />} />
                                 <Route path="/subscribe" element={<Subscribe />} />
