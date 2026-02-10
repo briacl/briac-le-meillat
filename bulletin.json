@@ -1,0 +1,674 @@
+{
+    "ues": [
+        {
+            "id": "UE11",
+            "full_id": "UE11",
+            "title": "Administrer les réseaux et l’Internet",
+            "average": "14.24",
+            "bonus": "0.22",
+            "rank": "14 / 57",
+            "modules": [
+                {
+                    "code": "R1.01",
+                    "name": "Initiation aux réseaux informatiques",
+                    "coeff": "10.0",
+                    "grade": "~"
+                },
+                {
+                    "code": "R1.02",
+                    "name": "Principes et architecture des réseaux",
+                    "coeff": "10.0",
+                    "grade": "14.00"
+                },
+                {
+                    "code": "R1.03",
+                    "name": "Réseaux locaux et équipements actifs",
+                    "coeff": "8.0",
+                    "grade": "~"
+                },
+                {
+                    "code": "R1.04",
+                    "name": "Fondamentaux de l'électronique analogique",
+                    "coeff": "6.0",
+                    "grade": "11.88"
+                },
+                {
+                    "code": "R1.06",
+                    "name": "Architecture des systèmes numériques et informatiques",
+                    "coeff": "5.0",
+                    "grade": "11.00"
+                },
+                {
+                    "code": "R1.08",
+                    "name": "Bases des systèmes d'exploitation",
+                    "coeff": "6.0",
+                    "grade": "18.00"
+                },
+                {
+                    "code": "R1.10",
+                    "name": "Anglais général de communication et initiation au vocabulaire technique",
+                    "coeff": "5.0",
+                    "grade": "18.50"
+                },
+                {
+                    "code": "R1.11",
+                    "name": "ECC1",
+                    "coeff": "5.0",
+                    "grade": "09.75"
+                },
+                {
+                    "code": "R1.12",
+                    "name": "PPP S1",
+                    "coeff": "2.0",
+                    "grade": "17.50"
+                },
+                {
+                    "code": "R1.13",
+                    "name": "Mathématiques du signal",
+                    "coeff": "5.0",
+                    "grade": "13.42"
+                },
+                {
+                    "code": "R1.14",
+                    "name": "Mathématiques des transmissions",
+                    "coeff": "5.0",
+                    "grade": "19.00"
+                },
+                {
+                    "code": "R1.15",
+                    "name": "Gestion de projet",
+                    "coeff": "2.0",
+                    "grade": "07.50"
+                },
+                {
+                    "code": "SAÉ11",
+                    "name": "Sensibilisation à l'hygiène informatique et à la cybersécurité",
+                    "coeff": "17.0",
+                    "grade": "13.25"
+                },
+                {
+                    "code": "SAÉ12",
+                    "name": "S'initier aux réseaux informatiques",
+                    "coeff": "32.0",
+                    "grade": "~"
+                }
+            ]
+        },
+        {
+            "id": "UE12",
+            "full_id": "UE12",
+            "title": "Connecter les entreprises et les usagers",
+            "average": "15.16",
+            "bonus": "0.24",
+            "rank": "10 / 57",
+            "modules": [
+                {
+                    "code": "R1.01",
+                    "name": "Initiation aux réseaux informatiques",
+                    "coeff": "4.0",
+                    "grade": "~"
+                },
+                {
+                    "code": "R1.03",
+                    "name": "Réseaux locaux et équipements actifs",
+                    "coeff": "2.0",
+                    "grade": "~"
+                },
+                {
+                    "code": "R1.04",
+                    "name": "Fondamentaux de l'électronique analogique",
+                    "coeff": "8.0",
+                    "grade": "11.88"
+                },
+                {
+                    "code": "R1.05",
+                    "name": "Supports de transmission pour les réseaux locaux",
+                    "coeff": "8.0",
+                    "grade": "13.25"
+                },
+                {
+                    "code": "R1.06",
+                    "name": "Architecture des systèmes numériques et informatiques",
+                    "coeff": "3.0",
+                    "grade": "11.00"
+                },
+                {
+                    "code": "R1.10",
+                    "name": "Anglais général de communication et initiation au vocabulaire technique",
+                    "coeff": "5.0",
+                    "grade": "18.50"
+                },
+                {
+                    "code": "R1.11",
+                    "name": "ECC1",
+                    "coeff": "5.0",
+                    "grade": "09.75"
+                },
+                {
+                    "code": "R1.12",
+                    "name": "PPP S1",
+                    "coeff": "2.0",
+                    "grade": "17.50"
+                },
+                {
+                    "code": "R1.13",
+                    "name": "Mathématiques du signal",
+                    "coeff": "9.0",
+                    "grade": "13.42"
+                },
+                {
+                    "code": "R1.14",
+                    "name": "Mathématiques des transmissions",
+                    "coeff": "9.0",
+                    "grade": "19.00"
+                },
+                {
+                    "code": "R1.15",
+                    "name": "Gestion de projet o",
+                    "coeff": "2.0",
+                    "grade": "07.50"
+                },
+                {
+                    "code": "SAÉ13",
+                    "name": "Découvrir un dispositif de transmission",
+                    "coeff": "33.0",
+                    "grade": "16.25"
+                }
+            ]
+        },
+        {
+            "id": "UE13",
+            "full_id": "UE13",
+            "title": "Créer des outils et applications informatiques pour les RT",
+            "average": "16.28",
+            "bonus": "0.26",
+            "rank": "7 / 57",
+            "modules": [
+                {
+                    "code": "R1.01",
+                    "name": "Initiation aux réseaux informatiques",
+                    "coeff": "4.0",
+                    "grade": "~"
+                },
+                {
+                    "code": "R1.03",
+                    "name": "Réseaux locaux et équipements actifs",
+                    "coeff": "2.0",
+                    "grade": "~"
+                },
+                {
+                    "code": "R1.06",
+                    "name": "Architecture des systèmes numériques et informatiques",
+                    "coeff": "5.0",
+                    "grade": "11.00"
+                },
+                {
+                    "code": "R1.07",
+                    "name": "FondaPmentaux de la programmation",
+                    "coeff": "19.0",
+                    "grade": "18.00"
+                },
+                {
+                    "code": "R1.08",
+                    "name": "Bases des systèmes d'exploitation",
+                    "coeff": "8.0",
+                    "grade": "18.00"
+                },
+                {
+                    "code": "R1.09",
+                    "name": "Introduction aux technologies Web",
+                    "coeff": "4.0",
+                    "grade": "12.00"
+                },
+                {
+                    "code": "R1.10",
+                    "name": "Anglais général de communication et initiation au vocabulaire technique",
+                    "coeff": "5.0",
+                    "grade": "18.50"
+                },
+                {
+                    "code": "R1.11",
+                    "name": "ECC1",
+                    "coeff": "5.0",
+                    "grade": "09.75"
+                },
+                {
+                    "code": "R1.12",
+                    "name": "PPP S1",
+                    "coeff": "2.0",
+                    "grade": "17.50"
+                },
+                {
+                    "code": "R1.15",
+                    "name": "Gestion de projet",
+                    "coeff": "2.0",
+                    "grade": "07.50"
+                },
+                {
+                    "code": "SAÉ14",
+                    "name": "Se présenter sur Internet",
+                    "coeff": "8.0",
+                    "grade": "18.67"
+                },
+                {
+                    "code": "SAÉ15",
+                    "name": "Traitement de données",
+                    "coeff": "28.0",
+                    "grade": "~"
+                }
+            ]
+        }
+    ],
+    "ressources": [
+        {
+            "code": "R1.01",
+            "title": "Initiation aux réseaux informatiques",
+            "assessments": [
+                {
+                    "name": "Contrôle TP2",
+                    "coeff": "01.00",
+                    "grade": "~"
+                },
+                {
+                    "name": "Devoir surveillé",
+                    "coeff": "02.00",
+                    "grade": "~"
+                },
+                {
+                    "name": "Controle TP1",
+                    "coeff": "01.00",
+                    "grade": "~"
+                }
+            ]
+        },
+        {
+            "code": "R1.02",
+            "title": "Principes et architecture des réseaux",
+            "assessments": [
+                {
+                    "name": "Contrôle TP",
+                    "coeff": "02.00",
+                    "grade": "16.50"
+                },
+                {
+                    "name": "Devoir surveillé (DS)",
+                    "coeff": "02.00",
+                    "grade": "11.00"
+                },
+                {
+                    "name": "Évaluation rapide n°1",
+                    "coeff": "01.00",
+                    "grade": "18.00"
+                },
+                {
+                    "name": "Évaluation rapide n°2",
+                    "coeff": "01.00",
+                    "grade": "11.00"
+                }
+            ]
+        },
+        {
+            "code": "R1.03",
+            "title": "Réseaux locaux et équipements actifs",
+            "assessments": [
+                {
+                    "name": "Contrôle TP",
+                    "coeff": "01.00",
+                    "grade": "~"
+                },
+                {
+                    "name": "Devoir surveillé (DS)",
+                    "coeff": "01.00",
+                    "grade": "~"
+                }
+            ]
+        },
+        {
+            "code": "R1.04",
+            "title": "Fondamentaux de l'électronique analogique",
+            "assessments": [
+                {
+                    "name": "TP1 Circuits en régime continu",
+                    "coeff": "00.25",
+                    "grade": "13.00"
+                },
+                {
+                    "name": "TP2 Régime alternatif",
+                    "coeff": "00.25",
+                    "grade": "17.00"
+                },
+                {
+                    "name": "TP3 Sécurité / Révisions",
+                    "coeff": "00.25",
+                    "grade": "18.50"
+                },
+                {
+                    "name": "TP4 Impédance",
+                    "coeff": "00.25",
+                    "grade": "15.50"
+                },
+                {
+                    "name": "DS final o1.0",
+                    "coeff": "01.00",
+                    "grade": "04.00"
+                },
+                {
+                    "name": "controle TP",
+                    "coeff": "01.00",
+                    "grade": "12.50"
+                },
+                {
+                    "name": "DS1",
+                    "coeff": "01.00",
+                    "grade": "15.00"
+                }
+            ]
+        },
+        {
+            "code": "R1.05",
+            "title": "Supports de transmission pour les réseaux locaux",
+            "assessments": [
+                {
+                    "name": "CR TP1",
+                    "coeff": "01.00",
+                    "grade": "18.00"
+                },
+                {
+                    "name": "CR TP2",
+                    "coeff": "01.00",
+                    "grade": "15.00"
+                },
+                {
+                    "name": "DS",
+                    "coeff": "02.00",
+                    "grade": "10.00"
+                }
+            ]
+        },
+        {
+            "code": "R1.06",
+            "title": "ArchPitecture des systèmes numériques et informatiques",
+            "assessments": [
+                {
+                    "name": "Devoir surveillé",
+                    "coeff": "01.00",
+                    "grade": "14.00"
+                },
+                {
+                    "name": "Contrôle TP",
+                    "coeff": "01.00",
+                    "grade": "08.00"
+                }
+            ]
+        },
+        {
+            "code": "R1.07",
+            "title": "Fondamentaux de la programmation",
+            "assessments": [
+                {
+                    "name": "Contrôle TP n°1",
+                    "coeff": "01.00",
+                    "grade": "19.50"
+                },
+                {
+                    "name": "Devoir surveillé (DS)",
+                    "coeff": "01.00",
+                    "grade": "17.50"
+                },
+                {
+                    "name": "Contrôle TP n°2",
+                    "coeff": "01.00",
+                    "grade": "15.00"
+                },
+                {
+                    "name": "Certification Python Essentials",
+                    "coeff": "01.00",
+                    "grade": "20.00"
+                },
+                {
+                    "name": "Certification Python Essentials",
+                    "coeff": "01.00",
+                    "grade": "EXC"
+                }
+            ]
+        },
+        {
+            "code": "R1.08",
+            "title": "Bases des systèmes d'exploitation",
+            "assessments": [
+                {
+                    "name": "RT R108 Evaluation",
+                    "coeff": "01.00",
+                    "grade": "18.00"
+                }
+            ]
+        },
+        {
+            "code": "R1.09",
+            "title": "Introduction aux technologies Web",
+            "assessments": [
+                {
+                    "name": "Évaluation écrite",
+                    "coeff": "01.00",
+                    "grade": "12.00"
+                }
+            ]
+        },
+        {
+            "code": "R1.10",
+            "title": "Anglais général de communication et initiation au vocabulaire technique",
+            "assessments": [
+                {
+                    "name": "DS Vocabulary",
+                    "coeff": "01.00",
+                    "grade": "20.00"
+                },
+                {
+                    "name": "Expression Orale",
+                    "coeff": "02.00",
+                    "grade": "19.00"
+                },
+                {
+                    "name": "EO Compare Phones",
+                    "coeff": "01.00",
+                    "grade": "15.00"
+                },
+                {
+                    "name": "DS - Grammaire",
+                    "coeff": "01.00",
+                    "grade": "20.00"
+                },
+                {
+                    "name": "Compréhension écrite - DS",
+                    "coeff": "01.00",
+                    "grade": "18.00"
+                }
+            ]
+        },
+        {
+            "code": "R1.11",
+            "title": "ECC1",
+            "assessments": [
+                {
+                    "name": "Synthèse évaluation finale",
+                    "coeff": "01.00",
+                    "grade": "03.75"
+                },
+                {
+                    "name": "Synthèse evaluation finale",
+                    "coeff": "01.00",
+                    "grade": "13.00"
+                },
+                {
+                    "name": "Vidéo/podcast",
+                    "coeff": "01.00",
+                    "grade": "12.50"
+                }
+            ]
+        },
+        {
+            "code": "R1.12",
+            "title": "PPP S1",
+            "assessments": [
+                {
+                    "name": "Dossier prospection entreprise",
+                    "coeff": "01.00",
+                    "grade": "17.50"
+                }
+            ]
+        },
+        {
+            "code": "R1.13",
+            "title": "Mathématiques du signal",
+            "assessments": [
+                {
+                    "name": "TP1 prise en main de ScilaB",
+                    "coeff": "01.00",
+                    "grade": "20.00"
+                },
+                {
+                    "name": "colle",
+                    "coeff": "02.00",
+                    "grade": "12.00"
+                },
+                {
+                    "name": "DS o1.0",
+                    "coeff": "02.00",
+                    "grade": "09.00"
+                },
+                {
+                    "name": "TP 2 scilaB",
+                    "coeff": "01.00",
+                    "grade": "18.50"
+                }
+            ]
+        },
+        {
+            "code": "R1.14",
+            "title": "Mathématiques des transmissions",
+            "assessments": [
+                {
+                    "name": "TP 3 scilaB",
+                    "coeff": "01.00",
+                    "grade": "20.00"
+                },
+                {
+                    "name": "TP 4 scilaB",
+                    "coeff": "01.00",
+                    "grade": "18.00"
+                }
+            ]
+        },
+        {
+            "code": "R1.15",
+            "title": "Gestion de projet",
+            "assessments": [
+                {
+                    "name": "TP groupe A1 r",
+                    "coeff": "01.00",
+                    "grade": "06.00"
+                },
+                {
+                    "name": "TP groupe BP1",
+                    "coeff": "01.00",
+                    "grade": "EXC"
+                },
+                {
+                    "name": "examen",
+                    "coeff": "03.00",
+                    "grade": "08.00"
+                },
+                {
+                    "name": "TP groupe B2",
+                    "coeff": "01.00",
+                    "grade": "EXC"
+                },
+                {
+                    "name": "TP groupe A2",
+                    "coeff": "01.00",
+                    "grade": "EXC"
+                }
+            ]
+        }
+    ],
+    "saes": [
+        {
+            "code": "SAÉ11",
+            "title": "Sensibilisation à l'hygiène informatique et à la cybersécurité",
+            "assessments": [
+                {
+                    "name": "Evaluation SAE",
+                    "coeff": "01.00",
+                    "grade": "13.25"
+                }
+            ]
+        },
+        {
+            "code": "SAÉ12",
+            "title": "S'initier aux réseaux informatiques",
+            "assessments": []
+        },
+        {
+            "code": "SAÉ13",
+            "title": "Découvrir un dispositif de transmission",
+            "assessments": [
+                {
+                    "name": "EXAM TP",
+                    "coeff": "10.00",
+                    "grade": "16.00"
+                },
+                {
+                    "name": "CR S1",
+                    "coeff": "01.50",
+                    "grade": "13.33"
+                },
+                {
+                    "name": "CR S2",
+                    "coeff": "01.50",
+                    "grade": "10.00"
+                },
+                {
+                    "name": "CR S3",
+                    "coeff": "01.50",
+                    "grade": "20.00"
+                },
+                {
+                    "name": "CR S4",
+                    "coeff": "01.50",
+                    "grade": "20.00"
+                },
+                {
+                    "name": "CR S5",
+                    "coeff": "01.50",
+                    "grade": "20.00"
+                },
+                {
+                    "name": "CR S6",
+                    "coeff": "02.50",
+                    "grade": "16.00"
+                }
+            ]
+        },
+        {
+            "code": "SAÉ14",
+            "title": "Se présenter sur Internet",
+            "assessments": [
+                {
+                    "name": "Site Web Personnel",
+                    "coeff": "05.00",
+                    "grade": "20.00"
+                },
+                {
+                    "name": "Évaluation écrite",
+                    "coeff": "01.00",
+                    "grade": "12.00"
+                }
+            ]
+        },
+        {
+            "code": "SAÉ15",
+            "title": "Traitement de données",
+            "assessments": []
+        }
+    ]
+}

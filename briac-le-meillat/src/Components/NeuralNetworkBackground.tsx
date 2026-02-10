@@ -567,14 +567,10 @@ export default function NeuralNetworkBackground({ className = "" }: { className?
 
                                             {/* RECENT PROJECTS */}
                                             {recentProjects.length > 0 && (
-                                                <div className="relative">
+                                                <div className="relative mt-16">
                                                     <h4 className="font-['Paris2024'] text-3xl mb-8 bg-gradient-to-br from-[#00f2ff] to-[#0055ff] bg-clip-text text-transparent drop-shadow-sm tracking-widest">
                                                         Mes récents projets
                                                     </h4>
-                                                    <p className="text-skin-text-main font-['Roboto_Mono'] text-sm tracking-widest mb-12">
-                                                        Vous trouverez ici une sélection de mes projets les plus aboutis, ceux qui reflètent le mieux mon niveau actuel, ma rigueur et mon investissement.
-                                                        Ils mettent en avant ma capacité à mener un projet de bout en bout, de la conception à la réalisation.
-                                                    </p>
                                                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                                                         {recentProjects.map(project => (
                                                             <div key={project.id} className="group relative bg-white/40 rounded-2xl overflow-hidden border border-white/40 hover:shadow-2xl hover:shadow-[#00f2ff]/10 transition-all duration-300 flex flex-col h-full">
@@ -622,12 +618,74 @@ export default function NeuralNetworkBackground({ className = "" }: { className?
                                                             </div>
                                                         ))}
                                                     </div>
-                                                    <p className="text-skin-text-main font-['Baskerville'] text-sm tracking-widest mt-16 mb-8 leading-loose">
-                                                        Pour plus d’informations, veuillez cliquer sur les vignettes afin d’accéder aux pages détaillées des projets, consulter les liens associés et explorer le reste du site.
-                                                        Pour toute information complémentaire ou prise de contact, la section Contact est à votre disposition.
-                                                    </p>
                                                 </div>
                                             )}
+
+                                            {/* OTHER PROJECTS */}
+                                            {(() => {
+                                                const otherProjects = domainProjects.filter(p => !p.isBest && !p.isRecent);
+                                                if (otherProjects.length === 0) return null;
+                                                return (
+                                                    <div className="relative mt-16">
+                                                        <h4 className="font-['Paris2024'] text-3xl mb-8 bg-gradient-to-br from-[#00f2ff] to-[#0055ff] bg-clip-text text-transparent drop-shadow-sm tracking-widest">
+                                                            Autres Réalisations
+                                                        </h4>
+                                                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                                                            {otherProjects.map(project => (
+                                                                <div key={project.id} className="group relative bg-white/40 rounded-2xl overflow-hidden border border-white/40 hover:shadow-2xl hover:shadow-[#00f2ff]/10 transition-all duration-300 flex flex-col h-full">
+                                                                    <div className="h-40 w-full overflow-hidden relative bg-black/40">
+                                                                        {project.imageUrl ? (
+                                                                            <img src={project.imageUrl} alt={project.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                                                                        ) : (
+                                                                            <div className="w-full h-full flex items-center justify-center text-gray-400 bg-gray-50/50">
+                                                                                <span className="text-3xl opacity-20"><i className="fa-solid fa-image"></i></span>
+                                                                            </div>
+                                                                        )}
+
+                                                                        {/* Dark overlay for Title/Tags visibility when NOT hovered */}
+                                                                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 group-hover:opacity-0 transition-opacity duration-300"></div>
+
+                                                                        {/* Title & Tags - Visible by default, fade out on hover */}
+                                                                        <div className="absolute bottom-4 left-4 right-4 transition-opacity duration-300 group-hover:opacity-0">
+                                                                            <div className="flex gap-2 mb-2 flex-wrap">
+                                                                                {project.languages.slice(0, 3).map((l, idx) => (
+                                                                                    <span key={idx} className="text-[9px] uppercase font-bold px-2 py-0.5 rounded-full bg-white/20 text-white backdrop-blur-sm border border-white/10">
+                                                                                        {l}
+                                                                                    </span>
+                                                                                ))}
+                                                                            </div>
+                                                                            <h3 className="text-white font-['Paris2024'] text-lg tracking-wider leading-tight">
+                                                                                {project.title}
+                                                                            </h3>
+                                                                        </div>
+
+                                                                        {/* HOVER OVERLAY: Description & Link */}
+                                                                        <div className="absolute inset-0 bg-black/80 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col justify-center items-center p-4 text-center">
+                                                                            <h3 className="text-white font-['Paris2024'] text-lg mb-2 tracking-wider">
+                                                                                {project.title}
+                                                                            </h3>
+                                                                            <p className="text-xs text-gray-300 line-clamp-3 mb-4 font-['Montserrat_Alternates'] leading-relaxed">
+                                                                                {project.description}
+                                                                            </p>
+
+                                                                            {project.link && (
+                                                                                <a href={project.link} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-[10px] uppercase font-bold text-[#00f2ff] hover:text-[#80fbff] transition-colors group/link border border-[#00f2ff] hover:border-[#80fbff] px-3 py-1.5 rounded-full bg-[#00f2ff]/10 hover:bg-[#00f2ff]/20">
+                                                                                    Voir le projet
+                                                                                    <span className="transform group-hover/link:translate-x-1 transition-transform">→</span>
+                                                                                </a>
+                                                                            )}
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            ))}
+                                                        </div>
+                                                        <p className="text-skin-text-main font-['Baskerville'] text-sm tracking-widest mt-16 mb-8 leading-loose">
+                                                            Pour plus d’informations, veuillez cliquer sur les vignettes afin d’accéder aux pages détaillées des projets, consulter les liens associés et explorer le reste du site.
+                                                            Pour toute information complémentaire ou prise de contact, la section Contact est à votre disposition.
+                                                        </p>
+                                                    </div>
+                                                );
+                                            })()}
                                         </>
                                     );
                                 })()}

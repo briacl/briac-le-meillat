@@ -1,6 +1,7 @@
 
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import projectsData from '../data/projects.json';
 
 export interface Project {
     id: string;
@@ -27,7 +28,9 @@ interface ProjectContextType {
 const ProjectContext = createContext<ProjectContextType | undefined>(undefined);
 
 export function ProjectProvider({ children }: { children: React.ReactNode }) {
-    const [projects, setProjects] = useState<Project[]>([]);
+    // Initialize directly with the data from the JSON file
+    // We cast it to Project[] to ensure type safety if the JSON structure matches
+    const [projects, setProjects] = useState<Project[]>(projectsData as Project[]);
 
     const saveProjects = async (newProjects: Project[]) => {
         try {
@@ -41,14 +44,7 @@ export function ProjectProvider({ children }: { children: React.ReactNode }) {
         }
     };
 
-    useEffect(() => {
-        fetch('/api/projects')
-            .then(res => res.json())
-            .then(data => {
-                if (Array.isArray(data)) setProjects(data);
-            })
-            .catch(console.error);
-    }, []);
+    // Removed useEffect that fetches from /api/projects since we use static data now
 
     const addProject = (projectData: Omit<Project, 'id' | 'createdAt'>) => {
         const newProject: Project = {

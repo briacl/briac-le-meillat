@@ -65,7 +65,7 @@ export default function Login() {
     return (
         <div className="min-h-screen flex items-center justify-center relative font-sans text-gray-900 bg-[#f8f9fa] overflow-hidden">
             <div className="absolute inset-0 z-0">
-                <NeuralNetworkBackground theme="light" />
+                <NeuralNetworkBackground />
             </div>
 
             <div className="w-full max-w-[500px] bg-white/5 border border-white/10 rounded-2xl p-10 shadow-2xl relative z-10 animate-fade-in backdrop-blur-[10px]">

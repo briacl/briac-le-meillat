@@ -21,12 +21,14 @@ export default function ProfileCard() {
                 </div>
             </div>
 
-            <h3 className="font-['Paris2024'] text-2xl font-bold bg-gradient-to-r from-[#00f2ff] to-[#0055ff] bg-clip-text text-transparent mb-2 text-center">
+            <h3 className="font-['Paris2024'] text-2xl font-sm bg-gradient-to-r from-[#00f2ff] to-[#0055ff] bg-clip-text text-transparent mb-2 text-center">
                 BRIAC LE MEILLAT
             </h3>
 
             <p className="font-['Paris2024'] text-sm text-skin-text-secondary text-center uppercase tracking-widest mb-6">
-                Étudiant Ingénieur
+                Étudiant en
+                <br />
+                Développement Web, Réseaux Informatiques, IA et Télécommunications
             </p>
 
             <div className="flex gap-4">

@@ -129,7 +129,7 @@ const Subscribe = () => {
         <div className="min-h-screen relative font-sans text-gray-900 bg-[#f8f9fa] overflow-hidden">
 
             <div className="absolute inset-0 z-0">
-                <NeuralNetworkBackground theme="light" />
+                <NeuralNetworkBackground />
             </div>
 
             <div className="relative z-10 py-12 px-4">

@@ -11,49 +11,60 @@ interface TimelineProps {
 
 export default function Timeline({ steps, activeStep, onStepClick }: TimelineProps) {
     return (
-        <div className="w-full flex items-center justify-between relative px-4 py-8 select-none">
-            {/* Background Line */}
-            <div className="absolute top-1/2 left-0 w-full h-1 bg-skin-card-border rounded-full -z-10 transform -translate-y-1/2"></div>
-
-            {/* Progress Line */}
-            <div
-                className="absolute top-1/2 left-0 h-1 bg-gradient-to-r from-[#00f2ff] to-[#0055ff] rounded-full -z-10 transform -translate-y-1/2 transition-all duration-500 ease-out"
-                style={{ width: `${(activeStep / (steps.length - 1)) * 100}%` }}
-            ></div>
-
+        <ul className="timeline timeline-snap-icon max-md:timeline-compact timeline-horizontal w-full grid grid-cols-4">
             {steps.map((step, index) => {
                 const isActive = index <= activeStep;
-                const isCurrent = index === activeStep;
+                const isPast = index < activeStep;
+                const isEven = index % 2 === 0;
 
                 return (
-                    <div
-                        key={index}
-                        onClick={() => onStepClick(index)}
-                        className={`
-                            relative flex flex-col items-center cursor-pointer group
-                            transition-all duration-300
-                        `}
-                    >
-                        {/* Year Label */}
-                        <span className={`
-                            absolute -top-10 font-['Montserrat_Alternates'] text-sm font-bold transition-all duration-300
-                            ${isActive ? 'text-[#0055ff]' : 'text-skin-text-secondary opacity-50'}
-                            ${isCurrent ? 'transform scale-110' : ''}
-                        `}>
-                            {step.year}
-                        </span>
+                    <li key={index} onClick={() => onStepClick(index)} className="w-full">
+                        {/* Connecting Line (Previous) */}
+                        {index > 0 && (
+                            <hr className={`grow w-full h-1 border-none ${isActive ? "bg-[#0055ff]" : "bg-gray-200"}`} />
+                        )}
 
-                        {/* Dot */}
-                        <div className={`
-                            w-5 h-5 rounded-full border-4 border-white shadow-md transition-all duration-300 z-10
-                            ${isActive ? 'bg-[#0055ff] scale-125' : 'bg-skin-card-border hover:bg-skin-card-border/80'}
-                            ${isCurrent ? 'ring-4 ring-[#00f2ff]/30 shadow-[0_0_15px_rgba(0,242,255,0.6)]' : ''}
-                        `}></div>
+                        {/* Start Content (Even indices - Top) */}
+                        {isEven && (
+                            <div className={`timeline-start timeline-box mb-8 relative p-4 text-xl font-['Montserrat_Alternates'] font-bold transition-all duration-300 ${isActive ? 'bg-[#0055ff] text-white border-none shadow-lg scale-110' : 'bg-transparent text-skin-text-secondary border-skin-card-border hover:bg-skin-card-border/50'}`}>
+                                {step.year}
+                                {/* Connector Line Down */}
+                                <div className={`absolute left-1/2 -translate-x-1/2 top-full w-[1px] h-6 ${isActive ? 'bg-[#0055ff]' : 'bg-skin-card-border'} opacity-50`}></div>
+                            </div>
+                        )}
 
-                        {/* Title (visible on hover or active?) - keeping it simple for now, just year on timeline */}
-                    </div>
+                        {/* Middle Icon */}
+                        <div className="timeline-middle z-10 bg-skin-base rounded-full"> {/* z-10 to sit above lines if needed, bg to hide lines behind if crossing */}
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                                className={`h-8 w-8 transition-colors duration-300 ${isActive ? 'text-[#0055ff]' : 'text-gray-400 group-hover:text-[#0055ff]/70'}`}
+                            >
+                                <path
+                                    fillRule="evenodd"
+                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
+                                    clipRule="evenodd"
+                                />
+                            </svg>
+                        </div>
+
+                        {/* End Content (Odd indices - Bottom) */}
+                        {!isEven && (
+                            <div className={`timeline-end timeline-box mt-8 relative p-4 text-xl font-['Montserrat_Alternates'] font-bold transition-all duration-300 ${isActive ? 'bg-[#0055ff] text-white border-none shadow-lg scale-110' : 'bg-transparent text-skin-text-secondary border-skin-card-border hover:bg-skin-card-border/50'}`}>
+                                {/* Connector Line Up */}
+                                <div className={`absolute left-1/2 -translate-x-1/2 bottom-full w-[1px] h-6 ${isActive ? 'bg-[#0055ff]' : 'bg-skin-card-border'} opacity-50`}></div>
+                                {step.year}
+                            </div>
+                        )}
+
+                        {/* Connecting Line (Next) */}
+                        {index < steps.length - 1 && (
+                            <hr className={`grow w-full h-1 border-none ${isPast ? "bg-[#0055ff]" : "bg-gray-200"}`} />
+                        )}
+                    </li>
                 );
             })}
-        </div>
+        </ul>
     );
 }

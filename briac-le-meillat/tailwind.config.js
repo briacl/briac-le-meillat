@@ -30,6 +30,7 @@ export default {
     darkMode: "class",
     plugins: [
         forms,
-        heroui()
+        heroui(),
+        require("daisyui")
     ],
 };

@@ -1,0 +1,143 @@
+{
+    "top_domains": [
+        {
+            "title": "Créer des outils et applications informatiques pour les RT",
+            "code": "UE13",
+            "average": 16.28
+        },
+        {
+            "title": "Connecter les entreprises et les usagers",
+            "code": "UE12",
+            "average": 15.16
+        },
+        {
+            "title": "Administrer les réseaux et l’Internet",
+            "code": "UE11",
+            "average": 14.24
+        }
+    ],
+    "top_modules": [
+        {
+            "name": "Mathématiques des transmissions",
+            "code": "R1.14",
+            "grade": 19.0,
+            "source": "Module"
+        },
+        {
+            "name": "Mathématiques des transmissions",
+            "code": "R1.14",
+            "grade": 19.0,
+            "source": "Module"
+        },
+        {
+            "name": "Se présenter sur Internet",
+            "code": "SAÉ14",
+            "grade": 18.67,
+            "source": "Module"
+        },
+        {
+            "name": "Anglais général de communication et initiation au vocabulaire technique",
+            "code": "R1.10",
+            "grade": 18.5,
+            "source": "Module"
+        },
+        {
+            "name": "Anglais général de communication et initiation au vocabulaire technique",
+            "code": "R1.10",
+            "grade": 18.5,
+            "source": "Module"
+        },
+        {
+            "name": "Anglais général de communication et initiation au vocabulaire technique",
+            "code": "R1.10",
+            "grade": 18.5,
+            "source": "Module"
+        },
+        {
+            "name": "Bases des systèmes d'exploitation",
+            "code": "R1.08",
+            "grade": 18.0,
+            "source": "Module"
+        },
+        {
+            "name": "FondaPmentaux de la programmation",
+            "code": "R1.07",
+            "grade": 18.0,
+            "source": "Module"
+        },
+        {
+            "name": "Bases des systèmes d'exploitation",
+            "code": "R1.08",
+            "grade": 18.0,
+            "source": "Module"
+        },
+        {
+            "name": "PPP S1",
+            "code": "R1.12",
+            "grade": 17.5,
+            "source": "Module"
+        }
+    ],
+    "detailed_performances": [
+        {
+            "name": "Fondamentaux de la programmation - Certification Python Essentials",
+            "grade": 20.0
+        },
+        {
+            "name": "Anglais général de communication et initiation au vocabulaire technique - DS Vocabulary",
+            "grade": 20.0
+        },
+        {
+            "name": "Anglais général de communication et initiation au vocabulaire technique - DS - Grammaire",
+            "grade": 20.0
+        },
+        {
+            "name": "Mathématiques du signal - TP1 prise en main de ScilaB",
+            "grade": 20.0
+        },
+        {
+            "name": "Mathématiques des transmissions - TP 3 scilaB",
+            "grade": 20.0
+        },
+        {
+            "name": "Découvrir un dispositif de transmission - CR S3",
+            "grade": 20.0
+        },
+        {
+            "name": "Découvrir un dispositif de transmission - CR S4",
+            "grade": 20.0
+        },
+        {
+            "name": "Découvrir un dispositif de transmission - CR S5",
+            "grade": 20.0
+        },
+        {
+            "name": "Se présenter sur Internet - Site Web Personnel",
+            "grade": 20.0
+        },
+        {
+            "name": "Fondamentaux de la programmation - Contrôle TP n°1",
+            "grade": 19.5
+        },
+        {
+            "name": "Anglais général de communication et initiation au vocabulaire technique - Expression Orale",
+            "grade": 19.0
+        },
+        {
+            "name": "Fondamentaux de l'électronique analogique - TP3 Sécurité / Révisions",
+            "grade": 18.5
+        },
+        {
+            "name": "Mathématiques du signal - TP 2 scilaB",
+            "grade": 18.5
+        },
+        {
+            "name": "Principes et architecture des réseaux - Évaluation rapide n°1",
+            "grade": 18.0
+        },
+        {
+            "name": "Supports de transmission pour les réseaux locaux - CR TP1",
+            "grade": 18.0
+        }
+    ]
+}

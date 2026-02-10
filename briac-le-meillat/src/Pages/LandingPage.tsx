@@ -10,6 +10,8 @@ import IntroCodeAnimation from '@/Components/IntroCodeAnimation';
 const CVSection = React.lazy(() => import('./CVSection'));
 const CodeExamplesSection = React.lazy(() => import('@/Components/CodeExamplesSection'));
 const CollaboratorsSection = React.lazy(() => import('@/Components/CollaboratorsSection'));
+const SkillsAnalysisSection = React.lazy(() => import('@/Components/SkillsAnalysisSection'));
+const CertificationsSection = React.lazy(() => import('@/Components/CertificationsSection'));
 
 // Typewriter Component
 const Typewriter = ({ text, delay = 0 }: { text: string | string[], delay?: number }) => {
@@ -184,8 +186,8 @@ export default function LandingPage() {
                     </AnimatePresence>
                 </div>
 
-                {/* SECTIONS Container */}
-                <div className="w-full max-w-4xl px-4 pb-24 flex flex-col gap-32">
+                {/* SECTIONS Container Part 1 - Vision */}
+                <div className="w-3/4 flex flex-col gap-32 mb-32">
 
                     {/* VISION SECTION */}
                     <div id="vision-section" className="min-h-[50vh] flex items-center justify-center">
@@ -202,6 +204,25 @@ export default function LandingPage() {
                         </GlassCard>
                     </div>
 
+                </div>
+
+
+                {/* CERTIFICATIONS SECTION */}
+                <div id="certifications-section" className="w-3/4 mb-32">
+                    <Suspense fallback={<div className="h-[400px] w-full flex items-center justify-center text-white/50">Chargement des certifications...</div>}>
+                        <CertificationsSection />
+                    </Suspense>
+                </div>
+
+                {/* SKILLS ANALYSIS SECTION - WIDER CONTAINER */}
+                <div id="skills-analysis-section" className="w-3/4 mb-32">
+                    <Suspense fallback={<div className="h-[400px] w-full flex items-center justify-center text-white/50">Chargement de l'analyse...</div>}>
+                        <SkillsAnalysisSection />
+                    </Suspense>
+                </div>
+
+                {/* SECTIONS Container Part 2 - Rest of content */}
+                <div className="w-3/4 pb-24 flex flex-col gap-32">
 
                     {/* CV SECTION */}
                     <div id="cv-section" className="min-h-[50vh] flex items-center justify-center">

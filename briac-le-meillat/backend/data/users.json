@@ -1,0 +1,14 @@
+[
+    {
+        "name": "BriBri",
+        "email": "briac.le.meillat@gmail.com",
+        "password": "gheggrhrhrhtyj",
+        "subscription": "reserved"
+    },
+    {
+        "name": "Test User",
+        "email": "test_user@example.com",
+        "password": "password123",
+        "subscription": "reserved"
+    }
+]

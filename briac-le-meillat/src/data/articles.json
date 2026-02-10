@@ -1,0 +1,26 @@
+[
+    {
+        "id": "1",
+        "title": "L'Avenir du Code : Collaboration IA-Humain",
+        "description": "Exploration de la synergie entre développeurs et LLMs. Comment l'IA agît comme un catalyseur de pensée (et non un remplaçant).",
+        "date": "2024-01-24",
+        "link": "/recherches/articles/1",
+        "contentPath": "src/data/articles/article-1.md"
+    },
+    {
+        "id": "2",
+        "title": "Architecture Hexagonale et Frontend",
+        "description": "Pourquoi ne parle-t-on pas plus d'architecture hexagonale dans le monde React ? Isoler le domaine pour mieux régner.",
+        "date": "2024-01-20",
+        "link": "/recherches/articles/2",
+        "contentPath": "src/data/articles/article-2.md"
+    },
+    {
+        "id": "3",
+        "title": "Initialisation du module Articles",
+        "description": "Première entrée dans le journal de bord. Mise en place de la structure des articles pour le suivi quotidien des projets.",
+        "date": "2024-01-15",
+        "link": "#",
+        "contentPath": null
+    }
+]

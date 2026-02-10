@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import GlassCard from '@/Components/GlassCard';
 import ProfileCard from '@/Components/ProfileCard';
 import Timeline from '@/Components/Timeline';
@@ -34,7 +35,7 @@ export default function CVSection() {
     const [activeStep, setActiveStep] = useState(1); // Default to second step as active for demo
 
     return (
-        <div className="w-full flex flex-col lg:flex-row gap-8 items-stretch justify-center max-w-6xl mx-auto min-h-[500px]">
+        <div className="w-full flex flex-col lg:flex-row gap-8 items-stretch justify-center mx-auto min-h-[500px]">
 
             {/* LEFT: Profile Card */}
             <div className="w-full lg:w-1/3 flex-shrink-0">
@@ -68,6 +69,10 @@ export default function CVSection() {
                                 {cvData[activeStep].description}
                             </p>
                         </div>
+
+                        <Link to="/cv" className="font-['Baskerville'] text-[#0055ff] hover:text-[#00f2ff] transition-colors mt-8 inline-block border-b border-[#0055ff] hover:border-[#00f2ff]">
+                            Pour plus d'info
+                        </Link>
 
                     </div>
 

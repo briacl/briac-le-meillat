@@ -11,21 +11,51 @@ interface Collaborator {
 const collaborators: Collaborator[] = [
     {
         id: 1,
-        name: "Collaborateur 1",
-        role: "Développeur Fullstack",
+        name: "Ronan Le Meillat",
+        role: "Ingénieur Informatique",
         image: "https://ui-avatars.com/api/?name=Collaborateur+1&background=0D8ABC&color=fff&size=200" // Placeholder
     },
     {
         id: 2,
-        name: "Collaborateur 2",
-        role: "Designer UI/UX",
+        name: "Yanni Delattre-Balcer",
+        role: "Étudiant en R&T",
         image: "https://ui-avatars.com/api/?name=Collaborateur+2&background=0D8ABC&color=fff&size=200" // Placeholder
     },
     {
         id: 3,
-        name: "Collaborateur 3",
-        role: "Data Scientist",
+        name: "Alex Jovéniaux",
+        role: "Étudiant en R&T",
         image: "https://ui-avatars.com/api/?name=Collaborateur+3&background=0D8ABC&color=fff&size=200" // Placeholder
+    },
+    {
+        id: 4,
+        name: "Lucas Lemaître",
+        role: "Étudiant en R&T",
+        image: "https://ui-avatars.com/api/?name=Collaborateur+4&background=0D8ABC&color=fff&size=200" // Placeholder
+    },
+    {
+        id: 5,
+        name: "Arthur Huyghe",
+        role: "Étudiant en R&T",
+        image: "https://ui-avatars.com/api/?name=Collaborateur+5&background=0D8ABC&color=fff&size=200" // Placeholder
+    },
+    {
+        id: 5,
+        name: "Aicha Soulef Belgour",
+        role: "Étudiante en R&T",
+        image: "https://ui-avatars.com/api/?name=Collaborateur+5&background=0D8ABC&color=fff&size=200" // Placeholder
+    },
+    {
+        id: 6,
+        name: "David Mercier",
+        role: "Docteur en IA\nProfesseur à l'IUT de Béthune",
+        image: "https://ui-avatars.com/api/?name=Collaborateur+6&background=0D8ABC&color=fff&size=200" // Placeholder
+    },
+    {
+        id: 7,
+        name: "François Bricout",
+        role: "Professeur à l'IUT de Béthune",
+        image: "https://ui-avatars.com/api/?name=Collaborateur+7&background=0D8ABC&color=fff&size=200" // Placeholder
     }
 ];
 
