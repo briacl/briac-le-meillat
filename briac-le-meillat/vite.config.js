@@ -4,7 +4,7 @@ import { VitePWA } from 'vite-plugin-pwa';
 import path from 'path';
 
 export default defineConfig({
-    base: './', // Essential for GitHub Pages relative paths
+    base: '/briac-le-meillat/', // EXACT repository name with slashes
     plugins: [
         react(),
         VitePWA({
