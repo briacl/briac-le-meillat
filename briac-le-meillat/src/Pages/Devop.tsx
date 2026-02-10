@@ -93,24 +93,28 @@ export default function Devop() {
     };
 
     // Shared "Add Project" Button for convenience
-    const AddProjectButton = () => (
-        <button
-            onClick={() => {
-                if (isFormOpen && editingId) resetForm();
-                else {
-                    setIsFormOpen(!isFormOpen);
-                    if (!isFormOpen) resetForm();
-                }
-            }}
-            className="group relative px-6 py-2 rounded-full font-['Paris2024'] flex items-center gap-2 overflow-hidden transition-all duration-300"
-        >
-            <div className={`absolute inset-0 bg-gradient-to-r from-[#00f2ff] to-[#0055ff] opacity-80 group-hover:opacity-100 transition-opacity`}></div>
-            <span className="relative z-10 text-white font-bold tracking-wider flex items-center gap-2">
-                {isFormOpen ? <X className="w-5 h-5" /> : <Plus className="w-5 h-5" />}
-                {isFormOpen ? 'FERMER' : 'NOUVEAU PROJET'}
-            </span>
-        </button>
-    );
+    const AddProjectButton = () => {
+        if (!import.meta.env.DEV) return null;
+
+        return (
+            <button
+                onClick={() => {
+                    if (isFormOpen && editingId) resetForm();
+                    else {
+                        setIsFormOpen(!isFormOpen);
+                        if (!isFormOpen) resetForm();
+                    }
+                }}
+                className="group relative px-6 py-2 rounded-full font-['Paris2024'] flex items-center gap-2 overflow-hidden transition-all duration-300"
+            >
+                <div className={`absolute inset-0 bg-gradient-to-r from-[#00f2ff] to-[#0055ff] opacity-80 group-hover:opacity-100 transition-opacity`}></div>
+                <span className="relative z-10 text-white font-bold tracking-wider flex items-center gap-2">
+                    {isFormOpen ? <X className="w-5 h-5" /> : <Plus className="w-5 h-5" />}
+                    {isFormOpen ? 'FERMER' : 'NOUVEAU PROJET'}
+                </span>
+            </button>
+        );
+    };
 
     return (
         <div className="min-h-screen bg-skin-base text-skin-text-main font-sans selection:bg-blue-500/30 relative overflow-x-hidden dark">
@@ -124,9 +128,11 @@ export default function Devop() {
                     </Link>
 
                     <div className="flex items-center gap-6">
-                        <div className="hidden md:flex text-sm text-skin-text-secondary">
-                            Connecté en tant que <span className="text-[#00f2ff] ml-1">Admin</span>
-                        </div>
+                        {import.meta.env.DEV && (
+                            <div className="hidden md:flex text-sm text-skin-text-secondary">
+                                Connecté en tant que <span className="text-[#00f2ff] ml-1">Admin</span>
+                            </div>
+                        )}
                         <Link
                             to="/logout"
                             className="flex items-center gap-2 text-skin-text-secondary hover:text-red-400 transition-colors"
@@ -436,14 +442,16 @@ export default function Devop() {
                                         )}
                                     </div>
 
-                                    <div className="flex gap-2">
-                                        <button
-                                            onClick={() => handleEdit(project)}
-                                            className="flex-1 py-2 rounded-lg border border-white/10 hover:bg-white/10 text-xs font-bold tracking-wider transition-colors"
-                                        >
-                                            EDITER
-                                        </button>
-                                    </div>
+                                    {import.meta.env.DEV && (
+                                        <div className="flex gap-2">
+                                            <button
+                                                onClick={() => handleEdit(project)}
+                                                className="flex-1 py-2 rounded-lg border border-white/10 hover:bg-white/10 text-xs font-bold tracking-wider transition-colors"
+                                            >
+                                                EDITER
+                                            </button>
+                                        </div>
+                                    )}
                                 </div>
                             </motion.div>
                         ))}
