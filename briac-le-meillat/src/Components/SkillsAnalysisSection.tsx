@@ -59,8 +59,8 @@ const SkillsAnalysisSection: React.FC = () => {
                                 <div className="absolute left-0 top-0 bottom-0 bg-[#00f2ff]/10 w-[var(--width)] transition-all duration-1000 ease-out" style={{ '--width': `${(domain.average / 20) * 100}%` } as React.CSSProperties}></div>
                                 <div className="relative z-10 flex justify-between items-start">
                                     <div className="flex flex-col">
-                                        <span className="text-sm text-gray-400 font-mono">{domain.code}</span>
-                                        <span className="font-semibold text-white/90 text-sm leading-tight mt-1">{domain.title}</span>
+                                        <span className="text-sm text-skin-text-secondary font-mono">{domain.code}</span>
+                                        <span className="font-semibold text-skin-text-main text-sm leading-tight mt-1">{domain.title}</span>
                                     </div>
                                     <span className="text-2xl font-bold bg-gradient-to-r from-[#00f2ff] to-[#0055ff] bg-clip-text text-transparent">
                                         {domain.average.toFixed(1)}
@@ -85,7 +85,7 @@ const SkillsAnalysisSection: React.FC = () => {
                     >
                         {data.top_modules.map((mod, i) => (
                             <motion.div key={i} variants={item} className="flex justify-between items-center p-2 border-b border-white/5 last:border-0 hover:bg-white/5 rounded-lg px-3 transition-colors">
-                                <span className="text-sm text-gray-300 truncate pr-2 w-[70%]" title={mod.name}>{mod.name}</span>
+                                <span className="text-sm text-skin-text-secondary truncate pr-2 w-[70%]" title={mod.name}>{mod.name}</span>
                                 <span className="font-mono font-bold text-[#00f2ff]">{mod.grade}</span>
                             </motion.div>
                         ))}

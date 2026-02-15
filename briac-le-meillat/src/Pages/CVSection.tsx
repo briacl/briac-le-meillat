@@ -65,7 +65,7 @@ export default function CVSection() {
                             <span className="inline-block px-4 py-1 rounded-full bg-blue-100 text-blue-800 text-sm font-bold mb-6 font-['Montserrat_Alternates']">
                                 {cvData[activeStep].location}
                             </span>
-                            <p className="text-xl text-gray-700 font-['Montserrat_Alternates'] leading-relaxed max-w-lg mx-auto">
+                            <p className="text-xl text-skin-text-secondary font-['Montserrat_Alternates'] leading-relaxed max-w-lg mx-auto">
                                 {cvData[activeStep].description}
                             </p>
                         </div>

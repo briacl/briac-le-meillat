@@ -187,13 +187,13 @@ export default function LandingPage() {
                 </div>
 
                 {/* SECTIONS Container Part 1 - Vision */}
-                <div className="w-3/4 flex flex-col gap-32 mb-32">
+                <div className="w-11/12 max-w-7xl flex flex-col gap-32 mb-32">
 
                     {/* VISION SECTION */}
                     <div id="vision-section" className="min-h-[50vh] flex items-center justify-center">
                         <GlassCard className="w-full">
                             <h2 className="text-[3rem] mb-8 text-[#0055ff] font-['Paris2024']">VISION</h2>
-                            <p className="max-w-[800px] text-center leading-[1.6] text-[1.1rem] text-white font-['Montserrat_Alternates']">
+                            <p className="max-w-[800px] text-center leading-[1.6] text-[1.1rem] text-skin-text-main font-['Montserrat_Alternates']">
                                 Curieux de nature, je m’intéresse à de nombreux domaines liés à l’informatique, aux réseaux et à l’intelligence artificielle.
                                 J’aime comprendre comment les choses fonctionnent, aller au-delà de la simple utilisation des outils et explorer leurs limites.
                                 Chaque projet est pour moi une opportunité d’apprendre, d’expérimenter et de progresser.
@@ -208,21 +208,21 @@ export default function LandingPage() {
 
 
                 {/* CERTIFICATIONS SECTION */}
-                <div id="certifications-section" className="w-3/4 mb-32">
-                    <Suspense fallback={<div className="h-[400px] w-full flex items-center justify-center text-white/50">Chargement des certifications...</div>}>
+                <div id="certifications-section" className="w-11/12 max-w-7xl mb-32">
+                    <Suspense fallback={<div className="h-[400px] w-full flex items-center justify-center text-skin-text-main/50">Chargement des certifications...</div>}>
                         <CertificationsSection />
                     </Suspense>
                 </div>
 
                 {/* SKILLS ANALYSIS SECTION - WIDER CONTAINER */}
-                <div id="skills-analysis-section" className="w-3/4 mb-32">
-                    <Suspense fallback={<div className="h-[400px] w-full flex items-center justify-center text-white/50">Chargement de l'analyse...</div>}>
+                <div id="skills-analysis-section" className="w-11/12 max-w-7xl mb-32">
+                    <Suspense fallback={<div className="h-[400px] w-full flex items-center justify-center text-skin-text-main/50">Chargement de l'analyse...</div>}>
                         <SkillsAnalysisSection />
                     </Suspense>
                 </div>
 
                 {/* SECTIONS Container Part 2 - Rest of content */}
-                <div className="w-3/4 pb-24 flex flex-col gap-32">
+                <div className="w-11/12 max-w-7xl pb-24 flex flex-col gap-32">
 
                     {/* CV SECTION */}
                     <div id="cv-section" className="min-h-[50vh] flex items-center justify-center">
@@ -254,17 +254,17 @@ export default function LandingPage() {
                                 <input
                                     type="text"
                                     placeholder="Nom"
-                                    className="p-3 rounded-xl bg-white/40 border border-white/50 focus:outline-none focus:ring-2 focus:ring-[#00f2ff] placeholder-gray-600"
+                                    className="p-3 rounded-xl bg-white/40 border border-white/50 focus:outline-none focus:ring-2 focus:ring-[#00f2ff] placeholder-skin-text-secondary text-skin-text-main"
                                 />
                                 <input
                                     type="email"
                                     placeholder="Email"
-                                    className="p-3 rounded-xl bg-white/40 border border-white/50 focus:outline-none focus:ring-2 focus:ring-[#00f2ff] placeholder-gray-600"
+                                    className="p-3 rounded-xl bg-white/40 border border-white/50 focus:outline-none focus:ring-2 focus:ring-[#00f2ff] placeholder-skin-text-secondary text-skin-text-main"
                                 />
                                 <textarea
                                     placeholder="Votre message"
                                     rows={4}
-                                    className="p-3 rounded-xl bg-white/40 border border-white/50 focus:outline-none focus:ring-2 focus:ring-[#00f2ff] placeholder-gray-600"
+                                    className="p-3 rounded-xl bg-white/40 border border-white/50 focus:outline-none focus:ring-2 focus:ring-[#00f2ff] placeholder-skin-text-secondary text-skin-text-main"
                                 ></textarea>
                                 <button className="mt-4 py-3 px-8 rounded-full bg-gradient-to-r from-[#00f2ff] to-[#0055ff] text-white font-bold tracking-wider hover:shadow-lg hover:scale-105 transition-all">
                                     ENVOYER

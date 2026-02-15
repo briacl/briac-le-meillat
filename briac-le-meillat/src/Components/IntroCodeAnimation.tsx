@@ -72,7 +72,11 @@ export default function IntroCodeAnimation({ onComplete }: IntroCodeAnimationPro
             <div className="w-full max-w-2xl bg-[#1e1e1e] rounded-xl overflow-hidden shadow-2xl border border-gray-700 font-mono text-sm md:text-base">
                 {/* Mac-style header */}
                 <div className="bg-[#2d2d2d] px-4 py-2 flex gap-2">
-                    <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                    <div
+                        className="w-3 h-3 rounded-full bg-red-500 cursor-pointer hover:bg-red-600 transition-colors"
+                        onClick={onComplete}
+                        title="Close Animation"
+                    ></div>
                     <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
                     <div className="w-3 h-3 rounded-full bg-green-500"></div>
                 </div>

@@ -52,7 +52,7 @@ export default function Research() {
             <NeuralNetworkBackground />
 
             <div className="relative z-10 container mx-auto px-4 pt-32 pb-20">
-                <div className="max-w-6xl mx-auto bg-black/30 backdrop-blur-3xl border border-white/10 rounded-3xl p-8 md:p-12 shadow-2xl">
+                <div className="w-11/12 max-w-[90vw] mx-auto bg-black/30 backdrop-blur-3xl border border-white/10 rounded-3xl p-8 md:p-12 shadow-2xl">
                     <header className="mb-12 text-center">
                         <h1 className="font-['Paris2024'] text-5xl md:text-7xl bg-gradient-to-br from-[#00f2ff] to-[#0055ff] bg-clip-text text-transparent mb-6">
                             {activeTab === 'recherches' ? 'RECHERCHES' : 'ARTICLES'}

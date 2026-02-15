@@ -48,7 +48,7 @@ export default function CVPage() {
 
             {/* Content */}
             <div className="relative z-10 flex flex-col items-center justify-start min-h-screen pt-32 pb-20 w-full">
-                <GlassCard className="w-3/4 p-8 md:p-12">
+                <GlassCard className="w-11/12 max-w-7xl p-8 md:p-12">
                     <h1 className="text-4xl md:text-5xl font-['Paris2024'] text-center mb-16 bg-gradient-to-r from-[#00f2ff] to-[#0055ff] bg-clip-text text-transparent">
                         Mon Parcours
                     </h1>
@@ -82,7 +82,7 @@ export default function CVPage() {
                                 >
                                     <time className="font-mono italic text-[#0055ff]">{item.year}</time>
                                     <div className="text-xl font-black font-['Paris2024'] mt-1 mb-2">{item.title}</div>
-                                    <div className="text-sm font-bold text-gray-400 mb-2 font-['Montserrat_Alternates']">{item.subtitle}</div>
+                                    <div className="text-sm font-bold text-skin-text-secondary mb-2 font-['Montserrat_Alternates']">{item.subtitle}</div>
                                     <p className="text-skin-text-secondary leading-relaxed font-['Montserrat_Alternates']">
                                         {item.description}
                                     </p>
