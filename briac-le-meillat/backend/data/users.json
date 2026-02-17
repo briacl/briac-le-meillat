@@ -1,14 +1,11 @@
 [
     {
-        "name": "BriBri",
+        "name": "briacl",
         "email": "briac.le.meillat@gmail.com",
-        "password": "gheggrhrhrhtyj",
-        "subscription": "reserved"
-    },
-    {
-        "name": "Test User",
-        "email": "test_user@example.com",
         "password": "password123",
-        "subscription": "reserved"
+        "subscription": "reserved",
+        "is_email_verified": true,
+        "is_2fa_enabled": true,
+        "totp_secret": "XCW34NUGBQY2ENZZARS3LW3GDHJU6Y6E"
     }
 ]

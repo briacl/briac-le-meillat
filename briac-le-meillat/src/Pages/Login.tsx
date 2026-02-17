@@ -7,23 +7,15 @@ export default function Login() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        document.title = "Inscription - Synapseo";
+        document.title = "Inscription - briac-le-meillat";
     }, []);
 
     const [step, setStep] = useState(1);
-    const [role, setRole] = useState('doctor');
     const [passwordStrength, setPasswordStrength] = useState(0);
     const [passwordFeedback, setPasswordFeedback] = useState("Au moins 8 caractères, 1 majuscule, 1 chiffre.");
     const [recoveryKey, setRecoveryKey] = useState('');
     const [showEmergencyModal, setShowEmergencyModal] = useState(false);
     const [emergencyConfirmed, setEmergencyConfirmed] = useState(false);
-
-    const roles = [
-        { id: 'doctor', label: 'Médecin' },
-        { id: 'nurse', label: 'Infirmier' },
-        { id: 'pharmacist', label: 'Pharmacien' },
-        { id: 'patient', label: 'Patient' }
-    ];
 
     const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const password = e.target.value;
@@ -58,8 +50,8 @@ export default function Login() {
     };
 
     const completeRegistration = () => {
-        console.log("Registration complete for role:", role);
-        navigate(`/${role}`);
+        console.log("Registration complete");
+        navigate('/dashboard');
     };
 
     return (
@@ -74,7 +66,7 @@ export default function Login() {
                         <i className="fa-solid fa-brain"></i>
                     </div>
                     <div className="font-['Plus_Jakarta_Sans'] font-bold text-2xl text-gray-900 uppercase tracking-wide">
-                        Synapseo <span className="text-sm font-normal text-[#0055ff] ml-1">Secure</span>
+                        briac-le-meillat <span className="text-sm font-normal text-[#0055ff] ml-1">Secure</span>
                     </div>
                 </div>
 
@@ -102,24 +94,7 @@ export default function Login() {
                             <label className="block mb-2 text-sm font-medium text-gray-500">Email professionnel</label>
                             <input type="email" className="w-full p-3 bg-gray-50 border border-gray-200 rounded-lg text-gray-900 focus:outline-none focus:border-[#0055ff] focus:ring-2 focus:ring-[#0055ff]/10 transition-all" placeholder="jean@hopital.fr" />
                         </div>
-                        <div className="mb-0">
-                            <label className="block mb-2 text-sm font-medium text-gray-500">Rôle</label>
-                            <div className="grid grid-cols-2 gap-2">
-                                {roles.map((r) => (
-                                    <label
-                                        key={r.id}
-                                        className={`border p-3 rounded-lg cursor-pointer flex items-center gap-2 transition-all ${role === r.id
-                                            ? 'border-[#0055ff] bg-[#0055ff]/5 text-[#0055ff] shadow-sm'
-                                            : 'border-gray-200 bg-gray-50 text-gray-500 hover:bg-gray-100'
-                                            }`}
-                                        onClick={() => setRole(r.id)}
-                                    >
-                                        <input type="radio" name="role" value={r.id} checked={role === r.id} onChange={() => setRole(r.id)} className="accent-[#0055ff]" />
-                                        <span className={`text-sm ${role === r.id ? 'font-semibold' : ''}`}>{r.label}</span>
-                                    </label>
-                                ))}
-                            </div>
-                        </div>
+
                         <button
                             className="w-full mt-8 py-3 px-6 bg-[#0055ff] text-white rounded-lg font-semibold shadow-lg shadow-blue-500/30 hover:bg-[#0044cc] hover:-translate-y-px transition-all"
                             onClick={() => setStep(2)}

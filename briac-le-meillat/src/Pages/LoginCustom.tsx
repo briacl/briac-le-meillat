@@ -12,26 +12,14 @@ export default function LoginCustom() {
 
     const [step, setStep] = useState(1);
     const [name, setName] = useState('');
-    const [role, setRole] = useState('doctor');
     const [password, setPassword] = useState('');
-
-    const roles = [
-        { id: 'doctor', label: 'Médecin' },
-        { id: 'nurse', label: 'Infirmier' },
-        { id: 'pharmacist', label: 'Pharmacien' },
-        { id: 'patient', label: 'Patient' }
-    ];
 
     const handleLogin = () => {
         // Mock login
-        console.log("Login with:", { name, role, password });
+        console.log("Login with:", { name, password });
         // In a real app, this would hit an API.
-        // For static demo, we just navigate to the dashboard or role page.
-        if (role) {
-            navigate(`/${role}`);
-        } else {
-            navigate('/dashboard');
-        }
+        // For static demo, we just navigate to the dashboard.
+        navigate('/dashboard');
     };
 
     return (
@@ -77,24 +65,7 @@ export default function LoginCustom() {
                             />
                         </div>
 
-                        <div className="mb-0">
-                            <label className="block mb-2 text-sm font-medium text-gray-500">Rôle</label>
-                            <div className="grid grid-cols-2 gap-2">
-                                {roles.map((r) => (
-                                    <label
-                                        key={r.id}
-                                        className={`border p-3 rounded-lg cursor-pointer flex items-center gap-2 transition-all ${role === r.id
-                                            ? 'border-[#0055ff] bg-[#0055ff]/5 text-[#0055ff] shadow-sm'
-                                            : 'border-gray-200 bg-gray-50 text-gray-500 hover:bg-gray-100'
-                                            }`}
-                                        onClick={() => setRole(r.id)}
-                                    >
-                                        <input type="radio" name="role" value={r.id} checked={role === r.id} onChange={() => setRole(r.id)} className="accent-[#0055ff]" />
-                                        <span className={`text-sm ${role === r.id ? 'font-semibold' : ''}`}>{r.label}</span>
-                                    </label>
-                                ))}
-                            </div>
-                        </div>
+
                         <button
                             className="w-full mt-8 py-3 px-6 bg-[#0055ff] text-white rounded-lg font-semibold shadow-lg shadow-blue-500/30 hover:bg-[#0044cc] hover:-translate-y-px transition-all"
                             onClick={() => setStep(2)}

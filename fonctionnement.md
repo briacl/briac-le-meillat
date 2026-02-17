@@ -8,7 +8,7 @@ Au départ, nous utilisions Laravel pour gérer le backend et le frontend via In
 ## 🏗️ Architecture SPA (Single Page Application)
 
 ### 1. Le Point d'Entrée (`index.html`)
-Tout commence avec le fichier `synapseo/index.html`. C'est la seule vraie page HTML du site. Elle contient une balise "div" vide (souvent avec l'id `root`) où React va venir injecter toute notre application.
+Tout commence avec le fichier `briac-le-meillat/index.html`. C'est la seule vraie page HTML du site. Elle contient une balise "div" vide (souvent avec l'id `root`) où React va venir injecter toute notre application.
 
 ### 2. Le Moteur (Vite + React)
 Nous utilisons **Vite** comme outil de développement. Il est extrêmement rapide et sert nos fichiers au navigateur.
@@ -28,7 +28,7 @@ C'est le rôle de **React Router**. C'est une librairie qui "simule" la navigati
 
 ## 📂 Structure des Dossiers Importants
 
-Dans le dossier `synapseo/src` :
+Dans le dossier `briac-le-meillat/src` :
 - `components/` : Les petites briques réutilisables (Boutons, Inputs, Cards...).
 - `pages/` : Les composants qui représentent des pages entières (Home, Login, Dashboard...).
 - `App.tsx` : Le composant principal qui définit souvent les routes.

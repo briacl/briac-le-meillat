@@ -1,4 +1,4 @@
-# Journal de Bord - Synapseo
+# Journal de Bord - briac-le-meillat
 
 ## Initialisation
 - **Date**: 07 Janvier 2026
@@ -8,7 +8,7 @@
 ## Actions et Résultats
 
 ### 1. Analyse Initiale
-- [x] Vérification des fichiers existants (MedConnect.pdf, synapseo_landing.html).
+- [x] Vérification des fichiers existants (MedConnect.pdf, briac-le-meillat_landing.html).
 - [x] Constat: `mysql` non installé, `dbngin` non installé.
 - [x] Décision: Utiliser Homebrew pour installer MariaDB.
 
@@ -35,5 +35,5 @@
 - [x] `npm run dev` activé (Node v22).
 
 ### 7. UI Fixes
-- [x] **Visibilité Landing Page**: Refactoring du layout (`h-screen`, `flexbox`) pour corriger l'affichage du titre "Synapseo" et de la tagline qui étaient masqués.
+- [x] **Visibilité Landing Page**: Refactoring du layout (`h-screen`, `flexbox`) pour corriger l'affichage du titre "briac-le-meillat" et de la tagline qui étaient masqués.
 - [x] **Contenu**: Mise à jour titre page ("App Sécurisée") et ajout "INFIRMIERS/PHARMACIENS".

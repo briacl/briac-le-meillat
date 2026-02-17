@@ -5,10 +5,7 @@ import LandingPage from './Pages/LandingPage';
 import Subscribe from './Pages/Subscribe';
 import Dashboard from './Pages/Dashboard';
 import Login from './Pages/Login';
-import Doctor from './Pages/Doctor';
-import Nurse from './Pages/Nurse';
-import Patient from './Pages/Patient';
-import Pharmacist from './Pages/Pharmacist';
+
 import Devop from './Pages/Devop';
 import LoginCustom from './Pages/LoginCustom';
 import SignInSide from './Pages/SignInSide';
@@ -38,10 +35,7 @@ function App() {
                                 <Route path="/recherches" element={<Research />} />
                                 <Route path="/recherches/optimisation-neurones" element={<OptimisationNeurones />} />
 
-                                <Route path="/doctor" element={<Doctor />} />
-                                <Route path="/nurse" element={<Nurse />} />
-                                <Route path="/patient" element={<Patient />} />
-                                <Route path="/pharmacist" element={<Pharmacist />} />
+
                                 <Route path="/devop" element={<Devop />} />
                                 <Route path="/cv" element={<CVPage />} />
                             </Routes>

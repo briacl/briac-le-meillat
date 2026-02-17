@@ -1,0 +1,6 @@
+{
+    "test@example.com": {
+        "code": "123456",
+        "expires_at": "2023-01-01"
+    }
+}

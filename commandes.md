@@ -12,10 +12,10 @@ Voici les commandes essentielles pour travailler sur le projet **Briac Le Meilla
 Peu importe votre OS (Windows ou Mac), la première chose à faire est d'aller dans le dossier du code source :
 
 ```bash
-cd synapseo
+cd briac-le-meillat
 ```
 
-*(Si vous venez de cloner le projet, vous devrez peut-être faire `cd synapseo` deux fois : une fois pour entrer dans le dossier git, une fois pour entrer dans le dossier du code React).*
+*(Si vous venez de cloner le projet, vous devrez peut-être faire `cd briac-le-meillat` deux fois : une fois pour entrer dans le dossier git, une fois pour entrer dans le dossier du code React).*
 
 ### 2️⃣ Installer les dépendances (Première fois uniquement)
 Si vous venez de cloner le projet ou si quelqu'un a ajouté une librairie :
