@@ -40,7 +40,7 @@ const SkillsAnalysisSection: React.FC = () => {
                 ANALYSE DES COMPÉTENCES
             </h2>
 
-            <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-4">
+            <div className="w-full flex justify-center px-4">
 
                 {/* 1. TOP DOMAINS */}
                 <GlassCard className="h-full flex flex-col p-6">
@@ -69,50 +69,10 @@ const SkillsAnalysisSection: React.FC = () => {
                             </motion.div>
                         ))}
                     </motion.div>
+                    <p className="mt-6 text-xs text-skin-text-secondary italic text-center">
+                        * Les chiffres affichés proviennent de mes relevés de notes officiels.
+                    </p>
                 </GlassCard>
-
-                {/* 2. TOP MODULES */}
-                <GlassCard className="h-full flex flex-col p-6">
-                    <h3 className="text-xl font-bold mb-6 text-[#00f2ff] flex items-center gap-2">
-                        <span className="text-2xl">💎</span> MODULES D'EXCELLENCE
-                    </h3>
-                    <motion.div
-                        variants={container}
-                        initial="hidden"
-                        whileInView="show"
-                        viewport={{ once: true }}
-                        className="flex flex-col gap-3"
-                    >
-                        {data.top_modules.map((mod, i) => (
-                            <motion.div key={i} variants={item} className="flex justify-between items-center p-2 border-b border-white/5 last:border-0 hover:bg-white/5 rounded-lg px-3 transition-colors">
-                                <span className="text-sm text-skin-text-secondary truncate pr-2 w-[70%]" title={mod.name}>{mod.name}</span>
-                                <span className="font-mono font-bold text-[#00f2ff]">{mod.grade}</span>
-                            </motion.div>
-                        ))}
-                    </motion.div>
-                </GlassCard>
-
-                {/* 3. DETAILED PERFORMANCES */}
-                <GlassCard className="h-full flex flex-col p-6 col-span-1 md:col-span-2 lg:col-span-1">
-                    <h3 className="text-xl font-bold mb-6 text-[#00f2ff] flex items-center gap-2">
-                        <span className="text-2xl">🌟</span> PERFORMANCES CLÉS
-                    </h3>
-                    <motion.div
-                        variants={container}
-                        initial="hidden"
-                        whileInView="show"
-                        viewport={{ once: true }}
-                        className="flex flex-wrap gap-2 content-start"
-                    >
-                        {data.detailed_performances.map((perf, i) => (
-                            <motion.div key={i} variants={item} className="text-xs bg-white/10 px-3 py-1.5 rounded-full border border-white/10 hover:border-[#00f2ff] hover:bg-[#00f2ff]/10 transition-all cursor-default" title={`${perf.name} : ${perf.grade}/20`}>
-                                <span className="opacity-80 break-words">{perf.name.split(" - ").pop()}</span>
-                                <span className="ml-2 font-bold text-[#00f2ff]">{perf.grade}</span>
-                            </motion.div>
-                        ))}
-                    </motion.div>
-                </GlassCard>
-
             </div>
         </section>
     );

@@ -6,6 +6,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 type AuthStep = 'LOGIN' | 'SIGNUP' | 'VERIFY_EMAIL' | 'SETUP_2FA' | 'SUCCESS';
 
+import Navbar from '../Components/Navbar';
+
 export default function SignInSide() {
     const { login, signup, verifyEmail, setup2FA, verify2FA, authConfig } = useAuth();
     const navigate = useNavigate();
@@ -133,7 +135,7 @@ export default function SignInSide() {
                                 type="text"
                                 required
                                 maxLength={6}
-                                className="block w-full text-center tracking-[0.5em] text-2xl font-mono py-3 border border-white/10 rounded-xl bg-white/5 text-white placeholder-zinc-700 focus:outline-none focus:ring-2 focus:ring-[#00f2ff]/50 focus:border-[#00f2ff]/50 transition-all uppercase"
+                                className="block w-full text-center tracking-[0.5em] text-2xl font-mono py-3 border border-gray-200 dark:border-white/10 rounded-xl bg-white dark:bg-white/5 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-zinc-700 focus:outline-none focus:ring-2 focus:ring-[#00f2ff]/50 focus:border-[#00f2ff]/50 transition-all uppercase"
                                 placeholder="------"
                                 value={formData.verificationCode}
                                 onChange={(e) => setFormData({ ...formData, verificationCode: e.target.value.toUpperCase() })}
@@ -164,7 +166,7 @@ export default function SignInSide() {
                                 </div>
                             )}
 
-                            <div className="bg-white/5 p-3 rounded-lg border border-white/10 mb-4">
+                            <div className="bg-gray-50 dark:bg-white/5 p-3 rounded-lg border border-gray-200 dark:border-white/10 mb-4">
                                 <p className="text-xs text-zinc-500 mb-1">Clé secrète (si scan impossible)</p>
                                 <code className="text-[#00f2ff] font-mono text-sm select-all">
                                     {qrCodeData?.secret}
@@ -179,7 +181,7 @@ export default function SignInSide() {
                                 required
                                 maxLength={6}
                                 inputMode="numeric"
-                                className="block w-full text-center tracking-[0.5em] text-2xl font-mono py-3 border border-white/10 rounded-xl bg-white/5 text-white placeholder-zinc-700 focus:outline-none focus:ring-2 focus:ring-[#00f2ff]/50 focus:border-[#00f2ff]/50 transition-all"
+                                className="block w-full text-center tracking-[0.5em] text-2xl font-mono py-3 border border-gray-200 dark:border-white/10 rounded-xl bg-white dark:bg-white/5 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-zinc-700 focus:outline-none focus:ring-2 focus:ring-[#00f2ff]/50 focus:border-[#00f2ff]/50 transition-all"
                                 placeholder="000000"
                                 value={formData.totpCode}
                                 onChange={(e) => setFormData({ ...formData, totpCode: e.target.value.replace(/[^0-9]/g, '') })}
@@ -195,8 +197,8 @@ export default function SignInSide() {
                             <CheckCircle className="h-10 w-10 text-green-400" />
                         </div>
                         <div>
-                            <h3 className="text-2xl font-bold text-white mb-2">Félicitations !</h3>
-                            <p className="text-zinc-400">Votre compte est sécurisé et prêt.</p>
+                            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Félicitations !</h3>
+                            <p className="text-gray-500 dark:text-zinc-400">Votre compte est sécurisé et prêt.</p>
                         </div>
                         <p className="text-sm text-zinc-500 animate-pulse">Redirection vers le dashboard...</p>
                     </div>
@@ -214,7 +216,7 @@ export default function SignInSide() {
                                     className="overflow-hidden"
                                 >
                                     <div className="space-y-2">
-                                        <label htmlFor="name" className="block text-sm font-medium text-zinc-300 ml-1">
+                                        <label htmlFor="name" className="block text-sm font-medium text-gray-600 dark:text-zinc-300 ml-1">
                                             Nom complet
                                         </label>
                                         <div className="relative group">
@@ -224,7 +226,7 @@ export default function SignInSide() {
                                                 name="name"
                                                 type="text"
                                                 required={step === 'SIGNUP'}
-                                                className="block w-full pl-10 pr-3 py-3 border border-white/10 rounded-xl bg-white/5 text-white placeholder-zinc-600 focus:outline-none focus:ring-2 focus:ring-[#00f2ff]/50 focus:border-[#00f2ff]/50 sm:text-sm transition-all shadow-sm"
+                                                className="block w-full pl-10 pr-3 py-3 border border-gray-200 dark:border-white/10 rounded-xl bg-white dark:bg-white/5 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-zinc-600 focus:outline-none focus:ring-2 focus:ring-[#00f2ff]/50 focus:border-[#00f2ff]/50 sm:text-sm transition-all shadow-sm"
                                                 placeholder="Votre nom"
                                                 value={formData.name}
                                                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
@@ -236,7 +238,7 @@ export default function SignInSide() {
                         </AnimatePresence>
 
                         <div className="space-y-2">
-                            <label htmlFor="email" className="block text-sm font-medium text-zinc-300 ml-1">
+                            <label htmlFor="email" className="block text-sm font-medium text-gray-600 dark:text-zinc-300 ml-1">
                                 Email
                             </label>
                             <div className="relative group">
@@ -247,7 +249,7 @@ export default function SignInSide() {
                                     type="email"
                                     autoComplete="email"
                                     required
-                                    className="block w-full pl-10 pr-3 py-3 border border-white/10 rounded-xl bg-white/5 text-white placeholder-zinc-600 focus:outline-none focus:ring-2 focus:ring-[#00f2ff]/50 focus:border-[#00f2ff]/50 sm:text-sm transition-all shadow-sm"
+                                    className="block w-full pl-10 pr-3 py-3 border border-gray-200 dark:border-white/10 rounded-xl bg-white dark:bg-white/5 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-zinc-600 focus:outline-none focus:ring-2 focus:ring-[#00f2ff]/50 focus:border-[#00f2ff]/50 sm:text-sm transition-all shadow-sm"
                                     placeholder="vous@exemple.com"
                                     value={formData.email}
                                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
@@ -257,7 +259,7 @@ export default function SignInSide() {
 
                         <div className="space-y-2">
                             <div className="flex items-center justify-between ml-1">
-                                <label htmlFor="password" className="block text-sm font-medium text-zinc-300">
+                                <label htmlFor="password" className="block text-sm font-medium text-gray-600 dark:text-zinc-300">
                                     Mot de passe
                                 </label>
                             </div>
@@ -269,7 +271,7 @@ export default function SignInSide() {
                                     type={showPassword ? "text" : "password"}
                                     autoComplete={step === 'LOGIN' ? "current-password" : "new-password"}
                                     required
-                                    className="block w-full pl-10 pr-10 py-3 border border-white/10 rounded-xl bg-white/5 text-white placeholder-zinc-600 focus:outline-none focus:ring-2 focus:ring-[#00f2ff]/50 focus:border-[#00f2ff]/50 sm:text-sm transition-all shadow-sm"
+                                    className="block w-full pl-10 pr-10 py-3 border border-gray-200 dark:border-white/10 rounded-xl bg-white dark:bg-white/5 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-zinc-600 focus:outline-none focus:ring-2 focus:ring-[#00f2ff]/50 focus:border-[#00f2ff]/50 sm:text-sm transition-all shadow-sm"
                                     placeholder="••••••••"
                                     value={formData.password}
                                     onChange={(e) => setFormData({ ...formData, password: e.target.value })}
@@ -300,7 +302,8 @@ export default function SignInSide() {
     };
 
     return (
-        <div className="min-h-screen bg-[#020617] flex items-center justify-center p-4 relative overflow-hidden font-['Paris2024']">
+        <div className="min-h-screen bg-[#f8f9fa] dark:bg-[#020617] transition-colors duration-300 flex items-center justify-center p-4 relative overflow-hidden font-['Paris2024']">
+            <Navbar />
             {/* Ambient Background Effects - Global for the page */}
             <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
                 {/* Moving Blobs */}
@@ -357,7 +360,7 @@ export default function SignInSide() {
             <div className="relative z-10 w-full max-w-[1200px] grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
 
                 {/* Left Side - Feature List */}
-                <div className="text-white pl-4 lg:pl-0 flex flex-col justify-center h-full">
+                <div className="text-gray-900 dark:text-white pl-4 lg:pl-0 flex flex-col justify-center h-full transition-colors duration-300">
                     {/* Brand Header & Quote */}
                     <motion.div
                         initial={{ opacity: 0, y: -20 }}
@@ -369,7 +372,7 @@ export default function SignInSide() {
                             Briac Le Meillat
                         </h1>
                         <div className="relative inline-block">
-                            <p className="font-['Baskerville'] text-2xl text-gray-300 italic leading-relaxed">
+                            <p className="font-['Baskerville'] text-2xl text-gray-600 dark:text-gray-300 italic leading-relaxed transition-colors duration-300">
                                 "L'intelligence artificielle n'est pas une fin en soi, mais un moyen d'augmenter l'intelligence humaine."
                             </p>
                             <div className="absolute -bottom-4 left-0 w-24 h-[2px] bg-gradient-to-r from-[#00f2ff] to-transparent" />
@@ -391,15 +394,15 @@ export default function SignInSide() {
                                 className="flex gap-5"
                             >
                                 <div className="flex-shrink-0 mt-1">
-                                    <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center shadow-lg shadow-purple-500/5 backdrop-blur-sm group hover:scale-105 transition-transform duration-300">
+                                    <div className="w-12 h-12 rounded-2xl bg-white/80 dark:bg-white/5 border border-gray-200 dark:border-white/10 flex items-center justify-center shadow-lg shadow-purple-500/5 backdrop-blur-sm group hover:scale-105 transition-all duration-300">
                                         <feature.icon className="h-6 w-6 text-[#00f2ff]" />
                                     </div>
                                 </div>
                                 <div className="space-y-2">
-                                    <h3 className="text-xl font-semibold text-white tracking-wide">
+                                    <h3 className="text-xl font-semibold text-gray-900 dark:text-white tracking-wide transition-colors duration-300">
                                         {feature.title}
                                     </h3>
-                                    <p className="text-zinc-400 leading-relaxed text-sm lg:text-base max-w-md">
+                                    <p className="text-gray-500 dark:text-zinc-400 leading-relaxed text-sm lg:text-base max-w-md transition-colors duration-300">
                                         {feature.description}
                                     </p>
                                 </div>
@@ -410,15 +413,15 @@ export default function SignInSide() {
 
                 {/* Right Side - Form */}
                 <div className="w-full max-w-[480px] mx-auto lg:mr-0">
-                    <div className="bg-black/20 backdrop-blur-xl border border-white/5 rounded-3xl p-8 lg:p-10 shadow-2xl">
+                    <div className="bg-white/80 dark:bg-black/20 backdrop-blur-xl border border-black/5 dark:border-white/5 rounded-3xl p-8 lg:p-10 shadow-2xl transition-colors duration-300">
                         <div className="space-y-2 text-center mb-8">
-                            <h2 className="text-3xl font-bold tracking-tight text-white">
+                            <h2 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-white transition-colors duration-300">
                                 {step === 'LOGIN' ? 'Connexion' :
                                     step === 'SIGNUP' ? 'Inscription' :
                                         step === 'VERIFY_EMAIL' ? 'Vérification' :
                                             step === 'SETUP_2FA' ? '2FA' : 'Succès'}
                             </h2>
-                            <p className="text-sm text-zinc-400">
+                            <p className="text-sm text-gray-500 dark:text-zinc-400 transition-colors duration-300">
                                 {step === 'LOGIN' ? 'Ravi de vous revoir sur briac-le-meillat' :
                                     step === 'SIGNUP' ? 'Créez un compte pour commencer' :
                                         'Sécurisez votre compte'}
@@ -460,12 +463,12 @@ export default function SignInSide() {
                                     <div className="w-full border-t border-white/10" />
                                 </div>
                                 <div className="relative flex justify-center text-xs uppercase">
-                                    <span className="px-4 bg-[#050b1d] text-zinc-500 rounded-full border border-white/5">ou</span>
+                                    <span className="px-4 bg-gray-100 dark:bg-[#050b1d] text-gray-500 dark:text-zinc-500 rounded-full border border-gray-200 dark:border-white/5 transition-colors duration-300">ou</span>
                                 </div>
                             </div>
 
                             <div className="text-center text-sm">
-                                <div className="text-zinc-400 mb-2">
+                                <div className="text-gray-500 dark:text-zinc-400 mb-2 transition-colors duration-300">
                                     {step === 'LOGIN' ? "Pas encore de compte ?" : "Vous avez déjà un compte ?"}
                                 </div>
                                 <button
@@ -475,7 +478,7 @@ export default function SignInSide() {
                                         setError(null);
                                         setFormData({ name: '', email: '', password: '', verificationCode: '', totpCode: '' });
                                     }}
-                                    className="font-semibold text-white border border-white/10 bg-white/5 py-2 px-6 rounded-lg hover:bg-white/10 hover:border-white/20 transition-all"
+                                    className="font-semibold text-gray-900 dark:text-white border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-white/5 py-2 px-6 rounded-lg hover:bg-gray-100 dark:hover:bg-white/10 hover:border-gray-300 dark:hover:border-white/20 transition-all"
                                 >
                                     {step === 'LOGIN' ? "Créer un compte" : "Se connecter"}
                                 </button>

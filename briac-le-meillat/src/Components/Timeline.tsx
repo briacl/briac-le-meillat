@@ -11,7 +11,7 @@ interface TimelineProps {
 
 export default function Timeline({ steps, activeStep, onStepClick }: TimelineProps) {
     return (
-        <ul className="timeline timeline-snap-icon max-md:timeline-compact timeline-horizontal w-full grid grid-cols-4">
+        <ul className="timeline timeline-snap-icon max-md:timeline-compact timeline-vertical md:timeline-horizontal w-full grid grid-cols-1 md:grid-cols-6">
             {steps.map((step, index) => {
                 const isActive = index <= activeStep;
                 const isPast = index < activeStep;

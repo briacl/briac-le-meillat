@@ -12,6 +12,9 @@ import SignInSide from './Pages/SignInSide';
 import Research from './Pages/Research';
 import OptimisationNeurones from './Pages/Researches/OptimisationNeurones';
 import CVPage from './Pages/CVPage';
+import Contact from './Pages/Contact';
+import Realisations from './Pages/Realisations';
+import RealisationsAdmin from './Pages/Admin/RealisationsAdmin';
 
 import { ThemeProvider } from './Contexts/ThemeProvider';
 import { ProjectProvider } from './Contexts/ProjectContext';
@@ -38,6 +41,9 @@ function App() {
 
                                 <Route path="/devop" element={<Devop />} />
                                 <Route path="/cv" element={<CVPage />} />
+                                <Route path="/contact" element={<Contact />} />
+                                <Route path="/realisations" element={<Realisations />} />
+                                <Route path="/admin/realisations" element={<RealisationsAdmin />} />
                             </Routes>
                         </BrowserRouter>
                     </HeroUIProvider>

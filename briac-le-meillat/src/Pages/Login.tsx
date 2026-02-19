@@ -55,17 +55,18 @@ export default function Login() {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center relative font-sans text-gray-900 bg-[#f8f9fa] overflow-hidden">
+        <div className="min-h-screen flex items-center justify-center relative font-sans text-gray-900 dark:text-skin-text-main bg-[#f8f9fa] dark:bg-skin-base overflow-hidden transition-colors duration-300">
+            <Navbar />
             <div className="absolute inset-0 z-0">
                 <NeuralNetworkBackground />
             </div>
 
-            <div className="w-full max-w-[500px] bg-white/5 border border-white/10 rounded-2xl p-10 shadow-2xl relative z-10 animate-fade-in backdrop-blur-[10px]">
+            <div className="w-full max-w-[500px] bg-white/80 dark:bg-white/5 border border-white/20 dark:border-white/10 rounded-2xl p-10 shadow-2xl relative z-10 animate-fade-in backdrop-blur-[10px] transition-colors duration-300">
                 <div className="flex justify-center items-end gap-3 mb-8">
                     <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-[#00f2ff] to-[#0055ff] text-white text-xl shadow-lg">
                         <i className="fa-solid fa-brain"></i>
                     </div>
-                    <div className="font-['Plus_Jakarta_Sans'] font-bold text-2xl text-gray-900 uppercase tracking-wide">
+                    <div className="font-['Plus_Jakarta_Sans'] font-bold text-2xl text-gray-900 dark:text-white uppercase tracking-wide">
                         briac-le-meillat <span className="text-sm font-normal text-[#0055ff] ml-1">Secure</span>
                     </div>
                 </div>
@@ -75,7 +76,7 @@ export default function Login() {
                     {[1, 2, 3].map((s) => (
                         <div
                             key={s}
-                            className={`w-8 h-8 rounded-full border-2 z-10 flex items-center justify-center font-semibold text-sm transition-all duration-300 ${step >= s ? 'border-[#0055ff] bg-white text-[#0055ff]' : 'border-gray-200 bg-white text-gray-400'
+                            className={`w-8 h-8 rounded-full border-2 z-10 flex items-center justify-center font-semibold text-sm transition-all duration-300 ${step >= s ? 'border-[#0055ff] bg-white text-[#0055ff]' : 'border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 text-gray-400 dark:text-gray-500'
                                 } ${step > s ? '!bg-[#0055ff] !text-white' : ''} ${step === s ? 'shadow-[0_0_10px_rgba(0,85,255,0.4)]' : ''}`}
                         >
                             {step > s ? <i className="fa-solid fa-check"></i> : s}
@@ -85,14 +86,14 @@ export default function Login() {
 
                 {step === 1 && (
                     <div className="animate-slide-in">
-                        <h3 className="text-xl font-semibold mb-6 text-center text-gray-900">Identité</h3>
+                        <h3 className="text-xl font-semibold mb-6 text-center text-gray-900 dark:text-white">Identité</h3>
                         <div className="mb-5">
                             <label className="block mb-2 text-sm font-medium text-gray-500">Nom complet</label>
-                            <input type="text" className="w-full p-3 bg-gray-50 border border-gray-200 rounded-lg text-gray-900 focus:outline-none focus:border-[#0055ff] focus:ring-2 focus:ring-[#0055ff]/10 transition-all" placeholder="ex: Jean Dupont" />
+                            <input type="text" className="w-full p-3 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-lg text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:border-[#0055ff] focus:ring-2 focus:ring-[#0055ff]/10 transition-all" placeholder="ex: Jean Dupont" />
                         </div>
                         <div className="mb-5">
                             <label className="block mb-2 text-sm font-medium text-gray-500">Email professionnel</label>
-                            <input type="email" className="w-full p-3 bg-gray-50 border border-gray-200 rounded-lg text-gray-900 focus:outline-none focus:border-[#0055ff] focus:ring-2 focus:ring-[#0055ff]/10 transition-all" placeholder="jean@hopital.fr" />
+                            <input type="email" className="w-full p-3 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-lg text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:border-[#0055ff] focus:ring-2 focus:ring-[#0055ff]/10 transition-all" placeholder="jean@hopital.fr" />
                         </div>
 
                         <button
@@ -106,12 +107,12 @@ export default function Login() {
 
                 {step === 2 && (
                     <div className="animate-slide-in">
-                        <h3 className="text-xl font-semibold mb-2 text-center text-gray-900">Sécurité</h3>
-                        <p className="text-center text-gray-500 mb-6 text-sm">Créez un mot de passe maître fort.</p>
+                        <h3 className="text-xl font-semibold mb-2 text-center text-gray-900 dark:text-white">Sécurité</h3>
+                        <p className="text-center text-gray-500 dark:text-gray-400 mb-6 text-sm">Créez un mot de passe maître fort.</p>
 
                         <div className="mb-5">
                             <label className="block mb-2 text-sm font-medium text-gray-500">Mot de passe maître</label>
-                            <input type="password" onChange={handlePasswordChange} className="w-full p-3 bg-gray-50 border border-gray-200 rounded-lg text-gray-900 focus:outline-none focus:border-[#0055ff] focus:ring-2 focus:ring-[#0055ff]/10 transition-all" />
+                            <input type="password" onChange={handlePasswordChange} className="w-full p-3 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:border-[#0055ff] focus:ring-2 focus:ring-[#0055ff]/10 transition-all" />
                             <div className="flex h-1.5 bg-gray-200 rounded-full mt-2 overflow-hidden">
                                 <div className={`flex-1 transition-colors duration-300 border-r border-white ${passwordStrength >= 1 ? (passwordStrength === 1 ? 'bg-red-500' : passwordStrength === 2 ? 'bg-orange-400' : 'bg-green-500') : 'bg-transparent'}`}></div>
                                 <div className={`flex-1 transition-colors duration-300 border-r border-white ${passwordStrength >= 2 ? (passwordStrength === 2 ? 'bg-orange-400' : 'bg-green-500') : 'bg-transparent'}`}></div>
@@ -121,7 +122,7 @@ export default function Login() {
                         </div>
                         <div className="mb-5">
                             <label className="block mb-2 text-sm font-medium text-gray-500">Confirmer le mot de passe</label>
-                            <input type="password" className="w-full p-3 bg-gray-50 border border-gray-200 rounded-lg text-gray-900 focus:outline-none focus:border-[#0055ff] focus:ring-2 focus:ring-[#0055ff]/10 transition-all" />
+                            <input type="password" className="w-full p-3 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:border-[#0055ff] focus:ring-2 focus:ring-[#0055ff]/10 transition-all" />
                         </div>
 
                         <div className="flex gap-4 mt-8">
@@ -142,8 +143,8 @@ export default function Login() {
                         <div className="w-16 h-16 bg-green-50 text-green-500 rounded-full flex items-center justify-center text-2xl mx-auto mb-4 shadow-sm border border-green-100">
                             <i className="fa-solid fa-check"></i>
                         </div>
-                        <h3 className="text-xl font-semibold mb-2 text-gray-900">Compte créé !</h3>
-                        <p className="text-gray-500 mb-8 text-sm">Dernière étape : votre kit de secours.</p>
+                        <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">Compte créé !</h3>
+                        <p className="text-gray-500 dark:text-gray-400 mb-8 text-sm">Dernière étape : votre kit de secours.</p>
 
                         <button
                             className="w-full py-3 px-6 bg-red-500 text-white rounded-lg font-semibold shadow-lg shadow-red-500/30 hover:bg-red-600 hover:-translate-y-px transition-all border-none"

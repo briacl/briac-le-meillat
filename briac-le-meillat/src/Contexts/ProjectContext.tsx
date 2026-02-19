@@ -8,11 +8,8 @@ export interface Project {
     title: string;
     description: string;
     imageUrl: string;
-    languages: string[];
-    link: string;
-    domain: string;
-    isBest: boolean;
-    isRecent: boolean;
+    videoLink: string;
+    series: string[];
     createdAt: number;
 }
 
@@ -21,8 +18,8 @@ interface ProjectContextType {
     addProject: (project: Omit<Project, 'id' | 'createdAt'>) => void;
     updateProject: (id: string, updates: Partial<Project>) => void;
     deleteProject: (id: string) => void;
-    getProjectsByDomain: (domain: string) => Project[];
-    domains: string[];
+
+
 }
 
 const ProjectContext = createContext<ProjectContextType | undefined>(undefined);
@@ -69,15 +66,8 @@ export function ProjectProvider({ children }: { children: React.ReactNode }) {
         saveProjects(updatedProjects);
     };
 
-    const getProjectsByDomain = (domain: string) => {
-        return projects.filter(p => p.domain === domain);
-    };
-
-    // Extract unique domains
-    const domains = Array.from(new Set(projects.map(p => p.domain)));
-
     return (
-        <ProjectContext.Provider value={{ projects, addProject, updateProject, deleteProject, getProjectsByDomain, domains }}>
+        <ProjectContext.Provider value={{ projects, addProject, updateProject, deleteProject }}>
             {children}
         </ProjectContext.Provider>
     );

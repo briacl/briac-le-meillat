@@ -7,27 +7,39 @@ import Timeline from '@/Components/Timeline';
 const cvData = [
     {
         year: '2021',
-        title: 'Classes Préparatoires',
-        description: 'Admission en Classes Préparatoires aux Grandes Écoles (MPSI/MP). Deux années intensives de mathématiques et physique.',
-        location: 'Lycée Chateaubriand, Rennes' // Example
+        title: 'Baccalauréat Général',
+        description: 'Année de Terminale, obtention du Bac Général Spécialités SVT & Physique-Chimie Option Maths Complémentaires.',
+        location: 'Lycée'
+    },
+    {
+        year: '2022',
+        title: 'Licence de Biologie',
+        description: '1ère année de Licence de Biologie.',
+        location: 'Faculté Jean Perrin'
     },
     {
         year: '2023',
-        title: 'IMT Nord Europe',
-        description: 'Entrée en école d\'ingénieur. Début de la spécialisation en numérique, développement et réseaux.',
-        location: 'Douai / Lille'
+        title: 'BUT MMI',
+        description: '1ère année de BUT Métiers du Multimédia et de l\'Internet.',
+        location: 'IUT de Lens'
     },
     {
         year: '2024',
-        title: 'Spécialisation IA',
-        description: 'Approfondissement des connaissances en Intelligence Artificielle et Data Science. Projets de machine learning.',
-        location: 'IMT Nord Europe'
+        title: 'Autodidacte',
+        description: '1ère année en autodidacte.',
+        location: 'Autonomie'
     },
     {
         year: '2025',
-        title: 'Futur Ingénieur',
-        description: 'Stage de fin d\'études et diplomation à venir. Prêt à relever de nouveaux défis technologiques.',
-        location: 'À venir'
+        title: 'Autodidacte',
+        description: '2ème année en autodidacte.',
+        location: 'Autonomie'
+    },
+    {
+        year: '2026',
+        title: 'BUT R&T',
+        description: '1ère année de BUT Réseaux et Télécommunications.',
+        location: 'IUT de Béthune'
     }
 ];
 
@@ -35,7 +47,7 @@ export default function CVSection() {
     const [activeStep, setActiveStep] = useState(1); // Default to second step as active for demo
 
     return (
-        <div className="w-full flex flex-col lg:flex-row gap-8 items-stretch justify-center mx-auto min-h-[500px]">
+        <div className="w-full flex flex-col lg:flex-row gap-8 items-stretch justify-center mx-auto min-h-[700px]">
 
             {/* LEFT: Profile Card */}
             <div className="w-full lg:w-1/3 flex-shrink-0">
@@ -47,7 +59,7 @@ export default function CVSection() {
                 <GlassCard className="h-full flex flex-col justify-start !p-0 overflow-hidden">
 
                     {/* Top: Timeline */}
-                    <div className="w-full p-8 pb-4">
+                    <div className="w-full pt-32 px-8 pb-4">
                         <Timeline
                             steps={cvData.map(d => ({ year: d.year, title: d.title }))}
                             activeStep={activeStep}
@@ -56,7 +68,7 @@ export default function CVSection() {
                     </div>
 
                     {/* Bottom: Dynamic Content */}
-                    <div className="flex-1 w-full p-12 flex flex-col items-center justify-center text-center transition-all duration-500">
+                    <div className="flex-1 w-full px-12 pb-12 pt-2 flex flex-col items-center justify-center text-center transition-all duration-500">
 
                         <div className="animate-in fade-in slide-in-from-bottom-4 duration-500" key={activeStep}>
                             <h3 className="font-['Paris2024'] text-4xl mb-2 text-[#0055ff]">

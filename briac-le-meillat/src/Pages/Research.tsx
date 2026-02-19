@@ -91,6 +91,13 @@ export default function Research() {
                                 <FileText className="w-4 h-4" />
                                 ARTICLES
                             </button>
+                            <Link
+                                to="/realisations"
+                                className="relative px-6 py-2 rounded-full font-['Paris2024'] transition-all duration-300 flex items-center gap-2 text-skin-text-secondary hover:text-white hover:bg-white/5"
+                            >
+                                <FlaskConical className="w-4 h-4" />
+                                RÉALISATIONS
+                            </Link>
                         </div>
                     </div>
 

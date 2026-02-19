@@ -15,7 +15,16 @@ import io
 import base64
 from dotenv import load_dotenv
 
-load_dotenv()
+# Flexibly load .env from backend/ or root
+backend_env = os.path.join(os.path.dirname(__file__), ".env")
+root_env = os.path.join(os.path.dirname(os.path.dirname(__file__)), ".env")
+
+if os.path.exists(backend_env):
+    load_dotenv(backend_env, override=True)
+elif os.path.exists(root_env):
+    load_dotenv(root_env, override=True)
+else:
+    load_dotenv(override=True)
 
 app = FastAPI()
 
@@ -34,10 +43,13 @@ VERIFICATION_FILE = os.path.join(os.path.dirname(__file__), "data", "verificatio
 
 # Configuration
 SMTP_EMAIL = os.getenv("SMTP_EMAIL")
-SMTP_PASSWORD = os.getenv("SMTP_PASSWORD")
+SMTP_PASSWORD = os.getenv("SMTP_PASSWORD", "").replace(" ", "")
+
+
+
 ENABLE_EMAIL_VERIFICATION = os.getenv("ENABLE_EMAIL_VERIFICATION", "true").lower() == "true"
 ENABLE_2FA = os.getenv("ENABLE_2FA", "true").lower() == "true"
-
+ADMIN_EMAIL = "briac.le.meillat@gmail.com"
 
 # Pydantic models
 class UserLogin(BaseModel):
@@ -70,6 +82,11 @@ class Setup2FARequest(BaseModel):
 class Verify2FARequest(BaseModel):
     email: str
     code: str
+
+class ContactRequest(BaseModel):
+    name: str
+    email: str
+    message: str
 
 
 def load_users():
@@ -126,7 +143,41 @@ def send_verification_email(to_email, code):
     except Exception as e:
         print(f"Failed to send email: {e}")
         return False
+        return False
 
+def send_contact_email(name, user_email, message):
+    if not SMTP_EMAIL or not SMTP_PASSWORD:
+        print("SMTP credentials not set. Skipping contact email.")
+        return False
+
+    try:
+        msg = MIMEMultipart()
+        msg['From'] = SMTP_EMAIL
+        msg['To'] = ADMIN_EMAIL
+        msg['Subject'] = f"Nouveau message de contact : {name}"
+        msg['Reply-To'] = user_email
+
+        body = f"""
+Nouveau message via le formulaire de contact :
+
+Nom : {name}
+Email : {user_email}
+
+Message :
+{message}
+        """
+        msg.attach(MIMEText(body, 'plain'))
+
+        server = smtplib.SMTP('smtp.gmail.com', 587)
+        server.starttls()
+        server.login(SMTP_EMAIL, SMTP_PASSWORD)
+        text = msg.as_string()
+        server.sendmail(SMTP_EMAIL, ADMIN_EMAIL, text)
+        server.quit()
+        return True
+    except Exception as e:
+        print(f"Failed to send contact email: {e}")
+        return False
 def generate_totp_secret():
     return pyotp.random_base32()
 
@@ -281,6 +332,7 @@ def subscribe(req: SubscribeRequest):
             u["subscription"] = "reserved"
             user_found = True
             updated_user = u
+            updated_user = u
             break
             
     if not user_found:
@@ -292,6 +344,14 @@ def subscribe(req: SubscribeRequest):
         "email": updated_user["email"],
         "subscription": updated_user["subscription"]
     }
+
+@app.post("/api/contact")
+def contact_form(req: ContactRequest):
+    success = send_contact_email(req.name, req.email, req.message)
+    if not success:
+        print(f"Failed to send email from {req.email}")
+    
+    return {"message": "Message received", "email_sent": success}
 
 if __name__ == "__main__":
     import uvicorn

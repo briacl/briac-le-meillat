@@ -11,6 +11,22 @@ j'ai également par le passé, touché à la réalisation vidéo, j'ai donc ét�
 
 mais en privé, je suis également sportif : alpiniste, semi-marathonien, traileur, parapentiste, nageur, skieur
 
+2025 - 2026 : 1ère année BUT R&T à l'IUT de Béthune
+2024 - 2025 : 2ème année autodidacte
+2023 - 2024 : 1ère année autodidacte
+2022 - 2023 : 1ère année BUT MMI à l'IUT de Lens
+2021 - 2022 : 1ère année Licence de Biologie à la Faculté Jean Perrin
+2020 - 2021 : Année de Terminale, obtention du Bac Général Spécialités SVT & Physique-Chimie Option Maths Complémentaires
+
+je code ce site afin de montrer ce que j'ai étudié, ce que j'étudie, et ce que je projette d'étudier
+mes différents projets, recherches, réalisés, en cours, à venir
+les gens avec qui je travaille
+
+ce site permettra à mes amis auxquels je décide de donner accès, de pouvoir suivre mes avancées dans mes recherches, pro ou personnelles
+pour les recherches personnelles, ne réserver l'accès qu'aux personne que j'ai mit moi-même en "reserved"
+
+
+
 ## Développement Web
 
 ### Frontend
