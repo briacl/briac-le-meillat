@@ -32,9 +32,44 @@ export default defineConfig({
         {
             name: 'api-middleware',
             configureServer(server) {
-                server.middlewares.use('/api/projects', async (req, res, next) => {
+                // Middleware for Web Projects (Old Portfolio)
+                server.middlewares.use('/api/web-projects', async (req, res, next) => {
                     const fs = await import('fs/promises');
                     const dataPath = path.resolve(__dirname, './src/data/projects.json');
+
+                    if (req.method === 'GET') {
+                        try {
+                            const data = await fs.readFile(dataPath, 'utf-8');
+                            res.setHeader('Content-Type', 'application/json');
+                            res.end(data);
+                        } catch (err) {
+                            res.statusCode = 500;
+                            res.end(JSON.stringify({ error: 'Failed to read data' }));
+                        }
+                    } else if (req.method === 'POST') {
+                        let body = '';
+                        req.on('data', chunk => {
+                            body += chunk.toString();
+                        });
+                        req.on('end', async () => {
+                            try {
+                                const data = body;
+                                await fs.writeFile(dataPath, data, 'utf-8');
+                                res.setHeader('Content-Type', 'application/json');
+                                res.end(JSON.stringify({ success: true }));
+                            } catch (err) {
+                                res.statusCode = 500;
+                                res.end(JSON.stringify({ error: 'Failed to save data' }));
+                            }
+                        });
+                    } else {
+                        next();
+                    }
+                });
+
+                server.middlewares.use('/api/projects', async (req, res, next) => {
+                    const fs = await import('fs/promises');
+                    const dataPath = path.resolve(__dirname, './src/data/realisations-projects.json');
 
                     if (req.method === 'GET') {
                         try {

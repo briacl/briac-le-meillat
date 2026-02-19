@@ -1,10 +1,13 @@
+
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronDown, ArrowRight, FileText, FlaskConical, Lock } from 'lucide-react';
+import { ChevronDown, ArrowRight, FileText, FlaskConical, Lock, Search } from 'lucide-react';
 import NeuralNetworkBackground from '../Components/NeuralNetworkBackground';
 import Navbar from '../Components/Navbar';
 import { useAuth } from '../Contexts/AuthContext';
+import { useProjects, Project } from '../Contexts/ProjectContext';
+import GlassCard from '../Components/GlassCard';
 import articlesData from '../data/articles.json';
 
 interface Item {
@@ -34,47 +37,89 @@ const researches: Item[] = [
 
 const articles: Item[] = articlesData as Item[];
 
+const AVAILABLE_SERIES = [
+    "Destins d'Alpinisme",
+    "Histoire de Rire",
+    "j'raconte des histoires",
+    "Affaires Alpines",
+    "Artistes de l'Histoire",
+    "L'Histoire et ses Fautes",
+    "Légendes Martitimes"
+];
+
 export default function Research() {
     const { user, login, subscribe, hasAccessToReserved } = useAuth();
+    const { projects } = useProjects();
+    const location = useLocation();
     const [expandedId, setExpandedId] = useState<string | null>(null);
-    const [activeTab, setActiveTab] = useState<'recherches' | 'articles'>('recherches');
+    const [searchTerm, setSearchTerm] = useState('');
+    const [selectedSeries, setSelectedSeries] = useState('ALL');
 
-    const currentItems = activeTab === 'recherches' ? researches : articles;
+    // Get initial tab from URL query param
+    const searchParams = new URLSearchParams(window.location.search);
+    const initialTab = searchParams.get('tab') === 'realisations' ? 'realisations' : 'recherches';
+    const [activeTab, setActiveTab] = useState<'recherches' | 'articles' | 'realisations'>((initialTab as any));
+
+    // Update URL when tab changes (optional but good for navigation)
+    React.useEffect(() => {
+        const url = new URL(window.location.href);
+        if (activeTab === 'recherches') url.searchParams.delete('tab');
+        else url.searchParams.set('tab', activeTab);
+        window.history.pushState({}, '', url);
+    }, [activeTab]);
 
     // Reset expanded item when switching tabs
     React.useEffect(() => {
         setExpandedId(null);
     }, [activeTab]);
 
+    // Filter projects logic
+    const filteredProjects = projects.filter(project => {
+        const matchesSearch = project.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            project.description.toLowerCase().includes(searchTerm.toLowerCase());
+
+        let matchesSeries = true;
+        if (selectedSeries !== 'ALL') {
+            matchesSeries = project.series?.includes(selectedSeries) || false;
+        }
+
+        return matchesSearch && matchesSeries;
+    });
+
+    const isLocked = (activeTab === 'articles' || activeTab === 'realisations') && !hasAccessToReserved;
+
     return (
         <div className="min-h-screen bg-skin-base text-skin-text-main font-sans selection:bg-blue-500/30 relative overflow-hidden">
             <Navbar />
             <NeuralNetworkBackground />
 
-            <div className="relative z-10 container mx-auto px-4 pt-32 pb-20">
-                <div className="w-11/12 max-w-[90vw] mx-auto bg-black/30 backdrop-blur-3xl border border-white/10 rounded-3xl p-8 md:p-12 shadow-2xl">
-                    <header className="mb-12 text-center">
+            <div className="relative z-10 w-[95%] max-w-[1920px] mx-auto pt-32 pb-20">
+                <GlassCard className="w-full !items-stretch !text-left !p-8 md:!p-12 border-white/10 bg-black/40 backdrop-blur-xl">
+                    <header className="mb-12 text-center w-full">
                         <h1 className="font-['Paris2024'] text-5xl md:text-7xl bg-gradient-to-br from-[#00f2ff] to-[#0055ff] bg-clip-text text-transparent mb-6">
-                            {activeTab === 'recherches' ? 'RECHERCHES' : 'ARTICLES'}
+                            {activeTab === 'recherches' ? 'RECHERCHES' : activeTab === 'articles' ? 'ARTICLES' : 'RÉALISATIONS'}
                         </h1>
                         <p className="font-['Baskerville'] text-xl max-w-2xl mx-auto text-skin-text-secondary italic">
                             {activeTab === 'recherches'
                                 ? '"La recherche est ce que je fais quand je ne sais pas ce que je fais." - Wernher von Braun'
-                                : '"Écrire, c\'est une façon de parler sans être interrompu." - Jules Renard'}
+                                : activeTab === 'articles'
+                                    ? '"Écrire, c\'est une façon de parler sans être interrompu." - Jules Renard'
+                                    : '"La théorie, c\'est quand on sait tout et que rien ne fonctionne. La pratique, c\'est quand tout fonctionne et que personne ne sait pourquoi." - Einstein'}
                         </p>
                     </header>
 
                     {/* Tabs */}
-                    <div className="flex justify-center mb-12">
-                        <div className="bg-black/60 backdrop-blur-2xl border border-white/10 rounded-full p-2 flex items-center gap-2 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)]">
+                    <div className="flex justify-center mb-12 w-full">
+                        <div className="bg-black/60 backdrop-blur-2xl border border-white/10 rounded-full p-2 flex items-center gap-2 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] flex-wrap justify-center">
                             <button
                                 onClick={() => setActiveTab('recherches')}
                                 className={`
                                     relative px-6 py-2 rounded-full font-['Paris2024'] transition-all duration-300 flex items-center gap-2
                                     ${activeTab === 'recherches'
                                         ? 'bg-[#00f2ff]/20 text-[#00f2ff] shadow-[0_0_15px_rgba(0,242,255,0.3)]'
-                                        : 'text-skin-text-secondary hover:text-white hover:bg-white/5'}
-                                `}
+                                        : 'text-skin-text-secondary hover:text-white hover:bg-white/5'
+                                    }
+`}
                             >
                                 <FlaskConical className="w-4 h-4" />
                                 RECHERCHES
@@ -85,24 +130,31 @@ export default function Research() {
                                     relative px-6 py-2 rounded-full font-['Paris2024'] transition-all duration-300 flex items-center gap-2
                                     ${activeTab === 'articles'
                                         ? 'bg-[#00f2ff]/20 text-[#00f2ff] shadow-[0_0_15px_rgba(0,242,255,0.3)]'
-                                        : 'text-skin-text-secondary hover:text-white hover:bg-white/5'}
-                                `}
+                                        : 'text-skin-text-secondary hover:text-white hover:bg-white/5'
+                                    }
+`}
                             >
                                 <FileText className="w-4 h-4" />
                                 ARTICLES
                             </button>
-                            <Link
-                                to="/realisations"
-                                className="relative px-6 py-2 rounded-full font-['Paris2024'] transition-all duration-300 flex items-center gap-2 text-skin-text-secondary hover:text-white hover:bg-white/5"
+                            <button
+                                onClick={() => setActiveTab('realisations')}
+                                className={`
+                                    relative px-6 py-2 rounded-full font-['Paris2024'] transition-all duration-300 flex items-center gap-2
+                                    ${activeTab === 'realisations'
+                                        ? 'bg-[#00f2ff]/20 text-[#00f2ff] shadow-[0_0_15px_rgba(0,242,255,0.3)]'
+                                        : 'text-skin-text-secondary hover:text-white hover:bg-white/5'
+                                    }
+`}
                             >
                                 <FlaskConical className="w-4 h-4" />
                                 RÉALISATIONS
-                            </Link>
+                            </button>
                         </div>
                     </div>
 
-                    <div className="max-w-4xl mx-auto space-y-6">
-                        {activeTab === 'articles' && !hasAccessToReserved ? (
+                    <div className="max-w-6xl mx-auto space-y-6 w-full">
+                        {isLocked ? (
                             <div className="relative">
                                 {/* Blurred Content Placeholder */}
                                 <div className="opacity-50 blur-sm pointer-events-none select-none space-y-6" aria-hidden="true">
@@ -124,12 +176,13 @@ export default function Research() {
                                             Contenu Réservé
                                         </h3>
                                         <p className="font-['Baskerville'] text-skin-text-secondary mb-8">
-                                            Ces articles sont exclusifs aux membres ayant souscrit à l'offre "Reserved".
+                                            Ce contenu est exclusif aux membres ayant souscrit à l'offre "Reserved".
                                         </p>
 
                                         {!user ? (
                                             <Link
                                                 to="/login"
+                                                state={{ from: location }}
                                                 className="block w-full py-3 rounded-full bg-white text-black font-['Paris2024'] hover:bg-gray-200 transition-colors mb-4"
                                             >
                                                 Se Connecter
@@ -145,9 +198,136 @@ export default function Research() {
                                     </div>
                                 </div>
                             </div>
+                        ) : activeTab === 'realisations' ? (
+                            <div className="space-y-8">
+                                {/* Filters */}
+                                <div className="flex flex-col items-center gap-6 bg-black/40 backdrop-blur-md p-6 rounded-2xl border border-white/10 w-full">
+                                    {/* Search - Placed below tabs ("sections") */}
+                                    <div className="relative w-full max-w-xl mb-4">
+                                        <Search className="w-5 h-5 absolute left-4 top-1/2 -translate-y-1/2 text-white/50" />
+                                        <input
+                                            type="text"
+                                            placeholder="Rechercher..."
+                                            value={searchTerm}
+                                            onChange={(e) => setSearchTerm(e.target.value)}
+                                            className="w-full bg-black/30 border border-white/10 rounded-full pl-12 pr-4 py-3 text-base text-white focus:border-[#00f2ff]/50 outline-none transition-all shadow-inner focus:bg-black/50"
+                                        />
+                                    </div>
+
+                                    {/* Series Filter - Placed below search */}
+                                    <div className="flex flex-wrap gap-2 justify-center w-full">
+                                        <button
+                                            onClick={() => setSelectedSeries('ALL')}
+                                            className={`
+                                                px-4 py-1.5 rounded-full text-xs font-bold tracking-wider transition-all
+                                                ${selectedSeries === 'ALL'
+                                                    ? 'bg-[#00f2ff] text-black shadow-[0_0_15px_rgba(0,242,255,0.4)]'
+                                                    : 'bg-white/5 text-skin-text-secondary hover:bg-white/10 hover:text-white'
+                                                }
+`}
+                                        >
+                                            ALL
+                                        </button>
+                                        {AVAILABLE_SERIES.map(series => (
+                                            <button
+                                                key={series}
+                                                onClick={() => setSelectedSeries(series)}
+                                                className={`
+                                                    px-4 py-1.5 rounded-full text-xs font-bold tracking-wider transition-all
+                                                    ${selectedSeries === series
+                                                        ? 'bg-[#00f2ff] text-black shadow-[0_0_15px_rgba(0,242,255,0.4)]'
+                                                        : 'bg-white/5 text-skin-text-secondary hover:bg-white/10 hover:text-white'
+                                                    }
+`}
+                                            >
+                                                {series}
+                                            </button>
+                                        ))}
+                                    </div>
+
+
+                                </div>
+
+                                {/* REALISATIONS GRID */}
+                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                                    <AnimatePresence>
+                                        {filteredProjects.map((project) => (
+                                            <motion.div
+                                                key={project.id}
+                                                layout
+                                                initial={{ opacity: 0, scale: 0.9 }}
+                                                animate={{ opacity: 1, scale: 1 }}
+                                                exit={{ opacity: 0, scale: 0.9 }}
+                                                transition={{ duration: 0.3 }}
+                                                className="group relative bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden hover:border-[#00f2ff]/50 transition-all duration-500 hover:shadow-[0_0_30px_rgba(0,242,255,0.15)] flex flex-col h-full"
+                                            >
+                                                {/* Image Container */}
+                                                <div className="h-48 overflow-hidden relative">
+                                                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10" />
+                                                    <img
+                                                        src={project.imageUrl}
+                                                        alt={project.title}
+                                                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                                        onError={(e) => {
+                                                            (e.target as HTMLImageElement).src = 'https://via.placeholder.com/400x300/000000/FFFFFF?text=No+Image';
+                                                        }}
+                                                    />
+                                                    {/* Series Badges */}
+                                                    <div className="absolute bottom-4 left-4 z-20 flex flex-wrap gap-2">
+                                                        {project.series?.map((s, idx) => (
+                                                            <span key={idx} className="text-[#00f2ff] text-[10px] font-bold tracking-wider uppercase bg-black/60 px-2 py-1 rounded border border-[#00f2ff]/30 backdrop-blur-sm">
+                                                                {s}
+                                                            </span>
+                                                        ))}
+                                                    </div>
+                                                </div>
+
+                                                {/* Content */}
+                                                <div className="p-6 flex-1 flex flex-col">
+                                                    <div className="mb-3">
+                                                        <Link
+                                                            to={`/realisations/${project.id}`}
+                                                            className="group-hover:text-[#00f2ff] transition-colors inline-block"
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                        >
+                                                            <h3 className="text-xl font-['Paris2024'] line-clamp-1" title={project.title}>
+                                                                {project.title}
+                                                            </h3>
+                                                        </Link>
+                                                    </div>
+                                                    <p className="text-skin-text-secondary text-sm mb-4 line-clamp-3">
+                                                        {project.description}
+                                                    </p>
+                                                    {/* Video Link */}
+                                                    <div className="mt-auto flex justify-end items-center">
+                                                        {project.videoLink && project.videoLink !== '#' && (
+                                                            <a
+                                                                href={project.videoLink}
+                                                                target="_blank"
+                                                                rel="noopener noreferrer"
+                                                                className="flex items-center gap-2 px-3 py-1.5 bg-white/10 hover:bg-[#00f2ff]/20 text-white hover:text-[#00f2ff] rounded-lg transition-all text-sm font-bold"
+                                                            >
+                                                                <span>Voir</span>
+                                                                <ArrowRight className="w-4 h-4" />
+                                                            </a>
+                                                        )}
+                                                    </div>
+                                                </div>
+                                            </motion.div>
+                                        ))}
+                                    </AnimatePresence>
+                                    {filteredProjects.length === 0 && (
+                                        <div className="col-span-full text-center py-12 opacity-50">
+                                            <p className="font-['Paris2024'] text-xl">Aucun projet trouvé</p>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
                         ) : (
+                            // ARTICLES & RESEARCHES LIST
                             <AnimatePresence mode="wait">
-                                {currentItems.map((item) => (
+                                {(activeTab === 'recherches' ? researches : articles).map((item) => (
                                     <motion.div
                                         key={item.id}
                                         initial={{ opacity: 0, y: 20 }}
@@ -209,8 +389,18 @@ export default function Research() {
                             </AnimatePresence>
                         )}
                     </div>
-                </div>
+                </GlassCard>
             </div>
+
+            {/* Admin Link (Only visible if unlocked, preferably check user role if available, but for now just check unlocked) */}
+            {!isLocked && activeTab === 'realisations' && (
+                <div className="fixed bottom-4 right-4 z-50">
+                    <Link to="/admin/realisations" className="flex items-center gap-2 px-4 py-2 bg-[#0055ff] text-white rounded-full font-bold hover:bg-[#0044cc] shadow-lg shadow-blue-500/30 transition-all">
+                        <Lock className="w-4 h-4" />
+                        <span>Admin</span>
+                    </Link>
+                </div>
+            )}
         </div>
     );
 }

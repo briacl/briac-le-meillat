@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useProjects } from '@/Contexts/ProjectContext';
-import type { Project } from '@/Contexts/ProjectContext';
+import { useWebProjects } from '@/Contexts/WebProjectContext';
+import type { WebProject as Project } from '@/Contexts/WebProjectContext';
 import NeuralNetworkBackground from '@/Components/NeuralNetworkBackground';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
@@ -19,7 +19,7 @@ import {
 } from 'lucide-react';
 
 export default function Dashboard() {
-    const { projects, addProject, updateProject, deleteProject } = useProjects();
+    const { projects, addProject, updateProject, deleteProject } = useWebProjects();
     const [activeTab, setActiveTab] = useState<'dashboard' | 'visuboard'>('dashboard');
     const [isFormOpen, setIsFormOpen] = useState(false);
     const [editingId, setEditingId] = useState<string | null>(null);

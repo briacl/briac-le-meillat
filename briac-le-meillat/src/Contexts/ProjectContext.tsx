@@ -1,7 +1,7 @@
 
 import React, { createContext, useContext, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import projectsData from '../data/projects.json';
+import projectsData from '../data/realisations-projects.json';
 
 export interface Project {
     id: string;
@@ -11,6 +11,10 @@ export interface Project {
     videoLink: string;
     series: string[];
     createdAt: number;
+    season?: number;
+    episode?: number;
+    duration?: string;
+    category?: string;
 }
 
 interface ProjectContextType {
@@ -18,8 +22,7 @@ interface ProjectContextType {
     addProject: (project: Omit<Project, 'id' | 'createdAt'>) => void;
     updateProject: (id: string, updates: Partial<Project>) => void;
     deleteProject: (id: string) => void;
-
-
+    reorderProjects: (newOrder: Project[]) => void;
 }
 
 const ProjectContext = createContext<ProjectContextType | undefined>(undefined);
@@ -66,8 +69,13 @@ export function ProjectProvider({ children }: { children: React.ReactNode }) {
         saveProjects(updatedProjects);
     };
 
+    const reorderProjects = (newOrder: Project[]) => {
+        setProjects(newOrder);
+        saveProjects(newOrder);
+    };
+
     return (
-        <ProjectContext.Provider value={{ projects, addProject, updateProject, deleteProject }}>
+        <ProjectContext.Provider value={{ projects, addProject, updateProject, deleteProject, reorderProjects }}>
             {children}
         </ProjectContext.Provider>
     );

@@ -3,7 +3,8 @@ import Navbar from '@/Components/Navbar';
 import NeuralNetworkBackground from '@/Components/NeuralNetworkBackground';
 import GlassCard from '@/Components/GlassCard';
 import { useProjects, Project } from '@/Contexts/ProjectContext';
-import { Plus, Edit, Trash, Save, ArrowLeft } from 'lucide-react';
+import { Reorder } from 'framer-motion';
+import { Plus, Edit, Trash, Save, ArrowLeft, GripVertical } from 'lucide-react';
 import { useNavigate, Link } from 'react-router-dom';
 
 const AVAILABLE_SERIES = [
@@ -17,7 +18,7 @@ const AVAILABLE_SERIES = [
 ];
 
 export default function RealisationsAdmin() {
-    const { projects, addProject, updateProject, deleteProject } = useProjects();
+    const { projects, addProject, updateProject, deleteProject, reorderProjects } = useProjects();
     const navigate = useNavigate();
     const [editingId, setEditingId] = useState<string | null>(null);
     const [formData, setFormData] = useState<Partial<Project>>({});
@@ -77,7 +78,7 @@ export default function RealisationsAdmin() {
             <div className="relative z-10 container mx-auto px-4 pt-32 pb-20">
                 <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
                     <div className="flex items-center gap-4">
-                        <Link to="/realisations" className="p-2 bg-white/10 hover:bg-white/20 text-white rounded-lg transition-colors" title="Retour au site">
+                        <Link to="/recherches?tab=realisations" className="p-2 bg-white/10 hover:bg-white/20 text-white rounded-lg transition-colors" title="Retour au site">
                             <ArrowLeft className="w-6 h-6" />
                         </Link>
                         <h1 className="font-['Paris2024'] text-3xl md:text-4xl text-white">
@@ -180,53 +181,64 @@ export default function RealisationsAdmin() {
                 )}
 
                 {/* LIST */}
-                <div className="grid grid-cols-1 gap-4">
-                    {projects.map(project => (
-                        <div key={project.id} className="bg-white/5 border border-white/10 rounded-xl p-4 flex flex-col md:flex-row gap-4 items-center">
-                            <img
-                                src={project.imageUrl}
-                                alt={project.title}
-                                className="w-24 h-24 object-cover rounded-lg bg-black/50"
-                                onError={(e) => { (e.target as HTMLImageElement).src = 'https://via.placeholder.com/150?text=No+Img'; }}
-                            />
+                <GlassCard className="w-full !p-8 !items-stretch bg-black/40 backdrop-blur-xl border-white/10">
+                    <Reorder.Group axis="y" values={projects} onReorder={reorderProjects} className="space-y-4">
+                        {projects.map(project => (
+                            <Reorder.Item
+                                key={project.id}
+                                value={project}
+                                className="bg-white/5 border border-white/10 rounded-xl p-4 flex flex-col md:flex-row gap-4 items-center cursor-move"
+                            >
+                                {/* Drag Handle Icon */}
+                                <div className="text-white/30 hover:text-white/80 transition-colors">
+                                    <GripVertical className="w-6 h-6" />
+                                </div>
 
-                            <div className="flex-1 min-w-0 text-center md:text-left">
-                                <h3 className="text-xl font-bold text-white truncate">{project.title}</h3>
-                                {project.series && project.series.length > 0 && (
-                                    <div className="flex flex-wrap gap-1 mt-1">
-                                        {project.series.map(s => (
-                                            <span key={s} className="text-[10px] bg-[#00f2ff]/10 text-[#00f2ff] px-2 py-0.5 rounded border border-[#00f2ff]/20">
-                                                {s}
-                                            </span>
-                                        ))}
-                                    </div>
-                                )}
-                                <p className="text-sm text-gray-400 truncate mt-1">{project.description}</p>
-                            </div>
+                                <img
+                                    src={project.imageUrl}
+                                    alt={project.title}
+                                    className="w-40 h-24 object-cover rounded-lg bg-black/50"
+                                    onError={(e) => { (e.target as HTMLImageElement).src = 'https://via.placeholder.com/150?text=No+Img'; }}
+                                />
 
-                            <div className="flex gap-2">
-                                <button
-                                    onClick={() => startEdit(project)}
-                                    className="p-2 bg-blue-500/20 text-blue-400 rounded-lg hover:bg-blue-500/30 transition-colors"
-                                    title="Modifier"
-                                >
-                                    <Edit className="w-5 h-5" />
-                                </button>
-                                <button
-                                    onClick={() => {
-                                        if (confirm('Êtes-vous sûr de vouloir supprimer ce projet ?')) {
-                                            deleteProject(project.id);
-                                        }
-                                    }}
-                                    className="p-2 bg-red-500/20 text-red-400 rounded-lg hover:bg-red-500/30 transition-colors"
-                                    title="Supprimer"
-                                >
-                                    <Trash className="w-5 h-5" />
-                                </button>
-                            </div>
-                        </div>
-                    ))}
-                </div>
+                                <div className="flex-1 min-w-0 text-center md:text-left">
+                                    <h3 className="text-xl font-bold text-white truncate">{project.title}</h3>
+                                    {project.series && project.series.length > 0 && (
+                                        <div className="flex flex-wrap gap-1 mt-1 justify-center md:justify-start">
+                                            {project.series.map(s => (
+                                                <span key={s} className="text-[10px] bg-[#00f2ff]/10 text-[#00f2ff] px-2 py-0.5 rounded border border-[#00f2ff]/20">
+                                                    {s}
+                                                </span>
+                                            ))}
+                                        </div>
+                                    )}
+                                    <p className="text-sm text-gray-400 truncate mt-1">{project.description}</p>
+                                </div>
+
+                                <div className="flex gap-2">
+                                    <button
+                                        onClick={() => startEdit(project)}
+                                        className="p-2 bg-blue-500/20 text-blue-400 rounded-lg hover:bg-blue-500/30 transition-colors"
+                                        title="Modifier"
+                                    >
+                                        <Edit className="w-5 h-5" />
+                                    </button>
+                                    <button
+                                        onClick={() => {
+                                            if (confirm('Êtes-vous sûr de vouloir supprimer ce projet ?')) {
+                                                deleteProject(project.id);
+                                            }
+                                        }}
+                                        className="p-2 bg-red-500/20 text-red-400 rounded-lg hover:bg-red-500/30 transition-colors"
+                                        title="Supprimer"
+                                    >
+                                        <Trash className="w-5 h-5" />
+                                    </button>
+                                </div>
+                            </Reorder.Item>
+                        ))}
+                    </Reorder.Group>
+                </GlassCard>
             </div>
         </div>
     );

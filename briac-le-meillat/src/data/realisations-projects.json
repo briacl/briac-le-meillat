@@ -1,0 +1,92 @@
+[
+    {
+        "title": "L'Histoire de Ludwig van Beethoven",
+        "description": "",
+        "imageUrl": "/briac-le-meillat/assets/realisations/20240505_190402000_iOS.png",
+        "videoLink": "#",
+        "series": [
+            "Artistes de l'Histoire"
+        ],
+        "id": "c09c32e8-6a41-4c38-b693-acede1703034",
+        "createdAt": 1771521708109,
+        "season": 1,
+        "episode": 1,
+        "duration": "45 min",
+        "category": "Documentaire historique"
+    },
+    {
+        "title": "La Légende de Kopakonan",
+        "description": "",
+        "imageUrl": "/briac-le-meillat/assets/realisations/20260219_171934667_iOS.jpg",
+        "videoLink": "#",
+        "series": [
+            "Légendes Martitimes"
+        ],
+        "id": "2afd17d5-0bff-4a96-b056-3738d9fd7d08",
+        "createdAt": 1771521642338,
+        "season": 1,
+        "episode": 1,
+        "duration": "30 min",
+        "category": "Légende"
+    },
+    {
+        "title": "Roger Frison-Roche, le roman d'une vie d'aventurier",
+        "description": "",
+        "imageUrl": "/briac-le-meillat/assets/realisations/20240506_132400000_iOS.png",
+        "videoLink": "#",
+        "series": [
+            "Destins d'Alpinisme"
+        ],
+        "id": "63d4dea0-5fbb-4ced-b731-70a2839d70d8",
+        "createdAt": 1771521563472,
+        "season": 2,
+        "episode": 3,
+        "duration": "52 min",
+        "category": "Biographie"
+    },
+    {
+        "title": "Le Martyre de Licice",
+        "description": "",
+        "imageUrl": "/briac-le-meillat/assets/realisations/20260219_165613651_iOS.jpg",
+        "videoLink": "#",
+        "series": [
+            "L'Histoire et ses Fautes"
+        ],
+        "id": "3c2fb622-6c90-46f3-b808-5c81560d9d3d",
+        "createdAt": 1771521511247,
+        "season": 1,
+        "episode": 4,
+        "duration": "28 min",
+        "category": "Histoire critique"
+    },
+    {
+        "title": "L'Histoire Incroyable d'Arthur Rimbaud",
+        "description": "",
+        "imageUrl": "/briac-le-meillat/assets/realisations/20240506_133710000_iOS.png",
+        "videoLink": "#",
+        "series": [
+            "Artistes de l'Histoire"
+        ],
+        "id": "922e997c-9270-4925-911c-05034f1d9b18",
+        "createdAt": 1771520944994,
+        "season": 1,
+        "episode": 2,
+        "duration": "40 min",
+        "category": "Documentaire artistique"
+    },
+    {
+        "title": "Iseran, la Montagne Imaginaire",
+        "description": "ceci est une description de test",
+        "imageUrl": "/briac-le-meillat/assets/realisations/20260219_103131156_iOS.jpg",
+        "videoLink": "#",
+        "series": [
+            "Affaires Alpines"
+        ],
+        "id": "15289084-223e-4e76-a48c-4e1a6330bd6c",
+        "createdAt": 1771509498674,
+        "season": 3,
+        "episode": 1,
+        "duration": "1h 15min",
+        "category": "Documentaire de montagne"
+    }
+]

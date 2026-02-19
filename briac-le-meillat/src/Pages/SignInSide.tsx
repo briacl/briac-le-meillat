@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../Contexts/AuthContext';
 import { Lock, User, Mail, Eye, EyeOff, Settings, Shield, ThumbsUp, Zap, CheckCircle, Smartphone, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -11,6 +11,10 @@ import Navbar from '../Components/Navbar';
 export default function SignInSide() {
     const { login, signup, verifyEmail, setup2FA, verify2FA, authConfig } = useAuth();
     const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname
+        ? `${location.state.from.pathname}${location.state.from.search || ''}`
+        : '/recherches';
 
     const [step, setStep] = useState<AuthStep>('LOGIN');
     const [showPassword, setShowPassword] = useState(false);
@@ -38,7 +42,7 @@ export default function SignInSide() {
             switch (step) {
                 case 'LOGIN':
                     await login(formData.email, formData.password);
-                    navigate('/recherches');
+                    navigate(from);
                     break;
 
                 case 'SIGNUP':
@@ -48,7 +52,7 @@ export default function SignInSide() {
                         if (!authConfig.enable_2fa) {
                             setStep('SUCCESS');
                             setTimeout(() => {
-                                navigate('/recherches');
+                                navigate(from);
                             }, 2000);
                         } else {
                             // Email skipped, go to 2FA setup
@@ -67,7 +71,7 @@ export default function SignInSide() {
                     if (!authConfig.enable_2fa) {
                         setStep('SUCCESS');
                         setTimeout(() => {
-                            navigate('/recherches');
+                            navigate(from);
                         }, 2000);
                     } else {
                         // Fetch 2FA Setup data immediately after email verification
@@ -81,7 +85,7 @@ export default function SignInSide() {
                     await verify2FA(formData.email, formData.totpCode);
                     setStep('SUCCESS');
                     setTimeout(() => {
-                        navigate('/recherches');
+                        navigate(from);
                     }, 2000);
                     break;
             }
