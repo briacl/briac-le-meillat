@@ -2,7 +2,7 @@
     {
         "name": "briacl",
         "email": "briac.le.meillat@gmail.com",
-        "password": "password123",
+        "password": "$2b$12$PmtpXiHAf23w9Whc5ggB0.IPTimR4ERtWmEwAog6yzBbDmBvHEmwm",
         "subscription": "reserved",
         "is_email_verified": true,
         "is_2fa_enabled": true,

@@ -35,7 +35,7 @@ export default function DomainProjectsSection() {
                     </p>
 
                     <div className="flex flex-wrap gap-2 mb-6">
-                        {project.languages.map((lang, idx) => (
+                        {(project.languages ?? []).map((lang, idx) => (
                             <span key={idx} className="text-[10px] uppercase font-bold px-2 py-1 rounded bg-blue-50 text-blue-600 border border-blue-100">
                                 {lang}
                             </span>
@@ -61,10 +61,10 @@ export default function DomainProjectsSection() {
 
     return (
         <div className="w-full flex flex-col gap-32">
-            {domains.map(domain => {
+            {domains.map((domain: string) => {
                 const domainProjects = getProjectsByDomain(domain);
-                const bestProjects = domainProjects.filter(p => p.isBest);
-                const recentProjects = domainProjects.filter(p => p.isRecent);
+                const bestProjects = domainProjects.filter((p: Project) => p.isBest);
+                const recentProjects = domainProjects.filter((p: Project) => p.isRecent);
 
                 if (domainProjects.length === 0) return null;
 

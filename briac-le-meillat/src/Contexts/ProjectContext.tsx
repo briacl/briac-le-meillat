@@ -15,10 +15,18 @@ export interface Project {
     episode?: number;
     duration?: string;
     category?: string;
+    // Champs utilisés par DomainProjectsSection et NeuralNetworkBackground
+    link?: string;
+    languages?: string[];
+    isBest?: boolean;
+    isRecent?: boolean;
+    domain?: string;
 }
 
 interface ProjectContextType {
     projects: Project[];
+    domains: string[];
+    getProjectsByDomain: (domain: string) => Project[];
     addProject: (project: Omit<Project, 'id' | 'createdAt'>) => void;
     updateProject: (id: string, updates: Partial<Project>) => void;
     deleteProject: (id: string) => void;
@@ -74,8 +82,14 @@ export function ProjectProvider({ children }: { children: React.ReactNode }) {
         saveProjects(newOrder);
     };
 
+    // Calcul des domaines uniques à partir des projets
+    const domains = [...new Set(projects.map(p => p.domain).filter((d): d is string => !!d))];
+
+    const getProjectsByDomain = (domain: string) =>
+        projects.filter(p => p.domain === domain);
+
     return (
-        <ProjectContext.Provider value={{ projects, addProject, updateProject, deleteProject, reorderProjects }}>
+        <ProjectContext.Provider value={{ projects, domains, getProjectsByDomain, addProject, updateProject, deleteProject, reorderProjects }}>
             {children}
         </ProjectContext.Provider>
     );

@@ -1,5 +1,6 @@
-from fastapi import FastAPI, HTTPException, Body
+from fastapi import FastAPI, HTTPException, Body, Depends, status
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from pydantic import BaseModel
 import json
 import os
@@ -14,6 +15,8 @@ import pyotp
 import io
 import base64
 from dotenv import load_dotenv
+from jose import JWTError, jwt
+import bcrypt
 
 # Flexibly load .env from backend/ or root
 backend_env = os.path.join(os.path.dirname(__file__), ".env")
@@ -31,27 +34,35 @@ app = FastAPI()
 # Enable CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://localhost:3000"],  # Vite default port
+    allow_origins=["http://localhost:5173", "http://localhost:3000"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
+# ─── JWT Configuration ────────────────────────────────────────────────────────
+# La SECRET_KEY est utilisée pour signer les tokens JWT.
+# En production, remplace-la par une valeur longue et aléatoire stockée en .env
+SECRET_KEY = os.getenv("JWT_SECRET_KEY", "change-this-in-production-use-a-long-random-string")
+ALGORITHM = "HS256"
+ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24 * 7  # 7 jours
 
+# ─── Bearer token extractor ───────────────────────────────────────────────────
+security = HTTPBearer()
+
+# ─── Fichiers de données ──────────────────────────────────────────────────────
 DATA_FILE = os.path.join(os.path.dirname(__file__), "data", "users.json")
 VERIFICATION_FILE = os.path.join(os.path.dirname(__file__), "data", "verification_codes.json")
 
-# Configuration
+# ─── Configuration ────────────────────────────────────────────────────────────
 SMTP_EMAIL = os.getenv("SMTP_EMAIL")
 SMTP_PASSWORD = os.getenv("SMTP_PASSWORD", "").replace(" ", "")
-
-
-
 ENABLE_EMAIL_VERIFICATION = os.getenv("ENABLE_EMAIL_VERIFICATION", "true").lower() == "true"
 ENABLE_2FA = os.getenv("ENABLE_2FA", "true").lower() == "true"
-ADMIN_EMAIL = "briac.le.meillat@gmail.com"
+ADMIN_EMAIL = os.getenv("ADMIN_EMAIL", "briac.le.meillat@gmail.com")
 
-# Pydantic models
+
+# ─── Pydantic models ──────────────────────────────────────────────────────────
 class UserLogin(BaseModel):
     email: str
     password: str
@@ -89,6 +100,7 @@ class ContactRequest(BaseModel):
     message: str
 
 
+# ─── Helpers fichiers ─────────────────────────────────────────────────────────
 def load_users():
     if not os.path.exists(DATA_FILE):
         return []
@@ -115,6 +127,47 @@ def save_verification_codes(codes):
     with open(VERIFICATION_FILE, "w") as f:
         json.dump(codes, f, indent=4)
 
+
+# ─── JWT helpers ──────────────────────────────────────────────────────────────
+def create_access_token(data: dict, expires_delta: Optional[timedelta] = None) -> str:
+    """Crée un JWT signé contenant les données utilisateur."""
+    to_encode = data.copy()
+    expire = datetime.utcnow() + (expires_delta or timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES))
+    to_encode.update({"exp": expire})
+    return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+
+def decode_token(token: str) -> dict:
+    """Décode et vérifie un JWT. Lève une HTTPException si invalide."""
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        return payload
+    except JWTError:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Token invalide ou expiré",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+
+def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(security)):
+    """Dépendance FastAPI : extrait et valide le Bearer token pour les routes protégées."""
+    payload = decode_token(credentials.credentials)
+    email = payload.get("sub")
+    if not email:
+        raise HTTPException(status_code=401, detail="Token invalide")
+    return payload
+
+
+# ─── Password helpers ─────────────────────────────────────────────────────────
+def hash_password(password: str) -> str:
+    """Hash un mot de passe avec bcrypt (compatible 4.x et 5.x)."""
+    return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
+
+def verify_password(plain_password: str, hashed_password: str) -> bool:
+    """Vérifie un mot de passe contre son hash bcrypt."""
+    return bcrypt.checkpw(plain_password.encode('utf-8'), hashed_password.encode('utf-8'))
+
+
+# ─── Email helpers ────────────────────────────────────────────────────────────
 def send_verification_email(to_email, code):
     if not ENABLE_EMAIL_VERIFICATION:
         print(f"Email verification disabled. Code for {to_email}: {code}")
@@ -136,13 +189,11 @@ def send_verification_email(to_email, code):
         server = smtplib.SMTP('smtp.gmail.com', 587)
         server.starttls()
         server.login(SMTP_EMAIL, SMTP_PASSWORD)
-        text = msg.as_string()
-        server.sendmail(SMTP_EMAIL, to_email, text)
+        server.sendmail(SMTP_EMAIL, to_email, msg.as_string())
         server.quit()
         return True
     except Exception as e:
         print(f"Failed to send email: {e}")
-        return False
         return False
 
 def send_contact_email(name, user_email, message):
@@ -171,13 +222,14 @@ Message :
         server = smtplib.SMTP('smtp.gmail.com', 587)
         server.starttls()
         server.login(SMTP_EMAIL, SMTP_PASSWORD)
-        text = msg.as_string()
-        server.sendmail(SMTP_EMAIL, ADMIN_EMAIL, text)
+        server.sendmail(SMTP_EMAIL, ADMIN_EMAIL, msg.as_string())
         server.quit()
         return True
     except Exception as e:
         print(f"Failed to send contact email: {e}")
         return False
+
+
 def generate_totp_secret():
     return pyotp.random_base32()
 
@@ -190,6 +242,7 @@ def generate_qr_code(secret, email):
     return base64.b64encode(buffered.getvalue()).decode("utf-8")
 
 
+# ─── Routes ───────────────────────────────────────────────────────────────────
 @app.get("/")
 def read_root():
     return {"message": "Briac Le Meillat API is running"}
@@ -201,157 +254,191 @@ def get_config():
         "enable_2fa": ENABLE_2FA
     }
 
+
 @app.post("/api/auth/login")
 def login(user: UserLogin):
     users = load_users()
     for u in users:
-        if u["email"] == user.email and u["password"] == user.password:
-            return {
-                "name": u["name"],
-                "email": u["email"],
-                "subscription": u.get("subscription", "free")
-            }
-    raise HTTPException(status_code=401, detail="Invalid email or password")
+        if u["email"] == user.email:
+            # Vérification du mot de passe : supporte les anciens mots de passe en clair
+            # et les nouveaux hachés avec bcrypt
+            password_field = u.get("password", "")
+            is_valid = False
+
+            if password_field.startswith("$2b$") or password_field.startswith("$2a$"):
+                # Mot de passe déjà haché avec bcrypt
+                is_valid = verify_password(user.password, password_field)
+            else:
+                # Ancien mot de passe en clair → on valide ET on migre au hash
+                if password_field == user.password:
+                    is_valid = True
+                    u["password"] = hash_password(user.password)
+                    save_users(users)
+
+            if is_valid:
+                token_data = {
+                    "sub": u["email"],
+                    "name": u["name"],
+                    "subscription": u.get("subscription", "free"),
+                    "is_email_verified": u.get("is_email_verified", False),
+                    "is_2fa_enabled": u.get("is_2fa_enabled", False),
+                }
+                token = create_access_token(token_data)
+                return {
+                    "token": token,
+                    "name": u["name"],
+                    "email": u["email"],
+                    "subscription": u.get("subscription", "free"),
+                    "is_email_verified": u.get("is_email_verified", False),
+                    "is_2fa_enabled": u.get("is_2fa_enabled", False),
+                }
+
+    raise HTTPException(status_code=401, detail="Email ou mot de passe invalide")
+
+
+@app.get("/api/auth/me")
+def get_me(current_user: dict = Depends(get_current_user)):
+    """
+    Route protégée : retourne les infos de l'utilisateur connecté depuis son JWT.
+    Utilisée par le frontend au démarrage pour restaurer la session.
+    """
+    return {
+        "name": current_user.get("name"),
+        "email": current_user.get("sub"),
+        "subscription": current_user.get("subscription", "free"),
+        "is_email_verified": current_user.get("is_email_verified", False),
+        "is_2fa_enabled": current_user.get("is_2fa_enabled", False),
+    }
+
 
 @app.post("/api/auth/signup")
 def signup(user: UserSignup):
     users = load_users()
     if any(u.get("email") == user.email for u in users):
-        raise HTTPException(status_code=400, detail="Email already registered")
-    
+        raise HTTPException(status_code=400, detail="Email déjà enregistré")
 
     new_user = {
         "name": user.name,
         "email": user.email,
-        "password": user.password, # Note: In production, hash this!
+        "password": hash_password(user.password),  # Stockage sécurisé avec bcrypt
         "subscription": "free",
-        "subscription": "free",
-        "is_email_verified": not ENABLE_EMAIL_VERIFICATION, # Auto-verify if disabled
+        "is_email_verified": not ENABLE_EMAIL_VERIFICATION,
         "is_2fa_enabled": False,
         "totp_secret": None
     }
     users.append(new_user)
     save_users(users)
-    
-    # Handle Email Verification
-    verification_code = secrets.token_hex(3).upper() # 6 chars
+
+    # Gestion vérification email
+    verification_code = secrets.token_hex(3).upper()
     codes = load_verification_codes()
     codes[user.email] = {
         "code": verification_code,
         "expires_at": (datetime.now() + timedelta(minutes=10)).isoformat()
     }
     save_verification_codes(codes)
-    
-    save_verification_codes(codes)
-    
+
     email_sent = False
     if ENABLE_EMAIL_VERIFICATION:
         email_sent = send_verification_email(user.email, verification_code)
-    
+
     return {
         "name": new_user["name"],
         "email": new_user["email"],
         "subscription": new_user["subscription"],
-        "message": "User created. Please verify your email.",
+        "message": "Compte créé. Veuillez vérifier votre email.",
         "email_sent": email_sent
     }
+
 
 @app.post("/api/auth/verify-email")
 def verify_email(req: VerifyCodeRequest):
     codes = load_verification_codes()
     if req.email not in codes:
-        raise HTTPException(status_code=400, detail="No verification code found")
-        
+        raise HTTPException(status_code=400, detail="Aucun code de vérification trouvé")
+
     stored_data = codes[req.email]
     if stored_data["code"] != req.code:
-        raise HTTPException(status_code=400, detail="Invalid code")
-        
+        raise HTTPException(status_code=400, detail="Code invalide")
+
     if datetime.fromisoformat(stored_data["expires_at"]) < datetime.now():
         del codes[req.email]
         save_verification_codes(codes)
-        raise HTTPException(status_code=400, detail="Code expired")
-        
-    # Mark user as verified
+        raise HTTPException(status_code=400, detail="Code expiré")
+
     users = load_users()
     for u in users:
         if u["email"] == req.email:
             u["is_email_verified"] = True
             save_users(users)
             break
-            
-    # Clean up code
+
     del codes[req.email]
     save_verification_codes(codes)
-    
-    return {"message": "Email verified successfully"}
+
+    return {"message": "Email vérifié avec succès"}
+
 
 @app.post("/api/auth/setup-2fa")
 def setup_2fa(req: Setup2FARequest):
     users = load_users()
     user = next((u for u in users if u["email"] == req.email), None)
     if not user:
-        raise HTTPException(status_code=404, detail="User not found")
-        
+        raise HTTPException(status_code=404, detail="Utilisateur introuvable")
+
     if not user.get("totp_secret"):
         user["totp_secret"] = generate_totp_secret()
         save_users(users)
-        
+
     qr_code_base64 = generate_qr_code(user["totp_secret"], user["email"])
     return {
         "qr_code": qr_code_base64,
-        "secret": user["totp_secret"] # Optional: strictly for manual entry if QR fails
+        "secret": user["totp_secret"]
     }
+
 
 @app.post("/api/auth/verify-2fa")
 def verify_2fa(req: Verify2FARequest):
     users = load_users()
     user = next((u for u in users if u["email"] == req.email), None)
     if not user:
-        raise HTTPException(status_code=404, detail="User not found")
-        
+        raise HTTPException(status_code=404, detail="Utilisateur introuvable")
+
     if not user.get("totp_secret"):
-        raise HTTPException(status_code=400, detail="2FA not set up")
-        
+        raise HTTPException(status_code=400, detail="2FA non configuré")
+
     totp = pyotp.TOTP(user["totp_secret"])
     if totp.verify(req.code):
         user["is_2fa_enabled"] = True
         save_users(users)
-        return {"message": "2FA verified and enabled"}
+        return {"message": "2FA vérifié et activé"}
     else:
-        raise HTTPException(status_code=400, detail="Invalid 2FA code")
+        raise HTTPException(status_code=400, detail="Code 2FA invalide")
 
 
 @app.post("/api/subscribe")
 def subscribe(req: SubscribeRequest):
     users = load_users()
-    user_found = False
-    updated_user = None
-    
     for u in users:
         if u["email"] == req.email:
             u["subscription"] = "reserved"
-            user_found = True
-            updated_user = u
-            updated_user = u
-            break
-            
-    if not user_found:
-        raise HTTPException(status_code=404, detail="User not found")
-        
-    save_users(users)
-    return {
-        "name": updated_user["name"],
-        "email": updated_user["email"],
-        "subscription": updated_user["subscription"]
-    }
+            save_users(users)
+            return {
+                "name": u["name"],
+                "email": u["email"],
+                "subscription": u["subscription"]
+            }
+
+    raise HTTPException(status_code=404, detail="Utilisateur introuvable")
+
 
 @app.post("/api/contact")
 def contact_form(req: ContactRequest):
     success = send_contact_email(req.name, req.email, req.message)
     if not success:
         print(f"Failed to send email from {req.email}")
-    
-    return {"message": "Message received", "email_sent": success}
+    return {"message": "Message reçu", "email_sent": success}
+
 
 if __name__ == "__main__":
     import uvicorn

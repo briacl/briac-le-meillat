@@ -484,7 +484,7 @@ export default function NeuralNetworkBackground({ className = "" }: { className?
                                 {(() => {
                                     const normalize = (str: string) => str.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
                                     const domainProjects = projects.filter(p =>
-                                        normalize(p.domain) === normalize(selectedNode || "")
+                                        normalize(p.domain ?? '') === normalize(selectedNode || '')
                                     );
 
                                     const bestProjects = domainProjects.filter(p => p.isBest);
@@ -531,7 +531,7 @@ export default function NeuralNetworkBackground({ className = "" }: { className?
                                                                     {/* Title & Tags - Visible by default, fade out on hover */}
                                                                     <div className="absolute bottom-4 left-4 right-4 transition-opacity duration-300 group-hover:opacity-0">
                                                                         <div className="flex gap-2 mb-2 flex-wrap">
-                                                                            {project.languages.slice(0, 3).map((l, idx) => (
+                                                                            {(project.languages ?? []).slice(0, 3).map((l, idx) => (
                                                                                 <span key={idx} className="text-[9px] uppercase font-bold px-2 py-0.5 rounded-full bg-white/20 text-white backdrop-blur-sm border border-white/10">
                                                                                     {l}
                                                                                 </span>
@@ -648,7 +648,7 @@ export default function NeuralNetworkBackground({ className = "" }: { className?
                                                                         {/* Title & Tags - Visible by default, fade out on hover */}
                                                                         <div className="absolute bottom-4 left-4 right-4 transition-opacity duration-300 group-hover:opacity-0">
                                                                             <div className="flex gap-2 mb-2 flex-wrap">
-                                                                                {project.languages.slice(0, 3).map((l, idx) => (
+                                                                                {(project.languages ?? []).slice(0, 3).map((l, idx) => (
                                                                                     <span key={idx} className="text-[9px] uppercase font-bold px-2 py-0.5 rounded-full bg-white/20 text-white backdrop-blur-sm border border-white/10">
                                                                                         {l}
                                                                                     </span>
