@@ -7,8 +7,8 @@ import NeuralNetworkBackground from '../Components/NeuralNetworkBackground';
 import Navbar from '../Components/Navbar';
 import { useAuth } from '../Contexts/AuthContext';
 import { useProjects, Project } from '../Contexts/ProjectContext';
+import { useTextes } from '../Contexts/TexteContext';
 import GlassCard from '../Components/GlassCard';
-import articlesData from '../data/articles.json';
 
 interface Item {
     id: string;
@@ -35,7 +35,7 @@ const researches: Item[] = [
     }
 ];
 
-const articles: Item[] = articlesData as Item[];
+// articles const removed — now from TexteContext
 
 const AVAILABLE_SERIES = [
     "Destins d'Alpinisme",
@@ -47,18 +47,24 @@ const AVAILABLE_SERIES = [
     "Légendes Martitimes"
 ];
 
+const TEXTES_SERIES = ["Essais"];
+
 export default function Research() {
     const { user, login, subscribe, hasAccessToReserved } = useAuth();
     const { projects } = useProjects();
+    const { textes } = useTextes();
     const location = useLocation();
     const [expandedId, setExpandedId] = useState<string | null>(null);
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedSeries, setSelectedSeries] = useState('ALL');
+    const [texteSearch, setTexteSearch] = useState('');
+    const [texteSeries, setTexteSeries] = useState('ALL');
 
     // Get initial tab from URL query param
     const searchParams = new URLSearchParams(window.location.search);
-    const initialTab = searchParams.get('tab') === 'realisations' ? 'realisations' : 'recherches';
-    const [activeTab, setActiveTab] = useState<'recherches' | 'articles' | 'realisations'>((initialTab as any));
+    const rawTab = searchParams.get('tab');
+    const initialTab = (['realisations', 'textes'] as string[]).includes(rawTab ?? '') ? rawTab as 'realisations' | 'textes' : 'recherches';
+    const [activeTab, setActiveTab] = useState<'recherches' | 'textes' | 'realisations'>((initialTab as any));
 
     // Update URL when tab changes (optional but good for navigation)
     React.useEffect(() => {
@@ -86,7 +92,15 @@ export default function Research() {
         return matchesSearch && matchesSeries;
     });
 
-    const isLocked = (activeTab === 'articles' || activeTab === 'realisations') && !hasAccessToReserved;
+    // Filter textes
+    const filteredTextes = textes.filter(t => {
+        const matchesSearch = t.title.toLowerCase().includes(texteSearch.toLowerCase()) ||
+            t.description.toLowerCase().includes(texteSearch.toLowerCase());
+        const matchesSeries = texteSeries === 'ALL' || t.series?.includes(texteSeries);
+        return matchesSearch && matchesSeries;
+    });
+
+    const isLocked = (activeTab === 'textes' || activeTab === 'realisations') && !hasAccessToReserved;
 
     return (
         <div className="min-h-screen bg-skin-base text-skin-text-main font-sans selection:bg-blue-500/30 relative overflow-hidden">
@@ -97,12 +111,12 @@ export default function Research() {
                 <GlassCard className="w-full !items-stretch !text-left !p-8 md:!p-12 border-white/10 bg-black/40 backdrop-blur-xl">
                     <header className="mb-12 text-center w-full">
                         <h1 className="font-['Paris2024'] text-5xl md:text-7xl bg-gradient-to-br from-[#00f2ff] to-[#0055ff] bg-clip-text text-transparent mb-6">
-                            {activeTab === 'recherches' ? 'RECHERCHES' : activeTab === 'articles' ? 'ARTICLES' : 'RÉALISATIONS'}
+                            {activeTab === 'recherches' ? 'RECHERCHES' : activeTab === 'textes' ? 'TEXTES' : 'RÉALISATIONS'}
                         </h1>
                         <p className="font-['Baskerville'] text-xl max-w-2xl mx-auto text-skin-text-secondary italic">
                             {activeTab === 'recherches'
                                 ? '"La recherche est ce que je fais quand je ne sais pas ce que je fais." - Wernher von Braun'
-                                : activeTab === 'articles'
+                                : activeTab === 'textes'
                                     ? '"Écrire, c\'est une façon de parler sans être interrompu." - Jules Renard'
                                     : '"La théorie, c\'est quand on sait tout et que rien ne fonctionne. La pratique, c\'est quand tout fonctionne et que personne ne sait pourquoi." - Einstein'}
                         </p>
@@ -125,17 +139,17 @@ export default function Research() {
                                 RECHERCHES
                             </button>
                             <button
-                                onClick={() => setActiveTab('articles')}
+                                onClick={() => setActiveTab('textes')}
                                 className={`
                                     relative px-6 py-2 rounded-full font-['Paris2024'] transition-all duration-300 flex items-center gap-2
-                                    ${activeTab === 'articles'
+                                    ${activeTab === 'textes'
                                         ? 'bg-[#00f2ff]/20 text-[#00f2ff] shadow-[0_0_15px_rgba(0,242,255,0.3)]'
                                         : 'text-skin-text-secondary hover:text-white hover:bg-white/5'
                                     }
 `}
                             >
                                 <FileText className="w-4 h-4" />
-                                ARTICLES
+                                TEXTES
                             </button>
                             <button
                                 onClick={() => setActiveTab('realisations')}
@@ -324,10 +338,118 @@ export default function Research() {
                                     )}
                                 </div>
                             </div>
+                        ) : activeTab === 'textes' ? (
+                            // TEXTES — search + filter + vertical book cover grid
+                            <div className="space-y-8">
+                                {/* Search + Filter bar */}
+                                <div className="flex flex-col items-center gap-6 bg-black/40 backdrop-blur-md p-6 rounded-2xl border border-white/10 w-full">
+                                    <div className="relative w-full max-w-xl mb-4">
+                                        <Search className="w-5 h-5 absolute left-4 top-1/2 -translate-y-1/2 text-white/50" />
+                                        <input
+                                            type="text"
+                                            placeholder="Rechercher un texte..."
+                                            value={texteSearch}
+                                            onChange={e => setTexteSearch(e.target.value)}
+                                            className="w-full bg-black/30 border border-white/10 rounded-full pl-12 pr-4 py-3 text-base text-white focus:border-[#00f2ff]/50 outline-none transition-all shadow-inner focus:bg-black/50"
+                                        />
+                                    </div>
+                                    <div className="flex flex-wrap gap-2 justify-center w-full">
+                                        <button
+                                            onClick={() => setTexteSeries('ALL')}
+                                            className={`px-4 py-1.5 rounded-full text-xs font-bold tracking-wider transition-all ${texteSeries === 'ALL'
+                                                    ? 'bg-[#00f2ff] text-black shadow-[0_0_15px_rgba(0,242,255,0.4)]'
+                                                    : 'bg-white/5 text-skin-text-secondary hover:bg-white/10 hover:text-white'
+                                                }`}
+                                        >
+                                            ALL
+                                        </button>
+                                        {TEXTES_SERIES.map(s => (
+                                            <button
+                                                key={s}
+                                                onClick={() => setTexteSeries(s)}
+                                                className={`px-4 py-1.5 rounded-full text-xs font-bold tracking-wider transition-all ${texteSeries === s
+                                                        ? 'bg-[#00f2ff] text-black shadow-[0_0_15px_rgba(0,242,255,0.4)]'
+                                                        : 'bg-white/5 text-skin-text-secondary hover:bg-white/10 hover:text-white'
+                                                    }`}
+                                            >
+                                                {s}
+                                            </button>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                {/* Book cover grid */}
+                                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+                                    <AnimatePresence>
+                                        {filteredTextes.map((item) => (
+                                            <motion.div
+                                                key={item.id}
+                                                layout
+                                                initial={{ opacity: 0, scale: 0.9 }}
+                                                animate={{ opacity: 1, scale: 1 }}
+                                                exit={{ opacity: 0, scale: 0.9 }}
+                                                transition={{ duration: 0.3 }}
+                                                className="group relative flex flex-col"
+                                            >
+                                                {/* Book cover */}
+                                                <div className="relative w-full aspect-[2/3] rounded-xl overflow-hidden border border-white/10 group-hover:border-[#00f2ff]/50 transition-all duration-500 group-hover:shadow-[0_0_30px_rgba(0,242,255,0.2)] bg-gradient-to-br from-[#0a1628] to-[#0d2144]">
+                                                    {item.imageUrl ? (
+                                                        <img
+                                                            src={item.imageUrl}
+                                                            alt={item.title}
+                                                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                                                            onError={(e) => {
+                                                                (e.target as HTMLImageElement).style.display = 'none';
+                                                            }}
+                                                        />
+                                                    ) : (
+                                                        /* Placeholder style Stock – fond bleu avec titre */
+                                                        <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-center">
+                                                            <div className="absolute inset-0 bg-gradient-to-b from-[#0d2144] via-[#1a3a6c] to-[#0d2144]" />
+                                                            <div className="relative z-10 flex flex-col items-center gap-3">
+                                                                <p className="text-[#a8c4e0] text-[10px] font-bold tracking-[0.25em] uppercase">
+                                                                    {/* author placeholder */}
+                                                                </p>
+                                                                <p className="text-white font-['Baskerville'] text-sm italic leading-snug line-clamp-4">
+                                                                    {item.title}
+                                                                </p>
+                                                                <span className="text-[#00f2ff]/60 text-[9px] tracking-widest uppercase mt-2">
+                                                                    {item.date}
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    )}
+                                                    {/* Hover overlay */}
+                                                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 flex items-end p-4">
+                                                        <Link
+                                                            to={item.link}
+                                                            className="inline-flex items-center gap-1 text-[#00f2ff] font-['Paris2024'] text-xs uppercase tracking-wider hover:gap-2 transition-all"
+                                                        >
+                                                            Lire <ArrowRight className="w-3 h-3" />
+                                                        </Link>
+                                                    </div>
+                                                </div>
+                                                {/* Title below */}
+                                                <div className="mt-3 px-1">
+                                                    <h3 className="font-['Paris2024'] text-sm text-white group-hover:text-[#00f2ff] transition-colors line-clamp-2">
+                                                        {item.title}
+                                                    </h3>
+                                                    <span className="text-xs text-skin-text-secondary font-mono">{item.date}</span>
+                                                </div>
+                                            </motion.div>
+                                        ))}
+                                    </AnimatePresence>
+                                    {filteredTextes.length === 0 && (
+                                        <div className="col-span-full text-center py-12 opacity-50">
+                                            <p className="font-['Paris2024'] text-xl">Aucun texte disponible</p>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
                         ) : (
-                            // ARTICLES & RESEARCHES LIST
+                            // RECHERCHES LIST
                             <AnimatePresence mode="wait">
-                                {(activeTab === 'recherches' ? researches : articles).map((item) => (
+                                {researches.map((item) => (
                                     <motion.div
                                         key={item.id}
                                         initial={{ opacity: 0, y: 20 }}
@@ -393,6 +515,16 @@ export default function Research() {
             </div>
 
             {/* Admin Link (Only visible if unlocked, preferably check user role if available, but for now just check unlocked) */}
+            {/* Admin link — textes */}
+            {!isLocked && activeTab === 'textes' && (
+                <div className="fixed bottom-16 right-4 z-50">
+                    <Link to="/admin/textes" className="flex items-center gap-2 px-4 py-2 bg-[#00f2ff] text-black rounded-full font-bold hover:bg-[#00c8d4] shadow-lg shadow-cyan-500/30 transition-all">
+                        <Lock className="w-4 h-4" />
+                        <span>Admin</span>
+                    </Link>
+                </div>
+            )}
+            {/* Admin link — réalisations */}
             {!isLocked && activeTab === 'realisations' && (
                 <div className="fixed bottom-4 right-4 z-50">
                     <Link to="/admin/realisations" className="flex items-center gap-2 px-4 py-2 bg-[#0055ff] text-white rounded-full font-bold hover:bg-[#0044cc] shadow-lg shadow-blue-500/30 transition-all">

@@ -3,6 +3,7 @@ import { HeroUIProvider } from '@heroui/react';
 import { ThemeProvider } from './Contexts/ThemeProvider';
 import { AuthProvider } from './Contexts/AuthContext';
 import { ProjectProvider } from './Contexts/ProjectContext';
+import { TexteProvider } from './Contexts/TexteContext';
 import { WebProjectProvider } from './Contexts/WebProjectContext';
 import { CookieConsentProvider } from './Contexts/CookieConsentContext';
 import { CookieConsent } from './Components/CookieConsent';
@@ -26,11 +27,13 @@ export function Providers({ children }: { children: React.ReactNode }) {
             <ThemeProvider>
                 <AuthProvider>
                     <ProjectProvider>
-                        <WebProjectProvider>
-                            <HeroUIProvider>
-                                {children}
-                            </HeroUIProvider>
-                        </WebProjectProvider>
+                        <TexteProvider>
+                            <WebProjectProvider>
+                                <HeroUIProvider>
+                                    {children}
+                                </HeroUIProvider>
+                            </WebProjectProvider>
+                        </TexteProvider>
                     </ProjectProvider>
                 </AuthProvider>
             </ThemeProvider>

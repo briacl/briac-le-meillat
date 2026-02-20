@@ -16,6 +16,7 @@ import CVPage from './Pages/CVPage';
 import Contact from './Pages/Contact';
 import ProjectDetails from './Pages/ProjectDetails';
 import RealisationsAdmin from './Pages/Admin/RealisationsAdmin';
+import TextesAdmin from './Pages/Admin/TextesAdmin';
 
 function App() {
     return (
@@ -38,6 +39,7 @@ function App() {
                     <Route path="/realisations" element={<Navigate to="/recherches?tab=realisations" replace />} />
                     <Route path="/realisations/:id" element={<ProjectDetails />} />
                     <Route path="/admin/realisations" element={<RealisationsAdmin />} />
+                    <Route path="/admin/textes" element={<TextesAdmin />} />
                 </Routes>
             </BrowserRouter>
         </Providers>
