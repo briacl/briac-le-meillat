@@ -50,7 +50,7 @@ const AVAILABLE_SERIES = [
 const TEXTES_SERIES = ["Essais"];
 
 export default function Research() {
-    const { user, login, subscribe, hasAccessToReserved } = useAuth();
+    const { user, login, subscribe, hasAccessToReserved, requestReservedAccess } = useAuth();
     const { projects } = useProjects();
     const { textes } = useTextes();
     const location = useLocation();
@@ -59,6 +59,8 @@ export default function Research() {
     const [selectedSeries, setSelectedSeries] = useState('ALL');
     const [texteSearch, setTexteSearch] = useState('');
     const [texteSeries, setTexteSeries] = useState('ALL');
+    const [accessRequestLoading, setAccessRequestLoading] = useState(false);
+    const [accessRequestMessage, setAccessRequestMessage] = useState<string | null>(null);
 
     // Get initial tab from URL query param
     const searchParams = new URLSearchParams(window.location.search);
@@ -101,6 +103,23 @@ export default function Research() {
     });
 
     const isLocked = (activeTab === 'textes' || activeTab === 'realisations') && !hasAccessToReserved;
+
+    const handleRequestAccess = async () => {
+        if (accessRequestLoading) return;
+        
+        try {
+            setAccessRequestLoading(true);
+            setAccessRequestMessage(null);
+            
+            const result = await requestReservedAccess();
+            setAccessRequestMessage("Demande envoyée ! Vous recevrez une réponse par email.");
+        } catch (error) {
+            const errorMessage = error instanceof Error ? error.message : "Erreur lors de la demande";
+            setAccessRequestMessage(errorMessage);
+        } finally {
+            setAccessRequestLoading(false);
+        }
+    };
 
     return (
         <div className="min-h-screen bg-skin-base text-skin-text-main font-sans selection:bg-blue-500/30 relative overflow-hidden">
@@ -202,12 +221,25 @@ export default function Research() {
                                                 Se Connecter
                                             </Link>
                                         ) : (
-                                            <button
-                                                onClick={subscribe}
-                                                className="w-full py-3 rounded-full bg-[#00f2ff] text-black font-['Paris2024'] hover:bg-[#00c8d4] transition-colors shadow-[0_0_20px_rgba(0,242,255,0.4)]"
-                                            >
-                                                Souscrire à l'offre Reserved
-                                            </button>
+                                            <div className="space-y-4">
+                                                {accessRequestMessage ? (
+                                                    <div className={`p-3 rounded-lg text-sm ${
+                                                        accessRequestMessage.includes('Demande envoyée') 
+                                                            ? 'bg-green-500/20 text-green-300 border border-green-500/30' 
+                                                            : 'bg-red-500/20 text-red-300 border border-red-500/30'
+                                                    }`}>
+                                                        {accessRequestMessage}
+                                                    </div>
+                                                ) : (
+                                                    <button
+                                                        onClick={handleRequestAccess}
+                                                        disabled={accessRequestLoading}
+                                                        className="w-full py-3 rounded-full bg-[#00f2ff] text-black font-['Paris2024'] hover:bg-[#00c8d4] transition-colors shadow-[0_0_20px_rgba(0,242,255,0.4)] disabled:opacity-50 disabled:cursor-not-allowed"
+                                                    >
+                                                        {accessRequestLoading ? 'Envoi en cours...' : 'Demander l\'accès à l\'offre Reserved'}
+                                                    </button>
+                                                )}
+                                            </div>
                                         )}
                                     </div>
                                 </div>

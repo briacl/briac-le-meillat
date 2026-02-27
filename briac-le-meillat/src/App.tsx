@@ -17,6 +17,7 @@ import Contact from './Pages/Contact';
 import ProjectDetails from './Pages/ProjectDetails';
 import RealisationsAdmin from './Pages/Admin/RealisationsAdmin';
 import TextesAdmin from './Pages/Admin/TextesAdmin';
+import AdminPanel from './Components/AdminPanel';
 
 function App() {
     return (
@@ -38,6 +39,7 @@ function App() {
                     <Route path="/contact" element={<Contact />} />
                     <Route path="/realisations" element={<Navigate to="/recherches?tab=realisations" replace />} />
                     <Route path="/realisations/:id" element={<ProjectDetails />} />
+                    <Route path="/admin" element={<AdminPanel />} />
                     <Route path="/admin/realisations" element={<RealisationsAdmin />} />
                     <Route path="/admin/textes" element={<TextesAdmin />} />
                 </Routes>

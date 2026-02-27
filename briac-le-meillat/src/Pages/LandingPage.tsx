@@ -13,6 +13,7 @@ const CodeExamplesSection = React.lazy(() => import('@/Components/CodeExamplesSe
 const CollaboratorsSection = React.lazy(() => import('@/Components/CollaboratorsSection'));
 const SkillsAnalysisSection = React.lazy(() => import('@/Components/SkillsAnalysisSection'));
 const CertificationsSection = React.lazy(() => import('@/Components/CertificationsSection'));
+const OffersSection = React.lazy(() => import('@/Components/OffersSection'));
 
 // Typewriter Component
 const Typewriter = ({ text, delay = 0 }: { text: string | string[], delay?: number }) => {
@@ -365,6 +366,13 @@ export default function LandingPage() {
                     </Suspense>
                 </div>
 
+                {/* OFFERS SECTION */}
+                <div id="offers-section" className="w-11/12 max-w-7xl mb-32">
+                    <Suspense fallback={<div className="h-[400px] w-full flex items-center justify-center text-skin-text-main/50">Chargement des offres...</div>}>
+                        <OffersSection />
+                    </Suspense>
+                </div>
+
                 {/* SECTIONS Container Part 2 - Rest of content */}
                 <div className="w-11/12 max-w-7xl pb-24 flex flex-col gap-32">
 
@@ -395,9 +403,14 @@ export default function LandingPage() {
 
 
             <footer className="relative z-10 bg-[#050a14] text-white py-12 text-center border-t border-white/10 font-['Inter']">
-                <Link to="/devop" className="text-gray-500 hover:text-[#00f2ff] transition-colors tracking-widest uppercase text-sm">
-                    devop
-                </Link>
+                <div className="flex justify-center gap-6">
+                    <Link to="/devop" className="text-gray-500 hover:text-[#00f2ff] transition-colors tracking-widest uppercase text-sm">
+                        devop
+                    </Link>
+                    <Link to="/admin" className="text-gray-500 hover:text-[#00f2ff] transition-colors tracking-widest uppercase text-sm">
+                        admin
+                    </Link>
+                </div>
             </footer>
         </div >
     );

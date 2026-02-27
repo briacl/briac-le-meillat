@@ -53,6 +53,7 @@ security = HTTPBearer()
 # ─── Fichiers de données ──────────────────────────────────────────────────────
 DATA_FILE = os.path.join(os.path.dirname(__file__), "data", "users.json")
 VERIFICATION_FILE = os.path.join(os.path.dirname(__file__), "data", "verification_codes.json")
+REQUESTS_FILE = os.path.join(os.path.dirname(__file__), "data", "reserved_requests.json")
 
 # ─── Configuration ────────────────────────────────────────────────────────────
 SMTP_EMAIL = os.getenv("SMTP_EMAIL")
@@ -99,6 +100,14 @@ class ContactRequest(BaseModel):
     email: str
     message: str
 
+class ReservedAccessRequest(BaseModel):
+    name: str
+    email: str
+    message: Optional[str] = ""
+
+class AdminRequestAction(BaseModel):
+    email: str
+
 
 # ─── Helpers fichiers ─────────────────────────────────────────────────────────
 def load_users():
@@ -113,7 +122,16 @@ def load_users():
 def save_users(users):
     with open(DATA_FILE, "w") as f:
         json.dump(users, f, indent=4)
+# ─── Helpers demandes d'accès ─────────────────────────────────────────────────
+def load_requests():
+    if not os.path.exists(REQUESTS_FILE):
+        return []
+    with open(REQUESTS_FILE, "r") as f:
+        return json.load(f)
 
+def save_requests(requests):
+    with open(REQUESTS_FILE, "w") as f:
+        json.dump(requests, f, indent=2)
 def load_verification_codes():
     if not os.path.exists(VERIFICATION_FILE):
         return {}
@@ -438,6 +456,174 @@ def contact_form(req: ContactRequest):
     if not success:
         print(f"Failed to send email from {req.email}")
     return {"message": "Message reçu", "email_sent": success}
+
+
+# ─── Reserved Access Endpoints ────────────────────────────────────────────────
+@app.post("/api/reserved/request")
+def request_reserved_access(credentials: HTTPAuthorizationCredentials = Depends(security)):
+    # Verify user authentication
+    user_data = decode_token(credentials.credentials)
+    if not user_data:
+        raise HTTPException(status_code=401, detail="Invalid authentication token")
+    
+    user_email = user_data["sub"]  # JWT standard: email is stored in "sub" field
+    users = load_users() 
+    user = next((u for u in users if u["email"] == user_email), None)
+    if not user:
+        raise HTTPException(status_code=404, detail="Utilisateur introuvable")
+        
+    # Check if user already has reserved access
+    if user.get("subscription") == "reserved":
+        raise HTTPException(status_code=400, detail="Vous avez déjà accès au contenu reserved")
+    
+    # Check if request already exists
+    requests = load_requests()
+    existing_request = next((r for r in requests if r["email"] == user_email), None)
+    if existing_request:
+        if existing_request["status"] == "pending":
+            raise HTTPException(status_code=400, detail="Demande déjà en attente")
+        elif existing_request["status"] == "rejected":
+            existing_request["status"] = "pending"
+            existing_request["date"] = datetime.now().isoformat()
+            save_requests(requests)
+        else:
+            raise HTTPException(status_code=400, detail="Demande déjà traitée")
+    else:
+        # Create new request
+        new_request = {
+            "name": user["name"],
+            "email": user_email,
+            "date": datetime.now().isoformat(),
+            "status": "pending"
+        }
+        requests.append(new_request)
+        save_requests(requests)
+    
+    # Send admin notification email
+    try:
+        if SMTP_EMAIL and SMTP_PASSWORD:
+            smtp = smtplib.SMTP("smtp.gmail.com", 587)
+            smtp.starttls()
+            smtp.login(SMTP_EMAIL, SMTP_PASSWORD)
+            
+            msg = MIMEMultipart()
+            msg["From"] = SMTP_EMAIL
+            msg["To"] = ADMIN_EMAIL
+            msg["Subject"] = "Nouvelle demande d'accès Reserved"
+            
+            body = f"""
+Nouvelle demande d'accès au contenu Reserved :
+
+Nom : {user['name']}
+Email : {user_email}
+Date : {datetime.now().strftime('%d/%m/%Y à %H:%M')}
+
+Vous pouvez approuver ou rejeter cette demande depuis le panel d'administration.
+            """
+            
+            msg.attach(MIMEText(body, "plain"))
+            smtp.sendmail(SMTP_EMAIL, ADMIN_EMAIL, msg.as_string())
+            smtp.quit()
+            email_sent = True
+        else:
+            print("SMTP not configured, admin notification not sent")
+            email_sent = False
+    except Exception as e:
+        print(f"Failed to send admin notification: {e}")
+        email_sent = False
+    
+    return {"message": "Demande d'accès envoyée", "email_sent": email_sent}
+
+
+@app.get("/api/admin/requests")
+def get_access_requests():
+    # Simple admin check - in production, use proper role-based authentication
+    requests = load_requests()
+    return requests
+
+
+@app.post("/api/admin/requests/{email}/approve")
+def approve_access_request(email: str):
+    # Simple admin check - in production, use proper role-based authentication
+    
+    # Update user subscription
+    users = load_users()
+    user = next((u for u in users if u["email"] == email), None)
+    if not user:
+        raise HTTPException(status_code=404, detail="Utilisateur introuvable")
+    
+    user["subscription"] = "reserved"
+    save_users(users)
+    
+    # Update request status
+    requests = load_requests()
+    request = next((r for r in requests if r["email"] == email), None)
+    if request:
+        request["status"] = "approved"
+        request["processed_date"] = datetime.now().isoformat()
+        save_requests(requests)
+    
+    # Send approval notification email to user
+    email_sent = False
+    try:
+        if SMTP_EMAIL and SMTP_PASSWORD:
+            smtp = smtplib.SMTP("smtp.gmail.com", 587)
+            smtp.starttls()
+            smtp.login(SMTP_EMAIL, SMTP_PASSWORD)
+            
+            msg = MIMEMultipart()
+            msg["From"] = SMTP_EMAIL
+            msg["To"] = email
+            msg["Subject"] = "Votre accès Reserved a été approuvé !"
+            
+            body = f"""
+Bonjour {user['name']},
+
+Excellente nouvelle ! Votre demande d'accès au contenu Reserved a été approuvée.
+
+Vous pouvez maintenant accéder à :
+- La section "Textes" 
+- La section "Réalisations"
+- L'ensemble du contenu exclusif
+
+Connectez-vous sur le site pour découvrir ces nouveaux contenus.
+
+Cordialement,
+L'équipe Briac Le Meillat
+            """
+            
+            msg.attach(MIMEText(body, "plain"))
+            smtp.sendmail(SMTP_EMAIL, email, msg.as_string())
+            smtp.quit()
+            email_sent = True
+        else:
+            print("SMTP not configured, user approval notification not sent")
+            email_sent = False
+    except Exception as e:
+        print(f"Failed to send user approval notification: {e}")
+        email_sent = False
+    
+    return {
+        "message": "Demande approuvée", 
+        "user": {"name": user["name"], "email": user["email"], "subscription": user["subscription"]},
+        "email_sent": email_sent
+    }
+
+
+@app.post("/api/admin/requests/{email}/reject")
+def reject_access_request(email: str):
+    # Simple admin check - in production, use proper role-based authentication
+    
+    requests = load_requests()
+    request = next((r for r in requests if r["email"] == email), None)
+    if not request:
+        raise HTTPException(status_code=404, detail="Demande introuvable")
+    
+    request["status"] = "rejected"
+    request["processed_date"] = datetime.now().isoformat()
+    save_requests(requests)
+    
+    return {"message": "Demande rejetée"}
 
 
 if __name__ == "__main__":

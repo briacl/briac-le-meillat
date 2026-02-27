@@ -31,9 +31,9 @@ const CertificationsSection = () => {
             <GlassCard className="w-full">
                 <h2 className="text-[3rem] mb-16 text-[#0055ff] font-['Paris2024'] text-center">CERTIFICATIONS</h2>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full px-4">
-                    <CertificationCard imageUrl={`${import.meta.env.BASE_URL}assets/certification-python-essential-1-from-cisco.png`} />
-                    <CertificationCard imageUrl={`${import.meta.env.BASE_URL}assets/certification-python-essential-2-from-cisco.png`} />
-                    <CertificationCard imageUrl={`${import.meta.env.BASE_URL}assets/certification-python-essential-2-from-cisco.png`} />
+                    <CertificationCard imageUrl={`${import.meta.env.BASE_URL}assets/certifications/certification-python-essential-1-from-cisco.png`} />
+                    <CertificationCard imageUrl={`${import.meta.env.BASE_URL}assets/certifications/certification-python-essential-2-from-cisco.png`} />
+                    <CertificationCard imageUrl={`${import.meta.env.BASE_URL}assets/certifications/certification-python-essential-2-from-cisco.png`} />
                 </div>
             </GlassCard>
         </div>

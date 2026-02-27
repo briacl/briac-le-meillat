@@ -26,6 +26,7 @@ interface AuthContextType {
     verify2FA: (email: string, code: string) => Promise<void>;
     logout: () => void;
     subscribe: () => Promise<void>;
+    requestReservedAccess: () => Promise<{ message: string; email_sent: boolean }>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -214,6 +215,28 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setUser(prev => prev ? { ...prev, subscription: updatedUser.subscription } : null);
     };
 
+    const requestReservedAccess = async () => {
+        const token = localStorage.getItem(TOKEN_KEY);
+        if (!token) {
+            throw new Error('Non authentifié');
+        }
+
+        const response = await fetch(`${API_URL}/reserved/request`, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json().catch(() => ({ detail: 'Erreur inconnue' }));
+            throw new Error(errorData.detail || 'Erreur lors de la demande d\'accès');
+        }
+
+        return await response.json();
+    };
+
     const value: AuthContextType = {
         user,
         isAuthenticated: !!user,
@@ -227,6 +250,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         verify2FA,
         logout,
         subscribe,
+        requestReservedAccess,
     };
 
     return (

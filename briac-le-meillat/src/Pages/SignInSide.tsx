@@ -14,7 +14,7 @@ export default function SignInSide() {
     const location = useLocation();
     const from = location.state?.from?.pathname
         ? `${location.state.from.pathname}${location.state.from.search || ''}`
-        : '/recherches';
+        : '/';
 
     const [step, setStep] = useState<AuthStep>('LOGIN');
     const [showPassword, setShowPassword] = useState(false);

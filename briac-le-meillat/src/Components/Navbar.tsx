@@ -1,8 +1,18 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useTheme } from '@/Contexts/ThemeProvider';
+import { useAuth } from '@/Contexts/AuthContext';
+import { LogOut, User } from 'lucide-react';
 
 export default function Navbar() {
     const { theme, toggleTheme } = useTheme();
+    const { user, isAuthenticated, logout } = useAuth();
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const handleLogout = () => {
+        logout();
+        navigate('/');
+    };
 
     return (
         <nav className="fixed top-8 left-1/2 -translate-x-1/2 w-3/4 bg-white/80 dark:bg-white/10 backdrop-blur-md rounded-full px-8 py-4 flex items-center justify-between z-50 border border-black/5 dark:border-white/20 shadow-xl shadow-blue-900/10 transition-colors duration-300" style={{ backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)' }}>
@@ -13,11 +23,11 @@ export default function Navbar() {
 
             {/* Center: Links */}
             <div className="flex gap-8 font-['Paris2024'] text-skin-text-main uppercase tracking-wider text-sm font-sm">
-                <Link to="/" target="_blank" rel="noopener noreferrer" className="text-skin-text-main hover:text-skin-text-main transition-all duration-300 hover:drop-shadow-[0_0_12px_rgba(0,85,255,0.8)] hover:scale-105">accueil</Link>
-                <Link to="/vision" target="_blank" rel="noopener noreferrer" className="text-skin-text-main hover:text-skin-text-main transition-all duration-300 hover:drop-shadow-[0_0_12px_rgba(0,85,255,0.8)] hover:scale-105">vision</Link>
-                <Link to="/recherches" target="_blank" rel="noopener noreferrer" className="text-skin-text-main hover:text-skin-text-main transition-all duration-300 hover:drop-shadow-[0_0_12px_rgba(0,85,255,0.8)] hover:scale-105">recherches</Link>
-                <Link to="/cv" target="_blank" rel="noopener noreferrer" className="text-skin-text-main hover:text-skin-text-main transition-all duration-300 hover:drop-shadow-[0_0_12px_rgba(0,85,255,0.8)] hover:scale-105">cv</Link>
-                <Link to="/contact" target="_blank" rel="noopener noreferrer" className="text-skin-text-main hover:text-skin-text-main transition-all duration-300 hover:drop-shadow-[0_0_12px_rgba(0,85,255,0.8)] hover:scale-105">contact</Link>
+                <Link to="/" className="text-skin-text-main hover:text-skin-text-main transition-all duration-300 hover:drop-shadow-[0_0_12px_rgba(0,85,255,0.8)] hover:scale-105">accueil</Link>
+                <Link to="/vision" className="text-skin-text-main hover:text-skin-text-main transition-all duration-300 hover:drop-shadow-[0_0_12px_rgba(0,85,255,0.8)] hover:scale-105">vision</Link>
+                <Link to="/recherches" className="text-skin-text-main hover:text-skin-text-main transition-all duration-300 hover:drop-shadow-[0_0_12px_rgba(0,85,255,0.8)] hover:scale-105">recherches</Link>
+                <Link to="/cv" className="text-skin-text-main hover:text-skin-text-main transition-all duration-300 hover:drop-shadow-[0_0_12px_rgba(0,85,255,0.8)] hover:scale-105">cv</Link>
+                <Link to="/contact" className="text-skin-text-main hover:text-skin-text-main transition-all duration-300 hover:drop-shadow-[0_0_12px_rgba(0,85,255,0.8)] hover:scale-105">contact</Link>
             </div>
 
             {/* Right: Buttons */}
@@ -37,12 +47,38 @@ export default function Navbar() {
                     )}
                 </button>
 
-                <Link to="/custom-login" target="_blank" rel="noopener noreferrer" className="text-[#0055ff] hover:text-[#0044cc] transition-colors uppercase tracking-wider text-sm">
-                    Log in
-                </Link>
-                <Link to="/subscribe" target="_blank" rel="noopener noreferrer" className="bg-[#0055ff] border border-[#0055ff] text-white px-6 py-2 rounded-full hover:bg-[#0044cc] hover:border-[#0044cc] transition-all uppercase tracking-wider text-sm shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50">
-                    Subscribe
-                </Link>
+                {isAuthenticated ? (
+                    <>
+                        <div className="flex items-center gap-2 text-sm text-skin-text-main font-['Paris2024'] uppercase tracking-wider">
+                            <User className="w-4 h-4 text-[#00f2ff]" />
+                            <span className="hidden md:inline max-w-[120px] truncate">{user?.name}</span>
+                        </div>
+                        <button
+                            onClick={handleLogout}
+                            className="flex items-center gap-2 text-[#0055ff] hover:text-red-400 transition-colors uppercase tracking-wider text-sm"
+                        >
+                            <LogOut className="w-4 h-4" />
+                            <span className="hidden md:inline">Déconnexion</span>
+                        </button>
+                    </>
+                ) : (
+                    <>
+                        <Link 
+                            to="/login" 
+                            state={{ from: location }}
+                            className="text-[#0055ff] hover:text-[#0044cc] transition-colors uppercase tracking-wider text-sm font-['Paris2024']"
+                        >
+                            Log in
+                        </Link>
+                        <Link 
+                            to="/login?mode=signup" 
+                            state={{ from: location }}
+                            className="bg-[#0055ff] border border-[#0055ff] text-white px-6 py-2 rounded-full hover:bg-[#0044cc] hover:border-[#0044cc] transition-all uppercase tracking-wider text-sm shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50 font-['Paris2024']"
+                        >
+                            Sign In
+                        </Link>
+                    </>
+                )}
             </div>
         </nav>
     );
