@@ -18,6 +18,8 @@ import ProjectDetails from './Pages/ProjectDetails';
 import RealisationsAdmin from './Pages/Admin/RealisationsAdmin';
 import TextesAdmin from './Pages/Admin/TextesAdmin';
 import AdminPanel from './Components/AdminPanel';
+import BerangerePage from './Pages/BerangerePage';
+import EpisodePage from './Pages/EpisodePage';
 
 function App() {
     return (
@@ -42,6 +44,13 @@ function App() {
                     <Route path="/admin" element={<AdminPanel />} />
                     <Route path="/admin/realisations" element={<RealisationsAdmin />} />
                     <Route path="/admin/textes" element={<TextesAdmin />} />
+                    {/* Bérangère routes - Actives en DEV uniquement */}
+                    {import.meta.env.DEV && (
+                        <>
+                            <Route path="/berangere" element={<BerangerePage />} />
+                            <Route path="/berangere/serie/:id" element={<EpisodePage />} />
+                        </>
+                    )}
                 </Routes>
             </BrowserRouter>
         </Providers>

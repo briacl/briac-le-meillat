@@ -106,11 +106,11 @@ export default function Research() {
 
     const handleRequestAccess = async () => {
         if (accessRequestLoading) return;
-        
+
         try {
             setAccessRequestLoading(true);
             setAccessRequestMessage(null);
-            
+
             const result = await requestReservedAccess();
             setAccessRequestMessage("Demande envoyée ! Vous recevrez une réponse par email.");
         } catch (error) {
@@ -223,11 +223,10 @@ export default function Research() {
                                         ) : (
                                             <div className="space-y-4">
                                                 {accessRequestMessage ? (
-                                                    <div className={`p-3 rounded-lg text-sm ${
-                                                        accessRequestMessage.includes('Demande envoyée') 
-                                                            ? 'bg-green-500/20 text-green-300 border border-green-500/30' 
+                                                    <div className={`p-3 rounded-lg text-sm ${accessRequestMessage.includes('Demande envoyée')
+                                                            ? 'bg-green-500/20 text-green-300 border border-green-500/30'
                                                             : 'bg-red-500/20 text-red-300 border border-red-500/30'
-                                                    }`}>
+                                                        }`}>
                                                         {accessRequestMessage}
                                                     </div>
                                                 ) : (
@@ -245,131 +244,78 @@ export default function Research() {
                                 </div>
                             </div>
                         ) : activeTab === 'realisations' ? (
-                            <div className="space-y-8">
-                                {/* Filters */}
-                                <div className="flex flex-col items-center gap-6 bg-black/40 backdrop-blur-md p-6 rounded-2xl border border-white/10 w-full">
-                                    {/* Search - Placed below tabs ("sections") */}
-                                    <div className="relative w-full max-w-xl mb-4">
-                                        <Search className="w-5 h-5 absolute left-4 top-1/2 -translate-y-1/2 text-white/50" />
-                                        <input
-                                            type="text"
-                                            placeholder="Rechercher..."
-                                            value={searchTerm}
-                                            onChange={(e) => setSearchTerm(e.target.value)}
-                                            className="w-full bg-black/30 border border-white/10 rounded-full pl-12 pr-4 py-3 text-base text-white focus:border-[#00f2ff]/50 outline-none transition-all shadow-inner focus:bg-black/50"
-                                        />
-                                    </div>
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.5 }}
+                                className="flex flex-col items-center justify-center py-12"
+                            >
+                                {/* Bérangère - Actif en DEV uniquement */}
+                                {import.meta.env.DEV ? (
+                                    <Link
+                                        to="/berangere"
+                                        className="group relative w-full max-w-2xl overflow-hidden rounded-2xl border border-white/10 transition-all duration-500 hover:border-white/20 hover:scale-[1.02] hover:shadow-[0_0_40px_rgba(255,255,255,0.1)]"
+                                        style={{ textDecoration: 'none' }}
+                                    >
+                                        {/* Dark cinematic background */}
+                                        <div className="absolute inset-0 bg-gradient-to-br from-black via-[#0a0a0a] to-[#111] z-0" />
+                                        {/* Film grain overlay */}
+                                        <div className="absolute inset-0 opacity-[0.03] z-0" style={{
+                                            backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 256 256\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noise\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noise)\' opacity=\'1\'/%3E%3C/svg%3E")',
+                                        }} />
+                                        {/* Sweep light on hover */}
+                                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-in-out z-1" />
 
-                                    {/* Series Filter - Placed below search */}
-                                    <div className="flex flex-wrap gap-2 justify-center w-full">
-                                        <button
-                                            onClick={() => setSelectedSeries('ALL')}
-                                            className={`
-                                                px-4 py-1.5 rounded-full text-xs font-bold tracking-wider transition-all
-                                                ${selectedSeries === 'ALL'
-                                                    ? 'bg-[#00f2ff] text-black shadow-[0_0_15px_rgba(0,242,255,0.4)]'
-                                                    : 'bg-white/5 text-skin-text-secondary hover:bg-white/10 hover:text-white'
-                                                }
-`}
-                                        >
-                                            ALL
-                                        </button>
-                                        {AVAILABLE_SERIES.map(series => (
-                                            <button
-                                                key={series}
-                                                onClick={() => setSelectedSeries(series)}
-                                                className={`
-                                                    px-4 py-1.5 rounded-full text-xs font-bold tracking-wider transition-all
-                                                    ${selectedSeries === series
-                                                        ? 'bg-[#00f2ff] text-black shadow-[0_0_15px_rgba(0,242,255,0.4)]'
-                                                        : 'bg-white/5 text-skin-text-secondary hover:bg-white/10 hover:text-white'
-                                                    }
-`}
-                                            >
-                                                {series}
-                                            </button>
-                                        ))}
-                                    </div>
-
-
-                                </div>
-
-                                {/* REALISATIONS GRID */}
-                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                                    <AnimatePresence>
-                                        {filteredProjects.map((project) => (
-                                            <motion.div
-                                                key={project.id}
-                                                layout
-                                                initial={{ opacity: 0, scale: 0.9 }}
-                                                animate={{ opacity: 1, scale: 1 }}
-                                                exit={{ opacity: 0, scale: 0.9 }}
-                                                transition={{ duration: 0.3 }}
-                                                className="group relative bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden hover:border-[#00f2ff]/50 transition-all duration-500 hover:shadow-[0_0_30px_rgba(0,242,255,0.15)] flex flex-col h-full"
-                                            >
-                                                {/* Image Container */}
-                                                <div className="h-48 overflow-hidden relative">
-                                                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10" />
-                                                    <img
-                                                        src={project.imageUrl}
-                                                        alt={project.title}
-                                                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                                                        onError={(e) => {
-                                                            (e.target as HTMLImageElement).src = 'https://via.placeholder.com/400x300/000000/FFFFFF?text=No+Image';
-                                                        }}
-                                                    />
-                                                    {/* Series Badges */}
-                                                    <div className="absolute bottom-4 left-4 z-20 flex flex-wrap gap-2">
-                                                        {project.series?.map((s, idx) => (
-                                                            <span key={idx} className="text-[#00f2ff] text-[10px] font-bold tracking-wider uppercase bg-black/60 px-2 py-1 rounded border border-[#00f2ff]/30 backdrop-blur-sm">
-                                                                {s}
-                                                            </span>
-                                                        ))}
-                                                    </div>
-                                                </div>
-
-                                                {/* Content */}
-                                                <div className="p-6 flex-1 flex flex-col">
-                                                    <div className="mb-3">
-                                                        <Link
-                                                            to={`/realisations/${project.id}`}
-                                                            className="group-hover:text-[#00f2ff] transition-colors inline-block"
-                                                            target="_blank"
-                                                            rel="noopener noreferrer"
-                                                        >
-                                                            <h3 className="text-xl font-['Paris2024'] line-clamp-1" title={project.title}>
-                                                                {project.title}
-                                                            </h3>
-                                                        </Link>
-                                                    </div>
-                                                    <p className="text-skin-text-secondary text-sm mb-4 line-clamp-3">
-                                                        {project.description}
-                                                    </p>
-                                                    {/* Video Link */}
-                                                    <div className="mt-auto flex justify-end items-center">
-                                                        {project.videoLink && project.videoLink !== '#' && (
-                                                            <a
-                                                                href={project.videoLink}
-                                                                target="_blank"
-                                                                rel="noopener noreferrer"
-                                                                className="flex items-center gap-2 px-3 py-1.5 bg-white/10 hover:bg-[#00f2ff]/20 text-white hover:text-[#00f2ff] rounded-lg transition-all text-sm font-bold"
-                                                            >
-                                                                <span>Voir</span>
-                                                                <ArrowRight className="w-4 h-4" />
-                                                            </a>
-                                                        )}
-                                                    </div>
-                                                </div>
-                                            </motion.div>
-                                        ))}
-                                    </AnimatePresence>
-                                    {filteredProjects.length === 0 && (
-                                        <div className="col-span-full text-center py-12 opacity-50">
-                                            <p className="font-['Paris2024'] text-xl">Aucun projet trouvé</p>
+                                        <div className="relative z-10 flex flex-col items-center text-center px-12 py-14 gap-5">
+                                            <p className="text-white/30 text-[0.65rem] tracking-[0.3em] uppercase font-['Paris2024']">
+                                                Production Cinématographique
+                                            </p>
+                                            <h2 className="text-white text-4xl md:text-5xl font-light tracking-[0.1em] uppercase" style={{ fontFamily: "'NeutrafaceText', 'Montserrat', sans-serif", letterSpacing: '0.2em' }}>
+                                                Bérangère
+                                            </h2>
+                                            <div className="w-8 h-px bg-white/30" />
+                                            <p className="text-white/40 text-sm tracking-wider font-light italic" style={{ fontFamily: "'NeutrafaceText', 'Montserrat', sans-serif" }}>
+                                                Images que le temps retient.
+                                            </p>
+                                            <div className="flex items-center gap-2 mt-2 text-white/60 text-xs tracking-[0.22em] uppercase font-['Paris2024'] group-hover:text-white/80 transition-colors">
+                                                <span>Voir les réalisations</span>
+                                                <ArrowRight className="w-4 h-4" />
+                                            </div>
                                         </div>
-                                    )}
+                                    </Link>
+                                ) : (
+                                    <div
+                                        className="group relative w-full max-w-2xl overflow-hidden rounded-2xl border border-white/10 transition-all duration-500 cursor-not-allowed opacity-60"
+                                        style={{ textDecoration: 'none' }}
+                                    >
+
+                                    {/* Dark cinematic background */}
+                                    <div className="absolute inset-0 bg-gradient-to-br from-black via-[#0a0a0a] to-[#111] z-0" />
+                                    {/* Film grain overlay */}
+                                    <div className="absolute inset-0 opacity-[0.03] z-0" style={{
+                                        backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 256 256\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noise\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noise)\' opacity=\'1\'/%3E%3C/svg%3E")',
+                                    }} />
+                                    {/* Sweep light on hover */}
+                                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-in-out z-1" />
+
+                                    <div className="relative z-10 flex flex-col items-center text-center px-12 py-14 gap-5">
+                                        <p className="text-white/30 text-[0.65rem] tracking-[0.3em] uppercase font-['Paris2024']">
+                                            Production Cinématographique
+                                        </p>
+                                        <h2 className="text-white text-4xl md:text-5xl font-light tracking-[0.1em] uppercase" style={{ fontFamily: "'NeutrafaceText', 'Montserrat', sans-serif", letterSpacing: '0.2em' }}>
+                                            Bérangère
+                                        </h2>
+                                        <div className="w-8 h-px bg-white/30" />
+                                        <p className="text-white/40 text-sm tracking-wider font-light italic" style={{ fontFamily: "'NeutrafaceText', 'Montserrat', sans-serif" }}>
+                                            Images que le temps retient.
+                                        </p>
+                                        <div className="flex items-center gap-2 mt-2 text-white/60 text-xs tracking-[0.22em] uppercase font-['Paris2024']">
+                                            <span>Bientôt disponible</span>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
+                                )}
+                            </motion.div>
                         ) : activeTab === 'textes' ? (
                             // TEXTES — search + filter + vertical book cover grid
                             <div className="space-y-8">
@@ -389,8 +335,8 @@ export default function Research() {
                                         <button
                                             onClick={() => setTexteSeries('ALL')}
                                             className={`px-4 py-1.5 rounded-full text-xs font-bold tracking-wider transition-all ${texteSeries === 'ALL'
-                                                    ? 'bg-[#00f2ff] text-black shadow-[0_0_15px_rgba(0,242,255,0.4)]'
-                                                    : 'bg-white/5 text-skin-text-secondary hover:bg-white/10 hover:text-white'
+                                                ? 'bg-[#00f2ff] text-black shadow-[0_0_15px_rgba(0,242,255,0.4)]'
+                                                : 'bg-white/5 text-skin-text-secondary hover:bg-white/10 hover:text-white'
                                                 }`}
                                         >
                                             ALL
@@ -400,8 +346,8 @@ export default function Research() {
                                                 key={s}
                                                 onClick={() => setTexteSeries(s)}
                                                 className={`px-4 py-1.5 rounded-full text-xs font-bold tracking-wider transition-all ${texteSeries === s
-                                                        ? 'bg-[#00f2ff] text-black shadow-[0_0_15px_rgba(0,242,255,0.4)]'
-                                                        : 'bg-white/5 text-skin-text-secondary hover:bg-white/10 hover:text-white'
+                                                    ? 'bg-[#00f2ff] text-black shadow-[0_0_15px_rgba(0,242,255,0.4)]'
+                                                    : 'bg-white/5 text-skin-text-secondary hover:bg-white/10 hover:text-white'
                                                     }`}
                                             >
                                                 {s}

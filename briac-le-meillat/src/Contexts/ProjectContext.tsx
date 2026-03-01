@@ -11,6 +11,7 @@ export interface Project {
     videoLink: string;
     series: string[];
     createdAt: number;
+    type?: 'film' | 'serie';
     season?: number;
     episode?: number;
     duration?: string;

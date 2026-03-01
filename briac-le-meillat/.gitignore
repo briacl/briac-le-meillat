@@ -22,3 +22,24 @@
 Homestead.json
 Homestead.yaml
 Thumbs.db
+
+# ── Bérangère (contenu privé en local uniquement) ──
+# Pages
+src/Pages/BerangerePage.tsx
+src/Pages/EpisodePage.tsx
+
+# Composants
+src/Components/VideoPlayer.tsx
+
+# Data
+src/data/berangere-series.json
+src/data/berangere-films.json
+
+# Assets (images, vidéos, etc.)
+public/assets/berangere/
+
+# Fonts Neutraface (propriétaires)
+public/fonts/NeutrafaceText-*.otf
+
+# Documentation
+/BERANGERE_GUIDE.md

@@ -1,14 +1,145 @@
 [
     {
+        "title": "Ceux qui vivent, ce sont ceux qui luttent",
+        "description": "Dans une ville en ruines, un homme refuse de se soumettre. Porté par une conviction silencieuse, il choisit la résistance — jusqu'au dernier souffle.",
+        "imageUrl": "/briac-le-meillat/assets/berangere/films/ceux-qui-vivent-ce-sont-ceux-qui-luttent.jpg",
+        "videoLink": "#",
+        "series": [
+            "Courts métrages"
+        ],
+        "id": "af01b223-1111-4c38-b693-acede1703001",
+        "createdAt": 1772000000001,
+        "type": "film",
+        "category": "Drame"
+    },
+    {
+        "title": "Ce que dit le silence",
+        "description": "Entre deux êtres que tout sépare, le silence devient la seule langue commune. Un face-à-face délicat sur ce que les mots ne parviennent jamais à dire.",
+        "imageUrl": "/briac-le-meillat/assets/berangere/films/ce-que-dit-le-silence.jpg",
+        "videoLink": "#",
+        "series": [
+            "Courts métrages"
+        ],
+        "id": "af01b223-1111-4c38-b693-acede1703002",
+        "createdAt": 1772000000002,
+        "type": "film",
+        "category": "Drame"
+    },
+    {
+        "title": "L'Appel du silence",
+        "description": "Une femme quitte tout du jour au lendemain — sans explication. Quelques heures plus tard, sa fille part à sa recherche dans une forêt qui garde ses secrets.",
+        "imageUrl": "/briac-le-meillat/assets/berangere/films/l-appel-du-silence.jpg",
+        "videoLink": "#",
+        "series": [
+            "Courts métrages"
+        ],
+        "id": "af01b223-1111-4c38-b693-acede1703003",
+        "createdAt": 1772000000003,
+        "type": "film",
+        "category": "Drame"
+    },
+    {
+        "title": "What Silence Say",
+        "description": "Quelque part entre deux continents, une correspondance s'établit. Les lettres arrivent — mais les réponses, jamais. Ce que le silence dit n'est pas toujours ce qu'on croit entendre.",
+        "imageUrl": "/briac-le-meillat/assets/berangere/films/what-silence-say.jpg",
+        "videoLink": "#",
+        "series": [
+            "Courts métrages"
+        ],
+        "id": "af01b223-1111-4c38-b693-acede1703004",
+        "createdAt": 1772000000004,
+        "type": "film",
+        "category": "Drame"
+    },
+    {
+        "title": "Invulnérable",
+        "description": "Il croyait n'avoir besoin de personne. Le jour où son monde s'effondre, il découvre que l'invulnérabilité n'est qu'un masque — et que derrière, il y a quelqu'un qui attend.",
+        "imageUrl": "/briac-le-meillat/assets/berangere/films/invulne-rable.jpg",
+        "videoLink": "#",
+        "series": [
+            "Courts métrages"
+        ],
+        "id": "af01b223-1111-4c38-b693-acede1703005",
+        "createdAt": 1772000000005,
+        "type": "film",
+        "category": "Drame"
+    },
+    {
+        "title": "Iguane",
+        "description": "Dans la chaleur immobile d'un après-midi, un enfant observe un iguane depuis sa fenêtre. Une contemplation du temps qui passe, de l'immobilité et de ce qui change sans qu'on le voit.",
+        "imageUrl": "/briac-le-meillat/assets/berangere/films/iguane.jpg",
+        "videoLink": "#",
+        "series": [
+            "Courts métrages"
+        ],
+        "id": "af01b223-1111-4c38-b693-acede1703006",
+        "createdAt": 1772000000006,
+        "type": "film",
+        "category": "Drame"
+    },
+    {
+        "title": "La vie heureuse",
+        "description": "Une mère. Deux enfants. Une maison en bord de mer. Tout semble parfait — jusqu'à ce qu'une vieille photo refasse surface et questionne le récit d'une vie entière.",
+        "imageUrl": "/briac-le-meillat/assets/berangere/films/la-vie-heureuse.jpg",
+        "videoLink": "#",
+        "series": [
+            "Courts métrages"
+        ],
+        "id": "af01b223-1111-4c38-b693-acede1703007",
+        "createdAt": 1772000000007,
+        "type": "film",
+        "category": "Drame"
+    },
+    {
+        "title": "Sarabande",
+        "description": "Une danse, une rupture, un silence. Sur une partition de Bach, deux personnages rejouent inlassablement une scène qui ne se terminera jamais vraiment.",
+        "imageUrl": "/briac-le-meillat/assets/berangere/films/sarabande.jpg",
+        "videoLink": "#",
+        "series": [
+            "Courts métrages"
+        ],
+        "id": "af01b223-1111-4c38-b693-acede1703008",
+        "createdAt": 1772000000008,
+        "type": "film",
+        "category": "Drame"
+    },
+    {
+        "title": "Spleen",
+        "description": "La ville, la pluie, les néons. Un homme erre sans destination précise. Le spleen comme état du monde — ou comme façon d'en voir la beauté cachée.",
+        "imageUrl": "/briac-le-meillat/assets/berangere/films/spleen.jpg",
+        "videoLink": "#",
+        "series": [
+            "Courts métrages"
+        ],
+        "id": "af01b223-1111-4c38-b693-acede1703009",
+        "createdAt": 1772000000009,
+        "type": "film",
+        "category": "Drame"
+    },
+    {
+        "title": "Doctor Who – The Rise of the Doctor",
+        "description": "Quelque part dans le continuum temporel, le Docteur est oublié. Mais l'oubli n'est jamais définitif — et ce qui revient change toujours la donne.",
+        "imageUrl": "/briac-le-meillat/assets/berangere/films/doctor-who-the-rise-of-the-doctor-affiche-cre-dits.jpg",
+        "videoLink": "#",
+        "series": [
+            "Projets personnels"
+        ],
+        "id": "af01b223-1111-4c38-b693-acede1703010",
+        "createdAt": 1772000000010,
+        "type": "film",
+        "category": "Drame"
+    },
+    {
         "title": "L'Histoire de Ludwig van Beethoven",
         "description": "",
-        "imageUrl": "/briac-le-meillat/assets/realisations/20240505_190402000_iOS.png",
+        "imageUrl": "/briac-le-meillat/assets/berangere/series/ludwig-van-beethoven.png",
         "videoLink": "#",
         "series": [
             "Artistes de l'Histoire"
         ],
         "id": "c09c32e8-6a41-4c38-b693-acede1703034",
         "createdAt": 1771521708109,
+        "type": "serie",
         "season": 1,
         "episode": 1,
         "duration": "45 min",
@@ -17,13 +148,14 @@
     {
         "title": "La Légende de Kopakonan",
         "description": "",
-        "imageUrl": "/briac-le-meillat/assets/realisations/20260219_171934667_iOS.jpg",
+        "imageUrl": "/briac-le-meillat/assets/berangere/series/kopakonan.jpg",
         "videoLink": "#",
         "series": [
-            "Légendes Martitimes"
+            "Légendes Maritimes"
         ],
         "id": "2afd17d5-0bff-4a96-b056-3738d9fd7d08",
         "createdAt": 1771521642338,
+        "type": "serie",
         "season": 1,
         "episode": 1,
         "duration": "30 min",
@@ -32,28 +164,30 @@
     {
         "title": "Roger Frison-Roche, le roman d'une vie d'aventurier",
         "description": "",
-        "imageUrl": "/briac-le-meillat/assets/realisations/20240506_132400000_iOS.png",
+        "imageUrl": "/briac-le-meillat/assets/berangere/series/frison-roche.png",
         "videoLink": "#",
         "series": [
             "Destins d'Alpinisme"
         ],
         "id": "63d4dea0-5fbb-4ced-b731-70a2839d70d8",
         "createdAt": 1771521563472,
+        "type": "serie",
         "season": 2,
         "episode": 3,
         "duration": "52 min",
         "category": "Biographie"
     },
     {
-        "title": "Le Martyre de Licice",
+        "title": "Le Martyre de Lidice",
         "description": "",
-        "imageUrl": "/briac-le-meillat/assets/realisations/20260219_165613651_iOS.jpg",
+        "imageUrl": "/briac-le-meillat/assets/berangere/series/martyre-lidice.jpg",
         "videoLink": "#",
         "series": [
             "L'Histoire et ses Fautes"
         ],
         "id": "3c2fb622-6c90-46f3-b808-5c81560d9d3d",
         "createdAt": 1771521511247,
+        "type": "serie",
         "season": 1,
         "episode": 4,
         "duration": "28 min",
@@ -62,13 +196,14 @@
     {
         "title": "L'Histoire Incroyable d'Arthur Rimbaud",
         "description": "",
-        "imageUrl": "/briac-le-meillat/assets/realisations/20240506_133710000_iOS.png",
+        "imageUrl": "/briac-le-meillat/assets/berangere/series/arthur-rimbaud.png",
         "videoLink": "#",
         "series": [
             "Artistes de l'Histoire"
         ],
         "id": "922e997c-9270-4925-911c-05034f1d9b18",
         "createdAt": 1771520944994,
+        "type": "serie",
         "season": 1,
         "episode": 2,
         "duration": "40 min",
@@ -76,14 +211,15 @@
     },
     {
         "title": "Iseran, la Montagne Imaginaire",
-        "description": "ceci est une description de test",
-        "imageUrl": "/briac-le-meillat/assets/realisations/20260219_103131156_iOS.jpg",
+        "description": "",
+        "imageUrl": "/briac-le-meillat/assets/berangere/series/iseran.jpg",
         "videoLink": "#",
         "series": [
             "Affaires Alpines"
         ],
         "id": "15289084-223e-4e76-a48c-4e1a6330bd6c",
         "createdAt": 1771509498674,
+        "type": "serie",
         "season": 3,
         "episode": 1,
         "duration": "1h 15min",

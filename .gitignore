@@ -14,3 +14,8 @@ vendor/
 .DS_Store
 Thumbs.db
 me.md
+
+# ── Bérangère (contenu privé) ──
+BERANGERE_GUIDE.md
+convert_psd.py
+Bérangère/
