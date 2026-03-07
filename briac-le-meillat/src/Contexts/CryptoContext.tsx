@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Lock } from 'lucide-react';
+import { useLocation } from 'react-router-dom';
 
 interface CryptoContextType {
     isUnlocked: boolean;
@@ -17,6 +18,10 @@ const ALGORITHM = 'AES-GCM';
 export const CryptoProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const [isUnlocked, setIsUnlocked] = useState(false);
     const [cryptoKey, setCryptoKey] = useState<CryptoKey | null>(null);
+    const location = useLocation();
+
+    // Vérifier si on est sur une route nécessitant le déchiffrement
+    const needsDecryption = location.pathname.startsWith('/berangere');
 
     // Essayer de récupérer la clé si elle est dans le sessionStorage
     useEffect(() => {
@@ -106,9 +111,9 @@ export const CryptoProvider: React.FC<{ children: ReactNode }> = ({ children }) 
         <CryptoContext.Provider value={{ isUnlocked, unlock, lock, decryptData }}>
             {children}
 
-            {/* Modal globale si non déverrouillé et qu'on est sur une page requérant le contexte */}
+            {/* Modal globale si non déverrouillé ET qu'on est sur une page Bérangère */}
             <AnimatePresence>
-                {!isUnlocked && (
+                {needsDecryption && !isUnlocked && (
                     <PasswordPrompt onUnlock={unlock} />
                 )}
             </AnimatePresence>

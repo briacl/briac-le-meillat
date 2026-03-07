@@ -41,19 +41,22 @@ function App() {
                     <Route path="/cv" element={<CVPage />} />
                     <Route path="/contact" element={<Contact />} />
                     <Route path="/admin" element={<AdminPanel />} />
-                    {/* Bérangère routes - Actives en DEV uniquement */}
+                    
+                    {/* Bérangère routes - Protégées par chiffrement */}
+                    <Route path="/berangere" element={
+                        <React.Suspense fallback={<div>Loading...</div>}>
+                            <BerangerePage />
+                        </React.Suspense>
+                    } />
+                    <Route path="/berangere/serie/:id" element={
+                        <React.Suspense fallback={<div>Loading...</div>}>
+                            <EpisodePage />
+                        </React.Suspense>
+                    } />
+                    
+                    {/* Routes admin et réalisations - Actives en DEV uniquement */}
                     {import.meta.env.DEV && (
                         <>
-                            <Route path="/berangere" element={
-                                <React.Suspense fallback={<div>Loading...</div>}>
-                                    <BerangerePage />
-                                </React.Suspense>
-                            } />
-                            <Route path="/berangere/serie/:id" element={
-                                <React.Suspense fallback={<div>Loading...</div>}>
-                                    <EpisodePage />
-                                </React.Suspense>
-                            } />
                             <Route path="/realisations/:id" element={<ProjectDetails />} />
                             <Route path="/admin/realisations" element={<RealisationsAdmin />} />
                             <Route path="/admin/textes" element={<TextesAdmin />} />
