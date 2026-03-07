@@ -1,96 +1,99 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import GlassCard from '@/Components/GlassCard';
-import ProfileCard from '@/Components/ProfileCard';
 import Timeline from '@/Components/Timeline';
+import Typewriter from '@/Components/Typewriter';
 
 const cvData = [
-    {
-        year: '2021',
-        title: 'Baccalauréat Général',
-        description: 'Année de Terminale, obtention du Bac Général Spécialités SVT & Physique-Chimie Option Maths Complémentaires.',
-        location: 'Lycée'
-    },
-    {
-        year: '2022',
-        title: 'Licence de Biologie',
-        description: '1ère année de Licence de Biologie.',
-        location: 'Faculté Jean Perrin'
-    },
-    {
-        year: '2023',
-        title: 'BUT MMI',
-        description: '1ère année de BUT Métiers du Multimédia et de l\'Internet.',
-        location: 'IUT de Lens'
-    },
-    {
-        year: '2024',
-        title: 'Autodidacte',
-        description: '1ère année en autodidacte.',
-        location: 'Autonomie'
-    },
-    {
-        year: '2025',
-        title: 'Autodidacte',
-        description: '2ème année en autodidacte.',
-        location: 'Autonomie'
-    },
     {
         year: '2026',
         title: 'BUT R&T',
         description: '1ère année de BUT Réseaux et Télécommunications.',
         location: 'IUT de Béthune'
+    },
+    {
+        year: '2027',
+        title: 'BUT R&T',
+        description: '2ème année de BUT Réseaux et Télécommunications.',
+        location: 'IUT de Béthune'
+    },
+    {
+        year: '2028',
+        title: 'BUT R&T',
+        description: '3ème année de BUT Réseaux et Télécommunications.',
+        location: 'IUT de Béthune'
     }
 ];
 
 export default function CVSection() {
-    const [activeStep, setActiveStep] = useState(1); // Default to second step as active for demo
+    const [activeStep, setActiveStep] = useState(0); // Débute sur 2026 (index 0)
 
     return (
-        <div className="w-full flex flex-col lg:flex-row gap-8 items-stretch justify-center mx-auto min-h-[700px]">
+        <div className="w-full flex items-center justify-center mx-auto">
+            <GlassCard className="w-full flex flex-col items-center justify-center p-12">
+                {/* Profile Photo */}
+                <div className="relative mb-6 group">
+                    {/* Glow Effect */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#00f2ff] to-[#0055ff] rounded-full blur-xl opacity-50 group-hover:opacity-75 transition-opacity duration-500"></div>
 
-            {/* LEFT: Profile Card */}
-            <div className="w-full lg:w-1/3 flex-shrink-0">
-                <ProfileCard />
-            </div>
-
-            {/* RIGHT: Timeline & Content */}
-            <div className="w-full lg:w-2/3 flex flex-col">
-                <GlassCard className="h-full flex flex-col justify-start !p-0 overflow-hidden">
-
-                    {/* Top: Timeline */}
-                    <div className="w-full pt-32 px-8 pb-4">
-                        <Timeline
-                            steps={cvData.map(d => ({ year: d.year, title: d.title }))}
-                            activeStep={activeStep}
-                            onStepClick={setActiveStep}
+                    {/* Profile Image container */}
+                    <div className="relative w-40 h-40 rounded-full overflow-hidden border-4 border-white/20 shadow-2xl bg-gradient-to-br from-[#00f2ff] to-[#0055ff]">
+                        <img
+                            src={`${import.meta.env.BASE_URL}assets/profile.jpg`}
+                            alt="Briac Le Meillat"
+                            className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-110"
+                            loading="eager"
+                            onLoad={() => console.log('✓ Image profile.jpg loaded successfully')}
+                            onError={(e) => {
+                                console.error('✗ Image failed to load');
+                                const img = e.target as HTMLImageElement;
+                                console.error('Full URL attempted:', img.src);
+                                console.error('Base URL:', import.meta.env.BASE_URL);
+                            }}
                         />
                     </div>
+                </div>
 
-                    {/* Bottom: Dynamic Content */}
-                    <div className="flex-1 w-full px-12 pb-12 pt-2 flex flex-col items-center justify-center text-center transition-all duration-500">
+                {/* Name */}
+                <h3 className="font-['Paris2024'] text-2xl font-sm bg-gradient-to-r from-[#00f2ff] to-[#0055ff] bg-clip-text text-transparent mb-2 text-center">
+                    BRIAC LE MEILLAT
+                </h3>
 
-                        <div className="animate-in fade-in slide-in-from-bottom-4 duration-500" key={activeStep}>
-                            <h3 className="font-['Paris2024'] text-4xl mb-2 text-[#0055ff]">
-                                {cvData[activeStep].title}
-                            </h3>
-                            <span className="inline-block px-4 py-1 rounded-full bg-blue-100 text-blue-800 text-sm font-bold mb-6 font-['Montserrat_Alternates']">
-                                {cvData[activeStep].location}
-                            </span>
-                            <p className="text-xl text-skin-text-secondary font-['Montserrat_Alternates'] leading-relaxed max-w-lg mx-auto">
-                                {cvData[activeStep].description}
-                            </p>
-                        </div>
+                {/* Typewriter Description */}
+                <Typewriter
+                    text={["ÉTUDIANT EN", "DÉVELOPPEMENT WEB, RÉSEAUX INFORMATIQUES, IA, ET TÉLÉCOMMUNICATIONS"]}
+                    delay={0.5}
+                    className="text-lg uppercase tracking-widest mb-16"
+                />
 
-                        <Link to="/cv" className="font-['Baskerville'] text-[#0055ff] hover:text-[#00f2ff] transition-colors mt-8 inline-block border-b border-[#0055ff] hover:border-[#00f2ff]">
-                            Pour plus d'info
-                        </Link>
+                {/* Timeline */}
+                <div className="w-full pt-12 px-4 pb-4">
+                    <Timeline
+                        steps={cvData.map(d => ({ year: d.year, title: d.title }))}
+                        activeStep={activeStep}
+                        onStepClick={setActiveStep}
+                    />
+                </div>
 
+                {/* Dynamic Content */}
+                <div className="w-full px-8 pb-8 pt-4 flex flex-col items-center justify-center text-center transition-all duration-500">
+                    <div className="animate-in fade-in slide-in-from-bottom-4 duration-500" key={activeStep}>
+                        <h3 className="font-['Paris2024'] text-4xl mb-2 text-[#0055ff]">
+                            {cvData[activeStep].title}
+                        </h3>
+                        <span className="inline-block px-4 py-1 rounded-full bg-blue-100 text-blue-800 text-sm font-bold mb-6 font-['Montserrat_Alternates']">
+                            {cvData[activeStep].location}
+                        </span>
+                        <p className="text-xl text-skin-text-secondary font-['Montserrat_Alternates'] leading-relaxed max-w-lg mx-auto">
+                            {cvData[activeStep].description}
+                        </p>
                     </div>
 
-                </GlassCard>
-            </div>
-
+                    <Link to="/cv" className="font-['Baskerville'] text-[#0055ff] hover:text-[#00f2ff] transition-colors mt-8 inline-block border-b border-[#0055ff] hover:border-[#00f2ff]">
+                        En savoir plus
+                    </Link>
+                </div>
+            </GlassCard>
         </div>
     );
 }

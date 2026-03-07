@@ -10,8 +10,14 @@ interface TimelineProps {
 }
 
 export default function Timeline({ steps, activeStep, onStepClick }: TimelineProps) {
+    // Déterminer le nombre de colonnes en fonction du nombre d'étapes
+    const gridColsClass = steps.length === 3 ? 'md:grid-cols-3' : 
+                          steps.length === 4 ? 'md:grid-cols-4' : 
+                          steps.length === 5 ? 'md:grid-cols-5' : 
+                          'md:grid-cols-6';
+    
     return (
-        <ul className="timeline timeline-snap-icon max-md:timeline-compact timeline-vertical md:timeline-horizontal w-full grid grid-cols-1 md:grid-cols-6">
+        <ul className={`timeline timeline-snap-icon max-md:timeline-compact timeline-vertical md:timeline-horizontal w-full grid grid-cols-1 ${gridColsClass}`}>
             {steps.map((step, index) => {
                 const isActive = index <= activeStep;
                 const isPast = index < activeStep;

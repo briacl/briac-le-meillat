@@ -6,6 +6,7 @@ import GlassCard from '@/Components/GlassCard';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import { User, Mail, MessageSquare, Send, CheckCircle } from 'lucide-react';
 import IntroCodeAnimation from '@/Components/IntroCodeAnimation';
+import Typewriter from '@/Components/Typewriter';
 
 // Lazy load heavy sections
 const CVSection = React.lazy(() => import('./CVSection'));
@@ -14,69 +15,6 @@ const CollaboratorsSection = React.lazy(() => import('@/Components/Collaborators
 const SkillsAnalysisSection = React.lazy(() => import('@/Components/SkillsAnalysisSection'));
 const CertificationsSection = React.lazy(() => import('@/Components/CertificationsSection'));
 const OffersSection = React.lazy(() => import('@/Components/OffersSection'));
-
-// Typewriter Component
-const Typewriter = ({ text, delay = 0 }: { text: string | string[], delay?: number }) => {
-    const [displayedText, setDisplayedText] = useState<string[]>(Array.isArray(text) ? Array(text.length).fill("") : [""]);
-    const [currentIndex, setCurrentIndex] = useState<{ line: number, char: number }>({ line: 0, char: 0 });
-    const [started, setStarted] = useState(false);
-
-    useEffect(() => {
-        const timeout = setTimeout(() => setStarted(true), delay * 1000);
-        return () => clearTimeout(timeout);
-    }, [delay]);
-
-    useEffect(() => {
-        if (!started) return;
-
-        const lines = Array.isArray(text) ? text : [text];
-
-        if (currentIndex.line >= lines.length) return;
-
-        const currentLineText = lines[currentIndex.line];
-
-        if (currentIndex.char < currentLineText.length) {
-            const timeout = setTimeout(() => {
-                setDisplayedText(prev => {
-                    const newLines = [...prev];
-                    newLines[currentIndex.line] = currentLineText.slice(0, currentIndex.char + 1);
-                    return newLines;
-                });
-                setCurrentIndex(prev => ({ ...prev, char: prev.char + 1 }));
-            }, 50); // Typing speed
-            return () => clearTimeout(timeout);
-        } else {
-            // Move to next line
-            if (currentIndex.line < lines.length - 1) {
-                const timeout = setTimeout(() => {
-                    setCurrentIndex(prev => ({ line: prev.line + 1, char: 0 }));
-                }, 300); // Pause between lines
-                return () => clearTimeout(timeout);
-            }
-        }
-    }, [currentIndex, text, started]);
-
-    return (
-        <div className="font-['Paris2024'] text-[1.2rem] tracking-[4px] text-skin-text-main mt-4 leading-normal text-center min-h-[3.6rem]">
-            {displayedText.map((line, i) => (
-                <React.Fragment key={i}>
-                    <span>
-                        {line}
-                        {/* Show cursor on the active line, or keep it on the last line when finished */}
-                        {(i === currentIndex.line || (i === displayedText.length - 1 && currentIndex.line >= displayedText.length)) && (
-                            <motion.span
-                                animate={{ opacity: [1, 0] }}
-                                transition={{ duration: 0.8, repeat: Infinity, ease: "linear" }}
-                                className="inline-block w-[2px] h-[1.2rem] bg-[#0055ff] ml-1 align-middle"
-                            />
-                        )}
-                    </span>
-                    {(i < displayedText.length - 1) && <br />}
-                </React.Fragment>
-            ))}
-        </div>
-    );
-};
 
 const ContactForm = () => {
     const [loading, setLoading] = useState(false);
@@ -360,10 +298,11 @@ export default function LandingPage() {
                                 </motion.span>
                             </h1>
 
-                            <div className="my-6 z-10">
+                            <div className="mt-2 z-10">
                                 <Typewriter
-                                    text={["ÉTUDIANT EN", "DÉVELOPPEMENT WEB, RÉSEAUX INFORMATIQUES, IA, ET TÉLÉCOMMUNICATIONS"]}
+                                    text="par Briac Le Meillat, étudiant de 1ère année en Réseaux et Télécommunications"
                                     delay={1.5}
+                                    className="text-xl tracking-wide text-white font-['Baskerville']"
                                 />
                             </div>
 
@@ -401,7 +340,7 @@ export default function LandingPage() {
                 </div>
 
                 {/* SECTIONS Container Part 1 - Vision */}
-                <div className="w-11/12 max-w-7xl flex flex-col gap-32 mb-32">
+                <div className="w-[95%] max-w-[1920px] mx-auto flex flex-col gap-32 mb-32">
 
 
 
@@ -432,38 +371,38 @@ export default function LandingPage() {
 
 
                 {/* CERTIFICATIONS SECTION */}
-                <div id="certifications-section" className="w-11/12 max-w-7xl mb-32">
+                <div id="certifications-section" className="w-[95%] max-w-[1920px] mx-auto mb-32">
                     <Suspense fallback={<div className="h-[400px] w-full flex items-center justify-center text-skin-text-main/50">Chargement des certifications...</div>}>
                         <CertificationsSection />
                     </Suspense>
                 </div>
 
                 {/* SKILLS ANALYSIS SECTION - WIDER CONTAINER */}
-                <div id="skills-analysis-section" className="w-11/12 max-w-7xl mb-32">
+                <div id="skills-analysis-section" className="w-[95%] max-w-[1920px] mx-auto mb-32">
                     <Suspense fallback={<div className="h-[400px] w-full flex items-center justify-center text-skin-text-main/50">Chargement de l'analyse...</div>}>
                         <SkillsAnalysisSection />
                     </Suspense>
                 </div>
 
-                {/* OFFERS SECTION */}
-                <div id="offers-section" className="w-11/12 max-w-7xl mb-32">
+                {/* OFFERS SECTION - TEMPORAIREMENT MASQUÉE */}
+                {/* <div id="offers-section" className="w-[95%] max-w-[1920px] mx-auto mb-32">
                     <Suspense fallback={<div className="h-[400px] w-full flex items-center justify-center text-skin-text-main/50">Chargement des offres...</div>}>
                         <OffersSection />
                     </Suspense>
-                </div>
+                </div> */}
 
                 {/* SECTIONS Container Part 2 - Rest of content */}
-                <div className="w-11/12 max-w-7xl pb-24 flex flex-col gap-32">
+                <div className="w-[95%] max-w-[1920px] mx-auto pb-24 flex flex-col gap-32">
 
 
 
 
-                    {/* CODE EXAMPLES SECTION - Moved from NeuralNetworkBackground Interaction */}
-                    <div id="code-examples-section">
+                    {/* CODE EXAMPLES SECTION - TEMPORAIREMENT MASQUÉE */}
+                    {/* <div id="code-examples-section">
                         <Suspense fallback={<div className="h-[400px] w-full flex items-center justify-center text-white/50">Chargement des exemples...</div>}>
                             <CodeExamplesSection />
                         </Suspense>
-                    </div>
+                    </div> */}
 
                     {/* COLLABORATORS SECTION */}
                     <div id="collaborators-section" className="min-h-[50vh] flex items-center justify-center">
