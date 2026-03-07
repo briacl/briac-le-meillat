@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
 import { Providers } from './Providers';
+import { CryptoModal } from './Contexts/CryptoContext';
 
 import LandingPage from './Pages/LandingPage';
 import Subscribe from './Pages/Subscribe';
@@ -63,6 +64,9 @@ function App() {
                         </>
                     )}
                 </Routes>
+                
+                {/* Modal de déchiffrement pour les routes Bérangère */}
+                <CryptoModal />
             </BrowserRouter>
         </Providers>
     );

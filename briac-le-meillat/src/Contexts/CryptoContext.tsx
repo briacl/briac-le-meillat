@@ -18,10 +18,6 @@ const ALGORITHM = 'AES-GCM';
 export const CryptoProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const [isUnlocked, setIsUnlocked] = useState(false);
     const [cryptoKey, setCryptoKey] = useState<CryptoKey | null>(null);
-    const location = useLocation();
-
-    // Vérifier si on est sur une route nécessitant le déchiffrement
-    const needsDecryption = location.pathname.startsWith('/berangere');
 
     // Essayer de récupérer la clé si elle est dans le sessionStorage
     useEffect(() => {
@@ -110,13 +106,6 @@ export const CryptoProvider: React.FC<{ children: ReactNode }> = ({ children }) 
     return (
         <CryptoContext.Provider value={{ isUnlocked, unlock, lock, decryptData }}>
             {children}
-
-            {/* Modal globale si non déverrouillé ET qu'on est sur une page Bérangère */}
-            <AnimatePresence>
-                {needsDecryption && !isUnlocked && (
-                    <PasswordPrompt onUnlock={unlock} />
-                )}
-            </AnimatePresence>
         </CryptoContext.Provider>
     );
 };
@@ -202,5 +191,23 @@ const PasswordPrompt: React.FC<{ onUnlock: (pw: string) => Promise<boolean> }> =
                 </form>
             </motion.div>
         </motion.div>
+    );
+};
+
+// --- Composant Modal Conditionnel (doit être utilisé dans BrowserRouter) ---
+
+export const CryptoModal: React.FC = () => {
+    const location = useLocation();
+    const { isUnlocked, unlock } = useCrypto();
+    
+    // Vérifier si on est sur une route nécessitant le déchiffrement
+    const needsDecryption = location.pathname.startsWith('/berangere');
+
+    return (
+        <AnimatePresence>
+            {needsDecryption && !isUnlocked && (
+                <PasswordPrompt onUnlock={unlock} />
+            )}
+        </AnimatePresence>
     );
 };
