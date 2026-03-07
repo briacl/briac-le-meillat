@@ -328,7 +328,7 @@ export default function LandingPage() {
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1, transition: { duration: 1.5, ease: "easeOut" } }}
                                 exit={{ opacity: 0, transition: { duration: 2.0, ease: "easeInOut" } }}
-                                className="absolute inset-0 bottom-auto h-screen sticky top-0 z-40 pointer-events-auto"
+                                className="fixed inset-0 h-screen z-40 pointer-events-auto"
                             >
                                 <IntroCodeAnimation onComplete={() => {
                                     setAnimationPlayed(true);

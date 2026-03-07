@@ -1,4 +1,4 @@
-import{j as e,G as o,m as a}from"./index-B_6FCcrP.js";const n=[{title:"ProjectContext.tsx",language:"typescript",code:`export const ProjectProvider = ({ children }) => {
+import{j as e,G as o,m as a}from"./index-CKRqvjBb.js";const n=[{title:"ProjectContext.tsx",language:"typescript",code:`export const ProjectProvider = ({ children }) => {
   const [projects, setProjects] = useState<Project[]>([]);
   
   const addProject = (project: Omit<Project, 'id'>) => {

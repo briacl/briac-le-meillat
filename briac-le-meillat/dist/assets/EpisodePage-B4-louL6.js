@@ -1,4 +1,4 @@
-import{j as e,u as v,a as k,r as g}from"./index-B_6FCcrP.js";import{s as w}from"./berangere-series-u9DdaP3O.js";function T({videoUrl:i,posterUrl:f,title:t,onPlay:d,isDarkMode:x=!1,className:m=""}){return e.jsx("div",{className:`relative w-full ${m}`,children:e.jsxs("video",{controls:!0,poster:f,className:"w-full h-full rounded-lg",preload:"metadata",onPlay:d,"aria-label":t,children:[i&&e.jsx("source",{src:i,type:"video/mp4"}),"Votre navigateur ne supporte pas la lecture de vidéos."]})})}const j=`
+import{j as e,u as v,a as k,r as g}from"./index-CKRqvjBb.js";import{s as w}from"./berangere-series-u9DdaP3O.js";function T({videoUrl:i,posterUrl:f,title:t,onPlay:d,isDarkMode:x=!1,className:m=""}){return e.jsx("div",{className:`relative w-full ${m}`,children:e.jsxs("video",{controls:!0,poster:f,className:"w-full h-full rounded-lg",preload:"metadata",onPlay:d,"aria-label":t,children:[i&&e.jsx("source",{src:i,type:"video/mp4"}),"Votre navigateur ne supporte pas la lecture de vidéos."]})})}const j=`
   @font-face {
     font-family: 'NeutrafaceText';
     src: url('/briac-le-meillat/fonts/NeutrafaceText-Light.otf') format('opentype');

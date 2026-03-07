@@ -1,4 +1,4 @@
-import{j as e,r as m,m as d,L as h,A as u}from"./index-B_6FCcrP.js";import{s as b}from"./berangere-series-u9DdaP3O.js";const S=[],v=`
+import{j as e,r as m,m as d,L as h,A as u}from"./index-CKRqvjBb.js";import{s as b}from"./berangere-series-u9DdaP3O.js";const S=[],v=`
   /* ── Light ── */
   @font-face {
     font-family: 'NeutrafaceText';
