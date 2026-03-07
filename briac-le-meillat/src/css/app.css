@@ -5,12 +5,15 @@
 :root {
     /* LIGHT MODE COLORS */
     --bg-primary: #f8f9fa;
-    --text-primary: #111827; /* gray-900 */
-    --text-secondary: #374151; /* gray-700 */
-    
-    --card-bg: rgba(255, 255, 255, 0.5); /* semi-transparent white */
+    --text-primary: #111827;
+    /* gray-900 */
+    --text-secondary: #374151;
+    /* gray-700 */
+
+    --card-bg: rgba(255, 255, 255, 0.5);
+    /* semi-transparent white */
     --card-border: rgba(255, 255, 255, 0.5);
-    
+
     --accent-primary: #00f2ff;
     --accent-secondary: #0055ff;
 
@@ -19,11 +22,15 @@
 
 .dark {
     /* DARK MODE COLORS - EDIT HERE FOR CONFIGURATION */
-    --bg-primary: #020617; /* slate-950 */
-    --text-primary: #f8fafc; /* slate-50 */
-    --text-secondary: #94a3b8; /* slate-400 */
+    --bg-primary: #020617;
+    /* slate-950 */
+    --text-primary: #f8fafc;
+    /* slate-50 */
+    --text-secondary: #94a3b8;
+    /* slate-400 */
 
-    --card-bg: rgba(15, 23, 42, 0.6); /* slate-900 with opacity */
+    --card-bg: rgba(15, 23, 42, 0.6);
+    /* slate-900 with opacity */
     --card-border: rgba(255, 255, 255, 0.1);
 
     --accent-primary: #00f2ff;
@@ -34,50 +41,50 @@
 
 @font-face {
     font-family: 'Monad';
-    src: url('/fonts/Monad.otf') format('opentype');
+    src: url('/briac-le-meillat/fonts/Monad.otf') format('opentype');
 }
 
 @font-face {
     font-family: 'Montserrat';
-    src: url('/fonts/Montserrat-Regular.ttf') format('truetype');
+    src: url('/briac-le-meillat/fonts/Montserrat-Regular.ttf') format('truetype');
 }
 
 @font-face {
     font-family: 'Montserrat Alternates';
-    src: url('/fonts/MontserratAlternates-Regular.otf') format('opentype');
+    src: url('/briac-le-meillat/fonts/MontserratAlternates-Regular.otf') format('opentype');
 }
 
 @font-face {
     font-family: 'Paris2024';
-    src: url('/fonts/Paris2024-Variable.ttf') format('truetype');
+    src: url('/briac-le-meillat/fonts/Paris2024-Variable.ttf') format('truetype');
 }
 
 @font-face {
     font-family: 'Roboto Mono';
-    src: url('/fonts/RobotoMono-Regular.ttf') format('truetype');
+    src: url('/briac-le-meillat/fonts/RobotoMono-Regular.ttf') format('truetype');
 }
 
 @font-face {
     font-family: 'Plus Jakarta Sans';
-    src: url('/fonts/PlusJakartaSans.ttf') format('truetype');
+    src: url('/briac-le-meillat/fonts/PlusJakartaSans.ttf') format('truetype');
 }
 
 @font-face {
     font-family: 'NeutrafaceText';
-    src: url('/fonts/NeutrafaceText-LightItalic.otf') format('opentype');
-    font-weight: 300; 
+    src: url('/briac-le-meillat/fonts/NeutrafaceText-LightItalic.otf') format('opentype');
+    font-weight: 300;
     font-style: italic;
 }
 
 @font-face {
     font-family: 'NeutrafaceTextDemiSC';
-    src: url('/fonts/NeutrafaceText-DemiSC.otf') format('opentype');
+    src: url('/briac-le-meillat/fonts/NeutrafaceText-DemiSC.otf') format('opentype');
 }
 
 @font-face {
     font-family: 'NeutrafaceText';
-    src: url('/fonts/NeutrafaceText-Book.otf') format('opentype');
-    font-weight: 400; 
+    src: url('/briac-le-meillat/fonts/NeutrafaceText-Book.otf') format('opentype');
+    font-weight: 400;
     font-style: normal;
 }
 
@@ -92,6 +99,7 @@ body {
         opacity: 0;
         transform: scale(0.95);
     }
+
     to {
         opacity: 1;
         transform: scale(1);
@@ -104,9 +112,12 @@ body {
 
 /* Animation pulse lente pour le logo */
 @keyframes pulse-slow {
-    0%, 100% {
+
+    0%,
+    100% {
         opacity: 1;
     }
+
     50% {
         opacity: 0.8;
     }

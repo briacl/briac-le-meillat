@@ -35,8 +35,5 @@ src/data/berangere-films.json
 # Assets (images, vidéos, etc.)
 public/assets/berangere/
 
-# Fonts Neutraface (propriétaires)
-public/fonts/NeutrafaceText-*.otf
-
 # Documentation
 /BERANGERE_GUIDE.md
