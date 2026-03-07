@@ -18,8 +18,9 @@ import ProjectDetails from './Pages/ProjectDetails';
 import RealisationsAdmin from './Pages/Admin/RealisationsAdmin';
 import TextesAdmin from './Pages/Admin/TextesAdmin';
 import AdminPanel from './Components/AdminPanel';
-// import BerangerePage from './Pages/BerangerePage';
-// import EpisodePage from './Pages/EpisodePage';
+
+const BerangerePage = React.lazy(() => import('./Pages/BerangerePage').catch(() => ({ default: () => <div className="p-10 text-white text-center">Fichier introuvable sur cette machine. Clonez BerangerePage.tsx !</div> })));
+const EpisodePage = React.lazy(() => import('./Pages/EpisodePage').catch(() => ({ default: () => <div className="p-10 text-white text-center">Fichier introuvable sur cette machine. Clonez EpisodePage.tsx !</div> })));
 
 function App() {
     return (
@@ -43,8 +44,16 @@ function App() {
                     {/* Bérangère routes - Actives en DEV uniquement */}
                     {import.meta.env.DEV && (
                         <>
-                            {/* <Route path="/berangere" element={<BerangerePage />} /> */}
-                            {/* <Route path="/berangere/serie/:id" element={<EpisodePage />} /> */}
+                            <Route path="/berangere" element={
+                                <React.Suspense fallback={<div>Loading...</div>}>
+                                    <BerangerePage />
+                                </React.Suspense>
+                            } />
+                            <Route path="/berangere/serie/:id" element={
+                                <React.Suspense fallback={<div>Loading...</div>}>
+                                    <EpisodePage />
+                                </React.Suspense>
+                            } />
                             <Route path="/realisations/:id" element={<ProjectDetails />} />
                             <Route path="/admin/realisations" element={<RealisationsAdmin />} />
                             <Route path="/admin/textes" element={<TextesAdmin />} />

@@ -287,15 +287,6 @@ export default function LandingPage() {
                                     a
                                 </motion.span>
 
-                                <style>
-                                    {`
-                                    @font-face {
-                                        font-family: 'NeutrafaceTextDemiSC';
-                                        src: url('/briac-le-meillat/fonts/NeutrafaceText-DemiSC.otf') format('opentype');
-                                    }
-                                    `}
-                                </style>
-
                                 <motion.span style={{
                                     fontFamily: "'NeutrafaceTextDemiSC', 'Montserrat', sans-serif",
                                     fontStyle: 'normal',

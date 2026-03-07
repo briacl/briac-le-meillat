@@ -25,9 +25,6 @@ Thumbs.db
 
 # ── Bérangère (contenu privé en local uniquement) ──
 # Pages
-src/Pages/BerangerePage.tsx
-src/Pages/EpisodePage.tsx
-
 # Composants
 src/Components/VideoPlayer.tsx
 

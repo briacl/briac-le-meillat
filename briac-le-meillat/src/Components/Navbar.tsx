@@ -3,13 +3,7 @@ import { useTheme } from '@/Contexts/ThemeProvider';
 import { useAuth } from '@/Contexts/AuthContext';
 import { LogOut, User } from 'lucide-react';
 
-const neutrafaceFontStyles = `
-  @font-face {
-    font-family: 'NeutrafaceText';
-    src: url('/briac-le-meillat/fonts/NeutrafaceText-LightItalic.otf') format('opentype');
-    font-weight: 300; font-style: italic;
-  }
-`;
+
 
 export default function Navbar() {
     const { theme, toggleTheme } = useTheme();
@@ -24,7 +18,6 @@ export default function Navbar() {
 
     return (
         <nav className="fixed top-8 left-1/2 -translate-x-1/2 w-3/4 bg-white/80 dark:bg-white/10 backdrop-blur-md rounded-full px-8 py-4 flex items-center justify-between z-50 border border-black/5 dark:border-white/20 shadow-xl shadow-blue-900/10 transition-colors duration-300" style={{ backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)' }}>
-            <style dangerouslySetInnerHTML={{ __html: neutrafaceFontStyles }} />
             {/* Left: Title */}
             <Link
                 to="/"
