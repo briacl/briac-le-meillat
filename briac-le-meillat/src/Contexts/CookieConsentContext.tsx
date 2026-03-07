@@ -21,15 +21,15 @@ const CookieConsentContext = createContext<CookieConsentContextType | undefined>
 const COOKIE_CONSENT_KEY = 'cookie-consent-status';
 
 export const CookieConsentProvider: FC<{ children: ReactNode }> = ({ children }) => {
-    const [cookieConsent, setCookieConsent] = useState<CookieConsentStatus>('pending');
-
-    // Chargement de l'état depuis localStorage au démarrage
-    useEffect(() => {
-        const saved = localStorage.getItem(COOKIE_CONSENT_KEY);
-        if (saved === 'accepted' || saved === 'rejected') {
-            setCookieConsent(saved);
+    const [cookieConsent, setCookieConsent] = useState<CookieConsentStatus>(() => {
+        if (typeof window !== 'undefined') {
+            const saved = window.localStorage.getItem(COOKIE_CONSENT_KEY);
+            if (saved === 'accepted' || saved === 'rejected') {
+                return saved as CookieConsentStatus;
+            }
         }
-    }, []);
+        return 'pending';
+    });
 
     const acceptCookies = () => {
         setCookieConsent('accepted');

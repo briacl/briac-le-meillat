@@ -267,21 +267,109 @@ export default function LandingPage() {
 
                         {/* CONTENT LAYER */}
                         <div className="relative z-10 flex flex-col items-center justify-center text-center">
-                            <h1 className="font-['Paris2024'] text-[5rem] font-[200] tracking-[12px] m-0 uppercase flex flex-wrap justify-center gap-x-8 select-none drop-shadow-sm leading-tight">
-                                {"Briac Le Meillat".split(" ").map((word, i) => (
-                                    <motion.span
-                                        key={i}
-                                        className="bg-gradient-to-br from-[#00f2ff] to-[#0055ff] bg-clip-text text-transparent"
-                                        initial={{ opacity: 0, filter: 'blur(10px)' }}
-                                        animate={{ opacity: 1, filter: 'blur(0px)' }}
-                                        transition={{ duration: 0.8, delay: 0.2 + i * 0.3, ease: "easeOut" }}
-                                    >
-                                        {word}
-                                    </motion.span>
-                                ))}
+                            {/* Main Title: a Bérangère branch */}
+                            {/* Small Title: a Bérangère branch */}
+                            <motion.div
+                                className="mb-2 flex items-center justify-center gap-2 drop-shadow-sm z-10"
+                            >
+                                <motion.span style={{
+                                    fontFamily: "'NeutrafaceText', 'Montserrat', sans-serif",
+                                    fontWeight: 300,
+                                    fontStyle: 'italic',
+                                    letterSpacing: '0.15em',
+                                    fontSize: 'clamp(0.8rem, 1.5vw, 1.2rem)',
+                                    color: 'rgba(255,255,255,0.7)'
+                                }}
+                                    initial={{ opacity: 0, filter: 'blur(10px)' }}
+                                    animate={{ opacity: 1, filter: 'blur(0px)' }}
+                                    transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
+                                >
+                                    a
+                                </motion.span>
+
+                                <style>
+                                    {`
+                                    @font-face {
+                                        font-family: 'NeutrafaceTextDemiSC';
+                                        src: url('/briac-le-meillat/fonts/NeutrafaceText-DemiSC.otf') format('opentype');
+                                    }
+                                    `}
+                                </style>
+
+                                <motion.span style={{
+                                    fontFamily: "'NeutrafaceTextDemiSC', 'Montserrat', sans-serif",
+                                    fontStyle: 'normal',
+                                    fontSize: 'clamp(0.9rem, 1.7vw, 1.35rem)',
+                                    letterSpacing: '0.2em',
+                                    color: 'rgba(255,255,255,0.8)'
+                                }}
+                                    initial={{ opacity: 0, filter: 'blur(10px)' }}
+                                    animate={{ opacity: 1, filter: 'blur(0px)' }}
+                                    transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
+                                >
+                                    Bérangère
+                                </motion.span>
+
+                                <motion.span style={{
+                                    fontFamily: "'NeutrafaceText', 'Montserrat', sans-serif",
+                                    fontWeight: 300,
+                                    fontStyle: 'italic',
+                                    letterSpacing: '0.15em',
+                                    fontSize: 'clamp(0.8rem, 1.5vw, 1.2rem)',
+                                    color: 'rgba(255,255,255,0.7)'
+                                }}
+                                    initial={{ opacity: 0, filter: 'blur(10px)' }}
+                                    animate={{ opacity: 1, filter: 'blur(0px)' }}
+                                    transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
+                                >
+                                    branch
+                                </motion.span>
+                            </motion.div>
+
+                            {/* Main Title: Bérangère • Development */}
+                            <h1 className="m-0 flex flex-wrap justify-center items-center gap-x-4 gap-y-2 select-none drop-shadow-sm leading-tight text-center sm:text-left z-10">
+                                <motion.span
+                                    className="text-white"
+                                    initial={{ opacity: 0, filter: 'blur(10px)' }}
+                                    animate={{ opacity: 1, filter: 'blur(0px)' }}
+                                    transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
+                                    style={{
+                                        fontFamily: "'NeutrafaceText', 'Montserrat', sans-serif",
+                                        fontWeight: 300,
+                                        fontStyle: 'italic',
+                                        letterSpacing: '0.42em',
+                                        marginRight: '-0.42em', // Compensate for trailing letter-spacing
+                                        fontSize: 'clamp(1.8rem, 3.5vw, 3rem)'
+                                    }}
+                                >
+                                    Bérangère
+                                </motion.span>
+
+                                <motion.span
+                                    className="text-white opacity-50 font-sans"
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
+                                    style={{ fontSize: 'clamp(1.5rem, 3vw, 2.5rem)', paddingBottom: '0.1em' }}
+                                >
+                                    •
+                                </motion.span>
+
+                                <motion.span
+                                    className="font-['Paris2024'] text-white uppercase"
+                                    initial={{ opacity: 0, filter: 'blur(10px)' }}
+                                    animate={{ opacity: 1, filter: 'blur(0px)' }}
+                                    transition={{ duration: 0.8, delay: 1.0, ease: "easeOut" }}
+                                    style={{
+                                        letterSpacing: '0.2em',
+                                        fontSize: 'clamp(1.8rem, 3.5vw, 3rem)'
+                                    }}
+                                >
+                                    Development
+                                </motion.span>
                             </h1>
 
-                            <div className="my-6">
+                            <div className="my-6 z-10">
                                 <Typewriter
                                     text={["ÉTUDIANT EN", "DÉVELOPPEMENT WEB, RÉSEAUX INFORMATIQUES, IA, ET TÉLÉCOMMUNICATIONS"]}
                                     delay={1.5}

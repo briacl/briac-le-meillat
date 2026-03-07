@@ -39,16 +39,15 @@ function App() {
                     <Route path="/devop" element={<Devop />} />
                     <Route path="/cv" element={<CVPage />} />
                     <Route path="/contact" element={<Contact />} />
-                    <Route path="/realisations" element={<Navigate to="/recherches?tab=realisations" replace />} />
-                    <Route path="/realisations/:id" element={<ProjectDetails />} />
                     <Route path="/admin" element={<AdminPanel />} />
-                    <Route path="/admin/realisations" element={<RealisationsAdmin />} />
-                    <Route path="/admin/textes" element={<TextesAdmin />} />
                     {/* Bérangère routes - Actives en DEV uniquement */}
                     {import.meta.env.DEV && (
                         <>
                             <Route path="/berangere" element={<BerangerePage />} />
                             <Route path="/berangere/serie/:id" element={<EpisodePage />} />
+                            <Route path="/realisations/:id" element={<ProjectDetails />} />
+                            <Route path="/admin/realisations" element={<RealisationsAdmin />} />
+                            <Route path="/admin/textes" element={<TextesAdmin />} />
                         </>
                     )}
                 </Routes>

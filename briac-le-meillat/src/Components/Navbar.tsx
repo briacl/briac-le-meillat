@@ -3,6 +3,14 @@ import { useTheme } from '@/Contexts/ThemeProvider';
 import { useAuth } from '@/Contexts/AuthContext';
 import { LogOut, User } from 'lucide-react';
 
+const neutrafaceFontStyles = `
+  @font-face {
+    font-family: 'NeutrafaceText';
+    src: url('/briac-le-meillat/fonts/NeutrafaceText-LightItalic.otf') format('opentype');
+    font-weight: 300; font-style: italic;
+  }
+`;
+
 export default function Navbar() {
     const { theme, toggleTheme } = useTheme();
     const { user, isAuthenticated, logout } = useAuth();
@@ -16,9 +24,23 @@ export default function Navbar() {
 
     return (
         <nav className="fixed top-8 left-1/2 -translate-x-1/2 w-3/4 bg-white/80 dark:bg-white/10 backdrop-blur-md rounded-full px-8 py-4 flex items-center justify-between z-50 border border-black/5 dark:border-white/20 shadow-xl shadow-blue-900/10 transition-colors duration-300" style={{ backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)' }}>
+            <style dangerouslySetInnerHTML={{ __html: neutrafaceFontStyles }} />
             {/* Left: Title */}
-            <Link to="/" target="_blank" rel="noopener noreferrer" className="font-['Paris2024'] text-2xl bg-gradient-to-br from-[#00f2ff] to-[#0055ff] bg-clip-text text-transparent tracking-widest drop-shadow-sm transition-all duration-300 hover:drop-shadow-[0_0_12px_rgba(0,85,255,0.8)] hover:scale-105">
-                BRIAC LE MEILLAT
+            <Link
+                to="/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="drop-shadow-sm transition-all duration-300 hover:drop-shadow-[0_0_12px_rgba(255,255,255,0.8)] hover:scale-105 normal-case"
+                style={{
+                    color: theme === 'dark' ? '#fff' : '#111',
+                    fontWeight: 300,
+                    fontStyle: 'italic',
+                    letterSpacing: '0.42em',
+                    fontSize: '1rem',
+                    fontFamily: "'NeutrafaceText', 'Montserrat', sans-serif"
+                }}
+            >
+                Bérangère
             </Link>
 
             {/* Center: Links */}
@@ -63,15 +85,15 @@ export default function Navbar() {
                     </>
                 ) : (
                     <>
-                        <Link 
-                            to="/login" 
+                        <Link
+                            to="/login"
                             state={{ from: location }}
                             className="text-[#0055ff] hover:text-[#0044cc] transition-colors uppercase tracking-wider text-sm font-['Paris2024']"
                         >
                             Log in
                         </Link>
-                        <Link 
-                            to="/login?mode=signup" 
+                        <Link
+                            to="/login?mode=signup"
                             state={{ from: location }}
                             className="bg-[#0055ff] border border-[#0055ff] text-white px-6 py-2 rounded-full hover:bg-[#0044cc] hover:border-[#0044cc] transition-all uppercase tracking-wider text-sm shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50 font-['Paris2024']"
                         >
