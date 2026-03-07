@@ -1,7 +1,7 @@
 
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import articlesData from '../data/articles.json';
+import { useCrypto } from './CryptoContext';
 
 export interface Texte {
     id: string;
@@ -26,13 +26,46 @@ interface TexteContextType {
 const TexteContext = createContext<TexteContextType | undefined>(undefined);
 
 export function TexteProvider({ children }: { children: React.ReactNode }) {
-    const [textes, setTextes] = useState<Texte[]>(
-        (articlesData as any[]).map(a => ({
-            ...a,
-            series: (a as any).series ?? [],
-            createdAt: (a as any).createdAt ?? 0,
-        })) as Texte[]
-    );
+    const { isUnlocked, decryptData } = useCrypto();
+    const [textes, setTextes] = useState<Texte[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        let active = true;
+
+        const loadData = async () => {
+            if (!isUnlocked) {
+                setLoading(false);
+                return;
+            }
+
+            try {
+                setLoading(true);
+                const response = await fetch('/briac-le-meillat/encrypted_data/data/articles.json.enc');
+                if (!response.ok) throw new Error("Fichier introuvable");
+
+                const buffer = await response.arrayBuffer();
+                const decryptedStr = await decryptData(buffer);
+
+                if (decryptedStr && active) {
+                    const parsed = JSON.parse(decryptedStr);
+                    setTextes(parsed.map((a: any) => ({
+                        ...a,
+                        series: a.series ?? [],
+                        createdAt: a.createdAt ?? 0,
+                    })));
+                }
+            } catch (err) {
+                console.error("Erreur chargement Textes chiffrés", err);
+            } finally {
+                if (active) setLoading(false);
+            }
+        };
+
+        loadData();
+
+        return () => { active = false; };
+    }, [isUnlocked, decryptData]);
 
     const saveTextes = async (newTextes: Texte[]) => {
         try {

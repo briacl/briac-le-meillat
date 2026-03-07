@@ -7,6 +7,7 @@ import { TexteProvider } from './Contexts/TexteContext';
 import { WebProjectProvider } from './Contexts/WebProjectContext';
 import { CookieConsentProvider } from './Contexts/CookieConsentContext';
 import { CookieConsent } from './Components/CookieConsent';
+import { CryptoProvider } from './Contexts/CryptoContext';
 
 /**
  * Providers.tsx — centralise tous les providers React de l'application.
@@ -26,15 +27,17 @@ export function Providers({ children }: { children: React.ReactNode }) {
             <CookieConsent />
             <ThemeProvider>
                 <AuthProvider>
-                    <ProjectProvider>
-                        <TexteProvider>
-                            <WebProjectProvider>
-                                <HeroUIProvider>
-                                    {children}
-                                </HeroUIProvider>
-                            </WebProjectProvider>
-                        </TexteProvider>
-                    </ProjectProvider>
+                    <CryptoProvider>
+                        <ProjectProvider>
+                            <TexteProvider>
+                                <WebProjectProvider>
+                                    <HeroUIProvider>
+                                        {children}
+                                    </HeroUIProvider>
+                                </WebProjectProvider>
+                            </TexteProvider>
+                        </ProjectProvider>
+                    </CryptoProvider>
                 </AuthProvider>
             </ThemeProvider>
         </CookieConsentProvider>

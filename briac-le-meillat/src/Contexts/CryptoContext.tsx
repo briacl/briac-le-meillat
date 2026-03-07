@@ -1,0 +1,201 @@
+import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Lock } from 'lucide-react';
+
+interface CryptoContextType {
+    isUnlocked: boolean;
+    unlock: (password: string) => Promise<boolean>;
+    lock: () => void;
+    decryptData: (encryptedBuffer: ArrayBuffer) => Promise<string | null>;
+}
+
+const CryptoContext = createContext<CryptoContextType | undefined>(undefined);
+
+// Paramètres crypto
+const ALGORITHM = 'AES-GCM';
+
+export const CryptoProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+    const [isUnlocked, setIsUnlocked] = useState(false);
+    const [cryptoKey, setCryptoKey] = useState<CryptoKey | null>(null);
+
+    // Essayer de récupérer la clé si elle est dans le sessionStorage
+    useEffect(() => {
+        const storedPassword = sessionStorage.getItem('berangere_key');
+        if (storedPassword) {
+            unlock(storedPassword);
+        }
+    }, []);
+
+    const deriveKey = async (password: string): Promise<CryptoKey> => {
+        const encoder = new TextEncoder();
+        const pwData = encoder.encode(password);
+
+        // Simuler crypto.createHash('sha256').update(password) de Node.js
+        const hashBuffer = await crypto.subtle.digest('SHA-256', pwData);
+        // Prendre les 32 premiers octets en base64 (identique au script Nodejs)
+        const hashArray = Array.from(new Uint8Array(hashBuffer));
+        const hashBase64 = btoa(String.fromCharCode.apply(null, hashArray)).substring(0, 32);
+
+        const keyData = encoder.encode(hashBase64);
+
+        return await crypto.subtle.importKey(
+            'raw',
+            keyData,
+            { name: ALGORITHM },
+            false,
+            ['decrypt']
+        );
+    };
+
+    const unlock = async (password: string): Promise<boolean> => {
+        try {
+            const key = await deriveKey(password);
+
+            // Pour vérifier si le mot de passe est bon, on pourrait déchiffrer un petit fichier test.
+            // Mais pour faire simple, on accepte la clé et on plantera au déchiffrement si elle est fausse.
+            setCryptoKey(key);
+            setIsUnlocked(true);
+            sessionStorage.setItem('berangere_key', password);
+            return true;
+        } catch (error) {
+            console.error("Erreur de dérivation de clé", error);
+            return false;
+        }
+    };
+
+    const lock = () => {
+        setCryptoKey(null);
+        setIsUnlocked(false);
+        sessionStorage.removeItem('berangere_key');
+    };
+
+    const decryptData = async (encryptedBuffer: ArrayBuffer): Promise<string | null> => {
+        if (!cryptoKey) return null;
+
+        try {
+            // Séparer l'IV, le tag (géré par AES-GCM web crypto) et les données.
+            // Format Nodejs: [12 octets IV] + [16 octets AuthTag] + [Data]
+            // Note: WebCrypto GCM attend [Data] + [16 octets AuthTag] en un seul buffer (ciphertext)
+
+            const bufferView = new Uint8Array(encryptedBuffer);
+            const iv = bufferView.slice(0, 12);
+            const authTag = bufferView.slice(12, 28);
+            const encryptedData = bufferView.slice(28);
+
+            // Reconstruire le format attendu par WebCrypto: Data concaténé avec AuthTag
+            const webCryptoCiphertext = new Uint8Array(encryptedData.length + authTag.length);
+            webCryptoCiphertext.set(encryptedData, 0);
+            webCryptoCiphertext.set(authTag, encryptedData.length);
+
+            const decryptedBuffer = await crypto.subtle.decrypt(
+                { name: ALGORITHM, iv: iv },
+                cryptoKey,
+                webCryptoCiphertext
+            );
+
+            const decoder = new TextDecoder();
+            return decoder.decode(decryptedBuffer);
+        } catch (error) {
+            console.error("Échec du déchiffrement. Mot de passe invalide ?");
+            // Ne pas logger l'erreur complète pour ne pas faire planter l'UI
+            return null;
+        }
+    };
+
+    return (
+        <CryptoContext.Provider value={{ isUnlocked, unlock, lock, decryptData }}>
+            {children}
+
+            {/* Modal globale si non déverrouillé et qu'on est sur une page requérant le contexte */}
+            <AnimatePresence>
+                {!isUnlocked && (
+                    <PasswordPrompt onUnlock={unlock} />
+                )}
+            </AnimatePresence>
+        </CryptoContext.Provider>
+    );
+};
+
+export const useCrypto = () => {
+    const context = useContext(CryptoContext);
+    if (!context) throw new Error("useCrypto doit être utilisé dans un CryptoProvider");
+    return context;
+};
+
+// --- Composant d'Interface Utilisateur ---
+
+const PasswordPrompt: React.FC<{ onUnlock: (pw: string) => Promise<boolean> }> = ({ onUnlock }) => {
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState(false);
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        const success = await onUnlock(password);
+        if (!success) {
+            setError(true);
+        }
+    };
+
+    return (
+        <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[99999] flex items-center justify-center bg-black/80 backdrop-blur-xl"
+        >
+            <motion.div
+                initial={{ scale: 0.9, y: 20 }}
+                animate={{ scale: 1, y: 0 }}
+                className="bg-white/10 p-8 rounded-2xl border border-white/20 shadow-2xl max-w-md w-full"
+            >
+                <div className="flex justify-center mb-6">
+                    <div className="w-16 h-16 rounded-full bg-blue-500/20 flex items-center justify-center border border-blue-500/50">
+                        <Lock className="w-8 h-8 text-blue-400" />
+                    </div>
+                </div>
+
+                <h2 className="text-2xl font-bold text-white text-center mb-2 font-['NeutrafaceTextDemiSC'] tracking-widest">
+                    ACCÈS CONFIDENTIEL
+                </h2>
+                <p className="text-gray-400 text-center text-sm mb-8">
+                    Veuillez entrer la clé de déchiffrement pour accéder aux données sécurisées.
+                </p>
+
+                <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+                    <div>
+                        <input
+                            type="password"
+                            value={password}
+                            onChange={(e) => {
+                                setPassword(e.target.value);
+                                setError(false);
+                            }}
+                            placeholder="Clé de chiffrement..."
+                            className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all font-mono"
+                        />
+                        {error && (
+                            <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-red-400 text-sm mt-2">
+                                Clé invalide ou erreur système.
+                            </motion.p>
+                        )}
+                    </div>
+
+                    <button
+                        type="submit"
+                        className="w-full mt-2 bg-blue-600 hover:bg-blue-500 text-white font-semibold py-3 rounded-xl transition-colors shadow-lg shadow-blue-500/30"
+                    >
+                        Déchiffrer
+                    </button>
+
+                    <button
+                        type="button"
+                        onClick={() => window.history.back()}
+                        className="w-full text-gray-400 hover:text-white text-sm py-2 transition-colors"
+                    >
+                        Retour en lieu sûr
+                    </button>
+                </form>
+            </motion.div>
+        </motion.div>
+    );
+};

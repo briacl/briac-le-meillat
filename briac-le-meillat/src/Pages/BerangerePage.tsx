@@ -2,9 +2,8 @@ import React, { useEffect, useRef, useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 
-import filmsData from '../data/berangere-films.json';
-import seriesData from '../data/berangere-series.json';
-
+import { EncryptedImage } from '../Components/EncryptedImage';
+import { useProjects } from '../Contexts/ProjectContext';
 /* ─────────────────────────────────────────────
    FONT DECLARATION (in-component style tag)
 ───────────────────────────────────────────── */
@@ -678,7 +677,7 @@ function FilmCard({ project }: { project: Film }) {
                     flexShrink: 0,
                 }}>
                     {imageUrl && (
-                        <img
+                        <EncryptedImage
                             src={imageUrl}
                             alt={project.title}
                             style={{
@@ -801,7 +800,7 @@ function SeriesCard({ project }: { project: Serie }) {
         >
             {/* Poster image */}
             {imageUrl && (
-                <img
+                <EncryptedImage
                     src={imageUrl}
                     alt={project.title}
                     style={{
@@ -900,7 +899,8 @@ function FilmsSection() {
     const [search, setSearch] = useState('');
     const basePath = import.meta.env.BASE_URL || '/';
 
-    const films = filmsData as Film[];
+    const { projects } = useProjects();
+    const films = useMemo(() => projects.filter(p => p.type === 'film' || !p.type), [projects]);
 
     // Last film by createdAt (highest = most recent = first in list)
     const featuredFilm = useMemo(() =>
@@ -981,7 +981,7 @@ function FilmsSection() {
                         boxShadow: '0 12px 48px rgba(0,0,0,0.22)',
                     }}>
                         {featuredImageUrl && (
-                            <img
+                            <EncryptedImage
                                 src={featuredImageUrl}
                                 alt={featuredFilm.title}
                                 style={{ width: '100%', height: 'auto', display: 'block' }}
@@ -1137,7 +1137,8 @@ function SeriesSection() {
     const [search, setSearch] = useState('');
     const basePath = import.meta.env.BASE_URL || '/';
 
-    const series = seriesData as Serie[];
+    const { projects } = useProjects();
+    const series = useMemo(() => projects.filter(p => p.type === 'serie'), [projects]);
 
     // Last episode by createdAt
     const featuredEpisode = useMemo(() =>
@@ -1294,7 +1295,7 @@ function SeriesSection() {
                         position: 'relative',
                     }}>
                         {featuredImageUrl && (
-                            <img
+                            <EncryptedImage
                                 src={featuredImageUrl}
                                 alt={featuredEpisode.title}
                                 style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}

@@ -1,7 +1,7 @@
 
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import projectsData from '../data/realisations-projects.json';
+import { useCrypto } from './CryptoContext';
 
 export interface Project {
     id: string;
@@ -22,6 +22,10 @@ export interface Project {
     isBest?: boolean;
     isRecent?: boolean;
     domain?: string;
+    // Bérangère specific fields
+    director?: string;
+    cast?: string;
+    production?: string;
 }
 
 interface ProjectContextType {
@@ -37,9 +41,42 @@ interface ProjectContextType {
 const ProjectContext = createContext<ProjectContextType | undefined>(undefined);
 
 export function ProjectProvider({ children }: { children: React.ReactNode }) {
-    // Initialize directly with the data from the JSON file
-    // We cast it to Project[] to ensure type safety if the JSON structure matches
-    const [projects, setProjects] = useState<Project[]>(projectsData as Project[]);
+    const { isUnlocked, decryptData } = useCrypto();
+    const [projects, setProjects] = useState<Project[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        let active = true;
+
+        const loadData = async () => {
+            if (!isUnlocked) {
+                setLoading(false);
+                return;
+            }
+
+            try {
+                setLoading(true);
+                const response = await fetch('/briac-le-meillat/encrypted_data/data/realisations-projects.json.enc');
+                if (!response.ok) throw new Error("Fichier introuvable");
+
+                const buffer = await response.arrayBuffer();
+                const decryptedStr = await decryptData(buffer);
+
+                if (decryptedStr && active) {
+                    const parsed = JSON.parse(decryptedStr) as Project[];
+                    setProjects(parsed);
+                }
+            } catch (err) {
+                console.error("Erreur chargement Projets chiffrés", err);
+            } finally {
+                if (active) setLoading(false);
+            }
+        };
+
+        loadData();
+
+        return () => { active = false; };
+    }, [isUnlocked, decryptData]);
 
     const saveProjects = async (newProjects: Project[]) => {
         try {

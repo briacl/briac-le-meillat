@@ -1,7 +1,8 @@
 import React, { useMemo, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import seriesData from '../data/berangere-series.json';
+import { useProjects } from '../Contexts/ProjectContext';
 import VideoPlayer from '../Components/VideoPlayer';
+import { EncryptedImage } from '../Components/EncryptedImage';
 
 /* ─────────────────────────────────────────────
    TYPES
@@ -127,8 +128,8 @@ export default function EpisodePage() {
     const [isDarkMode, setIsDarkMode] = useState(false);
     const [showPlayer, setShowPlayer] = useState(false);
 
-    const all = seriesData as Serie[];
-    const episode = useMemo(() => all.find(s => s.id === id), [id]);
+    const { projects: all } = useProjects();
+    const episode = useMemo(() => all.find(s => s.id === id), [id, all]);
 
     // All episodes in the same series, sorted by season/episode
     const siblings = useMemo(() => {
@@ -285,7 +286,7 @@ export default function EpisodePage() {
                             >
                                 {/* Image de fond */}
                                 {episode.imageUrl && (
-                                    <img
+                                    <EncryptedImage
                                         src={episode.imageUrl}
                                         alt={episode.title}
                                         style={{
@@ -298,7 +299,7 @@ export default function EpisodePage() {
                                         }}
                                     />
                                 )}
-                                
+
                                 {/* Overlay sombre au hover */}
                                 <div
                                     style={{
@@ -313,7 +314,7 @@ export default function EpisodePage() {
                                     onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(0,0,0,0.5)'}
                                     onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(0,0,0,0.3)'}
                                 />
-                            
+
                                 {/* Bouton Play */}
                                 <div
                                     style={{
@@ -341,21 +342,21 @@ export default function EpisodePage() {
                                         e.currentTarget.style.background = 'rgba(255,255,255,0.95)';
                                     }}
                                 >
-                                {/* Icône Play */}
-                                <svg 
-                                    width="32" 
-                                    height="32" 
-                                    viewBox="0 0 24 24" 
-                                    fill="none"
-                                    style={{ marginLeft: '4px' }}
-                                >
-                                    <path 
-                                        d="M8 5v14l11-7z" 
-                                        fill="#000"
-                                    />
-                                </svg>
+                                    {/* Icône Play */}
+                                    <svg
+                                        width="32"
+                                        height="32"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        style={{ marginLeft: '4px' }}
+                                    >
+                                        <path
+                                            d="M8 5v14l11-7z"
+                                            fill="#000"
+                                        />
+                                    </svg>
+                                </div>
                             </div>
-                        </div>
                         </div>
                     )}
 
@@ -370,8 +371,8 @@ export default function EpisodePage() {
                         background: isDarkMode ? '#0a0a0a' : '#fafafa',
                     }}>
                         {/* Left: Back button */}
-                        <button 
-                            className="ep-back-btn" 
+                        <button
+                            className="ep-back-btn"
                             onClick={() => navigate('/berangere#series')}
                             style={{ color: isDarkMode ? 'rgba(255,255,255,0.65)' : 'rgba(0,0,0,0.65)' }}
                         >
@@ -488,9 +489,9 @@ export default function EpisodePage() {
                         margin: 0,
                         marginBottom: '0.8rem',
                     }}>
-                        <span style={{ 
-                            color: isDarkMode ? 'rgba(255,255,255,0.4)' : 'rgba(0,0,0,0.4)', 
-                            fontSize: '2.5em', 
+                        <span style={{
+                            color: isDarkMode ? 'rgba(255,255,255,0.4)' : 'rgba(0,0,0,0.4)',
+                            fontSize: '2.5em',
                             lineHeight: '0',
                             display: 'inline-block',
                             verticalAlign: 'middle',
@@ -536,9 +537,9 @@ export default function EpisodePage() {
                                 }}>
                                     Séries {episode.category}
                                 </span>
-                                <span style={{ 
-                                    color: isDarkMode ? 'rgba(255,255,255,0.4)' : 'rgba(0,0,0,0.4)', 
-                                    fontSize: '2.2em', 
+                                <span style={{
+                                    color: isDarkMode ? 'rgba(255,255,255,0.4)' : 'rgba(0,0,0,0.4)',
+                                    fontSize: '2.2em',
                                     lineHeight: '0',
                                     display: 'inline-block',
                                     verticalAlign: 'middle',
@@ -560,9 +561,9 @@ export default function EpisodePage() {
                                 }}>
                                     {year}
                                 </span>
-                                <span style={{ 
-                                    color: isDarkMode ? 'rgba(255,255,255,0.4)' : 'rgba(0,0,0,0.4)', 
-                                    fontSize: '2.2em', 
+                                <span style={{
+                                    color: isDarkMode ? 'rgba(255,255,255,0.4)' : 'rgba(0,0,0,0.4)',
+                                    fontSize: '2.2em',
                                     lineHeight: '0',
                                     display: 'inline-block',
                                     verticalAlign: 'middle',
@@ -586,9 +587,9 @@ export default function EpisodePage() {
                         {/* Duration */}
                         {episode.duration && (
                             <>
-                                <span style={{ 
-                                    color: isDarkMode ? 'rgba(255,255,255,0.4)' : 'rgba(0,0,0,0.4)', 
-                                    fontSize: '2.2em', 
+                                <span style={{
+                                    color: isDarkMode ? 'rgba(255,255,255,0.4)' : 'rgba(0,0,0,0.4)',
+                                    fontSize: '2.2em',
                                     lineHeight: '0',
                                     display: 'inline-block',
                                     verticalAlign: 'middle',
@@ -608,9 +609,9 @@ export default function EpisodePage() {
                         )}
 
                         {/* Français */}
-                        <span style={{ 
-                            color: isDarkMode ? 'rgba(255,255,255,0.4)' : 'rgba(0,0,0,0.4)', 
-                            fontSize: '2.2em', 
+                        <span style={{
+                            color: isDarkMode ? 'rgba(255,255,255,0.4)' : 'rgba(0,0,0,0.4)',
+                            fontSize: '2.2em',
                             lineHeight: '0',
                             display: 'inline-block',
                             verticalAlign: 'middle',
@@ -713,7 +714,7 @@ export default function EpisodePage() {
                                                 flexShrink: 0,
                                                 background: '#000',
                                             }}>
-                                                <img
+                                                <EncryptedImage
                                                     src={ep.imageUrl}
                                                     alt={ep.title}
                                                     style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', opacity: ep.id === id ? 1 : 0.7 }}

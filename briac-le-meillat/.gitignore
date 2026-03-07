@@ -24,16 +24,12 @@ Homestead.yaml
 Thumbs.db
 
 # ── Bérangère (contenu privé en local uniquement) ──
-# Pages
-# Composants
-src/Components/VideoPlayer.tsx
-
-# Data
-src/data/berangere-series.json
-src/data/berangere-films.json
-
-# Assets (images, vidéos, etc.)
-public/assets/berangere/
-
 # Documentation
 /BERANGERE_GUIDE.md
+
+# Fichiers sources (non chiffrés)
+/src/data/berangere-films.json
+/src/data/berangere-series.json
+/src/data/articles.json
+/src/data/realisations-projects.json
+/public/assets/berangere/
