@@ -67,6 +67,14 @@ export default function NeuralNetworkBackground({ className = "" }: { className?
     const [selectedNode, setSelectedNode] = React.useState<string | null>(null);
     const { theme } = useTheme();
 
+    // Fix image paths: strip any hardcoded /briac-le-meillat/ prefix and use Vite's BASE_URL
+    const resolveImageUrl = (url: string) => {
+        if (!url) return url;
+        // Remove leading slash and known repo prefix, then prepend BASE_URL
+        const cleaned = url.replace(/^\/briac-le-meillat\//, '').replace(/^\//, '');
+        return `${import.meta.env.BASE_URL}${cleaned}`;
+    };
+
     // Camera state
     const cameraRef = useRef({ x: 0, y: 0, zoom: 1, targetX: 0, targetY: 0, targetZoom: 1 });
     const selectedNodeRef = useRef<string | null>(null);
@@ -525,7 +533,7 @@ export default function NeuralNetworkBackground({ className = "" }: { className?
                                                             <div key={project.id} className="group relative bg-black/5 dark:bg-white/10 rounded-2xl overflow-hidden border border-black/10 dark:border-white/20 hover:shadow-2xl hover:shadow-[#0075FF]/20 transition-all duration-300 flex flex-col h-full">
                                                                 <div className="h-40 w-full overflow-hidden relative bg-black/40">
                                                                     {project.imageUrl ? (
-                                                                        <img src={project.imageUrl} alt={project.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                                                                        <img src={resolveImageUrl(project.imageUrl)} alt={project.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                                                                     ) : (
                                                                         <div className="w-full h-full flex items-center justify-center text-gray-400 bg-gray-50/50">
                                                                             <span className="text-3xl opacity-20"><i className="fa-solid fa-image"></i></span>
@@ -569,7 +577,7 @@ export default function NeuralNetworkBackground({ className = "" }: { className?
                                                             <div key={project.id} className="group relative bg-black/5 dark:bg-white/10 rounded-2xl overflow-hidden border border-black/10 dark:border-white/20 hover:shadow-2xl hover:shadow-[#00f2ff]/20 transition-all duration-300 flex flex-col h-full">
                                                                 <div className="h-40 w-full overflow-hidden relative bg-black/40">
                                                                     {project.imageUrl ? (
-                                                                        <img src={project.imageUrl} alt={project.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                                                                        <img src={resolveImageUrl(project.imageUrl)} alt={project.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                                                                     ) : (
                                                                         <div className="w-full h-full flex items-center justify-center text-gray-400 bg-gray-50/50">
                                                                             <span className="text-3xl opacity-20"><i className="fa-solid fa-image"></i></span>
@@ -633,7 +641,7 @@ export default function NeuralNetworkBackground({ className = "" }: { className?
                                                                 <div key={project.id} className="group relative bg-black/5 dark:bg-white/10 rounded-2xl overflow-hidden border border-black/10 dark:border-white/20 hover:shadow-2xl hover:shadow-[#00f2ff]/20 transition-all duration-300 flex flex-col h-full">
                                                                     <div className="h-40 w-full overflow-hidden relative bg-black/40">
                                                                         {project.imageUrl ? (
-                                                                            <img src={project.imageUrl} alt={project.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                                                                            <img src={resolveImageUrl(project.imageUrl)} alt={project.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                                                                         ) : (
                                                                             <div className="w-full h-full flex items-center justify-center text-gray-400 bg-gray-50/50">
                                                                                 <span className="text-3xl opacity-20"><i className="fa-solid fa-image"></i></span>
