@@ -12,7 +12,6 @@ import Typewriter from '@/Components/Typewriter';
 const CVSection = React.lazy(() => import('./CVSection'));
 const CodeExamplesSection = React.lazy(() => import('@/Components/CodeExamplesSection'));
 const CollaboratorsSection = React.lazy(() => import('@/Components/CollaboratorsSection'));
-const SkillsAnalysisSection = React.lazy(() => import('@/Components/SkillsAnalysisSection'));
 const CertificationsSection = React.lazy(() => import('@/Components/CertificationsSection'));
 const OffersSection = React.lazy(() => import('@/Components/OffersSection'));
 
@@ -355,15 +354,90 @@ export default function LandingPage() {
                     {/* VISION SECTION */}
                     <div id="vision-section" className="min-h-[50vh] flex items-center justify-center">
                         <GlassCard className="w-full">
-                            <h2 className="text-[3rem] mb-8 text-[#0055ff] font-['Paris2024']">VISION</h2>
-                            <p className="max-w-[800px] text-center leading-[1.6] text-[1.1rem] text-skin-text-main font-['Montserrat_Alternates']">
-                                Curieux de nature, je m’intéresse à de nombreux domaines liés à l’informatique, aux réseaux et à l’intelligence artificielle.
-                                J’aime comprendre comment les choses fonctionnent, aller au-delà de la simple utilisation des outils et explorer leurs limites.
-                                Chaque projet est pour moi une opportunité d’apprendre, d’expérimenter et de progresser.
-                                Je m’investis avec sérieux et persévérance, en cherchant toujours à améliorer, approfondir et faire évoluer mes réalisations, aussi bien sur le plan technique que méthodologique.
-                                Ma motivation principale est de construire des projets solides et cohérents, tout en développant mes compétences et ma vision globale des systèmes informatiques et réseaux.
-                                Je considère l’apprentissage comme un processus continu, où chaque défi contribue à me faire grandir, autant en tant que développeur qu’en tant que futur professionnel.
-                            </p>
+                            <h2 className="text-[3rem] mb-16 text-[#0055ff] font-['Paris2024'] text-center">VISION</h2>
+                            
+                            {/* Phrase d'accroche Hero */}
+                            <div className="text-center mb-20 px-8">
+                                <p className="text-[2.5rem] md:text-[3.5rem] leading-tight text-gray-400 font-['Paris2024'] font-light italic max-w-[1000px] mx-auto transition-all duration-500 hover:text-white hover:scale-[1.02]">
+                                    Pour certains, un clavier n'est qu'un outil de saisie. Pour moi, c'est un instrument.
+                                </p>
+                            </div>
+
+                            {/* Grille 40/60 - Vision/Réalité */}
+                            <div className="grid grid-cols-1 md:grid-cols-5 gap-12 mb-20 px-8">
+                                {/* Colonne Gauche - La Vision (40%) */}
+                                <div className="md:col-span-2">
+                                    <h3 className="text-[1.8rem] text-[#0055ff] font-['Paris2024'] mb-6">La Vision</h3>
+                                    <div className="space-y-4">
+                                        <p className="leading-[1.9] text-[1.05rem] text-skin-text-main/90 font-['Baskerville'] italic">
+                                            Chaque ligne de code est une <span className="text-[#0055ff]/80">note</span>, chaque fonction un <span className="text-[#0055ff]/80">accord</span>, et chaque projet une <span className="text-[#0055ff]/80">partition</span> que je compose au quotidien.
+                                        </p>
+                                        <p className="leading-[1.9] text-[1.05rem] text-skin-text-main/90 font-['Baskerville'] italic">
+                                            Ma vision de l'informatique dépasse le cadre technique : c'est un univers de création pure où la rigueur du réseau rencontre l'élégance du design.
+                                        </p>
+                                        <p className="leading-[1.9] text-[1.05rem] text-skin-text-main/90 font-['Baskerville'] italic">
+                                            Le code est, à mes yeux, une forme d'art moderne — un langage universel qui bâtit des ponts entre l'idée et la réalité.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                {/* Colonne Droite - La Réalité Technique (60%) */}
+                                <div className="md:col-span-3">
+                                    <h3 className="text-[1.8rem] text-[#0055ff] font-['Paris2024'] mb-6">La Réalité Technique</h3>
+                                    <div className="space-y-4">
+                                        <p className="leading-[1.8] text-[0.95rem] text-skin-text-main/90 font-mono">
+                                            Curieux de nature et étudiant en <span className="text-[#0055ff]">BUT R&T</span>, je m'investis avec persévérance pour explorer les limites des systèmes.
+                                        </p>
+                                        <p className="leading-[1.8] text-[0.95rem] text-skin-text-main/90 font-mono">
+                                            Mon quotidien se joue sur les touches de ma machine, là où je transforme mes apprentissages en <span className="text-[#0055ff]">solutions concrètes</span>. 
+                                        </p>
+                                        <p className="leading-[1.8] text-[0.95rem] text-skin-text-main/90 font-mono">
+                                            Que je sois en train de sculpter une interface web minimaliste ou de vulgariser la complexité d'une encapsulation réseau, je cherche sans relâche ce point d'équilibre entre la fluidité de l'<span className="text-[#0055ff]">UX</span> et la solidité de l'<span className="text-[#0055ff]">infrastructure</span>.
+                                        </p>
+                                        <p className="leading-[1.8] text-[0.95rem] text-skin-text-main/90 font-mono">
+                                            Je considère l'apprentissage comme un processus continu, cherchant toujours à construire des projets solides et cohérents, tout en développant une vision globale des infrastructures et de l'IA.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Section Artisan Numérique - Cards */}
+                            <div className="px-8 pb-8">
+                                <h3 className="text-[2rem] text-center text-[#0055ff] font-['Paris2024'] mb-12">Artisan Numérique</h3>
+                                
+                                {/* Grid des 3 cartes */}
+                                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-[1200px] mx-auto">
+                                    {/* Card 1 - Découvrir */}
+                                    <div className="group border border-white/10 backdrop-blur-sm bg-white/5 rounded-lg p-8 transition-all duration-300 hover:border-[#0055ff]/50 hover:bg-white/10">
+                                        <h4 className="text-[1.5rem] text-[#0055ff] font-['Montserrat_Alternates'] font-semibold mb-4">
+                                            01. Découvrir<span className="inline-block animate-pulse ml-1">|</span>
+                                        </h4>
+                                        <p className="leading-[1.7] text-[0.95rem] text-skin-text-main/80 font-['Montserrat_Alternates']">
+                                            Apprivoiser un nouvel outil, une nouvelle IA, et en chercher les nuances cachées pour enrichir ma palette technique.
+                                        </p>
+                                    </div>
+
+                                    {/* Card 2 - Expérimenter */}
+                                    <div className="group border border-white/10 backdrop-blur-sm bg-white/5 rounded-lg p-8 transition-all duration-300 hover:border-[#0055ff]/50 hover:bg-white/10">
+                                        <h4 className="text-[1.5rem] text-[#0055ff] font-['Montserrat_Alternates'] font-semibold mb-4">
+                                            02. Expérimenter<span className="inline-block animate-pulse ml-1">|</span>
+                                        </h4>
+                                        <p className="leading-[1.7] text-[0.95rem] text-skin-text-main/80 font-['Montserrat_Alternates']">
+                                            Coder pour comprendre. Aller au-delà de la simple utilisation pour tester les limites du possible et valider mes acquis.
+                                        </p>
+                                    </div>
+
+                                    {/* Card 3 - Élever avec effet de montée */}
+                                    <div className="group border border-white/10 backdrop-blur-sm bg-white/5 rounded-lg p-8 transition-all duration-500 hover:border-[#0055ff]/50 hover:bg-white/10 hover:-translate-y-2">
+                                        <h4 className="text-[1.5rem] text-[#0055ff] font-['Montserrat_Alternates'] font-semibold mb-4 transition-transform duration-500 group-hover:-translate-y-1">
+                                            03. Élever<span className="inline-block animate-pulse ml-1">|</span>
+                                        </h4>
+                                        <p className="leading-[1.7] text-[0.95rem] text-skin-text-main/80 font-['Montserrat_Alternates'] transition-transform duration-500 group-hover:-translate-y-1">
+                                            Concevoir des réalisations qui ne se contentent pas de fonctionner, mais qui interagissent avec harmonie, élégance et simplicité.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
                         </GlassCard>
                     </div>
 
@@ -374,13 +448,6 @@ export default function LandingPage() {
                 <div id="certifications-section" className="w-[95%] max-w-[1920px] mx-auto mb-32">
                     <Suspense fallback={<div className="h-[400px] w-full flex items-center justify-center text-skin-text-main/50">Chargement des certifications...</div>}>
                         <CertificationsSection />
-                    </Suspense>
-                </div>
-
-                {/* SKILLS ANALYSIS SECTION - WIDER CONTAINER */}
-                <div id="skills-analysis-section" className="w-[95%] max-w-[1920px] mx-auto mb-32">
-                    <Suspense fallback={<div className="h-[400px] w-full flex items-center justify-center text-skin-text-main/50">Chargement de l'analyse...</div>}>
-                        <SkillsAnalysisSection />
                     </Suspense>
                 </div>
 
