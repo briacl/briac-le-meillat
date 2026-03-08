@@ -29,7 +29,7 @@ export default function ResearchDetail({ title, subtitle, date, content }: Resea
                 <article className="max-w-4xl mx-auto bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 p-8 md:p-12 shadow-2xl">
                     <header className="mb-12 border-b border-white/10 pb-8">
                         <span className="font-mono text-[#00f2ff] text-sm mb-4 block">{date}</span>
-                        <h1 className="font-['Paris2024'] text-4xl md:text-6xl bg-gradient-to-br from-[#00f2ff] to-[#0055ff] bg-clip-text text-transparent mb-6">
+                        <h1 className="font-['Paris2024'] text-4xl md:text-6xl bg-gradient-to-br from-[#0075FF] to-[#f336f0] bg-clip-text text-transparent mb-6">
                             {title}
                         </h1>
                         <p className="font-['Baskerville'] text-2xl text-skin-text-secondary italic">

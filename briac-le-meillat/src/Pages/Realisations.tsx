@@ -47,7 +47,7 @@ export default function Realisations() {
 
                     {/* Header */}
                     <header className="mb-12 text-center">
-                        <h1 className="font-['Paris2024'] text-5xl md:text-7xl bg-gradient-to-br from-[#00f2ff] to-[#0055ff] bg-clip-text text-transparent mb-6">
+                        <h1 className="font-['Paris2024'] text-5xl md:text-7xl bg-gradient-to-br from-[#0075FF] to-[#f336f0] bg-clip-text text-transparent mb-6">
                             RÉALISATIONS
                         </h1>
                         <p className="font-['Baskerville'] text-xl max-w-2xl mx-auto text-skin-text-secondary italic">

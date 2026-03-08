@@ -49,7 +49,7 @@ export default function CVPage() {
             {/* Content */}
             <div className="relative z-10 flex flex-col items-center justify-start min-h-screen pt-32 pb-20 w-full">
                 <GlassCard className="w-11/12 max-w-7xl p-8 md:p-12">
-                    <h1 className="text-4xl md:text-5xl font-['Paris2024'] text-center mb-16 bg-gradient-to-r from-[#00f2ff] to-[#0055ff] bg-clip-text text-transparent">
+                    <h1 className="text-4xl md:text-5xl font-['Paris2024'] text-center mb-16 bg-gradient-to-r from-[#0075FF] to-[#f336f0] bg-clip-text text-transparent">
                         Mon Parcours
                     </h1>
 

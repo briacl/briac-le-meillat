@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { useTheme } from '@/Contexts/ThemeProvider';
-import { useProjects, Project } from '@/Contexts/ProjectContext';
+import staticProjects from '@/data/projects.json';
 import { motion } from 'framer-motion';
 
 
@@ -66,7 +66,6 @@ export default function NeuralNetworkBackground({ className = "" }: { className?
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const [selectedNode, setSelectedNode] = React.useState<string | null>(null);
     const { theme } = useTheme();
-    const { getProjectsByDomain, projects } = useProjects();
 
     // Camera state
     const cameraRef = useRef({ x: 0, y: 0, zoom: 1, targetX: 0, targetY: 0, targetZoom: 1 });
@@ -204,8 +203,8 @@ export default function NeuralNetworkBackground({ className = "" }: { className?
                 // Label
                 if (this.label) {
                     ctx.font = this.category === 'major'
-                        ? "20px 'Paris2024'"
-                        : "400 10px 'Montserrat Alternates'";
+                        ? "28px 'Paris2024'"
+                        : "400 14px 'Montserrat Alternates'";
 
                     ctx.textAlign = "center";
                     ctx.textBaseline = "middle";
@@ -214,21 +213,21 @@ export default function NeuralNetworkBackground({ className = "" }: { className?
                         // Original Gradient Style for Major Nodes
                         const metrics = ctx.measureText(this.label);
                         const textWidth = metrics.width;
-                        const textHeight = 14;
+                        const textHeight = 20;
                         const gradient = ctx.createLinearGradient(
                             this.x - textWidth / 2,
-                            this.y - 15 - textHeight / 2,
+                            this.y - 20 - textHeight / 2,
                             this.x + textWidth / 2,
-                            this.y - 15 + textHeight / 2
+                            this.y - 20 + textHeight / 2
                         );
-                        gradient.addColorStop(0, '#00f2ff');
-                        gradient.addColorStop(1, '#0055ff');
+                        gradient.addColorStop(0, '#0075ff');
+                        gradient.addColorStop(1, '#f336f0');
 
                         ctx.fillStyle = gradient;
                         // Optional: Add a subtle shadow for better readability against particles
                         ctx.shadowColor = "rgba(0,0,0,0.5)";
                         ctx.shadowBlur = 4;
-                        ctx.fillText(this.label, this.x, this.y - 15);
+                        ctx.fillText(this.label, this.x, this.y - 20);
                         ctx.shadowBlur = 0; // Reset
                     } else {
                         // Minor nodes style
@@ -236,7 +235,7 @@ export default function NeuralNetworkBackground({ className = "" }: { className?
                         const pad = 4;
 
                         ctx.fillStyle = `rgba(${textColorRaw}, 0.8)`;
-                        ctx.fillText(this.label, this.x, this.y - 10);
+                        ctx.fillText(this.label, this.x, this.y - 15);
                     }
                 }
             }
@@ -439,8 +438,8 @@ export default function NeuralNetworkBackground({ className = "" }: { className?
             {/* Overlay Card */}
             {selectedNode && (
                 <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 
-                            bg-white/10 backdrop-blur-md rounded-3xl overflow-hidden
-                            border border-white/20 shadow-xl shadow-blue-900/10 z-50 animate-in fade-in zoom-in duration-300
+                            bg-black/5 dark:bg-white/10 backdrop-blur-md rounded-3xl overflow-hidden
+                            border border-black/10 dark:border-white/20 shadow-xl shadow-blue-900/10 z-50 animate-in fade-in zoom-in duration-300
                             max-w-6xl w-[95vw] h-[85vh] flex relative"
                     style={{ backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)' }}>
 
@@ -467,10 +466,10 @@ export default function NeuralNetworkBackground({ className = "" }: { className?
 
                         {/* HEADERS - Left Aligned */}
                         <div className="mb-10 text-left border-b border-white/10 pb-6 w-full">
-                            <h3 className="text-5xl font-bold mb-2 bg-gradient-to-br from-[#00f2ff] to-[#0055ff] bg-clip-text text-transparent drop-shadow-sm font-['Paris2024'] tracking-widest">
+                            <h3 className="text-5xl mb-2 bg-gradient-to-br from-[#0075FF] to-[#f336f0] bg-clip-text text-transparent drop-shadow-sm font-['Paris2024'] tracking-widest">
                                 {selectedNode}
                             </h3>
-                            <p className="text-skin-text-main font-['Paris2024'] text-sm tracking-widest">
+                            <p className="text-skin-text-main font-['Paris2024'] text-base md:text-lg tracking-widest leading-relaxed">
                                 {(() => {
                                     const node = MAJOR_NODES.find(n => n.text === selectedNode);
                                     return node?.description || "Ce domaine occupe une place importante dans mon parcours. Il me permet de développer des compétences variées.";
@@ -483,8 +482,17 @@ export default function NeuralNetworkBackground({ className = "" }: { className?
                             <div className="w-full flex flex-col gap-16 text-left pb-12">
                                 {(() => {
                                     const normalize = (str: string) => str.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-                                    const domainProjects = projects.filter(p =>
-                                        normalize(p.domain ?? '') === normalize(selectedNode || '')
+                                    // Map node labels to all matching domains in projects.json
+                                    const DOMAIN_MAP: Record<string, string[]> = {
+                                        "DÉVELOPPEMENT WEB": ["DÉVELOPPEMENT WEB", "DÉVELOPPEMENT"],
+                                        "RÉSEAUX INFORMATIQUES": ["RÉSEAU", "ADMINISTRATION RÉSEAU", "ADMINISTRATION"],
+                                        "INTELLIGENCE ARTIFICIELLE": ["INTELLIGENCE ARTIFICIELLE"],
+                                        "TÉLÉCOMMUNICATIONS": ["TÉLÉCOMMUNICATION", "TÉLÉCOMMUNICATIONS"],
+                                        "PROGRAMMATION": ["PROGRAMMATION"],
+                                    };
+                                    const domainList = DOMAIN_MAP[selectedNode || ''] ?? [selectedNode || ''];
+                                    const domainProjects = staticProjects.filter((p: { domain?: string }) =>
+                                        domainList.some(d => normalize(d) === normalize(p.domain ?? ''))
                                     );
 
                                     const bestProjects = domainProjects.filter(p => p.isBest);
@@ -503,19 +511,62 @@ export default function NeuralNetworkBackground({ className = "" }: { className?
 
                                     return (
                                         <>
+                                            {/* RECENT PROJECTS */}
+                                            {recentProjects.length > 0 && (
+                                                <div className="relative">
+                                                    <h4 className="font-['Paris2024'] text-3xl mb-4 bg-gradient-to-br from-[#0075FF] to-[#f336f0] bg-clip-text text-transparent drop-shadow-sm tracking-widest">
+                                                        Mes récents projets
+                                                    </h4>
+                                                    <p className="font-['Roboto_Mono'] text-xs md:text-sm text-skin-text-secondary tracking-wide mb-8 leading-relaxed opacity-70">
+                                                        &gt; Découvrez mes toutes dernières créations. Cette section regroupe mes travaux les plus récents, là où j'expérimente de nouvelles technos et où je perfectionne mes méthodes de travail. C'est ici que bat le cœur de ma veille technologique et de ma progression au quotidien.
+                                                    </p>
+                                                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                                                        {recentProjects.map(project => (
+                                                            <div key={project.id} className="group relative bg-black/5 dark:bg-white/10 rounded-2xl overflow-hidden border border-black/10 dark:border-white/20 hover:shadow-2xl hover:shadow-[#0075FF]/20 transition-all duration-300 flex flex-col h-full">
+                                                                <div className="h-40 w-full overflow-hidden relative bg-black/40">
+                                                                    {project.imageUrl ? (
+                                                                        <img src={project.imageUrl} alt={project.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                                                                    ) : (
+                                                                        <div className="w-full h-full flex items-center justify-center text-gray-400 bg-gray-50/50">
+                                                                            <span className="text-3xl opacity-20"><i className="fa-solid fa-image"></i></span>
+                                                                        </div>
+                                                                    )}
+                                                                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 group-hover:opacity-0 transition-opacity duration-300"></div>
+                                                                    <div className="absolute bottom-4 left-4 right-4 transition-opacity duration-300 group-hover:opacity-0">
+                                                                        <div className="flex gap-2 mb-2 flex-wrap">
+                                                                            <span className="text-[9px] uppercase font-bold px-2 py-0.5 rounded-full bg-[#0075FF]/30 text-white backdrop-blur-sm border border-[#0075FF]/30">RÉCENT</span>
+                                                                        </div>
+                                                                        <h3 className="text-white font-['Paris2024'] text-xl tracking-wider leading-tight">{project.title}</h3>
+                                                                    </div>
+                                                                    <div className="absolute inset-0 bg-black/80 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col justify-center items-center p-4 text-center">
+                                                                        <h3 className="text-white font-['Paris2024'] text-lg mb-2 tracking-wider">{project.title}</h3>
+                                                                        <p className="text-sm text-gray-300 line-clamp-3 mb-4 font-['Montserrat_Alternates'] leading-relaxed">{project.description}</p>
+                                                                        {project.link && project.link !== '#' && (
+                                                                            <a href={project.link} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-[10px] uppercase font-bold text-[#0075FF] hover:text-[#f336f0] transition-colors group/link border border-[#0075FF] hover:border-[#f336f0] px-3 py-1.5 rounded-full bg-[#0075FF]/10 hover:bg-[#f336f0]/10">
+                                                                                Voir le projet <span className="transform group-hover/link:translate-x-1 transition-transform">→</span>
+                                                                            </a>
+                                                                        )}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        ))}
+                                                    </div>
+                                                </div>
+                                            )}
+
                                             {/* BEST PROJECTS */}
                                             {bestProjects.length > 0 && (
                                                 <div className="relative">
-                                                    <h4 className="font-['Paris2024'] text-3xl mb-8 bg-gradient-to-br from-[#00f2ff] to-[#0055ff] bg-clip-text text-transparent drop-shadow-sm tracking-widest">
+                                                    <h4 className="font-['Paris2024'] text-3xl mb-8 bg-gradient-to-br from-[#0075FF] to-[#f336f0] bg-clip-text text-transparent drop-shadow-sm tracking-widest">
                                                         Mes meilleurs projets
                                                     </h4>
-                                                    <p className="text-skin-text-main font-['Roboto_Mono'] text-sm tracking-widest mb-12">
-                                                        Vous trouverez ici une sélection de mes projets les plus aboutis, ceux qui reflètent le mieux mon niveau actuel, ma rigueur et mon investissement.
+                                                    <p className="text-skin-text-main font-['Roboto_Mono'] text-base tracking-widest mb-12 leading-relaxed">
+                                                        &gt; Vous trouverez ici une sélection de mes projets les plus aboutis, ceux qui reflètent le mieux mon niveau actuel, ma rigueur et mon investissement.
                                                         Ils mettent en avant ma capacité à mener un projet de bout en bout, de la conception à la réalisation.
                                                     </p>
                                                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                                                         {bestProjects.map(project => (
-                                                            <div key={project.id} className="group relative bg-white/40 rounded-2xl overflow-hidden border border-white/40 hover:shadow-2xl hover:shadow-[#00f2ff]/10 transition-all duration-300 flex flex-col h-full">
+                                                            <div key={project.id} className="group relative bg-black/5 dark:bg-white/10 rounded-2xl overflow-hidden border border-black/10 dark:border-white/20 hover:shadow-2xl hover:shadow-[#00f2ff]/20 transition-all duration-300 flex flex-col h-full">
                                                                 <div className="h-40 w-full overflow-hidden relative bg-black/40">
                                                                     {project.imageUrl ? (
                                                                         <img src={project.imageUrl} alt={project.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
@@ -537,7 +588,7 @@ export default function NeuralNetworkBackground({ className = "" }: { className?
                                                                                 </span>
                                                                             ))}
                                                                         </div>
-                                                                        <h3 className="text-white font-['Paris2024'] text-lg tracking-wider leading-tight">
+                                                                        <h3 className="text-white font-['Paris2024'] text-xl tracking-wider leading-tight">
                                                                             {project.title}
                                                                         </h3>
                                                                     </div>
@@ -547,63 +598,7 @@ export default function NeuralNetworkBackground({ className = "" }: { className?
                                                                         <h3 className="text-white font-['Paris2024'] text-lg mb-2 tracking-wider">
                                                                             {project.title}
                                                                         </h3>
-                                                                        <p className="text-xs text-gray-300 line-clamp-3 mb-4 font-['Montserrat_Alternates'] leading-relaxed">
-                                                                            {project.description}
-                                                                        </p>
-
-                                                                        {project.link && (
-                                                                            <a href={project.link} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-[10px] uppercase font-bold text-[#00f2ff] hover:text-[#80fbff] transition-colors group/link border border-[#00f2ff] hover:border-[#80fbff] px-3 py-1.5 rounded-full bg-[#00f2ff]/10 hover:bg-[#00f2ff]/20">
-                                                                                Voir le projet
-                                                                                <span className="transform group-hover/link:translate-x-1 transition-transform">→</span>
-                                                                            </a>
-                                                                        )}
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        ))}
-                                                    </div>
-                                                </div>
-                                            )}
-
-                                            {/* RECENT PROJECTS */}
-                                            {recentProjects.length > 0 && (
-                                                <div className="relative mt-16">
-                                                    <h4 className="font-['Paris2024'] text-3xl mb-8 bg-gradient-to-br from-[#00f2ff] to-[#0055ff] bg-clip-text text-transparent drop-shadow-sm tracking-widest">
-                                                        Mes récents projets
-                                                    </h4>
-                                                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                                                        {recentProjects.map(project => (
-                                                            <div key={project.id} className="group relative bg-white/40 rounded-2xl overflow-hidden border border-white/40 hover:shadow-2xl hover:shadow-[#00f2ff]/10 transition-all duration-300 flex flex-col h-full">
-                                                                <div className="h-40 w-full overflow-hidden relative bg-black/40">
-                                                                    {project.imageUrl ? (
-                                                                        <img src={project.imageUrl} alt={project.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                                                                    ) : (
-                                                                        <div className="w-full h-full flex items-center justify-center text-gray-400 bg-gray-50/50">
-                                                                            <span className="text-3xl opacity-20"><i className="fa-solid fa-image"></i></span>
-                                                                        </div>
-                                                                    )}
-
-                                                                    {/* Dark overlay for Title/Tags visibility when NOT hovered */}
-                                                                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 group-hover:opacity-0 transition-opacity duration-300"></div>
-
-                                                                    {/* Title & Tags - Visible by default, fade out on hover */}
-                                                                    <div className="absolute bottom-4 left-4 right-4 transition-opacity duration-300 group-hover:opacity-0">
-                                                                        <div className="flex gap-2 mb-2 flex-wrap">
-                                                                            <span className="text-[9px] uppercase font-bold px-2 py-0.5 rounded-full bg-white/20 text-white backdrop-blur-sm border border-white/10">
-                                                                                RÉCENT
-                                                                            </span>
-                                                                        </div>
-                                                                        <h3 className="text-white font-['Paris2024'] text-lg tracking-wider leading-tight">
-                                                                            {project.title}
-                                                                        </h3>
-                                                                    </div>
-
-                                                                    {/* HOVER OVERLAY: Description & Link */}
-                                                                    <div className="absolute inset-0 bg-black/80 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col justify-center items-center p-4 text-center">
-                                                                        <h3 className="text-white font-['Paris2024'] text-lg mb-2 tracking-wider">
-                                                                            {project.title}
-                                                                        </h3>
-                                                                        <p className="text-xs text-gray-300 line-clamp-3 mb-4 font-['Montserrat_Alternates'] leading-relaxed">
+                                                                        <p className="text-sm text-gray-300 line-clamp-3 mb-4 font-['Montserrat_Alternates'] leading-relaxed">
                                                                             {project.description}
                                                                         </p>
 
@@ -627,12 +622,15 @@ export default function NeuralNetworkBackground({ className = "" }: { className?
                                                 if (otherProjects.length === 0) return null;
                                                 return (
                                                     <div className="relative mt-16">
-                                                        <h4 className="font-['Paris2024'] text-3xl mb-8 bg-gradient-to-br from-[#00f2ff] to-[#0055ff] bg-clip-text text-transparent drop-shadow-sm tracking-widest">
+                                                        <h4 className="font-['Paris2024'] text-3xl mb-4 bg-gradient-to-br from-[#0075FF] to-[#f336f0] bg-clip-text text-transparent drop-shadow-sm tracking-widest">
                                                             Autres Réalisations
                                                         </h4>
+                                                        <p className="font-['Roboto_Mono'] text-xs md:text-sm text-skin-text-secondary tracking-wide mb-8 leading-relaxed opacity-70">
+                                                            &gt; Au-delà des projets phares, voici un aperçu de mon parcours à travers diverses réalisations. Qu'il s'agisse de collaborations ponctuelles, de prototypes ou de défis personnels, ces travaux illustrent ma polyvalence et mon envie constante de relever de nouveaux challenges techniques.
+                                                        </p>
                                                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                                                             {otherProjects.map(project => (
-                                                                <div key={project.id} className="group relative bg-white/40 rounded-2xl overflow-hidden border border-white/40 hover:shadow-2xl hover:shadow-[#00f2ff]/10 transition-all duration-300 flex flex-col h-full">
+                                                                <div key={project.id} className="group relative bg-black/5 dark:bg-white/10 rounded-2xl overflow-hidden border border-black/10 dark:border-white/20 hover:shadow-2xl hover:shadow-[#00f2ff]/20 transition-all duration-300 flex flex-col h-full">
                                                                     <div className="h-40 w-full overflow-hidden relative bg-black/40">
                                                                         {project.imageUrl ? (
                                                                             <img src={project.imageUrl} alt={project.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
@@ -654,7 +652,7 @@ export default function NeuralNetworkBackground({ className = "" }: { className?
                                                                                     </span>
                                                                                 ))}
                                                                             </div>
-                                                                            <h3 className="text-white font-['Paris2024'] text-lg tracking-wider leading-tight">
+                                                                            <h3 className="text-white font-['Paris2024'] text-xl tracking-wider leading-tight">
                                                                                 {project.title}
                                                                             </h3>
                                                                         </div>
@@ -664,7 +662,7 @@ export default function NeuralNetworkBackground({ className = "" }: { className?
                                                                             <h3 className="text-white font-['Paris2024'] text-lg mb-2 tracking-wider">
                                                                                 {project.title}
                                                                             </h3>
-                                                                            <p className="text-xs text-gray-300 line-clamp-3 mb-4 font-['Montserrat_Alternates'] leading-relaxed">
+                                                                            <p className="text-sm text-gray-300 line-clamp-3 mb-4 font-['Montserrat_Alternates'] leading-relaxed">
                                                                                 {project.description}
                                                                             </p>
 

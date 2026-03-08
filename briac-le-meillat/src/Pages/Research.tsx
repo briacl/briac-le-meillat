@@ -42,7 +42,7 @@ export default function Research() {
             <div className="relative z-10 w-[95%] max-w-[1920px] mx-auto pt-32 pb-20">
                 <GlassCard className="w-full !items-stretch !text-left !p-8 md:!p-12 border-white/10 bg-black/40 backdrop-blur-xl">
                     <header className="mb-12 text-center w-full">
-                        <h1 className="font-['Paris2024'] text-5xl md:text-7xl bg-gradient-to-br from-[#00f2ff] to-[#0055ff] bg-clip-text text-transparent mb-6">
+                        <h1 className="font-['Paris2024'] text-5xl md:text-7xl bg-gradient-to-br from-[#0075FF] to-[#f336f0] bg-clip-text text-transparent mb-6">
                             RECHERCHES
                         </h1>
                         <p className="font-['Baskerville'] text-xl max-w-2xl mx-auto text-skin-text-secondary italic">

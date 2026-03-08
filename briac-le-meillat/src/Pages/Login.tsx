@@ -63,7 +63,7 @@ export default function Login() {
 
             <div className="w-full max-w-[500px] bg-white/80 dark:bg-white/5 border border-white/20 dark:border-white/10 rounded-2xl p-10 shadow-2xl relative z-10 animate-fade-in backdrop-blur-[10px] transition-colors duration-300">
                 <div className="flex justify-center items-end gap-3 mb-8">
-                    <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-[#00f2ff] to-[#0055ff] text-white text-xl shadow-lg">
+                    <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-[#0075FF] to-[#f336f0] text-white text-xl shadow-lg">
                         <i className="fa-solid fa-brain"></i>
                     </div>
                     <div className="font-['Plus_Jakarta_Sans'] font-bold text-2xl text-gray-900 dark:text-white uppercase tracking-wide">

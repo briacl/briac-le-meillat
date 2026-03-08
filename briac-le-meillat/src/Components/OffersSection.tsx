@@ -92,7 +92,7 @@ const OffersSection: React.FC = () => {
                     >
                         <GlassCard className="h-full flex flex-col p-8 bg-gradient-to-br from-[#0055ff]/20 to-[#00f2ff]/20 border-[#00f2ff]/30">
                             <div className="text-center mb-6">
-                                <h3 className="text-3xl font-bold bg-gradient-to-r from-[#00f2ff] to-[#0055ff] bg-clip-text text-transparent mb-2">
+                                <h3 className="text-3xl font-bold bg-gradient-to-r from-[#0075FF] to-[#f336f0] bg-clip-text text-transparent mb-2">
                                     Reserved
                                 </h3>
                                 <p className="text-lg text-gray-300">Contenu exclusif</p>
@@ -121,7 +121,7 @@ const OffersSection: React.FC = () => {
                                 <Link 
                                     to="/login" 
                                     state={{ from: location }}
-                                    className="w-full py-3 px-6 bg-gradient-to-r from-[#0055ff] to-[#00f2ff] text-white rounded-xl hover:opacity-90 transition-opacity font-semibold text-center block"
+                                    className="w-full py-3 px-6 bg-gradient-to-r from-[#0075FF] to-[#f336f0] text-white rounded-xl hover:opacity-90 transition-opacity font-semibold text-center block"
                                 >
                                     Se connecter pour demander l'accès
                                 </Link>
@@ -143,7 +143,7 @@ const OffersSection: React.FC = () => {
                                         <button 
                                             onClick={handleRequestAccess}
                                             disabled={accessRequestLoading}
-                                            className="w-full py-3 px-6 bg-gradient-to-r from-[#0055ff] to-[#00f2ff] text-white rounded-xl hover:opacity-90 transition-opacity font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+                                            className="w-full py-3 px-6 bg-gradient-to-r from-[#0075FF] to-[#f336f0] text-white rounded-xl hover:opacity-90 transition-opacity font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
                                         >
                                             {accessRequestLoading ? 'Envoi en cours...' : 'Demander l\'accès'}
                                         </button>

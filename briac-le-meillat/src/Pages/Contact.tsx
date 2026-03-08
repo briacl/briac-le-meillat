@@ -109,7 +109,7 @@ export default function Contact() {
                         transition={{ duration: 0.6 }}
                         className="mb-16"
                     >
-                        <h1 className="text-sm font-bold tracking-[0.3em] text-transparent bg-clip-text bg-gradient-to-r from-[#00f2ff] to-[#0055ff] mb-6 uppercase">
+                        <h1 className="text-sm font-bold tracking-[0.3em] text-transparent bg-clip-text bg-gradient-to-r from-[#0075FF] to-[#f336f0] mb-6 uppercase">
                             Contactez-moi
                         </h1>
                         <div className="relative inline-block">

@@ -109,7 +109,7 @@ export default function Devop() {
                 }}
                 className="group relative px-6 py-2 rounded-full font-['Paris2024'] flex items-center gap-2 overflow-hidden transition-all duration-300"
             >
-                <div className={`absolute inset-0 bg-gradient-to-r from-[#00f2ff] to-[#0055ff] opacity-80 group-hover:opacity-100 transition-opacity`}></div>
+                <div className={`absolute inset-0 bg-gradient-to-r from-[#0075FF] to-[#f336f0] opacity-80 group-hover:opacity-100 transition-opacity`}></div>
                 <span className="relative z-10 text-white font-bold tracking-wider flex items-center gap-2">
                     {isFormOpen ? <X className="w-5 h-5" /> : <Plus className="w-5 h-5" />}
                     {isFormOpen ? 'FERMER' : 'NOUVEAU PROJET'}
@@ -125,7 +125,7 @@ export default function Devop() {
             {/* Navbar */}
             <nav className="fixed top-0 w-full z-50 bg-skin-base/80 backdrop-blur-md border-b border-white/10">
                 <div className="container mx-auto px-6 h-20 flex items-center justify-between">
-                    <Link to="/" className="text-2xl font-['Paris2024'] bg-gradient-to-r from-[#00f2ff] to-[#0055ff] bg-clip-text text-transparent">
+                    <Link to="/" className="text-2xl font-['Paris2024'] bg-gradient-to-r from-[#0075FF] to-[#f336f0] bg-clip-text text-transparent">
                         BRIAC.ADMIN
                     </Link>
 
@@ -304,7 +304,7 @@ export default function Devop() {
                                             </button>
                                             <button
                                                 type="submit"
-                                                className="px-8 py-3 rounded-lg bg-gradient-to-r from-[#00f2ff] to-[#0055ff] text-white font-bold tracking-wide text-sm shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50 transition-all transform hover:-translate-y-0.5"
+                                                className="px-8 py-3 rounded-lg bg-gradient-to-r from-[#0075FF] to-[#f336f0] text-white font-bold tracking-wide text-sm shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50 transition-all transform hover:-translate-y-0.5"
                                             >
                                                 {editingId ? 'METTRE À JOUR' : 'ENREGISTRER'}
                                             </button>

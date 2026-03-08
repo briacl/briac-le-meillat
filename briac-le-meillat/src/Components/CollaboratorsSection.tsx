@@ -72,7 +72,7 @@ export default function CollaboratorsSection() {
                             {/* Inner Card Styling - mimic ProfileCard but slightly lighter/integrated */}
                             <div className="relative mb-6">
                                 {/* Glow Effect */}
-                                <div className="absolute inset-0 bg-gradient-to-br from-[#00f2ff] to-[#0055ff] rounded-full blur-xl opacity-40 group-hover:opacity-60 transition-opacity duration-500"></div>
+                                <div className="absolute inset-0 bg-gradient-to-br from-[#0075FF] to-[#f336f0] rounded-full blur-xl opacity-40 group-hover:opacity-60 transition-opacity duration-500"></div>
 
                                 {/* Profile Image container */}
                                 <div className="relative w-32 h-32 rounded-full overflow-hidden border-4 border-white/20 shadow-xl">
@@ -84,7 +84,7 @@ export default function CollaboratorsSection() {
                                 </div>
                             </div>
 
-                            <h3 className="font-['Paris2024'] text-xl font-bold bg-gradient-to-r from-[#00f2ff] to-[#0055ff] bg-clip-text text-transparent mb-2 text-center">
+                            <h3 className="font-['Paris2024'] text-xl font-bold bg-gradient-to-r from-[#0075FF] to-[#f336f0] bg-clip-text text-transparent mb-2 text-center">
                                 {collab.name.toUpperCase()}
                             </h3>
 

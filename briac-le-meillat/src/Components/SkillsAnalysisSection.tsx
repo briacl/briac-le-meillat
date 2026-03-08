@@ -62,7 +62,7 @@ const SkillsAnalysisSection: React.FC = () => {
                                         <span className="text-sm text-skin-text-secondary font-mono">{domain.code}</span>
                                         <span className="font-semibold text-skin-text-main text-sm leading-tight mt-1">{domain.title}</span>
                                     </div>
-                                    <span className="text-2xl font-bold bg-gradient-to-r from-[#00f2ff] to-[#0055ff] bg-clip-text text-transparent">
+                                    <span className="text-2xl font-bold bg-gradient-to-r from-[#0075FF] to-[#f336f0] bg-clip-text text-transparent">
                                         {domain.average.toFixed(1)}
                                     </span>
                                 </div>

@@ -4,8 +4,8 @@
 
 :root {
     /* LIGHT MODE COLORS */
-    --bg-primary: #f8f9fa;
-    --text-primary: #111827;
+    --bg-primary: #fafafa;
+    --text-primary: #111111;
     /* gray-900 */
     --text-secondary: #374151;
     /* gray-700 */
@@ -14,17 +14,17 @@
     /* semi-transparent white */
     --card-border: rgba(255, 255, 255, 0.5);
 
-    --accent-primary: #00f2ff;
-    --accent-secondary: #0055ff;
+    --accent-primary: #0075ff;
+    --accent-secondary: #f336f0;
 
     --node-color: rgba(0, 85, 255, 1);
 }
 
 .dark {
     /* DARK MODE COLORS - EDIT HERE FOR CONFIGURATION */
-    --bg-primary: #020617;
+    --bg-primary: #111111;
     /* slate-950 */
-    --text-primary: #f8fafc;
+    --text-primary: #fafafa;
     /* slate-50 */
     --text-secondary: #94a3b8;
     /* slate-400 */

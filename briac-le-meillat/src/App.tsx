@@ -5,6 +5,7 @@ import { Providers } from './Providers';
 import { CryptoModal } from './Contexts/CryptoContext';
 
 import LandingPage from './Pages/LandingPage';
+import LandingPageV2 from './Pages/LandingPageV2';
 import Subscribe from './Pages/Subscribe';
 import Dashboard from './Pages/Dashboard';
 import Login from './Pages/Login';
@@ -29,6 +30,7 @@ function App() {
             <BrowserRouter basename={import.meta.env.BASE_URL}>
                 <Routes>
                     <Route path="/" element={<LandingPage />} />
+                    <Route path="/v2" element={<LandingPageV2 />} />
                     <Route path="/subscribe" element={<Subscribe />} />
                     <Route path="/dashboard" element={<Dashboard />} />
                     <Route path="/custom-login" element={<Login />} />

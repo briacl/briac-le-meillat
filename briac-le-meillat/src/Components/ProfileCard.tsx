@@ -5,7 +5,7 @@ export default function ProfileCard() {
         <GlassCard className="h-full w-full max-w-sm flex flex-col items-center justify-center p-8">
             <div className="relative mb-6 group">
                 {/* Glow Effect */}
-                <div className="absolute inset-0 bg-gradient-to-br from-[#00f2ff] to-[#0055ff] rounded-full blur-xl opacity-50 group-hover:opacity-75 transition-opacity duration-500"></div>
+                <div className="absolute inset-0 bg-gradient-to-br from-[#0075FF] to-[#f336f0] rounded-full blur-xl opacity-50 group-hover:opacity-75 transition-opacity duration-500"></div>
 
                 {/* Profile Image container */}
                 <div className="relative w-40 h-40 rounded-full overflow-hidden border-4 border-white/20 shadow-2xl">
@@ -21,7 +21,7 @@ export default function ProfileCard() {
                 </div>
             </div>
 
-            <h3 className="font-['Paris2024'] text-2xl font-sm bg-gradient-to-r from-[#00f2ff] to-[#0055ff] bg-clip-text text-transparent mb-2 text-center">
+            <h3 className="font-['Paris2024'] text-2xl font-sm bg-gradient-to-r from-[#0075FF] to-[#f336f0] bg-clip-text text-transparent mb-2 text-center">
                 BRIAC LE MEILLAT
             </h3>
 

@@ -32,10 +32,10 @@ export default function Timeline({ steps, activeStep, onStepClick }: TimelinePro
 
                         {/* Start Content (Even indices - Top) */}
                         {isEven && (
-                            <div className={`timeline-start timeline-box mb-8 relative p-4 text-xl font-['Montserrat_Alternates'] font-bold transition-all duration-300 ${isActive ? 'bg-[#0055ff] text-white border-none shadow-lg scale-110' : 'bg-transparent text-skin-text-secondary border-skin-card-border hover:bg-skin-card-border/50'}`}>
+                            <div className={`timeline-start timeline-box mb-8 relative p-4 text-xl font-['Paris2024'] font-bold transition-all duration-300 ${isActive ? 'bg-[#0075FF] text-white border-none shadow-lg scale-110' : 'bg-transparent text-skin-text-secondary border-skin-card-border hover:bg-skin-card-border/50'}`}>
                                 {step.year}
                                 {/* Connector Line Down */}
-                                <div className={`absolute left-1/2 -translate-x-1/2 top-full w-[1px] h-6 ${isActive ? 'bg-[#0055ff]' : 'bg-skin-card-border'} opacity-50`}></div>
+                                <div className={`absolute left-1/2 -translate-x-1/2 top-full w-[1px] h-6 ${isActive ? 'bg-[#0075FF]' : 'bg-skin-card-border'} opacity-50`}></div>
                             </div>
                         )}
 
@@ -45,7 +45,7 @@ export default function Timeline({ steps, activeStep, onStepClick }: TimelinePro
                                 xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 20 20"
                                 fill="currentColor"
-                                className={`h-8 w-8 transition-colors duration-300 ${isActive ? 'text-[#0055ff]' : 'text-gray-400 group-hover:text-[#0055ff]/70'}`}
+                                className={`h-8 w-8 transition-colors duration-300 ${isActive ? 'text-[#0075FF]' : 'text-gray-400 group-hover:text-[#0075FF]/70'}`}
                             >
                                 <path
                                     fillRule="evenodd"
@@ -57,9 +57,9 @@ export default function Timeline({ steps, activeStep, onStepClick }: TimelinePro
 
                         {/* End Content (Odd indices - Bottom) */}
                         {!isEven && (
-                            <div className={`timeline-end timeline-box mt-8 relative p-4 text-xl font-['Montserrat_Alternates'] font-bold transition-all duration-300 ${isActive ? 'bg-[#0055ff] text-white border-none shadow-lg scale-110' : 'bg-transparent text-skin-text-secondary border-skin-card-border hover:bg-skin-card-border/50'}`}>
+                            <div className={`timeline-end timeline-box mt-8 relative p-4 text-xl font-['Paris2024'] font-bold transition-all duration-300 ${isActive ? 'bg-[#0075FF] text-white border-none shadow-lg scale-110' : 'bg-transparent text-skin-text-secondary border-skin-card-border hover:bg-skin-card-border/50'}`}>
                                 {/* Connector Line Up */}
-                                <div className={`absolute left-1/2 -translate-x-1/2 bottom-full w-[1px] h-6 ${isActive ? 'bg-[#0055ff]' : 'bg-skin-card-border'} opacity-50`}></div>
+                                <div className={`absolute left-1/2 -translate-x-1/2 bottom-full w-[1px] h-6 ${isActive ? 'bg-[#0075FF]' : 'bg-skin-card-border'} opacity-50`}></div>
                                 {step.year}
                             </div>
                         )}

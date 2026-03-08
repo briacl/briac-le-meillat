@@ -78,7 +78,7 @@ export default function CVSection() {
                 {/* Dynamic Content */}
                 <div className="w-full px-8 pb-8 pt-4 flex flex-col items-center justify-center text-center transition-all duration-500">
                     <div className="animate-in fade-in slide-in-from-bottom-4 duration-500" key={activeStep}>
-                        <h3 className="font-['Paris2024'] text-4xl mb-2 text-[#0075FF]">
+                        <h3 className="font-['Paris2024'] text-4xl mb-2 text-[#0055ff]">
                             {cvData[activeStep].title}
                         </h3>
                         <span className="inline-block px-4 py-1 rounded-full bg-blue-100 text-blue-800 text-sm font-bold mb-6 font-['Montserrat_Alternates']">
@@ -89,7 +89,7 @@ export default function CVSection() {
                         </p>
                     </div>
 
-                    <Link to="/cv" className="font-['Baskerville'] text-[#0075FF] hover:text-[#f336f0] transition-colors mt-8 inline-block border-b border-[#0075FF] hover:border-[#f336f0]">
+                    <Link to="/cv" className="font-['Baskerville'] text-[#0055ff] hover:text-[#00f2ff] transition-colors mt-8 inline-block border-b border-[#0055ff] hover:border-[#00f2ff]">
                         En savoir plus
                     </Link>
                 </div>

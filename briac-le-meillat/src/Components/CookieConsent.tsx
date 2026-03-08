@@ -52,7 +52,7 @@ export const CookieConsent: React.FC = () => {
                         Refuser
                     </Button>
                     <Button
-                        className="rounded-full bg-gradient-to-r from-[#0055ff] to-[#00f2ff] text-white shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50"
+                        className="rounded-full bg-gradient-to-r from-[#0075FF] to-[#f336f0] text-white shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50"
                         onPress={acceptCookies}
                     >
                         Accepter tout

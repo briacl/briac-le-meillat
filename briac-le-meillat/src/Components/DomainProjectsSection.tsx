@@ -47,7 +47,7 @@ export default function DomainProjectsSection() {
                             href={project.link}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center justify-center py-2 px-4 rounded-full bg-gradient-to-r from-[#00f2ff] to-[#0055ff] text-white text-xs font-bold tracking-widest uppercase hover:shadow-lg transition-all"
+                            className="inline-flex items-center justify-center py-2 px-4 rounded-full bg-gradient-to-r from-[#0075FF] to-[#f336f0] text-white text-xs font-bold tracking-widest uppercase hover:shadow-lg transition-all"
                         >
                             Voir le projet
                         </a>
@@ -71,10 +71,10 @@ export default function DomainProjectsSection() {
                 return (
                     <div key={domain} className="w-full">
                         <div className="flex flex-col items-center mb-16">
-                            <h2 className="text-[3rem] font-['Paris2024'] text-transparent bg-clip-text bg-gradient-to-r from-[#00f2ff] to-[#0055ff] uppercase tracking-widest text-center">
+                            <h2 className="text-[3rem] font-['Paris2024'] text-transparent bg-clip-text bg-gradient-to-r from-[#0075FF] to-[#f336f0] uppercase tracking-widest text-center">
                                 {domain}
                             </h2>
-                            <div className="h-1 w-24 bg-gradient-to-r from-[#00f2ff] to-[#0055ff] rounded-full mt-4"></div>
+                            <div className="h-1 w-24 bg-gradient-to-r from-[#0075FF] to-[#f336f0] rounded-full mt-4"></div>
                         </div>
 
                         {/* Best Projects Section */}
