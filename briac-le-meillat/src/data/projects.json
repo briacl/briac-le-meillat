@@ -22,7 +22,7 @@
         ],
         "link": "https://github.com/briacl/machine-learning",
         "domain": "INTELLIGENCE ARTIFICIELLE",
-        "isBest": true,
+        "isBest": false,
         "isRecent": true,
         "id": "machine-learning",
         "createdAt": 1737490000001
@@ -36,7 +36,7 @@
         ],
         "link": "https://github.com/briacl/reseau",
         "domain": "RÉSEAU",
-        "isBest": false,
+        "isBest": true,
         "isRecent": true,
         "id": "visualisation-de-reseau",
         "createdAt": 1737490000002
@@ -50,7 +50,7 @@
         ],
         "link": "https://github.com/briacl/own-cli-template",
         "domain": "PROGRAMMATION",
-        "isBest": false,
+        "isBest": true,
         "isRecent": true,
         "id": "own-cli-template",
         "createdAt": 1737490000003
@@ -64,7 +64,7 @@
         ],
         "link": "https://github.com/briacl/readme-generator",
         "domain": "PROGRAMMATION",
-        "isBest": false,
+        "isBest": true,
         "isRecent": true,
         "id": "readme-generator",
         "createdAt": 1737490000004
@@ -82,6 +82,20 @@
         "isBest": false,
         "isRecent": true,
         "id": "sae103",
+        "createdAt": 1737490000005
+    },
+    {
+        "title": "crypto",
+        "description": "projet personnel d'exploration de la cryptographie via Python : code césar, et expérimentation du fonctionnement de Enigma (Alan Turing)",
+        "imageUrl": "/briac-le-meillat/assets-inspi/387.png",
+        "languages": [
+            "Python"
+        ],
+        "link": "https://github.com/briacl/crypto",
+        "domain": "PROGRAMMATION",
+        "isBest": false,
+        "isRecent": false,
+        "id": "crypto",
         "createdAt": 1737490000005
     },
     {
@@ -173,7 +187,7 @@
         ],
         "link": "#",
         "domain": "PROGRAMMATION",
-        "isBest": false,
+        "isBest": true,
         "isRecent": false,
         "id": "willkommen-v2",
         "createdAt": 1737490000011
