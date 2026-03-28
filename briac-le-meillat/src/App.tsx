@@ -22,6 +22,7 @@ import TextesAdmin from './Pages/Admin/TextesAdmin';
 import AdminPanel from './Components/AdminPanel';
 
 const BerangerePage = React.lazy(() => import('./Pages/BerangerePage').catch(() => ({ default: () => <div className="p-10 text-white text-center">Fichier introuvable sur cette machine. Clonez BerangerePage.tsx !</div> })));
+const BerangerEditionPage = React.lazy(() => import('./Pages/BerangerEditionPage').catch(() => ({ default: () => <div className="p-10 text-white text-center">Fichier introuvable sur cette machine. Clonez BerangerEditionPage.tsx !</div> })));
 const EpisodePage = React.lazy(() => import('./Pages/EpisodePage').catch(() => ({ default: () => <div className="p-10 text-white text-center">Fichier introuvable sur cette machine. Clonez EpisodePage.tsx !</div> })));
 
 function App() {
@@ -49,6 +50,11 @@ function App() {
                     <Route path="/berangere" element={
                         <React.Suspense fallback={<div>Loading...</div>}>
                             <BerangerePage />
+                        </React.Suspense>
+                    } />
+                    <Route path="/berangere-edition" element={
+                        <React.Suspense fallback={<div>Loading...</div>}>
+                            <BerangerEditionPage />
                         </React.Suspense>
                     } />
                     <Route path="/berangere/serie/:id" element={

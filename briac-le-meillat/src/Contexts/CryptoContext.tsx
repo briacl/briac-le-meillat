@@ -124,7 +124,7 @@ const PasswordPrompt: React.FC<{ onUnlock: (pw: string) => Promise<boolean> }> =
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        const success = await onUnlock(password);
+        const success = await onUnlock(password.trim());
         if (!success) {
             setError(true);
         }
