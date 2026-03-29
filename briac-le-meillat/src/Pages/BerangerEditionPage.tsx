@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 
 import { EncryptedImage } from '../Components/EncryptedImage';
-import { useProjects } from '../Contexts/ProjectContext';
+import { useCrypto, useStealthData } from '../Contexts/CryptoContext';
 /* ─────────────────────────────────────────────
    FONT DECLARATION (in-component style tag)
 ───────────────────────────────────────────── */
@@ -85,7 +85,7 @@ interface Film {
     createdAt?: number;
 }
 
-const EDITION_MOCKUP_ENCRYPTED_PATH = '/briac-le-meillat/encrypted_data/assets/berangere/edition/mockup_écrivant_mon_silence.png.enc';
+const EDITION_MOCKUP_ENCRYPTED_PATH = '/briac-le-meillat/encrypted_data/chunks/m_assets/asset-ems-0x9.enc';
 
 const withBasePath = (sourcePath: string, basePath: string) =>
     sourcePath.replace('/briac-le-meillat/', basePath.endsWith('/') ? basePath : `${basePath}/`);
@@ -755,8 +755,7 @@ function BooksSection() {
     const [search, setSearch] = useState('');
     const basePath = import.meta.env.BASE_URL || '/';
 
-    const { projects } = useProjects();
-    const films = useMemo(() => projects.filter(p => p.type === 'film' || !p.type), [projects]);
+    const films = useStealthData<Film>('vendor-b9c3.enc');
 
     // Last book by createdAt (highest = most recent = first in list)
     const featuredBook = useMemo(() =>
@@ -1019,6 +1018,12 @@ function BooksSection() {
    MAIN PAGE
 ───────────────────────────────────────────── */
 export default function BerangerEditionPage() {
+    const { isUnlocked } = useCrypto();
+
+    if (!isUnlocked) {
+        return <div style={{ background: '#000', minHeight: '100vh', width: '100vw' }} />;
+    }
+
     return (
         <>
             <style>{fontStyles}</style>

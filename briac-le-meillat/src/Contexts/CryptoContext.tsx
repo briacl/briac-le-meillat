@@ -116,34 +116,114 @@ export const useCrypto = () => {
     return context;
 };
 
+export function useStealthData<T>(chunkName: string | null): T[] {
+    const { isUnlocked, decryptData } = useCrypto();
+    const [data, setData] = useState<T[]>([]);
+    
+    useEffect(() => {
+        let active = true;
+        if (!isUnlocked || !chunkName) return;
+        
+        const load = async () => {
+            try {
+                const basePath = import.meta.env.BASE_URL || '/';
+                const url = basePath.endsWith('/') ? `${basePath}encrypted_data/chunks/${chunkName}` : `${basePath}/encrypted_data/chunks/${chunkName}`;
+                const res = await fetch(url);
+                if (!res.ok) return;
+                const buffer = await res.arrayBuffer();
+                const decryptedStr = await decryptData(buffer);
+                if (active && decryptedStr) {
+                    setData(JSON.parse(decryptedStr));
+                }
+            } catch (e) {
+                console.error("Failed to load chunk");
+            }
+        };
+        load();
+        return () => { active = false; };
+    }, [isUnlocked, chunkName, decryptData]);
+    
+    return data;
+}
+
 // --- Composant d'Interface Utilisateur ---
 
 const PasswordPrompt: React.FC<{ onUnlock: (pw: string) => Promise<boolean> }> = ({ onUnlock }) => {
     const [password, setPassword] = useState('');
     const [error, setError] = useState(false);
+    const [lockedUntil, setLockedUntil] = useState<number | null>(() => {
+        const stored = localStorage.getItem('berangere_locked_until');
+        return stored ? parseInt(stored, 10) : null;
+    });
+    const [timeRemaining, setTimeRemaining] = useState(0);
+
+    useEffect(() => {
+        if (!lockedUntil) return;
+        
+        const interval = setInterval(() => {
+            const remaining = Math.ceil((lockedUntil - Date.now()) / 1000);
+            if (remaining <= 0) {
+                setLockedUntil(null);
+                localStorage.removeItem('berangere_locked_until');
+                setTimeRemaining(0);
+                setError(false);
+            } else {
+                setTimeRemaining(remaining);
+            }
+        }, 1000);
+        return () => clearInterval(interval);
+    }, [lockedUntil]);
+
+    const isLockedOut = lockedUntil !== null && Date.now() < lockedUntil;
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        if (isLockedOut) return;
+
         const success = await onUnlock(password.trim());
         if (!success) {
             setError(true);
+            const newLockTime = Date.now() + 60000; // Lock for 60 seconds
+            setLockedUntil(newLockTime);
+            localStorage.setItem('berangere_locked_until', newLockTime.toString());
         }
     };
+
+    if (isLockedOut) {
+        return (
+            <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="fixed inset-0 z-[99999] flex items-center justify-center bg-black backdrop-blur-3xl"
+            >
+                <div className="text-center">
+                    <Lock className="w-16 h-16 text-red-500 mx-auto mb-6" />
+                    <h2 className="text-3xl font-bold text-red-500 mb-4 tracking-[0.2em] font-['NeutrafaceTextDemiSC']">
+                        ACCÈS REFUSÉ
+                    </h2>
+                    <p className="text-gray-400 font-mono tracking-widest text-lg">
+                        VERROUILLAGE SÉCURITÉ : {timeRemaining}s
+                    </p>
+                </div>
+            </motion.div>
+        );
+    }
 
     return (
         <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[99999] flex items-center justify-center bg-black/80 backdrop-blur-xl"
+            className="fixed inset-0 z-[99999] flex items-center justify-center bg-black/95 backdrop-blur-xl"
         >
             <motion.div
                 initial={{ scale: 0.9, y: 20 }}
                 animate={{ scale: 1, y: 0 }}
-                className="bg-white/10 p-8 rounded-2xl border border-white/20 shadow-2xl max-w-md w-full"
+                className="bg-white/5 p-8 rounded-2xl border border-white/10 shadow-2xl max-w-md w-full"
             >
                 <div className="flex justify-center mb-6">
-                    <div className="w-16 h-16 rounded-full bg-blue-500/20 flex items-center justify-center border border-blue-500/50">
+                    <div className="w-16 h-16 rounded-full bg-blue-500/10 flex items-center justify-center border border-blue-500/30">
                         <Lock className="w-8 h-8 text-blue-400" />
                     </div>
                 </div>

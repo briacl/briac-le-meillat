@@ -56,7 +56,7 @@ export function ProjectProvider({ children }: { children: React.ReactNode }) {
 
             try {
                 setLoading(true);
-                const response = await fetch('/briac-le-meillat/encrypted_data/data/realisations-projects.json.enc');
+                const response = await fetch('/briac-le-meillat/encrypted_data/chunks/vendor-r4d2.enc');
                 if (!response.ok) throw new Error("Fichier introuvable");
 
                 const buffer = await response.arrayBuffer();

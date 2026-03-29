@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 
 import { EncryptedImage } from '../Components/EncryptedImage';
-import { useProjects } from '../Contexts/ProjectContext';
+import { useCrypto, useStealthData } from '../Contexts/CryptoContext';
 /* ─────────────────────────────────────────────
    FONT DECLARATION (in-component style tag)
 ───────────────────────────────────────────── */
@@ -630,7 +630,7 @@ function FilmCard({ project }: { project: Film }) {
     const basePath = import.meta.env.BASE_URL || '/';
 
     const imageUrl = project.imageUrl
-        ? project.imageUrl.replace('/briac-le-meillat/', basePath.endsWith('/') ? basePath : basePath + '/')
+        ? project.imageUrl.replace('/briac-le-meillat/assets/berangere/films/', (basePath.endsWith('/') ? basePath : basePath + '/') + 'encrypted_data/chunks/v_assets/') + '.enc'
         : '';
 
     return (
@@ -767,7 +767,7 @@ function SeriesCard({ project }: { project: Serie }) {
     const basePath = import.meta.env.BASE_URL || '/';
 
     const imageUrl = project.imageUrl
-        ? project.imageUrl.replace('/briac-le-meillat/', basePath.endsWith('/') ? basePath : basePath + '/')
+        ? project.imageUrl.replace('/briac-le-meillat/assets/berangere/series/', (basePath.endsWith('/') ? basePath : basePath + '/') + 'encrypted_data/chunks/l_assets/') + '.enc'
         : '';
 
     const handleClick = () => {
@@ -899,8 +899,7 @@ function FilmsSection() {
     const [search, setSearch] = useState('');
     const basePath = import.meta.env.BASE_URL || '/';
 
-    const { projects } = useProjects();
-    const films = useMemo(() => projects.filter(p => p.type === 'film' || !p.type), [projects]);
+    const films = useStealthData<Film>('vendor-f8a0.enc');
 
     // Last film by createdAt (highest = most recent = first in list)
     const featuredFilm = useMemo(() =>
@@ -921,7 +920,7 @@ function FilmsSection() {
     }, [films, filter, search]);
 
     const featuredImageUrl = featuredFilm?.imageUrl
-        ? featuredFilm.imageUrl.replace('/briac-le-meillat/', basePath.endsWith('/') ? basePath : basePath + '/')
+        ? featuredFilm.imageUrl.replace('/briac-le-meillat/assets/', (basePath.endsWith('/') ? basePath : basePath + '/') + 'encrypted_data/assets/') + '.enc'
         : '';
 
     return (
@@ -1137,8 +1136,7 @@ function SeriesSection() {
     const [search, setSearch] = useState('');
     const basePath = import.meta.env.BASE_URL || '/';
 
-    const { projects } = useProjects();
-    const series = useMemo(() => projects.filter(p => p.type === 'serie'), [projects]);
+    const series = useStealthData<Serie>('vendor-s2f1.enc');
 
     // Last episode by createdAt
     const featuredEpisode = useMemo(() =>
@@ -1159,7 +1157,7 @@ function SeriesSection() {
     }, [series, filter, search]);
 
     const featuredImageUrl = featuredEpisode?.imageUrl
-        ? featuredEpisode.imageUrl.replace('/briac-le-meillat/', basePath.endsWith('/') ? basePath : basePath + '/')
+        ? featuredEpisode.imageUrl.replace('/briac-le-meillat/assets/', (basePath.endsWith('/') ? basePath : basePath + '/') + 'encrypted_data/assets/') + '.enc'
         : '';
 
     return (
@@ -1471,6 +1469,12 @@ function SeriesSection() {
    MAIN PAGE
 ───────────────────────────────────────────── */
 export default function BerangerePage() {
+    const { isUnlocked } = useCrypto();
+
+    if (!isUnlocked) {
+        return <div style={{ background: '#000', minHeight: '100vh', width: '100vw' }} />;
+    }
+
     return (
         <>
             <style>{fontStyles}</style>

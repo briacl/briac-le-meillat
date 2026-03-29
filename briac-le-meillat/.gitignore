@@ -28,8 +28,6 @@ Thumbs.db
 /BERANGERE_GUIDE.md
 
 # Fichiers sources (non chiffrés)
-/src/data/berangere-films.json
-/src/data/berangere-series.json
-/src/data/articles.json
-/src/data/realisations-projects.json
+/private_assets/
 /public/assets/berangere/
+
