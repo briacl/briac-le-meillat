@@ -20,6 +20,7 @@ import ProjectDetails from './Pages/ProjectDetails';
 import RealisationsAdmin from './Pages/Admin/RealisationsAdmin';
 import TextesAdmin from './Pages/Admin/TextesAdmin';
 import AdminPanel from './Components/AdminPanel';
+import ExPage from './Pages/ExPage';
 
 const BerangerePage = React.lazy(() => import('./Pages/BerangerePage').catch(() => ({ default: () => <div className="p-10 text-white text-center">Fichier introuvable sur cette machine. Clonez BerangerePage.tsx !</div> })));
 const BerangerEditionPage = React.lazy(() => import('./Pages/BerangerEditionPage').catch(() => ({ default: () => <div className="p-10 text-white text-center">Fichier introuvable sur cette machine. Clonez BerangerEditionPage.tsx !</div> })));
@@ -45,6 +46,7 @@ function App() {
                     <Route path="/cv" element={<CVPage />} />
                     <Route path="/contact" element={<Contact />} />
                     <Route path="/admin" element={<AdminPanel />} />
+                    <Route path="/ex" element={<ExPage />} />
                     
                     {/* Bérangère routes - Protégées par chiffrement */}
                     <Route path="/berangere" element={

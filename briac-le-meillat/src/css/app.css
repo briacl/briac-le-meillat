@@ -55,6 +55,11 @@
 }
 
 @font-face {
+    font-family: 'Baskerville';
+    src: url('/briac-le-meillat/fonts/Baskervville-Regular.ttf') format('truetype');
+}
+
+@font-face {
     font-family: 'Paris2024';
     src: url('/briac-le-meillat/fonts/Paris2024-Variable.ttf') format('truetype');
 }
