@@ -143,8 +143,9 @@ export default function LandingPage() {
     const [animationPlayed, setAnimationPlayed] = useState(false);
 
     return (
+        <>
+        <Navbar />
         <div className="relative w-full min-h-screen font-sans text-skin-text-main bg-skin-base transition-colors duration-500">
-            <Navbar />
 
             {/* FIXED Background - Neural Network */}
             <motion.div
@@ -159,7 +160,7 @@ export default function LandingPage() {
             </motion.div>
 
             {/* Scrollable Content Overlay */}
-            <div className="relative z-10 flex flex-col items-center w-full pointer-events-none">
+            <div className="relative z-10 flex flex-col items-center w-full pointer-events-none" style={{ overflowX: 'clip' }}>
 
                 {/* HERO SECTION */}
                 <div className="min-h-screen flex flex-col items-center justify-center pointer-events-none p-4">
@@ -371,5 +372,6 @@ export default function LandingPage() {
                 </div>
             </footer>
         </div>
+        </>
     );
 }

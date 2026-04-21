@@ -53,7 +53,7 @@ const CODE_CARDS = [
         language: "typescript",
         code: `async function fetchData(endpoint: string) {
   try {
-    const response = await fetch(\`\${API_URL}/\${endpoint}\`);
+    const response = await fetch("http://api.exemple.com/data");
     if (!response.ok) throw new Error('Network error');
     
     const data = await response.json();

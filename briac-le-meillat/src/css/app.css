@@ -93,6 +93,8 @@
     font-style: normal;
 }
 
+/* NOTE: overflow-x: hidden on html/body breaks position:fixed (navbar). 
+   Use it only on inner containers, never on html or body. */
 body {
     background-color: var(--bg-primary);
     color: var(--text-primary);
@@ -130,4 +132,23 @@ body {
 
 .animate-pulse-slow {
     animation: pulse-slow 3s ease-in-out infinite;
+}
+
+/* LATEX CENTERING & STYLE */
+.math-centered .katex-display {
+    text-align: center;
+    margin: 2.5rem 0;
+    padding: 1rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    background-color: rgba(255, 255, 255, 0.03);
+    border-radius: 1rem;
+}
+
+.math-centered .katex {
+    font-size: 1.1em;
+}
+
+.dark .math-centered .katex-display {
+    background-color: rgba(255, 255, 255, 0.02);
 }

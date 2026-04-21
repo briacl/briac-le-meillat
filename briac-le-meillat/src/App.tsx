@@ -6,6 +6,7 @@ import { CryptoModal } from './Contexts/CryptoContext';
 
 import LandingPage from './Pages/LandingPage';
 import LandingPageV2 from './Pages/LandingPageV2';
+import LandingPageTest from './Pages/LandingPageTest';
 import Subscribe from './Pages/Subscribe';
 import Dashboard from './Pages/Dashboard';
 import Login from './Pages/Login';
@@ -21,6 +22,7 @@ import RealisationsAdmin from './Pages/Admin/RealisationsAdmin';
 import TextesAdmin from './Pages/Admin/TextesAdmin';
 import AdminPanel from './Components/AdminPanel';
 import ExPage from './Pages/ExPage';
+import SerenityJourneyDemo from './Pages/SerenityJourneyDemo';
 
 const BerangerePage = React.lazy(() => import('./Pages/BerangerePage').catch(() => ({ default: () => <div className="p-10 text-white text-center">Fichier introuvable sur cette machine. Clonez BerangerePage.tsx !</div> })));
 const BerangerEditionPage = React.lazy(() => import('./Pages/BerangerEditionPage').catch(() => ({ default: () => <div className="p-10 text-white text-center">Fichier introuvable sur cette machine. Clonez BerangerEditionPage.tsx !</div> })));
@@ -32,6 +34,7 @@ function App() {
             <BrowserRouter basename={import.meta.env.BASE_URL}>
                 <Routes>
                     <Route path="/" element={<LandingPage />} />
+                    <Route path="/test" element={<LandingPageTest />} />
                     <Route path="/v2" element={<LandingPageV2 />} />
                     <Route path="/subscribe" element={<Subscribe />} />
                     <Route path="/dashboard" element={<Dashboard />} />
@@ -47,6 +50,7 @@ function App() {
                     <Route path="/contact" element={<Contact />} />
                     <Route path="/admin" element={<AdminPanel />} />
                     <Route path="/ex" element={<ExPage />} />
+                    <Route path="/serenity" element={<SerenityJourneyDemo />} />
                     
                     {/* Bérangère routes - Protégées par chiffrement */}
                     <Route path="/berangere" element={

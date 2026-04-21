@@ -10,6 +10,7 @@ import Typewriter from '@/Components/Typewriter';
 import ManifestoSection from '@/Components/ManifestoSection';
 import HorizontalTimeline from '@/Components/HorizontalTimeline';
 import BentoSkills from '@/Components/BentoSkills';
+import CompetencesBUT from '@/Components/CompetencesBUT';
 import ProjectShowcase from '@/Components/ProjectShowcase';
 import UnifiedFooter from '@/Components/UnifiedFooter';
 
@@ -395,6 +396,11 @@ export default function LandingPage() {
                     {/* FONDATION SECTION (Timeline Horizontale) */}
                     <div className="w-full pointer-events-none z-10">
                         <HorizontalTimeline />
+                    </div>
+
+                    {/* COMPÉTENCES BUT SECTION */}
+                    <div className="pointer-events-auto w-full z-10">
+                        <CompetencesBUT />
                     </div>
 
                     {/* MAÎTRISE SECTION (Bento Grid) */}

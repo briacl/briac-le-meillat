@@ -1,0 +1,116 @@
+{
+  "lastUpdated": "2026-04-03T19:07:39.806Z",
+  "total": 6,
+  "proofs": [
+    {
+      "title": "Fiche de Révision : Signaux et Systèmes (R205)",
+      "module": "R205",
+      "competence": "Connecter",
+      "ac_lies": [
+        "AC12.01",
+        "AC12.02"
+      ],
+      "techs": [
+        "Maths",
+        "Signal",
+        "Parseval",
+        "Bode"
+      ],
+      "date": "2026-04-01",
+      "status": "Terminé",
+      "path": "assets/documents/apprentissage/revisions.md"
+    },
+    {
+      "title": "Administration de Serveurs Web : Apache2 & Nginx",
+      "module": "R203",
+      "competence": "Connecter",
+      "ac_lies": [
+        "AC12.03",
+        "AC12.04"
+      ],
+      "techs": [
+        "Apache2",
+        "Nginx",
+        "PHP",
+        "MariaDB"
+      ],
+      "date": "2026-03-15",
+      "status": "Terminé",
+      "path": "assets/documents/apprentissage/bases-services-reseaux/tp-apache-nginx.md"
+    },
+    {
+      "title": "Routage Dynamique : RIP v2 et OSPF",
+      "module": "R201",
+      "competence": "Connecter",
+      "ac_lies": [
+        "AC12.01",
+        "AC12.02"
+      ],
+      "techs": [
+        "Cisco",
+        "RIP",
+        "OSPF",
+        "Routage Dynamique"
+      ],
+      "date": "2026-03-10",
+      "status": "Terminé",
+      "path": "assets/documents/apprentissage/tech-internet/TP3-TP4_compte_rendu.md"
+    },
+    {
+      "title": "SAE 1.02 : Déploiement Infrastructure PME",
+      "module": "SAE102 / R103",
+      "competence": "Connecter",
+      "ac_lies": [
+        "AC11.01",
+        "AC11.02",
+        "AC11.05"
+      ],
+      "techs": [
+        "Cisco",
+        "VLAN",
+        "Trunk",
+        "SSH",
+        "Inter-VLAN"
+      ],
+      "date": "2026-01-28",
+      "status": "Terminé",
+      "path": "assets/documents/apprentissage/sae102/livrable_sae12FINALE/compte-rendu.md"
+    },
+    {
+      "title": "Mise en place d'un IVR et Trunk SIP",
+      "module": "R204",
+      "competence": "Connecter",
+      "ac_lies": [
+        "AC12.03",
+        "AC12.04"
+      ],
+      "techs": [
+        "Asterisk",
+        "SIP",
+        "IVR",
+        "VoIP"
+      ],
+      "date": "2026-01-20",
+      "status": "Terminé",
+      "path": "assets/documents/apprentissage/telephonie/tp2.md"
+    },
+    {
+      "title": "Passerelle Linux : NAT & Routage",
+      "module": "R101",
+      "competence": "Connecter",
+      "ac_lies": [
+        "AC11.01",
+        "AC11.02"
+      ],
+      "techs": [
+        "Linux",
+        "Iptables",
+        "NAT",
+        "Routage"
+      ],
+      "date": "2025-10-12",
+      "status": "Terminé",
+      "path": "assets/documents/apprentissage/tech-internet/tp1-tp2.md"
+    }
+  ]
+}

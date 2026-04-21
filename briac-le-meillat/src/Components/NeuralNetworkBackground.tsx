@@ -439,7 +439,7 @@ export default function NeuralNetworkBackground({ className = "" }: { className?
         <>
             <canvas
                 ref={canvasRef}
-                className={`absolute top-0 left-0 w-full h-full cursor-pointer z-[0] \${className}`}
+                className={`absolute top-0 left-0 w-full h-full cursor-pointer z-[0] ${className}`}
                 style={{ pointerEvents: 'auto' }}
             />
 

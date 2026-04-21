@@ -1,3 +1,13 @@
+---
+title: "SAE 1.02 : Déploiement Infrastructure PME"
+module: "SAE102 / R103"
+competence: "Connecter"
+ac_lies: ["AC11.01", "AC11.02", "AC11.05"]
+techs: ["Cisco", "VLAN", "Trunk", "SSH", "Inter-VLAN"]
+date: "2026-01-28"
+status: "Terminé"
+---
+
 # Compte Rendu - TP Final
 
 **Date :** 28 Janvier 2026 

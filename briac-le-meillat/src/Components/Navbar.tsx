@@ -17,7 +17,16 @@ export default function Navbar() {
     };
 
     return (
-        <nav className="fixed top-8 left-1/2 -translate-x-1/2 w-3/4 bg-white/80 dark:bg-white/10 backdrop-blur-md rounded-full px-8 py-4 flex items-center justify-between z-50 border border-black/5 dark:border-white/20 shadow-xl shadow-blue-900/10 transition-colors duration-300" style={{ backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)' }}>
+        <nav
+            className="fixed top-8 w-3/4 bg-white/80 dark:bg-white/10 backdrop-blur-md rounded-full px-8 py-4 flex items-center justify-between z-[100] border border-black/5 dark:border-white/20 shadow-xl shadow-blue-900/10 transition-colors duration-300"
+            style={{
+                left: 0,
+                right: 0,
+                margin: '0 auto',
+                backdropFilter: 'blur(12px)',
+                WebkitBackdropFilter: 'blur(12px)',
+            }}
+        >
             {/* Left: Title */}
             <Link
                 to="/"
