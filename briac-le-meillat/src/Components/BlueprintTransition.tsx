@@ -26,12 +26,12 @@ const BlueprintTransition = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={isInView ? { opacity: 0.4, y: 0 } : { opacity: 0, y: 20 }}
                     transition={{ delay: 0.8, duration: 1 }}
-                    className="mt-8 text-black font-baskerville uppercase tracking-[0.5em] text-xs md:text-sm"
+                    className="mt-8 text-black font-['Baskerville'] tracking-[0.5em] text-2xl md:text-3xl"
                 >
-                    Architecture & Conception
+                    From Vision to Performance.
                 </motion.p>
             </motion.div>
-            
+
             {/* Navigation Button to Pure Structure */}
             <div className="absolute bottom-12 left-0 w-full flex justify-center z-30">
                 <motion.a

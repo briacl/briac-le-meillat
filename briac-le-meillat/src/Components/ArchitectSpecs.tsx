@@ -175,10 +175,10 @@ export const LogicAsCanvas = () => {
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     transition={{ delay: 0.5, duration: 1 }}
-                    href="#nexus-collection"
+                    href="#the-core-header"
                     onClick={(e) => {
                         e.preventDefault();
-                        document.getElementById('nexus-collection')?.scrollIntoView({ behavior: 'smooth' });
+                        document.getElementById('the-core-header')?.scrollIntoView({ behavior: 'smooth' });
                     }}
                     className="bg-white border border-gray-200 shadow-sm rounded-full w-[60px] h-[60px] flex items-center justify-center cursor-pointer transition-all duration-300 animate-bounce hover:border-blue-500 hover:shadow-lg group"
                 >

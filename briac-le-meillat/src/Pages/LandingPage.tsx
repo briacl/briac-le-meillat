@@ -139,7 +139,7 @@ export default function LandingPage() {
                     <LogicAsCanvas />
 
                     {/* 9. NEXUS COLLECTION — Vitrine des produits finis */}
-                    <NexusCollection />
+                    {/* <NexusCollection /> */}
 
                     {/* 10. THE CORE HEADER */}
                     <TheCoreHeader />

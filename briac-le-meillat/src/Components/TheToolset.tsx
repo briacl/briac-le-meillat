@@ -300,14 +300,14 @@ export default function TheToolset() {
 
                     {/* ── 1. ACCROCHE NARRATIVE ── */}
                     <div ref={headerRef} className="mb-32 text-center max-w-4xl mx-auto">
-                        <motion.p
+                        {/* <motion.p
                             initial={{ opacity: 0, y: 20 }}
                             animate={isHeaderInView ? { opacity: 1, y: 0 } : {}}
                             transition={{ duration: 0.8, ease: APPLE_BEZIER as any }}
                             className="text-xs font-mono uppercase tracking-[0.4em] text-zinc-500 mb-6"
                         >
                             Mouvement III
-                        </motion.p>
+                        </motion.p> */}
 
                         <motion.h2
                             initial={{ opacity: 0, y: 30 }}
@@ -324,7 +324,7 @@ export default function TheToolset() {
                             transition={{ duration: 1, delay: 0.25, ease: APPLE_BEZIER as any }}
                             className="text-xl md:text-2xl font-sans leading-relaxed"
                         >
-                            <span className="text-white">Voici les instruments que j'ai créés pour bâtir le futur.</span>{' '}
+                            <span className="text-white">Une quête d'harmonie à travers mes premières architectures : des instruments forgés pour apprendre à bâtir demain.</span>{' '}
                             <span className="text-zinc-400">
                                 De la recherche académique à l'application industrielle — chaque projet est un outil forgé
                                 dans l'intention de résoudre un problème réel, avec une rigueur d'ingénierie durable.
@@ -355,14 +355,14 @@ export default function TheToolset() {
                         <p className="text-xl md:text-2xl font-['Paris2024'] leading-relaxed tracking-tight">
                             <span className="text-white">
                                 Bérangère • Development travaille activement avec Nexus sur des architectures
-                                de nouvelle génération —{' '}
+                                de nouvelle génération,{' '}
                             </span>
                             <span className="text-zinc-500">
-                                Heryze, Synapseo — qui redéfiniront l'expérience utilisateur dès 2027.
+                                qui redéfiniront l'expérience utilisateur dès 2027.
                             </span>
                         </p>
 
-                        <div className="pt-2">
+                        {/* <div className="pt-2">
                             <a
                                 href="#nexus-collection"
                                 onClick={(e) => {
@@ -374,7 +374,7 @@ export default function TheToolset() {
                                 Découvrir la Nexus Collection
                                 <ArrowUpRight size={12} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                             </a>
-                        </div>
+                        </div> */}
                     </motion.div>
 
                     {/* ── 4. NAVIGATION BUTTON ── */}
