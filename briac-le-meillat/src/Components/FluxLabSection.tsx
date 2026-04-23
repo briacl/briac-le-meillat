@@ -11,8 +11,6 @@ import {
 } from "@heroui/react";
 import { 
     Clock, 
-    ExternalLink, 
-    Search, 
     X,
     ChevronRight,
     Zap
@@ -36,7 +34,7 @@ interface Registry {
     proofs: Proof[];
 }
 
-export default function FluxLabSection() {
+export default function FluxLabSection({ isLight = false }: { isLight?: boolean }) {
     const [registry, setRegistry] = useState<Registry | null>(null);
     const [loading, setLoading] = useState(true);
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -72,24 +70,24 @@ export default function FluxLabSection() {
     const latestProofs = registry.proofs.slice(0, 4);
 
     return (
-        <section className="w-full py-24 relative overflow-hidden">
+        <section id="flux-lab-section" className={`w-full py-24 relative overflow-hidden transition-colors duration-500 ${isLight ? 'bg-white' : 'bg-black'}`}>
             {/* Background elements */}
-            <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-blue-500/5 rounded-full blur-[120px] pointer-events-none" />
-            <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-purple-500/5 rounded-full blur-[100px] pointer-events-none" />
+            <div className={`absolute top-0 left-1/4 w-[500px] h-[500px] rounded-full blur-[120px] pointer-events-none ${isLight ? 'bg-blue-500/5' : 'bg-blue-500/10'}`} />
+            <div className={`absolute bottom-0 right-1/4 w-[400px] h-[400px] rounded-full blur-[100px] pointer-events-none ${isLight ? 'bg-purple-500/5' : 'bg-purple-500/10'}`} />
             
             <div className="max-w-7xl mx-auto px-6">
                 <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
                     <div className="space-y-4">
                         <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-500 border border-blue-500/20">
+                            <div className={`w-10 h-10 rounded-xl flex items-center justify-center text-blue-500 border transition-all duration-300 ${isLight ? 'bg-blue-500/10 border-blue-500/20' : 'bg-blue-500/20 border-blue-500/40 shadow-[0_0_20px_rgba(59,130,246,0.3)]'}`}>
                                 <Zap size={20} />
                             </div>
-                            <span className="text-xs font-black uppercase tracking-[0.4em] text-blue-500/60 font-mono">Real-time Activity</span>
+                            <span className={`text-xs font-black uppercase tracking-[0.4em] font-mono transition-colors duration-300 ${isLight ? 'text-blue-500/60' : 'text-blue-400'}`}>Real-time Activity</span>
                         </div>
-                        <h2 className="text-5xl md:text-6xl font-['Paris2024'] text-zinc-900 drop-shadow-sm uppercase tracking-tight">
+                        <h2 className={`text-5xl md:text-6xl font-['Paris2024'] drop-shadow-sm uppercase tracking-tight transition-colors duration-300 ${isLight ? 'text-zinc-900' : 'text-white'}`}>
                             Flux <span className="text-[#0075FF]">Lab</span>
                         </h2>
-                        <p className="text-zinc-500 max-w-xl font-['Baskerville'] text-xl italic leading-relaxed">
+                        <p className={`max-w-xl font-['Baskerville'] text-xl italic leading-relaxed transition-colors duration-300 ${isLight ? 'text-zinc-500' : 'text-zinc-400'}`}>
                             Les derniers travaux académiques et comptes-rendus techniques indexés automatiquement.
                         </p>
                     </div>
@@ -107,7 +105,11 @@ export default function FluxLabSection() {
                             <Card 
                                 isPressable
                                 onPress={() => handleProofClick(proof)}
-                                className="h-[280px] bg-white/40 backdrop-blur-md border border-white/40 hover:border-blue-500/30 transition-all duration-500 group shadow-sm hover:shadow-2xl rounded-[2.5rem]"
+                                className={`h-[280px] backdrop-blur-md border transition-all duration-500 group shadow-sm hover:shadow-2xl rounded-[2.5rem] ${
+                                    isLight 
+                                    ? 'bg-white/40 border-white/40 hover:border-blue-500/30' 
+                                    : 'bg-zinc-900/40 border-white/5 hover:border-blue-500/40'
+                                }`}
                             >
                                 <CardBody className="p-8 flex flex-col justify-between relative overflow-hidden">
                                     {/* Accent line */}
@@ -115,7 +117,7 @@ export default function FluxLabSection() {
                                     
                                     <div className="space-y-2">
                                         <div className="flex items-center justify-between">
-                                            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-blue-600 bg-blue-500/5 px-2 py-1 rounded-md">
+                                            <span className={`text-[10px] font-black uppercase tracking-[0.2em] px-2 py-1 rounded-md transition-colors ${isLight ? 'text-blue-600 bg-blue-500/5' : 'text-blue-400 bg-blue-500/10'}`}>
                                                 {proof.module}
                                             </span>
                                             <div className="flex items-center gap-1.5 text-zinc-400">
@@ -123,7 +125,7 @@ export default function FluxLabSection() {
                                                 <span className="text-[10px] font-bold">{new Date(proof.date).toLocaleDateString('fr-FR', { month: 'short', year: 'numeric' })}</span>
                                             </div>
                                         </div>
-                                        <h3 className="text-xl font-bold text-zinc-800 leading-[1.3] group-hover:text-blue-600 transition-colors line-clamp-3">
+                                        <h3 className={`text-xl font-bold leading-[1.3] group-hover:text-blue-600 transition-colors line-clamp-3 ${isLight ? 'text-zinc-800' : 'text-zinc-100'}`}>
                                             {proof.title}
                                         </h3>
                                     </div>
@@ -131,7 +133,7 @@ export default function FluxLabSection() {
                                     <div className="space-y-4">
                                         <div className="flex flex-wrap gap-1.5 opacity-0 group-hover:opacity-100 transition-all transform translate-y-2 group-hover:translate-y-0">
                                             {proof.techs.slice(0, 3).map((tech, i) => (
-                                                <span key={i} className="px-2 py-0.5 rounded-full bg-zinc-900/5 border border-black/5 text-[9px] font-black uppercase tracking-wider text-zinc-500">
+                                                <span key={i} className={`px-2 py-0.5 rounded-full border text-[9px] font-black uppercase tracking-wider ${isLight ? 'bg-zinc-900/5 border-black/5 text-zinc-500' : 'bg-white/5 border-white/10 text-zinc-400'}`}>
                                                     {tech}
                                                 </span>
                                             ))}
@@ -140,7 +142,7 @@ export default function FluxLabSection() {
                                             )}
                                         </div>
                                         
-                                        <div className="flex items-center justify-between pt-4 border-t border-black/5">
+                                        <div className={`flex items-center justify-between pt-4 border-t ${isLight ? 'border-black/5' : 'border-white/5'}`}>
                                             <span className="text-[10px] font-black uppercase tracking-[0.1em] text-zinc-400 italic">Voir le rapport</span>
                                             <ChevronRight size={16} className="text-blue-500 group-hover:translate-x-1 transition-transform" />
                                         </div>
@@ -149,6 +151,25 @@ export default function FluxLabSection() {
                             </Card>
                         </motion.div>
                     ))}
+                </div>
+
+                {/* Navigation Button to Blueprint */}
+                <div className="mt-20 flex justify-center">
+                    <motion.a
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        transition={{ delay: 0.5, duration: 1 }}
+                        href="#blueprint-transition"
+                        onClick={(e) => {
+                            e.preventDefault();
+                            document.getElementById('blueprint-transition')?.scrollIntoView({ behavior: 'smooth' });
+                        }}
+                        className={`bg-white border border-gray-200 shadow-sm rounded-full w-[60px] h-[60px] flex items-center justify-center cursor-pointer transition-all duration-300 animate-bounce hover:border-blue-500 hover:shadow-lg group`}
+                    >
+                        <svg viewBox="0 0 24 24" className="w-8 h-8 fill-blue-500 transition-transform group-hover:scale-110">
+                            <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" />
+                        </svg>
+                    </motion.a>
                 </div>
             </div>
 
@@ -159,7 +180,7 @@ export default function FluxLabSection() {
                 size="full"
                 scrollBehavior="inside"
                 backdrop="blur"
-                className="bg-slate-50 dark:bg-[#0a0a0a] m-0 p-0 rounded-none shadow-none"
+                className={`m-0 p-0 rounded-none shadow-none ${isLight ? 'bg-slate-50' : 'bg-[#0a0a0a]'}`}
                 motionProps={{
                     variants: {
                         enter: { opacity: 1, scale: 1, transition: { duration: 0.3, ease: "easeOut" } },
@@ -175,7 +196,7 @@ export default function FluxLabSection() {
                                     isIconOnly
                                     variant="flat"
                                     onPress={onClose}
-                                    className="rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-xl text-zinc-500 w-14 h-14 border border-white/10 shadow-2xl transition-all"
+                                    className={`rounded-full backdrop-blur-xl w-14 h-14 border shadow-2xl transition-all ${isLight ? 'bg-white/40 border-black/5 text-zinc-500 hover:bg-white/60' : 'bg-white/10 border-white/10 text-zinc-400 hover:bg-white/20'}`}
                                 >
                                     <X size={28} />
                                 </Button>
@@ -186,7 +207,7 @@ export default function FluxLabSection() {
                                     initial={{ opacity: 0, y: 40 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ duration: 0.4, ease: "easeOut" }}
-                                    className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-[3rem] shadow-[0_40px_100px_-20px_rgba(0,0,0,0.15)] overflow-hidden"
+                                    className={`border rounded-[3rem] shadow-[0_40px_100px_-20px_rgba(0,0,0,0.15)] overflow-hidden ${isLight ? 'bg-white border-slate-100' : 'bg-slate-900 border-slate-800'}`}
                                 >
                                     <div className="p-8 md:p-20">
                                         {selectedProof && (
@@ -197,11 +218,11 @@ export default function FluxLabSection() {
                                             />
                                         )}
 
-                                        <div className="mt-24 pt-12 border-t border-slate-50 flex justify-center">
+                                        <div className={`mt-24 pt-12 border-t flex justify-center ${isLight ? 'border-slate-50' : 'border-slate-800'}`}>
                                             <Button 
                                                 variant="solid"
                                                 onPress={onClose}
-                                                className="bg-zinc-900 text-white font-bold rounded-2xl px-16 h-16 shadow-xl hover:scale-[1.02] active:scale-95 transition-all text-lg"
+                                                className={`font-bold rounded-2xl px-16 h-16 shadow-xl hover:scale-[1.02] active:scale-95 transition-all text-lg ${isLight ? 'bg-zinc-900 text-white' : 'bg-white text-black'}`}
                                             >
                                                 Terminer la lecture
                                             </Button>

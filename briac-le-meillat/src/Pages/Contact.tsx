@@ -61,62 +61,27 @@ export default function Contact() {
     ];
 
     return (
-        <div className="min-h-screen bg-[#f8f9fa] dark:bg-[#020617] transition-colors duration-300 flex items-center justify-center p-4 relative overflow-hidden font-['Paris2024']">
+        <div className="min-h-screen bg-[#f5f5f7] transition-colors duration-300 flex items-center justify-center p-4 relative overflow-hidden font-sans">
             <Navbar />
-
-            {/* Ambient Background Effects */}
-            <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-                <motion.div
-                    animate={{
-                        x: [0, 100, -100, 0],
-                        y: [0, -100, 100, 0],
-                        scale: [1, 1.2, 0.9, 1]
-                    }}
-                    transition={{
-                        duration: 20,
-                        repeat: Infinity,
-                        repeatType: "reverse",
-                        ease: "easeInOut"
-                    }}
-                    className="absolute top-[10%] left-[10%] w-[40%] h-[40%] bg-purple-500/20 rounded-full blur-[120px]"
-                />
-                <motion.div
-                    animate={{
-                        x: [0, -150, 50, 0],
-                        y: [0, 50, -100, 0],
-                        scale: [1, 1.3, 0.8, 1]
-                    }}
-                    transition={{
-                        duration: 25,
-                        repeat: Infinity,
-                        repeatType: "reverse",
-                        ease: "easeInOut",
-                        delay: 2
-                    }}
-                    className="absolute bottom-[10%] right-[10%] w-[40%] h-[40%] bg-blue-500/20 rounded-full blur-[120px]"
-                />
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(2,6,23,0),rgba(2,6,23,0.8))]" />
-            </div>
 
             {/* Content Container */}
             <div className="relative z-10 w-full max-w-[1200px] grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
 
                 {/* Left Side - Contact Info */}
-                <div className="text-gray-900 dark:text-white pl-4 lg:pl-0 flex flex-col justify-center h-full transition-colors duration-300">
+                <div className="text-gray-900 pl-4 lg:pl-0 flex flex-col justify-center h-full transition-colors duration-300">
                     <motion.div
                         initial={{ opacity: 0, y: -20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6 }}
                         className="mb-16"
                     >
-                        <h1 className="text-sm font-bold tracking-[0.3em] text-transparent bg-clip-text bg-gradient-to-r from-[#0075FF] to-[#f336f0] mb-6 uppercase">
-                            Contactez-moi
+                        <h1 className="text-xs font-bold tracking-[0.4em] text-blue-600 mb-6 uppercase font-mono">
+                            The Architect's Office
                         </h1>
                         <div className="relative inline-block">
-                            <p className="font-['Baskerville'] text-2xl text-gray-600 dark:text-gray-300 italic leading-relaxed transition-colors duration-300">
-                                "Une idée ? Un projet ? Discutons-en ensemble."
+                            <p className="font-['Paris2024'] text-4xl md:text-5xl text-black leading-tight transition-colors duration-300 uppercase tracking-tighter">
+                                Commençons une <br /> nouvelle partition.
                             </p>
-                            <div className="absolute -bottom-4 left-0 w-24 h-[2px] bg-gradient-to-r from-[#00f2ff] to-transparent" />
                         </div>
                     </motion.div>
 
@@ -135,15 +100,15 @@ export default function Contact() {
                                 className="flex gap-5"
                             >
                                 <div className="flex-shrink-0 mt-1">
-                                    <div className="w-12 h-12 rounded-2xl bg-white/80 dark:bg-white/5 border border-gray-200 dark:border-white/10 flex items-center justify-center shadow-lg shadow-purple-500/5 backdrop-blur-sm group hover:scale-105 transition-all duration-300">
-                                        <feature.icon className="h-6 w-6 text-[#00f2ff]" />
+                                    <div className="w-12 h-12 rounded-full bg-white border border-gray-200 flex items-center justify-center shadow-sm group hover:border-blue-500 transition-all duration-300">
+                                        <feature.icon className="h-5 w-5 text-blue-600" />
                                     </div>
                                 </div>
-                                <div className="space-y-2">
-                                    <h3 className="text-xl font-semibold text-gray-900 dark:text-white tracking-wide transition-colors duration-300">
+                                <div className="space-y-1">
+                                    <h3 className="text-sm font-bold text-gray-400 uppercase tracking-widest font-mono transition-colors duration-300">
                                         {feature.title}
                                     </h3>
-                                    <p className="text-gray-500 dark:text-zinc-400 leading-relaxed text-sm lg:text-base max-w-md transition-colors duration-300">
+                                    <p className="text-gray-900 font-medium transition-colors duration-300">
                                         {feature.description}
                                     </p>
                                 </div>
@@ -154,102 +119,85 @@ export default function Contact() {
 
                 {/* Right Side - Form */}
                 <div className="w-full max-w-[480px] mx-auto lg:mr-0">
-                    <div className="bg-white/80 dark:bg-black/20 backdrop-blur-xl border border-black/5 dark:border-white/5 rounded-3xl p-8 lg:p-10 shadow-2xl transition-colors duration-300">
-                        <div className="space-y-2 text-center mb-8">
-                            <h2 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-white transition-colors duration-300">
-                                Me Contacter
-                            </h2>
-                            <p className="text-sm text-gray-500 dark:text-zinc-400 transition-colors duration-300">
-                                Remplissez le formulaire ci-dessous pour m'envoyer un message directement.
-                            </p>
-                        </div>
-
+                    <div className="bg-white border border-gray-200 rounded-[2rem] p-8 lg:p-12 shadow-xl shadow-gray-200/50 transition-colors duration-300">
                         {success ? (
                             <div className="text-center py-10 space-y-6 animate-scale-in">
-                                <div className="w-20 h-20 bg-green-500/20 rounded-full flex items-center justify-center mx-auto">
-                                    <CheckCircle className="h-10 w-10 text-green-400" />
+                                <div className="w-20 h-20 bg-green-50 rounded-full flex items-center justify-center mx-auto">
+                                    <CheckCircle className="h-10 w-10 text-green-500" />
                                 </div>
                                 <div>
-                                    <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Message envoyé !</h3>
-                                    <p className="text-gray-500 dark:text-zinc-400">Je vous répondrai dès que possible.</p>
+                                    <h3 className="text-2xl font-bold text-black mb-2">Message envoyé !</h3>
+                                    <p className="text-gray-500">Je vous répondrai dès que possible.</p>
                                 </div>
                                 <button
                                     onClick={() => setSuccess(false)}
-                                    className="text-sm text-[#00f2ff] hover:underline mt-4"
+                                    className="text-sm text-blue-600 font-bold hover:underline mt-4"
                                 >
                                     Envoyer un autre message
                                 </button>
                             </div>
                         ) : (
-                            <div className="space-y-6">
-                                <div className="space-y-2">
-                                    <label htmlFor="name" className="block text-sm font-medium text-gray-600 dark:text-zinc-300 ml-1">
+                            <div className="space-y-8">
+                                <div className="space-y-3">
+                                    <label htmlFor="name" className="block text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1 font-mono">
                                         Nom complet
                                     </label>
-                                    <div className="relative group">
-                                        <User className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-zinc-500 group-focus-within:text-[#00f2ff] transition-colors" />
-                                        <input
-                                            id="name"
-                                            name="name"
-                                            type="text"
-                                            required
-                                            className="block w-full pl-10 pr-3 py-3 border border-gray-200 dark:border-white/10 rounded-xl bg-white dark:bg-white/5 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-zinc-600 focus:outline-none focus:ring-2 focus:ring-[#00f2ff]/50 focus:border-[#00f2ff]/50 sm:text-sm transition-all shadow-sm"
-                                            placeholder="Votre nom"
-                                            value={formData.name}
-                                            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                                        />
-                                    </div>
+                                    <input
+                                        id="name"
+                                        name="name"
+                                        type="text"
+                                        required
+                                        className="block w-full px-0 py-3 border-b border-gray-200 bg-transparent text-black placeholder-gray-300 focus:outline-none focus:border-blue-600 transition-all text-lg"
+                                        placeholder="Votre nom"
+                                        value={formData.name}
+                                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                                    />
                                 </div>
 
-                                <div className="space-y-2">
-                                    <label htmlFor="email" className="block text-sm font-medium text-gray-600 dark:text-zinc-300 ml-1">
+                                <div className="space-y-3">
+                                    <label htmlFor="email" className="block text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1 font-mono">
                                         Email
                                     </label>
-                                    <div className="relative group">
-                                        <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-zinc-500 group-focus-within:text-[#00f2ff] transition-colors" />
-                                        <input
-                                            id="email"
-                                            name="email"
-                                            type="email"
-                                            required
-                                            className="block w-full pl-10 pr-3 py-3 border border-gray-200 dark:border-white/10 rounded-xl bg-white dark:bg-white/5 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-zinc-600 focus:outline-none focus:ring-2 focus:ring-[#00f2ff]/50 focus:border-[#00f2ff]/50 sm:text-sm transition-all shadow-sm"
-                                            placeholder="vous@exemple.com"
-                                            value={formData.email}
-                                            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                                        />
-                                    </div>
+                                    <input
+                                        id="email"
+                                        name="email"
+                                        type="email"
+                                        required
+                                        className="block w-full px-0 py-3 border-b border-gray-200 bg-transparent text-black placeholder-gray-300 focus:outline-none focus:border-blue-600 transition-all text-lg"
+                                        placeholder="vous@exemple.com"
+                                        value={formData.email}
+                                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                                    />
                                 </div>
 
-                                <div className="space-y-2">
-                                    <label htmlFor="message" className="block text-sm font-medium text-gray-600 dark:text-zinc-300 ml-1">
+                                <div className="space-y-3">
+                                    <label htmlFor="message" className="block text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1 font-mono">
                                         Message
                                     </label>
-                                    <div className="relative group">
-                                        <textarea
-                                            id="message"
-                                            name="message"
-                                            required
-                                            rows={4}
-                                            className="block w-full p-3 border border-gray-200 dark:border-white/10 rounded-xl bg-white dark:bg-white/5 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-zinc-600 focus:outline-none focus:ring-2 focus:ring-[#00f2ff]/50 focus:border-[#00f2ff]/50 sm:text-sm transition-all shadow-sm resize-none"
-                                            placeholder="Votre message..."
-                                            value={formData.message}
-                                            onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                                        />
-                                    </div>
+                                    <textarea
+                                        id="message"
+                                        name="message"
+                                        required
+                                        rows={3}
+                                        className="block w-full px-0 py-3 border-b border-gray-200 bg-transparent text-black placeholder-gray-300 focus:outline-none focus:border-blue-600 transition-all text-lg resize-none"
+                                        placeholder="Votre projet en quelques mots..."
+                                        value={formData.message}
+                                        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                                    />
                                 </div>
 
                                 <button
                                     type="button"
                                     onClick={handleSubmit}
                                     disabled={loading}
-                                    className="w-full flex justify-center items-center gap-2 py-3 px-4 border border-transparent text-sm font-bold rounded-xl text-black bg-gradient-to-r from-white to-gray-200 hover:to-white hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-black focus:ring-white transition-all duration-300 shadow-[0_0_20px_rgba(255,255,255,0.1)] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                                    className="w-full flex justify-center items-center gap-2 py-4 px-4 rounded-full text-white bg-blue-600 hover:bg-blue-700 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 font-bold text-base disabled:opacity-50"
                                 >
                                     {loading ? (
-                                        <span className="w-5 h-5 border-2 border-black/30 border-t-black rounded-full animate-spin" />
+                                        <span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                                     ) : (
                                         <>
-                                            Envoyer le message
-                                            <Send className="h-4 w-4" />
+                                            Envoyer la partition
+                                            <ArrowRight className="h-4 w-4" />
                                         </>
                                     )}
                                 </button>
@@ -259,7 +207,7 @@ export default function Contact() {
                 </div>
             </div>
 
-            <div className="absolute bottom-4 w-full text-center text-zinc-700 text-xs">
+            <div className="absolute bottom-8 w-full text-center text-gray-400 text-[10px] uppercase tracking-[0.2em] font-mono">
                 &copy; {new Date().getFullYear()} briac-le-meillat. All rights reserved.
             </div>
         </div>

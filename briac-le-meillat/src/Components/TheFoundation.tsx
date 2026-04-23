@@ -106,6 +106,25 @@ export default function TheFoundation() {
                             </motion.div>
                         )}
                     </AnimatePresence>
+
+                    {/* Navigation Button to Nexus Collection */}
+                    <div className="mt-20 flex justify-center">
+                        <motion.a
+                            initial={{ opacity: 0 }}
+                            whileInView={{ opacity: 1 }}
+                            transition={{ delay: 0.5, duration: 1 }}
+                            href="#the-toolset"
+                            onClick={(e) => {
+                                e.preventDefault();
+                                document.getElementById('the-toolset')?.scrollIntoView({ behavior: 'smooth' });
+                            }}
+                            className="bg-white border border-gray-200 shadow-sm rounded-full w-[60px] h-[60px] flex items-center justify-center cursor-pointer transition-all duration-300 animate-bounce hover:border-blue-500 hover:shadow-lg group"
+                        >
+                            <svg viewBox="0 0 24 24" className="w-8 h-8 fill-blue-500 transition-transform group-hover:scale-110">
+                                <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" />
+                            </svg>
+                        </motion.a>
+                    </div>
                 </div>
 
             </div>
