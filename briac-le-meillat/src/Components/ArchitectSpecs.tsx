@@ -65,7 +65,7 @@ export const PureStructure = () => {
                         e.preventDefault();
                         document.getElementById('the-foundation')?.scrollIntoView({ behavior: 'smooth' });
                     }}
-                    className="bg-white border border-gray-200 shadow-sm rounded-full w-[60px] h-[60px] flex items-center justify-center cursor-pointer transition-all duration-300 animate-bounce hover:border-blue-500 hover:shadow-lg group"
+                    className="border border-white/10 rounded-full w-[60px] h-[60px] flex items-center justify-center cursor-pointer transition-all duration-300 animate-bounce hover:border-blue-500/50 hover:shadow-[0_0_20px_rgba(59,130,246,0.2)] group"
                 >
                     <svg viewBox="0 0 24 24" className="w-8 h-8 fill-blue-500 transition-transform group-hover:scale-110">
                         <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" />
@@ -120,7 +120,7 @@ export const CodePoetics = () => {
                         e.preventDefault();
                         document.getElementById('logic-as-canvas')?.scrollIntoView({ behavior: 'smooth' });
                     }}
-                    className="bg-white border border-gray-200 shadow-sm rounded-full w-[60px] h-[60px] flex items-center justify-center cursor-pointer transition-all duration-300 animate-bounce hover:border-blue-500 hover:shadow-lg group"
+                    className="border border-white/10 rounded-full w-[60px] h-[60px] flex items-center justify-center cursor-pointer transition-all duration-300 animate-bounce hover:border-blue-500/50 hover:shadow-[0_0_20px_rgba(59,130,246,0.2)] group"
                 >
                     <svg viewBox="0 0 24 24" className="w-8 h-8 fill-blue-500 transition-transform group-hover:scale-110">
                         <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" />
@@ -180,7 +180,7 @@ export const LogicAsCanvas = () => {
                         e.preventDefault();
                         document.getElementById('the-core-header')?.scrollIntoView({ behavior: 'smooth' });
                     }}
-                    className="bg-white border border-gray-200 shadow-sm rounded-full w-[60px] h-[60px] flex items-center justify-center cursor-pointer transition-all duration-300 animate-bounce hover:border-blue-500 hover:shadow-lg group"
+                    className="border border-white/10 rounded-full w-[60px] h-[60px] flex items-center justify-center cursor-pointer transition-all duration-300 animate-bounce hover:border-blue-500/50 hover:shadow-[0_0_20px_rgba(59,130,246,0.2)] group"
                 >
                     <svg viewBox="0 0 24 24" className="w-8 h-8 fill-blue-500 transition-transform group-hover:scale-110">
                         <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" />
@@ -220,7 +220,7 @@ export const TheCoreHeader = () => {
                         e.preventDefault();
                         document.getElementById('the-core-visual')?.scrollIntoView({ behavior: 'smooth' });
                     }}
-                    className="bg-white border border-gray-200 shadow-sm rounded-full w-[60px] h-[60px] flex items-center justify-center cursor-pointer transition-all duration-300 animate-bounce hover:border-blue-500 hover:shadow-lg group"
+                    className="border border-white/10 rounded-full w-[60px] h-[60px] flex items-center justify-center cursor-pointer transition-all duration-300 animate-bounce hover:border-blue-500/50 hover:shadow-[0_0_20px_rgba(59,130,246,0.2)] group"
                 >
                     <svg viewBox="0 0 24 24" className="w-8 h-8 fill-blue-500 transition-transform group-hover:scale-110">
                         <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" />
@@ -253,7 +253,7 @@ export const FinalCTA = () => {
                     <motion.button
                         whileHover={{ y: -4 }}
                         transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                        onClick={() => navigate('/contact')}
+                        onClick={() => window.open(`${import.meta.env.BASE_URL}contact`, '_blank')}
                         className="relative px-12 py-5 rounded-full font-black text-xl border border-blue-600 text-blue-600 bg-transparent hover:bg-blue-600 hover:text-white transition-colors duration-300 flex items-center justify-center min-w-[240px] z-10 will-change-transform uppercase tracking-widest"
                     >
                         Lancer un projet

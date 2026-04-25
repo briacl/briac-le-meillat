@@ -80,7 +80,7 @@ export default function Contact() {
                         </h1>
                         <div className="relative inline-block">
                             <p className="font-['Paris2024'] text-4xl md:text-5xl text-black leading-tight transition-colors duration-300 uppercase tracking-tighter">
-                                Commençons une <br /> nouvelle partition.
+                                Commençons un <br /> nouveau projet ensemble.
                             </p>
                         </div>
                     </motion.div>

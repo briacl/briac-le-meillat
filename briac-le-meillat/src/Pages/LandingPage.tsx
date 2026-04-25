@@ -52,7 +52,7 @@ export default function LandingPage() {
                 {/* MOUVEMENT I : L'ÉMOTION (Le Monde Blanc)                     */}
                 {/* ──────────────────────────────────────────────────────────── */}
                 <div className="relative bg-white z-20">
-                    
+
                     {/* 1. HERO SECTION */}
                     <section className="min-h-screen flex flex-col items-center justify-center p-4 w-full relative">
                         <motion.div
@@ -68,7 +68,8 @@ export default function LandingPage() {
                                     style={{
                                         fontSize: 'clamp(3rem, 10vw, 8rem)',
                                         fontWeight: 400,
-                                        letterSpacing: '-0.02em'
+                                        letterSpacing: '-0.02em',
+                                        textShadow: '0 8px 30px rgba(0, 0, 0, 0.52)'
                                     }}
                                 >
                                     Build Harmony.
@@ -77,7 +78,7 @@ export default function LandingPage() {
 
                             <div
                                 onClick={() => document.getElementById('manifesto-section')?.scrollIntoView({ behavior: 'smooth' })}
-                                className="mt-20 bg-white border border-gray-100 shadow-sm rounded-full w-[60px] h-[60px] flex items-center justify-center cursor-pointer transition-all duration-300 animate-bounce hover:border-blue-500 hover:shadow-lg group"
+                                className="mt-20 border border-white/10 rounded-full w-[60px] h-[60px] flex items-center justify-center cursor-pointer transition-all duration-300 animate-bounce hover:border-blue-500/50 hover:shadow-[0_0_20px_rgba(59,130,246,0.2)] group"
                             >
                                 <svg viewBox="0 0 24 24" className="w-8 h-8 fill-blue-500 transition-transform group-hover:scale-110">
                                     <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" />
@@ -102,7 +103,7 @@ export default function LandingPage() {
                 {/* MOUVEMENT II : LA RÉVÉLATION DE L'INGÉNIERIE (Le Pivot)      */}
                 {/* ──────────────────────────────────────────────────────────── */}
                 <div className="relative z-10 bg-black">
-                    
+
                     {/* 4. BLUEPRINT TRANSITION (White to Dark Pivot) */}
                     <div className="bg-white">
                         <BlueprintTransition />

@@ -109,7 +109,7 @@ export default function ManifestoSection() {
                         e.preventDefault();
                         document.getElementById('flux-lab-section')?.scrollIntoView({ behavior: 'smooth' });
                     }}
-                    className="mt-16 bg-white border border-gray-200 shadow-sm rounded-full w-[60px] h-[60px] flex items-center justify-center cursor-pointer transition-all duration-300 animate-bounce hover:border-blue-500 hover:shadow-lg group"
+                    className="mt-16 border border-white/10 rounded-full w-[60px] h-[60px] flex items-center justify-center cursor-pointer transition-all duration-300 animate-bounce hover:border-blue-500/50 hover:shadow-[0_0_20px_rgba(59,130,246,0.2)] group"
                 >
                     <svg viewBox="0 0 24 24" className="w-8 h-8 fill-blue-500 transition-transform group-hover:scale-110">
                         <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" />

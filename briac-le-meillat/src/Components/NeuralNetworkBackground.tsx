@@ -445,11 +445,21 @@ export default function NeuralNetworkBackground({ className = "" }: { className?
 
             {/* Overlay Card */}
             {selectedNode && (
-                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 
-                            bg-black/5 dark:bg-white/10 backdrop-blur-md rounded-3xl overflow-hidden
-                            border border-black/10 dark:border-white/20 shadow-xl shadow-blue-900/10 z-50 animate-in fade-in zoom-in duration-300
-                            max-w-6xl w-[95vw] h-[85vh] flex relative"
-                    style={{ backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)' }}>
+                <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8">
+                    {/* Backdrop */}
+                    <div 
+                        className="absolute inset-0 bg-black/60 backdrop-blur-sm animate-in fade-in duration-500" 
+                        onClick={() => {
+                            setSelectedNode(null);
+                            cameraRef.current.targetZoom = 1;
+                            if (selectedNodeRef.current) selectedNodeRef.current = null;
+                        }}
+                    />
+
+                    <div className="bg-[#0a0a0a] backdrop-blur-xl rounded-[3rem] overflow-hidden
+                                border border-white/10 shadow-2xl shadow-blue-500/10 animate-in fade-in zoom-in duration-300
+                                max-w-6xl w-full max-h-[85vh] h-full flex relative z-10"
+                        style={{ backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)' }}>
 
 
                     {/* CONTENT CONTAINER - Full width but z-10 above animation */}
@@ -467,17 +477,17 @@ export default function NeuralNetworkBackground({ className = "" }: { className?
                                 }
                                 if (selectedNodeRef.current) selectedNodeRef.current = null;
                             }}
-                            className="absolute top-6 right-8 text-[#0055ff]/50 hover:text-[#0055ff] transition-colors z-[60] text-4xl font-light"
+                            className="absolute top-8 right-10 text-white/30 hover:text-white transition-colors z-[60] text-4xl font-light"
                         >
                             ✕
                         </button>
 
                         {/* HEADERS - Left Aligned */}
                         <div className="mb-10 text-left border-b border-white/10 pb-6 w-full">
-                            <h3 className="text-5xl mb-2 bg-gradient-to-br from-[#0075FF] to-[#f336f0] bg-clip-text text-transparent drop-shadow-sm font-['Paris2024'] tracking-widest">
+                            <h3 className="text-5xl mb-4 bg-gradient-to-br from-[#0075FF] to-[#f336f0] bg-clip-text text-transparent drop-shadow-sm font-['Paris2024'] tracking-widest uppercase">
                                 {selectedNode}
                             </h3>
-                            <p className="text-skin-text-main font-['Paris2024'] text-base md:text-lg tracking-widest leading-relaxed">
+                            <p className="text-zinc-300 font-['Paris2024'] text-base md:text-xl tracking-[0.2em] leading-relaxed">
                                 {(() => {
                                     const node = MAJOR_NODES.find(n => n.text === selectedNode);
                                     return node?.description || "Ce domaine occupe une place importante dans mon parcours. Il me permet de développer des compétences variées.";
@@ -522,10 +532,10 @@ export default function NeuralNetworkBackground({ className = "" }: { className?
                                             {/* RECENT PROJECTS */}
                                             {recentProjects.length > 0 && (
                                                 <div className="relative">
-                                                    <h4 className="font-['Paris2024'] text-3xl mb-4 bg-gradient-to-br from-[#0075FF] to-[#f336f0] bg-clip-text text-transparent drop-shadow-sm tracking-widest">
+                                                    <h4 className="font-['Paris2024'] text-3xl mb-4 bg-gradient-to-br from-[#0075FF] to-[#f336f0] bg-clip-text text-transparent drop-shadow-sm tracking-widest uppercase">
                                                         Mes récents projets
                                                     </h4>
-                                                    <p className="font-['Roboto_Mono'] text-xs md:text-sm text-skin-text-secondary tracking-wide mb-8 leading-relaxed opacity-70">
+                                                    <p className="font-['Roboto_Mono'] text-xs md:text-sm text-zinc-400 tracking-wide mb-8 leading-relaxed opacity-70">
                                                         &gt; Découvrez mes toutes dernières créations. Cette section regroupe mes travaux les plus récents, là où j'expérimente de nouvelles technos et où je perfectionne mes méthodes de travail. C'est ici que bat le cœur de ma veille technologique et de ma progression au quotidien.
                                                     </p>
                                                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -565,10 +575,10 @@ export default function NeuralNetworkBackground({ className = "" }: { className?
                                             {/* BEST PROJECTS */}
                                             {bestProjects.length > 0 && (
                                                 <div className="relative">
-                                                    <h4 className="font-['Paris2024'] text-3xl mb-8 bg-gradient-to-br from-[#0075FF] to-[#f336f0] bg-clip-text text-transparent drop-shadow-sm tracking-widest">
+                                                    <h4 className="font-['Paris2024'] text-3xl mb-8 bg-gradient-to-br from-[#0075FF] to-[#f336f0] bg-clip-text text-transparent drop-shadow-sm tracking-widest uppercase">
                                                         Mes meilleurs projets
                                                     </h4>
-                                                    <p className="text-skin-text-main font-['Roboto_Mono'] text-base tracking-widest mb-12 leading-relaxed">
+                                                    <p className="text-white font-['Roboto_Mono'] text-base tracking-widest mb-12 leading-relaxed">
                                                         &gt; Vous trouverez ici une sélection de mes projets les plus aboutis, ceux qui reflètent le mieux mon niveau actuel, ma rigueur et mon investissement.
                                                         Ils mettent en avant ma capacité à mener un projet de bout en bout, de la conception à la réalisation.
                                                     </p>
@@ -630,10 +640,10 @@ export default function NeuralNetworkBackground({ className = "" }: { className?
                                                 if (otherProjects.length === 0) return null;
                                                 return (
                                                     <div className="relative mt-16">
-                                                        <h4 className="font-['Paris2024'] text-3xl mb-4 bg-gradient-to-br from-[#0075FF] to-[#f336f0] bg-clip-text text-transparent drop-shadow-sm tracking-widest">
+                                                        <h4 className="font-['Paris2024'] text-3xl mb-4 bg-gradient-to-br from-[#0075FF] to-[#f336f0] bg-clip-text text-transparent drop-shadow-sm tracking-widest uppercase">
                                                             Autres Réalisations
                                                         </h4>
-                                                        <p className="font-['Roboto_Mono'] text-xs md:text-sm text-skin-text-secondary tracking-wide mb-8 leading-relaxed opacity-70">
+                                                        <p className="font-['Roboto_Mono'] text-xs md:text-sm text-zinc-400 tracking-wide mb-8 leading-relaxed opacity-70">
                                                             &gt; Au-delà des projets phares, voici un aperçu de mon parcours à travers diverses réalisations. Qu'il s'agisse de collaborations ponctuelles, de prototypes ou de défis personnels, ces travaux illustrent ma polyvalence et mon envie constante de relever de nouveaux challenges techniques.
                                                         </p>
                                                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -685,7 +695,7 @@ export default function NeuralNetworkBackground({ className = "" }: { className?
                                                                 </div>
                                                             ))}
                                                         </div>
-                                                        <p className="text-skin-text-main font-['Baskerville'] text-sm tracking-widest mt-16 mb-8 leading-loose">
+                                                        <p className="text-white font-['Baskerville'] text-sm tracking-widest mt-16 mb-8 leading-loose">
                                                             Pour plus d’informations, veuillez cliquer sur les vignettes afin d’accéder aux pages détaillées des projets, consulter les liens associés et explorer le reste du site.
                                                             Pour toute information complémentaire ou prise de contact, la section Contact est à votre disposition.
                                                         </p>
@@ -699,9 +709,9 @@ export default function NeuralNetworkBackground({ className = "" }: { className?
                         </div>
 
                     </div>
-                </div >
-            )
-            }
-        </>
+                </div>
+            </div>
+        )}
+    </>
     );
 }
