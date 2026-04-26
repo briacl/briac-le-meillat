@@ -21,7 +21,7 @@ const APPLE_BEZIER = [0.21, 0.47, 0.32, 0.98];
  */
 export default function LandingPage() {
     useEffect(() => {
-        document.title = "Nexus • Build Harmony";
+        document.title = "Briac Le Meillat";
     }, []);
 
     const { scrollY } = useScroll();

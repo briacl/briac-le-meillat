@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import Navbar from '../Components/Navbar';
 import UnifiedFooter from '../Components/UnifiedFooter';
-import MarkdownRenderer from '../Components/MarkdownRenderer';
 import { motion } from 'framer-motion';
 import { Book } from 'lucide-react';
 
@@ -71,7 +70,9 @@ const ExPage: React.FC<ExPageProps> = ({ embedded = false, file, title }) => {
                         </div>
                     ) : (
                         <div className="prose-container">
-                            <MarkdownRenderer content={content} />
+                            <div className="whitespace-pre-wrap font-sans text-slate-700 dark:text-slate-300 leading-relaxed">
+                                {content}
+                            </div>
                         </div>
                     )}
                 </motion.div>
