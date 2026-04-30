@@ -13,23 +13,28 @@ export default function Contact() {
         message: ''
     });
 
-    const API_URL = 'http://localhost:8001/api';
+    const API_URL = 'https://api-contact-berangere-development.briac-le-meillat.workers.dev';
 
     const handleSubmit = async (e: React.FormEvent | React.MouseEvent) => {
         e.preventDefault();
         setLoading(true);
 
         try {
-            const response = await fetch(`${API_URL}/contact`, {
+            const response = await fetch(API_URL, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(formData),
+                body: JSON.stringify({
+                    type: 'contact',
+                    ...formData
+                }),
             });
 
-            if (!response.ok) {
-                throw new Error('Failed to send message');
+            const result = await response.json();
+
+            if (!response.ok || !result.success) {
+                throw new Error(result.error || 'Failed to send message');
             }
 
             setSuccess(true);
@@ -52,7 +57,7 @@ export default function Contact() {
         {
             icon: MessageSquare,
             title: "Réseaux Sociaux",
-            description: "Github"
+            description: "Github... Retrouvez-moi partout !"
         },
         {
             icon: MapPin,
