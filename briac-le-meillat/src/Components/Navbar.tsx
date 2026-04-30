@@ -85,23 +85,19 @@ export default function Navbar() {
                 >
                     Registry
                 </a>
-                <a 
-                    href="#contact-section" 
-                    onClick={(e) => {
-                        e.preventDefault();
-                        document.getElementById('contact-section')?.scrollIntoView({ behavior: 'smooth' });
-                    }}
+                <Link 
+                    to="/contact"
                     className="hover:text-gray-900 transition-colors"
                 >
                     Contact
-                </a>
+                </Link>
             </div>
 
             {/* Right: Actions */}
             <div className="flex items-center gap-4 text-gray-400 relative">
                 <button
                     onClick={() => {
-                        document.getElementById('contact-section')?.scrollIntoView({ behavior: 'smooth' });
+                        navigate('/contact');
                     }}
                     className="hidden md:flex text-[#0071e3] font-bold text-sm h-10 px-4 items-center hover:opacity-70 transition-opacity"
                 >
@@ -177,17 +173,13 @@ export default function Navbar() {
                         >
                             Registry
                         </a>
-                        <a 
-                            href="#contact-section" 
-                            onClick={(e) => {
-                                e.preventDefault();
-                                setIsMenuOpen(false);
-                                document.getElementById('contact-section')?.scrollIntoView({ behavior: 'smooth' });
-                            }} 
+                        <Link 
+                            to="/contact"
+                            onClick={() => setIsMenuOpen(false)}
                             className="text-2xl font-bold text-gray-900"
                         >
                             Contact
-                        </a>
+                        </Link>
                     </motion.div>
                 )}
             </AnimatePresence>
