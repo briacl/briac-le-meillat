@@ -1,0 +1,12 @@
+name = "briac-admin-worker"
+main = "src/index.js"
+compatibility_date = "2024-05-06"
+
+[vars]
+GITHUB_OWNER = "briacl"
+GITHUB_REPO = "briac-le-meillat"
+GITHUB_BRANCH = "master"
+
+# Les secrets suivants doivent être ajoutés via 'wrangler secret put' :
+# GITHUB_TOKEN (Fine-grained PAT avec accès contenu)
+# ADMIN_PASSWORD (Mot de passe pour l'accès à l'admin)

@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Layers, Target, Code, Plus, Minus } from 'lucide-react';
+import { Layers, Target, Code, Shield, Plus, Minus } from 'lucide-react';
 import CompetencesBUT from './CompetencesBUT';
 
 const APPLE_BEZIER = [0.21, 0.47, 0.32, 0.98];
@@ -31,6 +31,13 @@ export default function TheFoundation() {
             tagline: "L'Art de l'Interaction",
             icon: <Code strokeWidth={1} size={32} />,
             color: '#00ccff'
+        },
+        {
+            id: 'secure',
+            title: 'Sécuriser',
+            tagline: "La Garde Numérique",
+            icon: <Shield strokeWidth={1} size={32} />,
+            color: '#ff3b3b'
         }
     ];
 

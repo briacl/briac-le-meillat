@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Mail, User, Send, CheckCircle, ArrowRight, MessageSquare, MapPin } from 'lucide-react';
 import { motion } from 'framer-motion';
 import Navbar from '../Components/Navbar';
@@ -12,6 +13,16 @@ export default function Contact() {
         email: '',
         message: ''
     });
+    const location = useLocation();
+
+    useEffect(() => {
+        if (location.state?.message) {
+            setFormData(prev => ({
+                ...prev,
+                message: location.state.message
+            }));
+        }
+    }, [location.state]);
 
     const API_URL = 'https://api-contact-berangere-development.briac-le-meillat.workers.dev';
 

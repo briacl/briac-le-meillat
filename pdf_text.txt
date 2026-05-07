@@ -1,0 +1,558 @@
+Compte-Rendu de TP – Réseaux
+Cisco IOS  ·  Linux  ·  Packet Tracer
+TP 1 – Switchs et Routeurs : utilisations de 
+base
+Partie 1 – 1 routeur, 2 réseaux
+Topologie visée :
+PC1 --- Switch1 --- Routeur --- Switch2 --- PC2
+        192.168.1.0/24          192.168.2.0/24
+ 
+Équipement IP à configurer Masque Passerelle
+PC1 192.168.1.10 255.255.255.0 192.168.1.1
+Routeur – GigabitEthernet0/0 (côté  
+PC1)192.168.1.1 255.255.255.0 —
+Routeur – GigabitEthernet0/1 (côté  
+PC2)192.168.2.1 255.255.255.0 —
+PC2 192.168.2.10 255.255.255.0 192.168.2.1
+ 
+ 1    BRANCHEMENTS PHYSIQUES🔌
+Réaliser les connexions suivantes :
+PC1         -->  port Fa0/1 (ou Fa0/x) de Switch1
+Switch1     -->  port GigabitEthernet0/0 du Routeur   (câble droit)
+Switch2     -->  port GigabitEthernet0/1 du Routeur   (câble droit)
+PC2         -->  port Fa0/1 (ou Fa0/x) de Switch2
+# Vérifier les voyants : orange = initialisation, vert = actif
+ 
+ 2    CONFIGURATION du Routeur⚙️
+Router> enable
+Router# configure terminal
+Router(config)# hostname R1
+# Interface côté PC1 :
+R1(config)# interface GigabitEthernet0/0
+R1(config-if)# ip address 192.168.1.1 255.255.255.0
+R1(config-if)# no shutdown
+R1(config-if)# exit
+# Interface côté PC2 :
+R1(config)# interface GigabitEthernet0/1
+R1(config-if)# ip address 192.168.2.1 255.255.255.0
+R1(config-if)# no shutdown
+R1(config-if)# end
+R1# write memory    ! équivalent à : copy running-config startup-config  
+! ou : copy running-config startup-config
+ 
+ 3    CONFIGURATION des PC🖥️
+Sur PC1 :
+IP        : 192.168.1.10
+Masque    : 255.255.255.0
+Passerelle: 192.168.1.1
+Sur PC2 :
+IP        : 192.168.2.10
+Masque    : 255.255.255.0
+Passerelle: 192.168.2.1
+ 
+ 4    VÉRIFICATIONS à montrer à l'enseignant✅
+R1# show ip interface brief      # toutes les interfaces UP/UP
+R1# show ip route                # routes connectées visibles
+Switch1# show mac address-table  # adresses MAC apprises
+# Depuis PC1 :
+ping 192.168.2.10                # doit répondre
+ 
+Partie 2 – 2 routeurs, 3 réseaux
+ 
+Équipement IP à configurer Masque Passerelle
+PC1 192.168.1.10 255.255.255.0 192.168.1.1
+R1 – GigabitEthernet0/0 (vers 
+Switch1)192.168.1.1 255.255.255.0 —
+R1 – GigabitEthernet0/1 (lien 
+R1↔R2)192.168.3.1 255.255.255.0 —
+R2 – GigabitEthernet0/0 (lien 
+R1↔R2)192.168.3.2 255.255.255.0 —
+R2 – GigabitEthernet0/1 (vers 
+Switch2)192.168.2.1 255.255.255.0 —
+PC2 192.168.2.10 255.255.255.0 192.168.2.1
+ 
+ 1    BRANCHEMENTS PHYSIQUES🔌
+PC1      -->  port Fa0/x de Switch1
+Switch1  -->  GigabitEthernet0/0 de R1   (câble droit)
+R1       -->  GigabitEthernet0/1 vers R2  (câble croisé ou droit selon 
+les ports)
+R2       -->  GigabitEthernet0/1 vers Switch2  (câble droit)
+PC2      -->  port Fa0/x de Switch2
+ 
+ 2    CONFIGURATION de R1⚙️
+R1(config)# interface GigabitEthernet0/0
+R1(config-if)# ip address 192.168.1.1 255.255.255.0
+R1(config-if)# no shutdown
+R1(config-if)# exit
+R1(config)# interface GigabitEthernet0/1
+R1(config-if)# ip address 192.168.3.1 255.255.255.0
+R1(config-if)# no shutdown
+R1(config-if)# end
+R1# write memory    ! équivalent à : copy running-config startup-config
+ 
+ 3    CONFIGURATION de R2⚙️
+R2(config)# interface GigabitEthernet0/0
+R2(config-if)# ip address 192.168.3.2 255.255.255.0
+R2(config-if)# no shutdown
+R2(config-if)# exit
+R2(config)# interface GigabitEthernet0/1
+R2(config-if)# ip address 192.168.2.1 255.255.255.0
+R2(config-if)# no shutdown
+R2(config-if)# end
+R2# write memory
+ 
+ 4    CONFIGURATION des PC🖥️
+PC1 : IP 192.168.1.10 / Masque 255.255.255.0 / Passerelle 192.168.1.1
+PC2 : IP 192.168.2.10 / Masque 255.255.255.0 / Passerelle 192.168.2.1
+ 
+ 5    ROUTES STATIQUES (obligatoires)🗺️
+  Sans cette étape, PC1 et PC2 ne peuvent pas se pinguer. R1 ne sait pas où est 192.168.2.0 et ⚠️
+R2 ne sait pas où est 192.168.1.0.
+ 
+Sur R1 → dire à R1 comment atteindre le réseau de PC2 (192.168.2.0) :
+R1(config)# ip route 192.168.2.0 255.255.255.0 192.168.3.2
+#                    ^réseau dest  ^masque       ^next-hop = IP de R2 
+sur le lien R1-R2
+Sur R2 → dire à R2 comment atteindre le réseau de PC1 (192.168.1.0) :
+R2(config)# ip route 192.168.1.0 255.255.255.0 192.168.3.1
+#                    ^réseau dest  ^masque       ^next-hop = IP de R1 
+sur le lien R1-R2
+ 
+ 6    VÉRIFICATIONS à montrer à l'enseignant✅
+R1# show ip route              # doit voir une route S vers 192.168.2.0
+R2# show ip route              # doit voir une route S vers 192.168.1.0
+R1# show ip interface brief    # toutes les interfaces UP/UP
+# Depuis PC1 :
+ping 192.168.2.10   # doit répondre
+TP 2 – Passerelle Linux (IP Forwarding + NAT)
+Architecture
+ 
+  La Passerelle a 2 cartes réseau : enp0s3 (bridge vers IUT – DHCP, MAC réservée) et enp0s8 ℹ️
+(réseau interne – IP fixe 192.168.0.1).
+ 
+Machine Interface IP / Masque Passerelle par défaut
+Passerelle Linux enp0s3 (côté IUT – 
+DHCP)172.31.x.x / 20 172.31.16.1
+Passerelle Linux enp0s8 (côté LAN 
+interne)192.168.0.1 / 24 —
+H1 – Ubuntu enp0s3 192.168.0.2 / 24 192.168.0.1
+H2 – Ubuntu enp0s3 192.168.0.3 / 24 192.168.0.1
+H3 – Windows carte réseau 192.168.0.4 / 24 192.168.0.1
+ 
+ 
+Commandes Linux (référence rapide)
+ip a add <IP>/<masque> dev <iface>    # ajouter une IP sur une 
+interface
+ip a del <IP>/<masque> dev <iface>    # supprimer une IP
+ip link set dev <iface> up            # activer une interface
+ip link set dev <iface> down          # désactiver une interface
+ip route add default via <passerelle> # route par défaut (passerelle)
+ip a                                  # afficher toutes les IPs
+ip -4 -br a                           # affichage IPv4 compact
+ip r                                  # afficher la table de routage
+ip n                                  # afficher le cache ARP (voisins)
+dhclient enp0s3                        # demander une IP DHCP sur 
+enp0s3
+nslookup iut-rt                        # tester la résolution DNS
+ 
+ 
+Étapes dans l'ordre
+ 1    CRÉER LES VMs dans le terminal — taper : machine virtuelle🖥️
+  Dans le terminal de la machine physique, taper la commande 'machine virtuelle'. Un script ℹ️
+interactif se lance et pose les questions ci-dessous. Répondre dans l'ordre.
+ 
+Création 1/4 — Passerelle (Ubuntu Server)
+La Passerelle a besoin de 2 cartes : une bridge vers l'IUT, une interne vers le LAN.
+ 
+Quel nom personnalisé voulez-vous donner ?
+  (ENTRER pour laisser par défaut)
+  RÉPONDRE : Passerelle
+Combien de carte réseau ? ( 1 à 4 ) (How many cards ?)
+  RÉPONDRE : 2
+Paramétrage carte n°1
+Type de réseau : ? (Network type ?)
+        1 : interne
+        2 : nat
+        3 : bridge
+  RÉPONDRE : 3         <= bridge (carte connectée au réseau IUT réel)
+Choix adresse MAC ?
+        1 : Générée aléatoirement (Random MacAddress)
+        2 : 080027000480
+        3 : 080027000481
+  RÉPONDRE : 2         <= MAC réservée du département (donne IP DHCP 
+IUT)
+Sur quelle carte réseau ? (bridged on ?)
+        1 : eth0    : Réseau IUT
+        2 : eth1    : USB/USBc Cable.expert
+  RÉPONDRE : 1         <= eth0 = carte physique reliée au réseau IUT
+Paramétrage carte n°2
+Type de réseau : ? (Network type ?)
+        1 : interne
+        2 : nat
+        3 : bridge
+  RÉPONDRE : 1         <= interne (réseau privé entre VMs)
+Choix adresse MAC ?
+        1 : Générée aléatoirement (Random MacAddress)
+        2 : 080027000480
+        3 : 080027000481
+  RÉPONDRE : 1         <= MAC aléatoire (pas besoin de MAC réservée 
+ici)
+ 
+Création 2/4 — H1 (Ubuntu Desktop)
+H1 a 1 seule carte, en réseau interne pour communiquer avec la Passerelle.
+ 
+Quel nom personnalisé voulez-vous donner ?
+  RÉPONDRE : H1
+Combien de carte réseau ? ( 1 à 4 ) (How many cards ?)
+  RÉPONDRE : 1
+Paramétrage carte n°1
+Type de réseau : ? (Network type ?)
+        1 : interne
+        2 : nat
+        3 : bridge
+  RÉPONDRE : 1         <= interne (même réseau interne que la carte 2 
+de la Passerelle)
+Choix adresse MAC ?
+        1 : Générée aléatoirement (Random MacAddress)
+        2 : 080027000480
+        3 : 080027000481
+  RÉPONDRE : 1         <= MAC aléatoire
+ 
+Création 3/4 — H2 (Ubuntu Desktop)
+Même chose que H1 — 1 carte, réseau interne, MAC aléatoire.
+ 
+Quel nom personnalisé voulez-vous donner ?
+  RÉPONDRE : H2
+Combien de carte réseau ? ( 1 à 4 ) (How many cards ?)
+  RÉPONDRE : 1
+Paramétrage carte n°1
+Type de réseau : ? (Network type ?)
+        1 : interne
+        2 : nat
+        3 : bridge
+  RÉPONDRE : 1
+Choix adresse MAC ?
+  RÉPONDRE : 1         <= MAC aléatoire
+ 
+Création 4/4 — H3 (Windows)
+Même chose que H1 et H2 — 1 carte, réseau interne, MAC aléatoire.
+ 
+Quel nom personnalisé voulez-vous donner ?
+  RÉPONDRE : H3
+Combien de carte réseau ? ( 1 à 4 ) (How many cards ?)
+  RÉPONDRE : 1
+Paramétrage carte n°1
+Type de réseau : ? (Network type ?)
+        1 : interne
+        2 : nat
+        3 : bridge
+  RÉPONDRE : 1
+Choix adresse MAC ?
+  RÉPONDRE : 1         <= MAC aléatoire
+  Toutes les cartes en mode 'interne' de H1, H2, H3 et de la Passerelle (carte 2) doivent être sur ⚠️
+le même réseau interne pour se voir.
+ 
+ 2    CONFIGURER l'interface interne de la Passerelle (enp0s8)⚙️
+    SE CONNECTER SUR : la Passerelle (Ubuntu Server)⚠️ 🖥️
+sudo ip a add 192.168.0.1/24 dev enp0s8
+sudo ip link set dev enp0s8 up
+# Si enp0s3 n'a pas d'IP IUT, forcer le DHCP :
+sudo dhclient enp0s3
+# Vérification :
+ip -4 -br a   # enp0s3 = 172.31.x.x  |  enp0s8 = 192.168.0.1
+ 
+ 3    CONFIGURER les machines internes H1, H2, H3⚙️
+    SE CONNECTER SUR : H1 (Ubuntu)⚠️ 🖥️
+Sur H1 (Ubuntu) – en ligne de commande :
+sudo ip a add 192.168.0.2/24 dev enp0s3
+sudo ip link set dev enp0s3 up
+sudo ip route add default via 192.168.0.1
+    SE CONNECTER SUR : H2 (Ubuntu)⚠️ 🖥️
+Sur H2 (Ubuntu) – même chose avec .3 :
+sudo ip a add 192.168.0.3/24 dev enp0s3
+sudo ip link set dev enp0s3 up
+sudo ip route add default via 192.168.0.1
+    SE CONNECTER SUR : H3 (Windows)⚠️ 🖥️
+Sur H3 (Windows) – en graphique :
+IP : 192.168.0.4   Masque : 255.255.255.0   Passerelle : 192.168.0.1
+  Windows bloque les pings par défaut. Aller dans : Pare-feu Windows > Autoriser une application⚠️  
+> cocher 'Partage de fichiers et d'imprimantes' (domaine).
+ 
+ 4    VÉRIFIER que toutes les machines du LAN se pinguent entre elles✅
+    SE CONNECTER SUR : H1 (Ubuntu)⚠️ 🖥️
+# Depuis H1 :
+ping 192.168.0.1   # passerelle : doit répondre
+ping 192.168.0.3   # H2 : doit répondre
+ping 192.168.0.4   # H3 : doit répondre
+# Si ça ne répond pas : vérifier ip -4 -br a sur chaque machine
+# Tenter ping 172.31.25.9 depuis H1 => ÉCHOUE (normal, NAT pas encore 
+actif)
+ 
+ 5    ACTIVER l'IP FORWARDING sur la Passerelle🌐
+    SE CONNECTER SUR : la Passerelle (Ubuntu Server)⚠️ 🖥️
+  Par défaut, Linux reçoit un paquet qui ne lui est pas destiné et le jette. L'IP Forwarding lui dit de ℹ️
+le retransmettre vers la bonne destination.
+echo 1 > /proc/sys/net/ipv4/ip_forward
+# Vérification (doit afficher 1) :
+cat /proc/sys/net/ipv4/ip_forward
+ 
+ 6    CONFIGURER le NAT (MASQUERADE) sur la Passerelle🔁
+    SE CONNECTER SUR : la Passerelle (Ubuntu Server)⚠️ 🖥️
+Pourquoi le NAT est nécessaire ?
+Situation sans NAT :
+  H1 (192.168.0.2) envoie un paquet vers 172.31.25.9 (iut-rt).
+  La passerelle le reçoit et le retransmet sur le réseau IUT.
+  Le routeur IUT reçoit un paquet SOURCE = 192.168.0.2 ...
+  ... mais 192.168.0.2 est une IP PRIVÉE, inconnue sur le réseau IUT !
+  Le routeur IUT ne sait pas où renvoyer la réponse => le paquet de 
+retour est perdu.
+Situation AVEC NAT (MASQUERADE) :
+  Quand la Passerelle retransmet le paquet de H1 vers le réseau IUT,
+  elle REMPLACE l'adresse source 192.168.0.2 par SA PROPRE IP IUT (ex: 
+172.31.x.x).
+  Le routeur IUT voit un paquet SOURCE = 172.31.x.x => il sait répondre  
+à la Passerelle.
+  La Passerelle reçoit la réponse et la retransmet à H1 (192.168.0.2).
+  => H1 peut communiquer avec l'extérieur sans que l'extérieur 
+connaisse son IP privée.
+ 
+Commande à exécuter sur la Passerelle :
+sudo iptables -t nat -A POSTROUTING -o enp0s3 -j MASQUERADE
+#   -t nat           : table NAT
+#   -A POSTROUTING   : après la décision de routage, avant la sortie
+#   -o enp0s3        : paquets sortant par l'interface IUT
+#   -j MASQUERADE    : remplace IP source 192.168.0.x par IP IUT 
+172.31.x.x
+ 
+ 7    TESTER la connectivité vers le réseau IUT✅
+    SE CONNECTER SUR : H1 (Ubuntu)⚠️ 🖥️
+# Depuis H1 (192.168.0.2) :
+ping 172.31.16.1   # passerelle IUT : doit répondre
+ping 172.31.25.9   # iut-rt : doit répondre
+# Si ça ne répond pas :
+# 1. Vérifier que ip_forward = 1 (cat /proc/sys/net/ipv4/ip_forward)
+# 2. Vérifier que la règle iptables est bien sur la bonne interface (ip  
+-4 -br a)
+ 
+ 8    CONFIGURER le DNS sur H1 et H2🔤
+    SE CONNECTER SUR : H1, puis H2 (Ubuntu)⚠️ 🖥️
+  Sans DNS, on ne peut accéder aux sites que par IP (ex: http://172.31.25.9 fonctionne, mais ℹ️
+http://iut-rt ne fonctionne pas).
+# Serveurs DNS de l'IUT de Béthune :
+echo 'nameserver 172.18.26.101' > /etc/resolv.conf
+echo 'nameserver 172.18.26.102' >> /etc/resolv.conf
+echo 'nameserver 172.18.50.101' >> /etc/resolv.conf
+# Sur Ubuntu Desktop : configurable en graphique (Paramètres > Réseau)
+# Tests :
+nslookup iut-rt                     # doit résoudre l'IP de iut-rt
+ping iut-rt                         # doit répondre
+# Navigateur : http://172.31.25.9   => OK (IP directe)
+# Navigateur : http://iut-rt        => OK après config DNS
+ 
+ 9    CONFIGURER le proxy pour accéder à Internet🌍
+    SE CONNECTER SUR : H1 ou H2 (navigateur Firefox)⚠️ 🖥️
+  Sans proxy, impossible d'aller sur Internet (ex: wikipedia.org). L'université impose un proxy pour⚠️  
+toutes les connexions sortantes.
+Dans Firefox : Préférences > Réseau > Configuration manuelle du proxy :
+  Proxy HTTP  : cache-etu.univ-artois.fr
+  Port        : 3128
+  (ne pas utiliser proxy.pac : notre machine n'est pas connue du 
+département)
+# Test final :
+# Navigateur : https://www.wikipedia.org  => doit s'afficher
+TP 4 – Routage RIP et OSPF en réel (Cisco 
+physique)
+Schéma de la maquette réelle
+ 
+  Modèles : Switch = Cisco 2960-24TT  |  Routeur = Cisco 1941  |  Câbles série (rouge) entre ℹ️
+R1↔R2 et R2↔R3.
+ 
+  Les noms d'interfaces réels peuvent varier selon l'équipement. Toujours vérifier avec 'show ip ⚠️
+interface brief' avant de configurer.
+  PC2 est en .20 (192.168.2.20) sur ce schéma. Vérifier l'adresse réelle sur le poste avant de ⚠️
+configurer.
+ 
+Interface / Machine IP à configurerMasque Remarque
+PC1 (poste .10) 192.168.1.10255.255.255.0 Passerelle : 192.168.1.1
+R1 – Gig0/0 → SW1 192.168.1.1255.255.255.0 Vers PC1
+R1 – Se0/1/0 → R2 10.1.0.1255.255.0.0 DCE → clock rate 
+obligatoire
+R2 – Se0/1/0 → R1 10.1.0.2255.255.0.0 Vers R1
+R2 – Se0/1/1 → R3 10.2.0.2255.255.0.0 DCE → clock rate 
+obligatoire
+R3 – Se0/1/0 → R2 10.2.0.1255.255.0.0 Vers R2
+R3 – Gig0/0 → SW2 192.168.2.1255.255.255.0 Vers PC2
+PC2 (poste .20) 192.168.2.20255.255.255.0 Passerelle : 192.168.2.1
+ 
+ 
+Étapes dans l'ordre
+ 1    DESSINER le schéma sur papier A4 (AVANT tout branchement)📝
+Sur la feuille à remettre, noter :
+  - Noms réels des équipements (écrits sur les appareils)
+  - Numéros des postes PC
+  - Adresses IP de chaque interface
+  - Noms des interfaces (ex: Gig0/0, Se0/1/0, Fa0/1...)
+  - Ports des bandeaux de brassage utilisés
+  - Noms des membres du groupe
+ 
+ 2    BRANCHEMENTS PHYSIQUES🔌
+PC1        -->  port Fa0/1 de SW1              (câble droit RJ45)
+SW1        -->  port Fa0/2 vers R1 Gig0/0      (câble droit RJ45)
+R1 Se0/1/0 -->  R2 Se0/1/0                     (câble série DB60 – 
+câble rouge)
+R2 Se0/1/1 -->  R3 Se0/1/0                     (câble série DB60 – 
+câble rouge)
+R3 Gig0/0  -->  port Fa0/2 de SW2              (câble droit RJ45)
+SW2        -->  port Fa0/1 vers PC2             (câble droit RJ45)
+# Vérifier les voyants : orange = initialisation (attendre), vert = 
+opérationnel
+ 
+ 3    CONFIGURER les PC (adresses IP)🖥️
+    SE CONNECTER SUR : PC1 d'abord, puis PC2⚠️ 🖥️
+Sur PC1 :
+IP        : 192.168.1.10
+Masque    : 255.255.255.0
+Passerelle: 192.168.1.1
+Sur PC2 (vérifier l'IP réelle sur le poste) :
+IP        : 192.168.2.20   (ou .10 selon le schéma réel)
+Masque    : 255.255.255.0
+Passerelle: 192.168.2.1
+ 
+ 4    CONFIGURER les interfaces de R1⚙️
+    SE CONNECTER SUR : R1 — via câble console + PuTTY/minicom⚠️ 🖥️
+Router> enable
+Router# configure terminal
+Router(config)# hostname R1
+R1(config)# interface GigabitEthernet0/0   ! ou FastEthernet selon le 
+routeur
+R1(config-if)# ip address 192.168.1.1 255.255.255.0
+R1(config-if)# no shutdown
+R1(config-if)# exit
+R1(config)# interface Serial0/1/0          ! vérifier le bon nom avec 
+show ip int br
+R1(config-if)# ip address 10.1.0.1 255.255.0.0
+R1(config-if)# clock rate 128000           ! R1 est côté DCE
+R1(config-if)# no shutdown
+R1(config-if)# end
+R1# copy running-config startup-config
+ 
+ 5    CONFIGURER les interfaces de R2⚙️
+    SE CONNECTER SUR : R2 — via câble console + PuTTY/minicom⚠️ 🖥️
+Router(config)# hostname R2
+R2(config)# interface Serial0/1/0          ! vers R1
+R2(config-if)# ip address 10.1.0.2 255.255.0.0
+R2(config-if)# no shutdown
+R2(config-if)# exit
+R2(config)# interface Serial0/1/1          ! vers R3
+R2(config-if)# ip address 10.2.0.2 255.255.0.0
+R2(config-if)# clock rate 128000           ! R2 est côté DCE sur ce 
+lien
+R2(config-if)# no shutdown
+R2(config-if)# end
+R2# copy running-config startup-config
+ 
+ 6    CONFIGURER les interfaces de R3⚙️
+    SE CONNECTER SUR : R3 — via câble console + PuTTY/minicom⚠️ 🖥️
+Router(config)# hostname R3
+R3(config)# interface GigabitEthernet0/0
+R3(config-if)# ip address 192.168.2.1 255.255.255.0
+R3(config-if)# no shutdown
+R3(config-if)# exit
+R3(config)# interface Serial0/1/0          ! vers R2
+R3(config-if)# ip address 10.2.0.1 255.255.0.0
+R3(config-if)# no shutdown
+R3(config-if)# end
+R3# copy running-config startup-config
+ 
+ 7    VÉRIFIER les interfaces avant RIP/OSPF✅
+    SE CONNECTER SUR : R1, R2, R3 (un par un)⚠️ 🖥️
+R1# show ip interface brief
+R2# show ip interface brief
+R3# show ip interface brief
+# Toutes les interfaces utilisées doivent être UP/UP
+# Si une interface est DOWN : refaire no shutdown, vérifier le câble
+# Pour identifier quel côté est DCE (clock rate obligatoire sur le DCE)  
+:
+R1# show controllers Serial0/1/0
+# Chercher la ligne contenant DCE dans la sortie
+ 
+ 8    CONFIGURER RIP sur les 3 routeurs📡
+    SE CONNECTER SUR : R1 d'abord, puis R2, puis R3⚠️ 🖥️
+Sur R1 :
+R1(config)# router rip
+R1(config-router)# version 2
+R1(config-router)# no auto-summary
+R1(config-router)# network 192.168.1.0
+R1(config-router)# network 10.1.0.0
+R1(config-router)# end
+Sur R2 :
+R2(config)# router rip
+R2(config-router)# version 2
+R2(config-router)# no auto-summary
+R2(config-router)# network 10.1.0.0
+R2(config-router)# network 10.2.0.0
+R2(config-router)# end
+Sur R3 :
+R3(config)# router rip
+R3(config-router)# version 2
+R3(config-router)# no auto-summary
+R3(config-router)# network 192.168.2.0
+R3(config-router)# network 10.2.0.0
+R3(config-router)# end
+ 
+ 9    MONTRER RIP à l'enseignant✅
+    SE CONNECTER SUR : R1, R2, R3 pour les tables — PC1 pour le ping⚠️ 🖥️
+R1# show ip route   # routes R visibles
+R2# show ip route
+R3# show ip route
+# Ping PC1 → PC2 : doit fonctionner
+ping 192.168.2.20   (depuis PC1)
+ 
+ 10    DÉSACTIVER RIP🗑️
+    SE CONNECTER SUR : R1, R2, R3 (un par un)⚠️ 🖥️
+R1(config)# no router rip
+R2(config)# no router rip
+R3(config)# no router rip
+ 
+ 11    CONFIGURER OSPF sur les 3 routeurs📡
+    SE CONNECTER SUR : R1 d'abord, puis R2, puis R3⚠️ 🖥️
+Sur R1 :
+R1(config)# router ospf 1
+R1(config-router)# network 192.168.1.0 0.0.0.255 area 0
+R1(config-router)# network 10.1.0.0 0.0.255.255 area 0
+R1(config-router)# end
+Sur R2 :
+R2(config)# router ospf 1
+R2(config-router)# network 10.1.0.0 0.0.255.255 area 0
+R2(config-router)# network 10.2.0.0 0.0.255.255 area 0
+R2(config-router)# end
+Sur R3 :
+R3(config)# router ospf 1
+R3(config-router)# network 192.168.2.0 0.0.0.255 area 0
+R3(config-router)# network 10.2.0.0 0.0.255.255 area 0
+R3(config-router)# end
+ 
+ 12    MONTRER OSPF à l'enseignant✅
+    SE CONNECTER SUR : R1, R2, R3 pour les tables — PC1 pour le ping⚠️ 🖥️
+R1# show ip route                  # routes O visibles. Ex: O 
+192.168.2.0/24 [110/129]
+R2# show ip route
+R3# show ip route
+R1# show ip protocols              # vérifie qu'OSPF est actif
+R1# show ip ospf neighbor          # vérifie les voisins OSPF détectés
+# Ping PC1 → PC2 : doit fonctionner
+ping 192.168.2.20   (depuis PC1)
+# Sauvegarder sur tous les routeurs :
+R1# write memory
+R2# write memory
+R3# write memory
+ 
+Mémo – Distances administratives
+Protocole Distance administrative
+Route directement connectée (C) 0
+Route statique (S) 1
+OSPF (O) 110
+RIP (R) 120
+ 
+  Si OSPF et RIP donnent une route vers la même destination, le routeur prend OSPF (110 < ℹ️
+120).

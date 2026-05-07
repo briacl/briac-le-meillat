@@ -20,7 +20,9 @@ import ProjectDetails from './Pages/ProjectDetails';
 import RealisationsAdmin from './Pages/Admin/RealisationsAdmin';
 import TextesAdmin from './Pages/Admin/TextesAdmin';
 import AdminPanel from './Components/AdminPanel';
+import AdminDashboard from './Pages/Admin/AdminDashboard';
 import ExPage from './Pages/ExPage';
+import ChatWidget from './Components/ChatWidget';
 
 // Reference Pages from Caisse Automatique 2026
 import CaisseLandingPage from './Pages/Referentiel/CaisseLandingPage';
@@ -51,6 +53,7 @@ function App() {
                     <Route path="/cv" element={<CVPage />} />
                     <Route path="/contact" element={<Contact />} />
                     <Route path="/admin" element={<AdminPanel />} />
+                    <Route path="/briac-admin" element={<AdminDashboard />} />
                     <Route path="/ex" element={<ExPage />} />
                     
                     {/* Reference Routes */}
@@ -86,6 +89,9 @@ function App() {
                 
                 {/* Modal de déchiffrement pour les routes Bérangère */}
                 <CryptoModal />
+
+                {/* Assistant Chatbot Global */}
+                <ChatWidget />
             </BrowserRouter>
         </Providers>
     );

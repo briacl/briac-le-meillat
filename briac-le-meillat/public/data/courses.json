@@ -1,0 +1,469 @@
+{
+    "R101": {
+        "titre": "Initiation aux réseaux informatiques",
+        "ue": [
+            "Administrer",
+            "Programmer",
+            "Sécuriser",
+            "Connecter"
+        ],
+        "semestre": 1,
+        "competences": [
+            "Réseaux locaux",
+            "LAN",
+            "Programmation",
+            "Cybersécurité."
+        ],
+        "description": ""
+    },
+    "R102": {
+        "titre": "Principes et architecture des réseaux",
+        "ue": [
+            "Administrer",
+            "Sécuriser",
+            "Connecter"
+        ],
+        "semestre": 1,
+        "competences": [
+            "Architecture en couches",
+            "topologies",
+            "protocoles",
+            "modèle TCP/IP."
+        ],
+        "description": ""
+    },
+    "R103": {
+        "titre": "Réseaux locaux et équipements actifs",
+        "ue": [
+            "Administrer",
+            "Sécuriser",
+            "Connecter"
+        ],
+        "semestre": 1,
+        "competences": [
+            "Réseaux locaux",
+            "Ethernet",
+            "commutateurs",
+            "routeurs",
+            "VLAN"
+        ],
+        "description": ""
+    },
+    "R104": {
+        "titre": "Fondamentaux des systèmes électroniques",
+        "ue": [
+            "Administrer",
+            "Connecter"
+        ],
+        "semestre": 1,
+        "competences": [
+            "Spectre",
+            "Puissance",
+            "Décibels",
+            "Sensibilité",
+            "Atténuation"
+        ],
+        "description": "SAÉ22 Mesurer et caractériser un signal ou un système\nSemestre 2\nHeures Formation encadrée 10h, dont 10h de TP\nProjet 12h"
+    },
+    "R105": {
+        "titre": "Supports de transmission pour les réseaux locaux",
+        "ue": [
+            "Administrer",
+            "Connecter"
+        ],
+        "semestre": 1,
+        "competences": [
+            "Supports de transmission (fibre optique",
+            "cuivre",
+            "radio)",
+            "Mesures."
+        ],
+        "description": ""
+    },
+    "R106": {
+        "titre": "Architecture des systèmes numériques et informatiques",
+        "ue": [
+            "Administrer",
+            "Connecter"
+        ],
+        "semestre": 1,
+        "competences": [
+            "Nombres binaires",
+            "Codage",
+            "Fonctions logiques",
+            "Processeur",
+            "ALU."
+        ],
+        "description": ""
+    },
+    "R107": {
+        "titre": "Fondamentaux de la programmation",
+        "ue": [
+            "Administrer",
+            "Programmer",
+            "Connecter"
+        ],
+        "semestre": 1,
+        "competences": [],
+        "description": "SAÉ23 Mettre en place une solution informatique pour l’entreprise\nSemestre 2\nHeures Formation encadrée 17h, dont 14h de TP\nProjet 12h"
+    },
+    "R108": {
+        "titre": "Bases des systèmes d’exploitation",
+        "ue": [
+            "Administrer",
+            "Programmer",
+            "Connecter"
+        ],
+        "semestre": 1,
+        "competences": [
+            "Programmation",
+            "Arborescence",
+            "Processus",
+            "Scripts",
+            "Variables d’environnement"
+        ],
+        "description": ""
+    },
+    "R109": {
+        "titre": "Introduction aux technologies Web",
+        "ue": [
+            "Administrer",
+            "Programmer",
+            "Connecter"
+        ],
+        "semestre": 1,
+        "competences": [
+            "Web",
+            "HTML",
+            "CSS",
+            "Client/serveur",
+            "Codage de l’information."
+        ],
+        "description": ""
+    },
+    "R110": {
+        "titre": "Anglais de communication et initiation au vocabulaire technique",
+        "ue": [
+            "Administrer",
+            "Programmer",
+            "Sécuriser",
+            "Connecter"
+        ],
+        "semestre": 1,
+        "competences": [
+            "Anglais général et technique",
+            "Situations de communication",
+            "Expression",
+            "Compréhen-"
+        ],
+        "description": ""
+    },
+    "R111": {
+        "titre": "Expression-Culture-Communication Professionnelles",
+        "ue": [
+            "Administrer",
+            "Programmer",
+            "Sécuriser",
+            "Connecter"
+        ],
+        "semestre": 1,
+        "competences": [
+            "Recherche documentaire",
+            "Expression écrite",
+            "Rédaction technique",
+            "Expression orale",
+            ""
+        ],
+        "description": ""
+    },
+    "R112": {
+        "titre": "Projet Personnel et Professionnel",
+        "ue": [
+            "Administrer",
+            "Connecter"
+        ],
+        "semestre": 1,
+        "competences": [
+            "Métiers",
+            "Entreprises",
+            "Orientation",
+            "Parcours",
+            "Portfolio."
+        ],
+        "description": ""
+    },
+    "R113": {
+        "titre": "Mathématiques du signal",
+        "ue": [
+            "Administrer",
+            "Connecter"
+        ],
+        "semestre": 1,
+        "competences": [
+            "Signaux",
+            "Signaux périodiques."
+        ],
+        "description": ""
+    },
+    "R114": {
+        "titre": "Mathématiques des transmissions",
+        "ue": [
+            "Administrer",
+            "Connecter"
+        ],
+        "semestre": 1,
+        "competences": [
+            "Trigonométrie",
+            "Logarithme",
+            "Exponentielle",
+            "Complexes."
+        ],
+        "description": ""
+    },
+    "R115": {
+        "titre": "Gestion de projet",
+        "ue": [
+            "Administrer",
+            "Sécuriser",
+            "Connecter"
+        ],
+        "semestre": 1,
+        "competences": [
+            "Planification",
+            "Partage d’informations",
+            "Organisation",
+            "Conceptualisation",
+            "Réunion."
+        ],
+        "description": ""
+    },
+    "R201": {
+        "titre": "Technologie de l’Internet",
+        "ue": [
+            "Administrer",
+            "Sécuriser",
+            "Connecter"
+        ],
+        "semestre": 2,
+        "competences": [
+            "Plan d’adressage",
+            "routage état de lien",
+            "stratégies de filtrage",
+            "CIDR",
+            "VLSM"
+        ],
+        "description": ""
+    },
+    "R211": {
+        "titre": "Expression-Culture-Communication Professionnelles",
+        "ue": [
+            "Administrer",
+            "Connecter"
+        ],
+        "semestre": 2,
+        "competences": [
+            "Synthèse",
+            "Résumé",
+            "Expression écrite",
+            "Rédaction technique",
+            "Expression orale"
+        ],
+        "description": ""
+    },
+    "R202": {
+        "titre": "Administration système et fondamentaux de la virtualisation",
+        "ue": [
+            "Administrer",
+            "Programmer",
+            "Sécuriser",
+            "Connecter"
+        ],
+        "semestre": 2,
+        "competences": [
+            "Systèmes d’exploitation",
+            "Linux",
+            "Windows",
+            "Scripts",
+            "Virtualisation"
+        ],
+        "description": ""
+    },
+    "R203": {
+        "titre": "Bases des services réseaux",
+        "ue": [
+            "Administrer",
+            "Sécuriser",
+            "Connecter"
+        ],
+        "semestre": 2,
+        "competences": [
+            "Protocoles et ports applicatifs",
+            "services",
+            "systèmes d’exploitation."
+        ],
+        "description": ""
+    },
+    "R204": {
+        "titre": "Initiation à la téléphonie d’entreprise",
+        "ue": [
+            "Administrer",
+            "Programmer",
+            "Sécuriser",
+            "Connecter"
+        ],
+        "semestre": 2,
+        "competences": [
+            "IPBX",
+            "PABX",
+            "TDM/IP",
+            "postes et services téléphoniques",
+            "visiophonie"
+        ],
+        "description": ""
+    },
+    "R205": {
+        "titre": "Signaux et Systèmes pour les transmissions",
+        "ue": [
+            "Administrer",
+            "Connecter"
+        ],
+        "semestre": 2,
+        "competences": [
+            "Représentations temporelles et fréquentielles des signaux",
+            "fonction de transfert",
+            "bande"
+        ],
+        "description": ""
+    },
+    "R206": {
+        "titre": "Numérisation de l’information",
+        "ue": [
+            "Administrer",
+            "Connecter"
+        ],
+        "semestre": 2,
+        "competences": [
+            "Numérisation",
+            "Échantillonnage",
+            "Quantification",
+            "Acquisition/restitution",
+            "CAN"
+        ],
+        "description": ""
+    },
+    "R207": {
+        "titre": "Sources de données",
+        "ue": [
+            "Administrer",
+            "Programmer",
+            "Connecter"
+        ],
+        "semestre": 2,
+        "competences": [
+            "Base de données",
+            "Langages informatiques",
+            "Programmation",
+            "Algorithmes."
+        ],
+        "description": ""
+    },
+    "R208": {
+        "titre": "Analyse et traitement de données structurées",
+        "ue": [
+            "Administrer",
+            "Programmer",
+            "Connecter"
+        ],
+        "semestre": 2,
+        "competences": [
+            "Algorithmes",
+            "Langages informatiques",
+            "Programmation",
+            "Structure de données",
+            "Métho-"
+        ],
+        "description": ""
+    },
+    "R209": {
+        "titre": "Initiation au développement Web",
+        "ue": [
+            "Administrer",
+            "Programmer",
+            "Sécuriser",
+            "Connecter"
+        ],
+        "semestre": 2,
+        "competences": [
+            "Web",
+            "Développement",
+            "Algorithmes",
+            "SGBD",
+            "API"
+        ],
+        "description": ""
+    },
+    "R210": {
+        "titre": "Anglais de communication et développement de l’anglais technique",
+        "ue": [
+            "Administrer",
+            "Connecter"
+        ],
+        "semestre": 2,
+        "competences": [
+            "Anglais général",
+            "Anglais technique",
+            "Communication professionnelle",
+            "Expression",
+            "Com-"
+        ],
+        "description": ""
+    },
+    "R212": {
+        "titre": "Projet Personnel et Professionnel",
+        "ue": [
+            "Administrer",
+            "Connecter"
+        ],
+        "semestre": 2,
+        "competences": [
+            "CV",
+            "Lettre de motivation",
+            "Entretien de recrutement",
+            "Identité professionnelle",
+            "Stage"
+        ],
+        "description": ""
+    },
+    "R213": {
+        "titre": "Mathématiques des systèmes numériques",
+        "ue": [
+            "Administrer",
+            "Programmer",
+            "Connecter"
+        ],
+        "semestre": 2,
+        "competences": [
+            "Mathématiques",
+            "Suites",
+            "Ensembles",
+            "Vecteurs",
+            "Matrices."
+        ],
+        "description": ""
+    },
+    "R214": {
+        "titre": "Analyse mathématique des signaux",
+        "ue": [
+            "Administrer",
+            "Connecter"
+        ],
+        "semestre": 2,
+        "competences": [
+            "Mathématiques",
+            "Dérivées",
+            "Intégrales",
+            "Limites."
+        ],
+        "description": ""
+    }
+}
