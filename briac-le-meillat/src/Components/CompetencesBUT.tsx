@@ -37,18 +37,6 @@ interface TP {
     date: string;
 }
 
-interface Course {
-    titre: string;
-    ue: string[];
-    semestre: number;
-    competences: string[];
-    description: string;
-}
-
-interface CoursesData {
-    [key: string]: Course;
-}
-
 interface UEDefinition {
     id: string;
     titre: string;
@@ -88,11 +76,34 @@ const UES: UEDefinition[] = [
     }
 ];
 
+const AC_MAPPING: Record<string, string> = {
+    // UE1 : Administrer
+    "AC11.01": "R101, R103, SAE102",
+    "AC11.02": "R101, R102, R103, R106",
+    "AC11.03": "R103, R108, SAE102",
+    "AC11.04": "R202, R203",
+    "AC11.05": "R103, SAE102",
+    "AC11.06": "R108, R202",
+    // UE2 : Connecter
+    "AC12.01": "R104, R201, R205, R206",
+    "AC12.02": "R105, R201, R205",
+    "AC12.03": "R105, R203, R204",
+    "AC12.04": "R203, R204",
+    "AC12.05": "R110, R211",
+    // UE3 : Programmer
+    "AC13.01": "R108, R202, R207",
+    "AC13.02": "R107, R208",
+    "AC13.03": "R107, R208",
+    "AC13.04": "R109, R209",
+    "AC13.05": "R207, R208",
+    "AC13.06": "R115, R212"
+};
+
 export default function CompetencesBUT() {
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
     
     const [selectedUE, setSelectedUE] = useState<UEDefinition | null>(null);
-    const [courses, setCourses] = useState<CoursesData>({});
+    const [competenceData, setCompetenceData] = useState<any[]>([]);
     const [tps, setTps] = useState<TP[]>([]);
     const [loading, setLoading] = useState(true);
 
@@ -101,13 +112,14 @@ export default function CompetencesBUT() {
             try {
                 const baseUrl = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
                 
-                const [coursesRes, tpsRes] = await Promise.all([
-                    fetch(`${baseUrl}data/courses.json`),
-                    fetch(`${baseUrl}data/tps.json`).catch(() => ({ ok: false }))
+                const [tpsRes, dataRes] = await Promise.all([
+                    fetch(`${baseUrl}data/tps.json`).catch(() => ({ ok: false })),
+                    fetch(`${baseUrl}assets/documents/apprentissage/data.json`).catch(() => ({ ok: false }))
                 ]);
 
-                if (coursesRes.ok) {
-                    setCourses(await coursesRes.json());
+                if (dataRes && dataRes.ok) {
+                    const data = await dataRes.json();
+                    setCompetenceData(data.competences || []);
                 }
 
                 if (tpsRes && tpsRes.ok) {
@@ -128,14 +140,25 @@ export default function CompetencesBUT() {
         onOpen();
     };
 
-    const getCoursesForUE = (ueId: string) => {
-        return Object.entries(courses)
-            .filter(([_, course]) => course.ue.includes(ueId))
-            .sort(([idA], [idB]) => idA.localeCompare(idB));
+    const getACsForUE = (ueTitle: string) => {
+        const comp = competenceData.find(c => 
+            c.titre.toLowerCase() === ueTitle.toLowerCase() || 
+            (ueTitle === "Sécuriser" && c.id === "secure")
+        );
+        return comp ? comp.apprentissages_critiques : [];
     };
 
-    const getTPsForResource = (resourceId: string) => {
-        return tps.filter(tp => tp.ressource === resourceId);
+    const getTPsForResource = (acId: string) => {
+        return tps.filter(tp => {
+            // Match direct
+            if (tp.ressource === acId) return true;
+            
+            // Match via mapping (ex: TP est R201, l'id est AC12.01)
+            const linkedRs = AC_MAPPING[acId];
+            if (linkedRs && linkedRs.includes(tp.ressource)) return true;
+            
+            return false;
+        });
     };
 
     if (loading) {
@@ -186,7 +209,7 @@ export default function CompetencesBUT() {
                                         {ue.description}
                                     </p>
                                     <div className="mt-4 flex items-center gap-2 text-[10px] uppercase tracking-widest text-blue-400 font-bold">
-                                        <span>{getCoursesForUE(ue.id).length} Ressources</span>
+                                        <span>{getACsForUE(ue.titre).length} Compétences</span>
                                         <ChevronRight size={12} />
                                     </div>
                                 </CardBody>
@@ -231,18 +254,24 @@ export default function CompetencesBUT() {
                                         content: "px-6 pb-6 text-zinc-400"
                                     }}
                                 >
-                                    {selectedUE && getCoursesForUE(selectedUE.id).map(([id, course]) => {
-                                        const resourceTPs = getTPsForResource(id);
+                                    {selectedUE && getACsForUE(selectedUE.titre).map((ac: any) => {
+                                        const acId = ac.code;
+                                        const resourceTPs = getTPsForResource(acId);
                                         return (
                                             <AccordionItem
-                                                key={id}
-                                                aria-label={course.titre}
+                                                key={acId}
+                                                aria-label={ac.titre}
                                                 title={
                                                     <div className="flex items-center gap-3">
-                                                        <span className="text-blue-500 font-mono text-sm">{id}</span>
-                                                        <span className="text-sm uppercase tracking-wide">{course.titre}</span>
+                                                        <div className="flex flex-col">
+                                                            <span className="text-blue-500 font-mono text-sm">{acId}</span>
+                                                            {AC_MAPPING[acId] && (
+                                                                <span className="text-[10px] text-zinc-500 font-mono italic">({AC_MAPPING[acId]})</span>
+                                                            )}
+                                                        </div>
+                                                        <span className="text-sm uppercase tracking-wide">{ac.titre}</span>
                                                         {resourceTPs.length > 0 && (
-                                                            <span className="bg-blue-500/20 text-blue-400 text-[9px] px-2 py-0.5 rounded-full">
+                                                            <span className="bg-blue-500/20 text-blue-400 text-[9px] px-2 py-0.5 rounded-full h-fit">
                                                                 {resourceTPs.length} TP
                                                             </span>
                                                         )}
@@ -251,17 +280,10 @@ export default function CompetencesBUT() {
                                             >
                                                 <div className="space-y-6">
                                                     <div>
-                                                        <p className="text-xs uppercase tracking-widest font-bold text-zinc-500 mb-2">Mots-clés / Compétences</p>
-                                                        <div className="flex flex-wrap gap-2">
-                                                            {(course.competences || []).map((c, i) => (
-                                                                <span key={i} className="text-[10px] bg-white/5 px-2 py-1 rounded-md border border-white/5">
-                                                                    {c}
-                                                                </span>
-                                                            ))}
-                                                            {(!course.competences || course.competences.length === 0) && (
-                                                                <span className="text-[10px] text-zinc-600 italic">Généraliste</span>
-                                                            )}
-                                                        </div>
+                                                        <p className="text-xs uppercase tracking-widest font-bold text-zinc-500 mb-2">Description</p>
+                                                        <p className="text-sm text-zinc-400 leading-relaxed">
+                                                            {ac.titre}
+                                                        </p>
                                                     </div>
 
                                                     {(resourceTPs || []).length > 0 ? (

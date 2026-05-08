@@ -8,9 +8,7 @@ import LandingPage from './Pages/LandingPage';
 import LandingPageOriginal from './Pages/LandingPageOriginal';
 import Subscribe from './Pages/Subscribe';
 import Dashboard from './Pages/Dashboard';
-import Login from './Pages/Login';
 import Devop from './Pages/Devop';
-import LoginCustom from './Pages/LoginCustom';
 import SignInSide from './Pages/SignInSide';
 import Research from './Pages/Research';
 import OptimisationNeurones from './Pages/Researches/OptimisationNeurones';
@@ -42,8 +40,6 @@ function App() {
                     <Route path="/test" element={<LandingPage />} />
                     <Route path="/subscribe" element={<Subscribe />} />
                     <Route path="/dashboard" element={<Dashboard />} />
-                    <Route path="/custom-login" element={<Login />} />
-                    <Route path="/connexion" element={<LoginCustom />} />
                     <Route path="/login" element={<SignInSide />} />
 
                     <Route path="/recherches" element={<Research />} />
