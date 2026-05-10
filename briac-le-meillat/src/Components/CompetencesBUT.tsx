@@ -105,6 +105,7 @@ export default function CompetencesBUT() {
     const [selectedUE, setSelectedUE] = useState<UEDefinition | null>(null);
     const [competenceData, setCompetenceData] = useState<any[]>([]);
     const [tps, setTps] = useState<TP[]>([]);
+    const [searchTerm, setSearchTerm] = useState('');
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -112,17 +113,20 @@ export default function CompetencesBUT() {
             try {
                 const baseUrl = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
                 
-                const [tpsRes, dataRes] = await Promise.all([
-                    fetch(`${baseUrl}data/tps.json`).catch(() => ({ ok: false })),
-                    fetch(`${baseUrl}assets/documents/apprentissage/data.json`).catch(() => ({ ok: false }))
+                const responses = await Promise.allSettled([
+                    fetch(`${baseUrl}data/tps.json`),
+                    fetch(`${baseUrl}assets/documents/apprentissage/data.json`)
                 ]);
 
-                if (dataRes && dataRes.ok) {
+                const tpsRes = responses[0].status === 'fulfilled' ? responses[0].value : null;
+                const dataRes = responses[1].status === 'fulfilled' ? responses[1].value : null;
+
+                if (dataRes?.ok) {
                     const data = await dataRes.json();
                     setCompetenceData(data.competences || []);
                 }
 
-                if (tpsRes && tpsRes.ok) {
+                if (tpsRes?.ok) {
                     setTps(await tpsRes.json());
                 }
             } catch (error) {
@@ -161,6 +165,19 @@ export default function CompetencesBUT() {
         });
     };
 
+    const filteredTPs = searchTerm.trim() === '' 
+        ? [] 
+        : tps.filter(tp => {
+            const search = searchTerm.toLowerCase();
+            const matchesTitre = tp.titre.toLowerCase().includes(search);
+            const matchesRessource = tp.ressource.toLowerCase().includes(search);
+            // On cherche aussi dans le mapping AC pour voir si le terme de recherche correspond à un code AC
+            const matchesAC = Object.keys(AC_MAPPING).some(ac => 
+                ac.toLowerCase().includes(search) && AC_MAPPING[ac].includes(tp.ressource)
+            );
+            return matchesTitre || matchesRessource || matchesAC;
+        });
+
     if (loading) {
         return (
             <div className="flex justify-center items-center py-20">
@@ -171,52 +188,124 @@ export default function CompetencesBUT() {
 
     return (
         <div id="competences-section" className="w-full py-10 pointer-events-auto z-10 relative">
-            <GlassCard className="w-full bg-[#0d0d0d]/40 border-white/10 backdrop-blur-2xl">
-                <div className="text-center mb-12">
-                    <h2 className="text-[3rem] text-blue-500 font-['Paris2024'] uppercase tracking-widest mb-4">
-                        Référentiel National
-                    </h2>
-                    <p className="text-zinc-400 font-['Paris2024'] uppercase tracking-widest text-sm max-w-2xl mx-auto opacity-70">
-                        BUT Réseaux & Télécommunications - Compétences & Travaux Pratiques
-                    </p>
+            <GlassCard className="w-full !bg-black/40 !border-white/5 backdrop-blur-3xl shadow-[0_0_50px_rgba(0,0,0,0.5)]">
+                <div className="flex flex-col md:flex-row items-center justify-between mb-12 gap-8">
+                    <div className="text-left">
+                        <h2 className="text-[3rem] text-blue-500 font-['Paris2024'] uppercase tracking-widest mb-2">
+                            Référentiel National
+                        </h2>
+                        <p className="text-zinc-400 font-['Paris2024'] uppercase tracking-widest text-xs opacity-70">
+                            BUT Réseaux & Télécommunications - Compétences & Travaux Pratiques
+                        </p>
+                    </div>
+
+                    <div className="w-full md:w-96 relative">
+                        <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none text-blue-500">
+                            <Search size={18} />
+                        </div>
+                        <input
+                            type="text"
+                            placeholder="Rechercher un TP, une ressource (R201...) ou une AC..."
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                            className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 pl-12 pr-4 text-white placeholder:text-zinc-500 focus:outline-none focus:border-blue-500/50 focus:bg-white/10 transition-all font-['Baskerville'] italic"
+                        />
+                        {searchTerm && (
+                            <button 
+                                onClick={() => setSearchTerm('')}
+                                className="absolute inset-y-0 right-4 flex items-center text-zinc-500 hover:text-white transition-colors"
+                            >
+                                <X size={18} />
+                            </button>
+                        )}
+                    </div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full px-4">
-                    {UES.map((ue, index) => (
-                        <motion.div
-                            key={ue.id}
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: index * 0.1 }}
-                        >
-                            <Card
-                                isPressable
-                                onPress={() => handleOpenDetails(ue)}
-                                className="h-[280px] bg-zinc-900/40 border border-white/10 hover:border-blue-500/50 transition-all duration-500 rounded-[2rem] group"
+                {searchTerm.trim() !== '' ? (
+                    <motion.div 
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="w-full px-4"
+                    >
+                        <div className="flex items-center justify-between mb-6">
+                            <h3 className="text-sm uppercase tracking-[0.3em] font-bold text-zinc-500">
+                                Résultats de recherche ({filteredTPs.length})
+                            </h3>
+                        </div>
+                        
+                        {filteredTPs.length > 0 ? (
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                                {filteredTPs.map(tp => {
+                                    const baseUrl = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL.slice(0, -1) : import.meta.env.BASE_URL;
+                                    const filePath = tp.fichier.startsWith('/') ? tp.fichier : `/${tp.fichier}`;
+                                    const fullUrl = `${baseUrl}${filePath}`;
+                                    
+                                    return (
+                                        <motion.a
+                                            key={tp.id}
+                                            href={fullUrl}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            initial={{ opacity: 0, scale: 0.95 }}
+                                            animate={{ opacity: 1, scale: 1 }}
+                                            className="flex items-center justify-between p-6 bg-blue-500/5 border border-white/5 hover:border-blue-500/30 rounded-[1.5rem] transition-all group hover:bg-blue-500/10"
+                                        >
+                                            <div className="flex flex-col gap-2">
+                                                <div className="flex items-center gap-2">
+                                                    <span className="text-[10px] font-mono text-blue-400 bg-blue-500/10 px-2 py-0.5 rounded-md">{tp.ressource}</span>
+                                                    <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-wider">{tp.date}</span>
+                                                </div>
+                                                <span className="text-sm font-bold text-white group-hover:text-blue-400 transition-colors">{tp.titre}</span>
+                                            </div>
+                                            <Download size={20} className="text-zinc-600 group-hover:text-blue-500 transition-colors" />
+                                        </motion.a>
+                                    );
+                                })}
+                            </div>
+                        ) : (
+                            <div className="py-20 text-center border-2 border-dashed border-white/5 rounded-[2rem]">
+                                <p className="text-zinc-500 italic font-['Baskerville']">Aucun travail pratique ne correspond à votre recherche.</p>
+                            </div>
+                        )}
+                    </motion.div>
+                ) : (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full px-4">
+                        {UES.filter(ue => ue.id !== 'Sécuriser').map((ue, index) => (
+                            <motion.div
+                                key={ue.id}
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: index * 0.1 }}
                             >
-                                <CardHeader className="flex-col items-start px-8 pt-8">
-                                    <div 
-                                        className="w-12 h-12 rounded-xl mb-4 flex items-center justify-center border border-white/10 group-hover:scale-110 transition-transform"
-                                        style={{ color: ue.couleur, backgroundColor: `${ue.couleur}10` }}
-                                    >
-                                        {ue.icon}
-                                    </div>
-                                    <h3 className="text-2xl font-bold text-white font-['Paris2024'] uppercase tracking-tight">{ue.titre}</h3>
-                                </CardHeader>
-                                <CardBody className="px-8 pt-2">
-                                    <p className="text-zinc-400 text-sm font-['Baskerville'] italic leading-relaxed">
-                                        {ue.description}
-                                    </p>
-                                    <div className="mt-4 flex items-center gap-2 text-[10px] uppercase tracking-widest text-blue-400 font-bold">
-                                        <span>{getACsForUE(ue.titre).length} Compétences</span>
-                                        <ChevronRight size={12} />
-                                    </div>
-                                </CardBody>
-                            </Card>
-                        </motion.div>
-                    ))}
-                </div>
+                                <Card
+                                    isPressable
+                                    onPress={() => handleOpenDetails(ue)}
+                                    className="h-[280px] !bg-black/60 border border-white/5 hover:border-blue-500/50 transition-all duration-500 rounded-[2rem] group"
+                                >
+                                    <CardHeader className="flex-col items-start px-8 pt-8">
+                                        <div 
+                                            className="w-12 h-12 rounded-xl mb-4 flex items-center justify-center border border-white/10 group-hover:scale-110 transition-transform"
+                                            style={{ color: ue.couleur, backgroundColor: `${ue.couleur}10` }}
+                                        >
+                                            {ue.icon}
+                                        </div>
+                                        <h3 className="text-2xl font-normal text-white font-['Paris2024'] uppercase tracking-tight">{ue.titre}</h3>
+                                    </CardHeader>
+                                    <CardBody className="px-8 pt-2">
+                                        <p className="text-zinc-400 text-sm font-['Baskerville'] italic leading-relaxed">
+                                            {ue.description}
+                                        </p>
+                                        <div className="mt-4 flex items-center gap-2 text-[10px] uppercase tracking-widest text-blue-400 font-bold">
+                                            <span>{getACsForUE(ue.titre).length} Compétences</span>
+                                            <ChevronRight size={12} />
+                                        </div>
+                                    </CardBody>
+                                </Card>
+                            </motion.div>
+                        ))}
+                    </div>
+                )}
             </GlassCard>
 
             <Modal
@@ -225,7 +314,7 @@ export default function CompetencesBUT() {
                 size="4xl"
                 scrollBehavior="inside"
                 backdrop="blur"
-                className="bg-[#0a0a0a] border border-white/10 rounded-[2.5rem]"
+                className="!bg-[#0a0a0a] border border-white/10 rounded-[2.5rem]"
             >
                 <ModalContent className="text-white">
                     {(onClose) => (
@@ -248,7 +337,7 @@ export default function CompetencesBUT() {
                                 <Accordion 
                                     className="px-0"
                                     itemClasses={{
-                                        base: "bg-zinc-900/40 border border-white/5 rounded-2xl mb-3 hover:bg-zinc-800/40 transition-colors",
+                                        base: "!bg-white/5 border border-white/5 rounded-2xl mb-3 hover:!bg-white/10 transition-colors",
                                         title: "text-white font-bold",
                                         trigger: "px-6 py-4",
                                         content: "px-6 pb-6 text-zinc-400"

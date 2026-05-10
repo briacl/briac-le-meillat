@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="200" viewBox="0 0 400 200">
+  <!-- rect arrière -->
+  <rect x="136" y="24" width="88" height="108" rx="4" fill="#000000" opacity="0.18"/>
+  <!-- rect milieu -->
+  <rect x="122" y="36" width="88" height="108" rx="4" fill="#000000" opacity="0.50"/>
+  <!-- rect avant -->
+  <rect x="108" y="48" width="88" height="108" rx="4" fill="#000000"/>
+  <!-- wordmark -->
+</svg>

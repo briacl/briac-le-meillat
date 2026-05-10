@@ -26,29 +26,45 @@
         {
           "code": "AC11.02",
           "titre": "Comprendre l'architecture et les fondements des systèmes numériques, les principes du codage de l'information, des communications et de l'Internet",
-          "reflexion": { "fait": "...", "pourquoi": "...", "comment": "...", "difficultes": "...", "appris": "...", "autrement": "...", "preuves": [] }
+          "reflexion": {
+            "fait": "...",
+            "pourquoi": "...",
+            "comment": "...",
+            "difficultes": "...",
+            "appris": "...",
+            "autrement": "...",
+            "preuves": []
+          }
         },
         {
           "code": "AC11.03",
           "titre": "Configurer les fonctions de base du réseau local",
-          "reflexion": { 
-            "fait": "...", 
-            "pourquoi": "...", 
-            "comment": "...", 
-            "difficultes": "...", 
-            "appris": "...", 
-            "autrement": "...", 
+          "reflexion": {
+            "fait": "...",
+            "pourquoi": "...",
+            "comment": "...",
+            "difficultes": "...",
+            "appris": "...",
+            "autrement": "...",
             "preuves": [
               {
                 "titre": "SAE 1.02 - Installation de services",
                 "module": "Admin Réseau",
-                "technos": ["Linux", "Apache", "DNS"],
+                "technos": [
+                  "Linux",
+                  "Apache",
+                  "DNS"
+                ],
                 "chemin_fichier_md": "assets/documents/apprentissage/sae102.md"
               },
               {
                 "titre": "TP Configuration Switch",
                 "module": "Réseaux Locaux",
-                "technos": ["Cisco", "VLAN", "IOS"],
+                "technos": [
+                  "Cisco",
+                  "VLAN",
+                  "IOS"
+                ],
                 "chemin_fichier_md": "assets/documents/apprentissage/admin-reseau/vlan/tp1.md"
               }
             ]
@@ -57,17 +73,41 @@
         {
           "code": "AC11.04",
           "titre": "Maîtriser les rôles et les principes fondamentaux des systèmes d’exploitation afin d’interagir avec ceux-ci pour la configuration et l'administration des réseaux et services fournis",
-          "reflexion": { "fait": "...", "pourquoi": "...", "comment": "...", "difficultes": "...", "appris": "...", "autrement": "...", "preuves": [] }
+          "reflexion": {
+            "fait": "...",
+            "pourquoi": "...",
+            "comment": "...",
+            "difficultes": "...",
+            "appris": "...",
+            "autrement": "...",
+            "preuves": []
+          }
         },
         {
           "code": "AC11.05",
           "titre": "Identifier les dysfonctionnements du réseau local et savoir les signaler",
-          "reflexion": { "fait": "...", "pourquoi": "...", "comment": "...", "difficultes": "...", "appris": "...", "autrement": "...", "preuves": [] }
+          "reflexion": {
+            "fait": "...",
+            "pourquoi": "...",
+            "comment": "...",
+            "difficultes": "...",
+            "appris": "...",
+            "autrement": "...",
+            "preuves": []
+          }
         },
         {
           "code": "AC11.06",
           "titre": "Installer un poste client, expliquer la procédure mise en place",
-          "reflexion": { "fait": "...", "pourquoi": "...", "comment": "...", "difficultes": "...", "appris": "...", "autrement": "...", "preuves": [] }
+          "reflexion": {
+            "fait": "...",
+            "pourquoi": "...",
+            "comment": "...",
+            "difficultes": "...",
+            "appris": "...",
+            "autrement": "...",
+            "preuves": []
+          }
         }
       ]
     },
@@ -86,27 +126,67 @@
         {
           "code": "AC12.01",
           "titre": "Mesurer, analyser et commenter les signaux",
-          "reflexion": { "fait": "...", "pourquoi": "...", "comment": "...", "difficultes": "...", "appris": "...", "autrement": "...", "preuves": [] }
+          "reflexion": {
+            "fait": "...",
+            "pourquoi": "...",
+            "comment": "...",
+            "difficultes": "...",
+            "appris": "...",
+            "autrement": "...",
+            "preuves": []
+          }
         },
         {
           "code": "AC12.02",
           "titre": "Caractériser des systèmes de transmissions élémentaires et découvrir la modélisation mathématique de leur fonctionnement",
-          "reflexion": { "fait": "...", "pourquoi": "...", "comment": "...", "difficultes": "...", "appris": "...", "autrement": "...", "preuves": [] }
+          "reflexion": {
+            "fait": "...",
+            "pourquoi": "...",
+            "comment": "...",
+            "difficultes": "...",
+            "appris": "...",
+            "autrement": "...",
+            "preuves": []
+          }
         },
         {
           "code": "AC12.03",
           "titre": "Déployer des supports de transmission",
-          "reflexion": { "fait": "...", "pourquoi": "...", "comment": "...", "difficultes": "...", "appris": "...", "autrement": "...", "preuves": [] }
+          "reflexion": {
+            "fait": "...",
+            "pourquoi": "...",
+            "comment": "...",
+            "difficultes": "...",
+            "appris": "...",
+            "autrement": "...",
+            "preuves": []
+          }
         },
         {
           "code": "AC12.04",
           "titre": "Connecter les systèmes de ToIP",
-          "reflexion": { "fait": "...", "pourquoi": "...", "comment": "...", "difficultes": "...", "appris": "...", "autrement": "...", "preuves": [] }
+          "reflexion": {
+            "fait": "...",
+            "pourquoi": "...",
+            "comment": "...",
+            "difficultes": "...",
+            "appris": "...",
+            "autrement": "...",
+            "preuves": []
+          }
         },
         {
           "code": "AC12.05",
           "titre": "Communiquer avec un tiers (client, collaborateur...) et adapter son discours et sa langue à son interlocuteur",
-          "reflexion": { "fait": "...", "pourquoi": "...", "comment": "...", "difficultes": "...", "appris": "...", "autrement": "...", "preuves": [] }
+          "reflexion": {
+            "fait": "...",
+            "pourquoi": "...",
+            "comment": "...",
+            "difficultes": "...",
+            "appris": "...",
+            "autrement": "...",
+            "preuves": []
+          }
         }
       ]
     },
@@ -124,33 +204,61 @@
         {
           "code": "AC13.01",
           "titre": "Utiliser un système informatique et ses outils",
-          "reflexion": { "fait": "...", "pourquoi": "...", "comment": "...", "difficultes": "...", "appris": "...", "autrement": "...", "preuves": [] }
+          "reflexion": {
+            "fait": "...",
+            "pourquoi": "...",
+            "comment": "...",
+            "difficultes": "...",
+            "appris": "...",
+            "autrement": "...",
+            "preuves": []
+          }
         },
         {
           "code": "AC13.02",
           "titre": "Lire, exécuter, corriger et modifier un programme",
-          "reflexion": { "fait": "...", "pourquoi": "...", "comment": "...", "difficultes": "...", "appris": "...", "autrement": "...", "preuves": [] }
+          "reflexion": {
+            "fait": "...",
+            "pourquoi": "...",
+            "comment": "...",
+            "difficultes": "...",
+            "appris": "...",
+            "autrement": "...",
+            "preuves": []
+          }
         },
         {
           "code": "AC13.03",
           "titre": "Traduire un algorithme, dans un langage et pour un environnement donné",
-          "reflexion": { "fait": "...", "pourquoi": "...", "comment": "...", "difficultes": "...", "appris": "...", "autrement": "...", "preuves": [] }
+          "reflexion": {
+            "fait": "...",
+            "pourquoi": "...",
+            "comment": "...",
+            "difficultes": "...",
+            "appris": "...",
+            "autrement": "...",
+            "preuves": []
+          }
         },
         {
           "code": "AC13.04",
           "titre": "Connaître l’architecture et les technologies d’un site Web",
-          "reflexion": { 
-            "fait": "...", 
-            "pourquoi": "...", 
-            "comment": "...", 
-            "difficultes": "...", 
-            "appris": "...", 
-            "autrement": "...", 
+          "reflexion": {
+            "fait": "...",
+            "pourquoi": "...",
+            "comment": "...",
+            "difficultes": "...",
+            "appris": "...",
+            "autrement": "...",
             "preuves": [
               {
                 "titre": "TP3-TP4 : Compte Rendu Développement",
                 "module": "Tech Internet",
-                "technos": ["React", "Vite", "Tailwind"],
+                "technos": [
+                  "React",
+                  "Vite",
+                  "Tailwind"
+                ],
                 "chemin_fichier_md": "assets/documents/apprentissage/tech-internet/TP3-TP4_compte_rendu.md"
               }
             ]
@@ -159,12 +267,28 @@
         {
           "code": "AC13.05",
           "titre": "Choisir les mécanismes de gestion de données adaptés au développement de l’outil et argumenter ses choix",
-          "reflexion": { "fait": "...", "pourquoi": "...", "comment": "...", "difficultes": "...", "appris": "...", "autrement": "...", "preuves": "..." }
+          "reflexion": {
+            "fait": "...",
+            "pourquoi": "...",
+            "comment": "...",
+            "difficultes": "...",
+            "appris": "...",
+            "autrement": "...",
+            "preuves": "..."
+          }
         },
         {
           "code": "AC13.06",
           "titre": "S’intégrer dans un environnement propice au développement et au travail collaboratif",
-          "reflexion": { "fait": "...", "pourquoi": "...", "comment": "...", "difficultes": "...", "appris": "...", "autrement": "...", "preuves": "..." }
+          "reflexion": {
+            "fait": "...",
+            "pourquoi": "...",
+            "comment": "...",
+            "difficultes": "...",
+            "appris": "...",
+            "autrement": "...",
+            "preuves": "..."
+          }
         }
       ]
     }
