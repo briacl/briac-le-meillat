@@ -80,7 +80,7 @@ export default function TheFoundation() {
 
                 {/* Level 1: Narrative Pillars */}
                 <div ref={pillarsRef} className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-20">
-                    {pillars.map((pillar, index) => (
+                    {pillars.filter(p => p.title !== 'Sécuriser').map((pillar, index) => (
                         <motion.div
                             key={pillar.id}
                             initial={{ opacity: 0, y: 40 }}
@@ -93,7 +93,7 @@ export default function TheFoundation() {
                                 {pillar.icon}
                             </div>
                             <div className="space-y-3">
-                                <h4 className="text-3xl font-['Paris2024'] text-white uppercase tracking-widest leading-none">
+                                <h4 className="text-3xl font-normal text-white font-['Paris2024'] uppercase tracking-widest leading-none">
                                     {pillar.title}
                                 </h4>
                                 <p className="text-[10px] font-mono text-white/70 uppercase tracking-[0.3em] group-hover:text-blue-500 transition-colors duration-500">

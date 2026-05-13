@@ -135,6 +135,33 @@ export default defineConfig({
                     } catch (err) { }
                     next();
                 });
+
+                // Middleware for serving projects-visualisation docs
+                server.middlewares.use(async (req, res, next) => {
+                    const prefix = '/briac-le-meillat/docs-assets';
+                    let urlPath = req.url.split('?')[0];
+
+                    if (!urlPath.startsWith(prefix)) return next();
+
+                    const fs = await import('fs/promises');
+                    const relativePath = decodeURIComponent(urlPath).replace(prefix, '');
+                    const filePath = path.resolve(__dirname, '../docs/projects-visualisation', relativePath.replace(/^\//, ''));
+
+                    try {
+                        const stats = await fs.stat(filePath);
+                        if (stats.isFile()) {
+                            const fileContent = await fs.readFile(filePath);
+                            if (filePath.endsWith('.otf')) res.setHeader('Content-Type', 'font/otf');
+                            else if (filePath.endsWith('.ttf')) res.setHeader('Content-Type', 'font/ttf');
+                            else if (filePath.endsWith('.png')) res.setHeader('Content-Type', 'image/png');
+                            else if (filePath.endsWith('.jpg') || filePath.endsWith('.jpeg')) res.setHeader('Content-Type', 'image/jpeg');
+                            else if (filePath.endsWith('.svg')) res.setHeader('Content-Type', 'image/svg+xml');
+                            res.end(fileContent);
+                            return;
+                        }
+                    } catch (err) {}
+                    next();
+                });
             }
         }
     ],

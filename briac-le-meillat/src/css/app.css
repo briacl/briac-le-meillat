@@ -93,6 +93,16 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'Director';
+    src: url('/briac-le-meillat/docs-assets/fonts/director/fonts/otf/Director-Regular.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'LTRemark';
+    src: url('/briac-le-meillat/docs-assets/fonts/LTRemark-V2001-2/LTRemark-Regular.otf') format('opentype');
+}
+
 /* NOTE: overflow-x: hidden on html/body breaks position:fixed (navbar). 
    Use it only on inner containers, never on html or body. */
 body {
