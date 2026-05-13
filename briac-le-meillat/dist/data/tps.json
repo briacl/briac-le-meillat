@@ -1,0 +1,51 @@
+[
+  {
+    "id": "quiz-reseaux",
+    "titre": "Quiz Réseaux : 120 Questions pour maîtriser le R103",
+    "ressource": "R103",
+    "fichier": "assets/documents/apprentissage/admin-reseau/quiz-reseaux.md",
+    "date": "10/05/2026"
+  },
+  {
+    "id": "synthese-r103",
+    "titre": "Synthèse R103 : Réseaux Locaux (VLAN, STP, EtherChannel)",
+    "ressource": "R103",
+    "fichier": "assets/documents/apprentissage/admin-reseau/synthese.md",
+    "date": "10/02/2026"
+  },
+  {
+    "id": "tp-vlan-trunk",
+    "titre": "TP 1 : Segmentation par VLAN et Trunking (Cisco)",
+    "ressource": "AC11.03",
+    "fichier": "assets/documents/apprentissage/admin-reseau/vlan/tp1.md",
+    "date": "07/02/2026"
+  },
+  {
+    "id": "tp-vlan-router",
+    "titre": "TP 2 : Routage Inter-VLAN (Router-on-a-Stick)",
+    "ressource": "AC11.03",
+    "fichier": "assets/documents/apprentissage/admin-reseau/vlan-router/tp2.md",
+    "date": "08/02/2026"
+  },
+  {
+    "id": "tp-stp",
+    "titre": "TP 3 : Étude du protocole Spanning Tree (STP)",
+    "ressource": "AC11.03",
+    "fichier": "assets/documents/apprentissage/admin-reseau/spanning-tree/tp3.md",
+    "date": "09/02/2026"
+  },
+  {
+    "id": "tp-etherchannel",
+    "titre": "TP 4 : Agrégation de liens (EtherChannel - LACP)",
+    "ressource": "AC11.03",
+    "fichier": "assets/documents/apprentissage/admin-reseau/etherchannel/tp4.md",
+    "date": "10/02/2026"
+  },
+  {
+    "id": "tp-1778166468408",
+    "titre": "test",
+    "ressource": "R201",
+    "fichier": "/tps/tp-R201-1778166466806.pdf",
+    "date": "07/05/2026"
+  }
+]

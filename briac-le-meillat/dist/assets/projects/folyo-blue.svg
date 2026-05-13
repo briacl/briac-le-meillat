@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="200" viewBox="0 0 400 200">
+  <defs>
+    <linearGradient id="b1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2C7BE5"/>
+      <stop offset="100%" stop-color="#0F4BAD"/>
+    </linearGradient>
+    <linearGradient id="b2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#5BA3F5"/>
+      <stop offset="100%" stop-color="#2C7BE5"/>
+    </linearGradient>
+    <linearGradient id="b3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#A8CFFF"/>
+      <stop offset="100%" stop-color="#5BA3F5"/>
+    </linearGradient>
+  </defs>
+  <!-- rect arrière -->
+  <rect x="136" y="24" width="88" height="108" rx="4" fill="url(#b3)" opacity="0.75"/>
+  <!-- rect milieu -->
+  <rect x="122" y="36" width="88" height="108" rx="4" fill="url(#b2)"/>
+  <!-- rect avant -->
+  <rect x="108" y="48" width="88" height="108" rx="4" fill="url(#b1)"/>
+  <!-- wordmark -->
+</svg>

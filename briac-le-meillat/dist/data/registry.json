@@ -1,0 +1,281 @@
+{
+<<<<<<< HEAD:briac-le-meillat/public/data/registry.json
+  "lastUpdated": "2026-05-13T06:54:04.222Z",
+  "total": 10,
+  "proofs": [
+    {
+      "title": "Cheat Sheet : Setup PostgreSQL (CTP R207)",
+      "module": "R207",
+      "competence": "Programmer",
+      "ac_lies": [
+        "AC13.01",
+        "AC13.05"
+      ],
+      "techs": [
+        "PostgreSQL",
+        "Linux",
+        "SQL"
+      ],
+      "date": "2026-05-12",
+      "status": "Terminé",
+      "path": "assets/documents/apprentissage/cheet-sheet.md"
+    },
+    {
+      "title": "Mise en œuvre d'un serveur de boot PXE",
+      "module": "R203",
+      "competence": "Administrer",
+      "ac_lies": [
+        "AC11.01",
+        "AC11.02"
+      ],
+      "techs": [
+        "PXE",
+        "Dnsmasq",
+        "NFS",
+        "DHCP",
+        "TFTP"
+      ],
+      "date": "2026-05-11",
+      "status": "Terminé",
+      "path": "assets/documents/apprentissage/bases-services-reseaux/tp-dhcp-tftp-pxe.md"
+    },
+    {
+      "title": "Filtrage par ACL sur routeur Cisco",
+      "module": "R201",
+      "competence": "Connecter",
+      "ac_lies": [
+        "AC12.01",
+        "AC12.02"
+      ],
+      "techs": [
+        "Cisco",
+        "ACL",
+        "Routage",
+        "Packet Tracer"
+      ],
+      "date": "2026-05-06",
+      "status": "Terminé",
+      "path": "assets/documents/apprentissage/admin-reseau/tp7-ACL.md"
+    },
+    {
+      "title": "Analyse des protocoles TCP & UDP",
+      "module": "R101",
+      "competence": "Connecter",
+      "ac_lies": [
+        "AC11.01",
+        "AC11.02"
+      ],
+      "techs": [
+        "Wireshark",
+        "TCP",
+        "UDP",
+        "Nmap",
+        "Netcat"
+      ],
+      "date": "2026-05-04",
+      "status": "Terminé",
+      "path": "assets/documents/apprentissage/admin-reseau/tp6-tcp_udp.md"
+=======
+  "lastUpdated": "2026-05-10T15:25:00.000Z",
+  "total": 12,
+  "proofs": [
+    {
+      "title": "Quiz Réseaux : Préparation aux Certifications & Partiels",
+      "module": "R103",
+      "competence": "Administrer",
+      "ac_lies": ["AC11.01", "AC11.02", "AC11.03"],
+      "techs": ["Cisco", "OSI", "TCP/IP", "Calcul IP"],
+      "date": "2026-05-10",
+      "status": "Terminé",
+      "path": "assets/documents/apprentissage/admin-reseau/quiz-reseaux.md"
+    },
+    {
+      "title": "Synthèse Globale : Réseaux Locaux et Équipements Actifs",
+      "module": "R103",
+      "competence": "Administrer",
+      "ac_lies": ["AC11.01", "AC11.02", "AC11.03"],
+      "techs": ["Cisco", "Ethernet", "VLAN", "STP", "EtherChannel"],
+      "date": "2026-05-10",
+      "status": "Terminé",
+      "path": "assets/documents/apprentissage/admin-reseau/synthese.md"
+    },
+    {
+      "title": "Agrégation de liens : EtherChannel (LACP)",
+      "module": "R103",
+      "competence": "Administrer",
+      "ac_lies": [
+        "AC11.03"
+      ],
+      "techs": [
+        "Cisco",
+        "EtherChannel",
+        "LACP",
+        "Redondance"
+      ],
+      "date": "2026-05-10",
+      "status": "Terminé",
+      "path": "assets/documents/apprentissage/admin-reseau/etherchannel/tp4.md"
+    },
+    {
+      "title": "Étude du protocole Spanning Tree (STP)",
+      "module": "R103",
+      "competence": "Administrer",
+      "ac_lies": [
+        "AC11.03"
+      ],
+      "techs": [
+        "Cisco",
+        "STP",
+        "PVST+",
+        "Root Bridge"
+      ],
+      "date": "2026-05-09",
+      "status": "Terminé",
+      "path": "assets/documents/apprentissage/admin-reseau/spanning-tree/tp3.md"
+    },
+    {
+      "title": "Routage Inter-VLAN : Router-on-a-Stick",
+      "module": "R103",
+      "competence": "Administrer",
+      "ac_lies": [
+        "AC11.03"
+      ],
+      "techs": [
+        "Cisco",
+        "Router-on-a-Stick",
+        "802.1Q"
+      ],
+      "date": "2026-05-08",
+      "status": "Terminé",
+      "path": "assets/documents/apprentissage/admin-reseau/vlan-router/tp2.md"
+    },
+    {
+      "title": "Segmentation par VLAN et Trunking Cisco",
+      "module": "R103",
+      "competence": "Administrer",
+      "ac_lies": [
+        "AC11.03"
+      ],
+      "techs": [
+        "Cisco",
+        "VLAN",
+        "Trunk",
+        "IOS"
+      ],
+      "date": "2026-05-07",
+      "status": "Terminé",
+      "path": "assets/documents/apprentissage/admin-reseau/vlan/tp1.md"
+>>>>>>> 9dbe89223a88afb8be84fe40f1cae4ea64b04cc2:briac-le-meillat/public/assets/data/registry.json
+    },
+    {
+      "title": "Fiche de Révision : Signaux et Systèmes (R205)",
+      "module": "R205",
+      "competence": "Connecter",
+      "ac_lies": [
+        "AC12.01",
+        "AC12.02"
+      ],
+      "techs": [
+        "Maths",
+        "Signal",
+        "Parseval",
+        "Bode"
+      ],
+      "date": "2026-04-01",
+      "status": "Terminé",
+      "path": "assets/documents/apprentissage/revisions.md"
+    },
+    {
+      "title": "Administration de Serveurs Web : Apache2 & Nginx",
+      "module": "R203",
+      "competence": "Connecter",
+      "ac_lies": [
+        "AC12.03",
+        "AC12.04"
+      ],
+      "techs": [
+        "Apache2",
+        "Nginx",
+        "PHP",
+        "MariaDB"
+      ],
+      "date": "2026-03-15",
+      "status": "Terminé",
+      "path": "assets/documents/apprentissage/bases-services-reseaux/tp-apache-nginx.md"
+    },
+    {
+      "title": "Routage Dynamique : RIP v2 et OSPF",
+      "module": "R201",
+      "competence": "Connecter",
+      "ac_lies": [
+        "AC12.01",
+        "AC12.02"
+      ],
+      "techs": [
+        "Cisco",
+        "RIP",
+        "OSPF",
+        "Routage Dynamique"
+      ],
+      "date": "2026-03-10",
+      "status": "Terminé",
+      "path": "assets/documents/apprentissage/tech-internet/TP3-TP4_compte_rendu.md"
+    },
+    {
+      "title": "SAE 1.02 : Déploiement Infrastructure PME",
+      "module": "SAE102 / R103",
+      "competence": "Connecter",
+      "ac_lies": [
+        "AC11.01",
+        "AC11.02",
+        "AC11.05"
+      ],
+      "techs": [
+        "Cisco",
+        "VLAN",
+        "Trunk",
+        "SSH",
+        "Inter-VLAN"
+      ],
+      "date": "2026-01-28",
+      "status": "Terminé",
+      "path": "assets/documents/apprentissage/sae102/livrable_sae12FINALE/compte-rendu.md"
+    },
+    {
+      "title": "Mise en place d'un IVR et Trunk SIP",
+      "module": "R204",
+      "competence": "Connecter",
+      "ac_lies": [
+        "AC12.03",
+        "AC12.04"
+      ],
+      "techs": [
+        "Asterisk",
+        "SIP",
+        "IVR",
+        "VoIP"
+      ],
+      "date": "2026-01-20",
+      "status": "Terminé",
+      "path": "assets/documents/apprentissage/telephonie/tp2.md"
+    },
+    {
+      "title": "Passerelle Linux : NAT & Routage",
+      "module": "R101",
+      "competence": "Connecter",
+      "ac_lies": [
+        "AC11.01",
+        "AC11.02"
+      ],
+      "techs": [
+        "Linux",
+        "Iptables",
+        "NAT",
+        "Routage"
+      ],
+      "date": "2025-10-12",
+      "status": "Terminé",
+      "path": "assets/documents/apprentissage/tech-internet/tp1-tp2.md"
+    }
+  ]
+}

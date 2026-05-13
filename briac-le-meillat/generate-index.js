@@ -12,25 +12,31 @@ const OUTPUT_FILE = path.join(__dirname, 'public/data/registry.json');
  * Extrait le frontmatter d'un fichier Markdown via Regex
  * Évite l'ajout de dépendances comme gray-matter
  */
-function parseFrontmatter(content) {
+function parseFrontmatter(content, fileName = '') {
     const regex = /^---\s*\n([\s\S]*?)\n---\s*\n/;
     const match = content.match(regex);
     
-    if (!match) return null;
+    if (!match) {
+        // Fallback: extract title from first # header
+        const h1Match = content.match(/^#\s+(.+)$/m);
+        const title = h1Match ? h1Match[1].trim() : fileName.replace('.md', '');
+        return {
+            title,
+            date: new Date().toISOString().split('T')[0],
+            module: "R103", // Default module
+            techs: []
+        };
+    }
     
     const yamlContent = match[1];
     const data = {};
     
-    // Parsing ultra-simple du YAML (clé: valeur/tableau)
     yamlContent.split('\n').forEach(line => {
         const [key, ...valueParts] = line.split(':');
         if (key && valueParts.length > 0) {
             let value = valueParts.join(':').trim();
-            
-            // Nettoyage des guillemets
             value = value.replace(/^["']|["']$/g, '');
             
-            // Parsing des tableaux basiques [A, B]
             if (value.startsWith('[') && value.endsWith(']')) {
                 data[key.trim()] = value
                     .slice(1, -1)
@@ -78,7 +84,7 @@ function generateIndex() {
 
     files.forEach(filePath => {
         const content = fs.readFileSync(filePath, 'utf8');
-        const metadata = parseFrontmatter(content);
+        const metadata = parseFrontmatter(content, path.basename(filePath));
         
         if (metadata && metadata.title) {
             // Calcul du chemin relatif pour le frontend
