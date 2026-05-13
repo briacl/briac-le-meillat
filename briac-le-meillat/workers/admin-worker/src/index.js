@@ -18,8 +18,8 @@ export default {
         const formData = await request.formData();
         const file = formData.get("file");
         const title = formData.get("title");
-        // Le Frontend envoie 'resourceId', pas 'resource'
         const resourceId = formData.get("resourceId");
+        const date = formData.get("date"); // YYYY-MM-DD from <input type="date">
 
         if (!file || !title || !resourceId) {
           throw new Error("Champs manquants. Veuillez remplir tous les champs.");
@@ -74,7 +74,7 @@ export default {
           titre: title,
           ressource: resourceId,
           fichier: `/tps/${fileName}`,
-          date: new Date().toLocaleDateString('fr-FR')
+          date: date ? date.split('-').reverse().join('/') : new Date().toLocaleDateString('fr-FR')
         });
 
         const updateJson = await fetch(`https://api.github.com/repos/${env.GITHUB_OWNER}/${env.GITHUB_REPO}/contents/${jsonPath}`, {

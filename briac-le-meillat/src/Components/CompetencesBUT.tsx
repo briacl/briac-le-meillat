@@ -113,8 +113,8 @@ export default function CompetencesBUT() {
                 const baseUrl = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
                 
                 const [tpsRes, dataRes] = await Promise.all([
-                    fetch(`${baseUrl}data/tps.json`).catch(() => ({ ok: false })),
-                    fetch(`${baseUrl}assets/documents/apprentissage/data.json`).catch(() => ({ ok: false }))
+                    fetch(`${baseUrl}data/tps.json?v=${Date.now()}`).catch(() => ({ ok: false })),
+                    fetch(`${baseUrl}data/competences.json?v=${Date.now()}`).catch(() => ({ ok: false }))
                 ]);
 
                 if (dataRes && dataRes.ok) {

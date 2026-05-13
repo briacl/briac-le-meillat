@@ -33,6 +33,7 @@ const formatFileSize = (bytes: number) => {
 export default function AdminDashboard() {
     const [password, setPassword] = useState('');
     const [title, setTitle] = useState('');
+    const [realizationDate, setRealizationDate] = useState(new Date().toISOString().split('T')[0]);
     const [selectedResource, setSelectedResource] = useState('');
     const [file, setFile] = useState<File | null>(null);
     const [courses, setCourses] = useState<CoursesData>({});
@@ -61,6 +62,7 @@ export default function AdminDashboard() {
         formData.append('file', file);
         formData.append('title', title);
         formData.append('resourceId', selectedResource);
+        formData.append('date', realizationDate);
 
         try {
             const WORKER_URL = "https://odd-wood-3b09.briac-le-meillat.workers.dev/"; // URL à adapter
@@ -147,6 +149,19 @@ export default function AdminDashboard() {
                                         labelPlacement="outside"
                                         value={title}
                                         onChange={(e) => setTitle(e.target.value)}
+                                        variant="bordered"
+                                        classNames={{
+                                            input: "!text-white",
+                                            label: "!text-white font-bold"
+                                        }}
+                                    />
+
+                                    <Input
+                                        type="date"
+                                        label="Date de réalisation"
+                                        labelPlacement="outside"
+                                        value={realizationDate}
+                                        onChange={(e) => setRealizationDate(e.target.value)}
                                         variant="bordered"
                                         classNames={{
                                             input: "!text-white",

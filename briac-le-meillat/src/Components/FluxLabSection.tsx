@@ -13,19 +13,22 @@ import {
     Clock, 
     X,
     ChevronRight,
-    Zap
+    Zap,
+    Download
 } from 'lucide-react';
 import ExPage from '../Pages/ExPage';
+import { exportToPDF, readDocument } from '../Utils/DocumentExporter';
 
 interface Proof {
     title: string;
     module: string;
-    competence: string;
-    ac_lies: string[];
+    competence?: string;
+    ac_lies?: string[];
     techs: string[];
     date: string;
-    status: string;
+    status?: string;
     path: string;
+    isPDF?: boolean;
 }
 
 interface Registry {
@@ -35,39 +38,71 @@ interface Registry {
 }
 
 export default function FluxLabSection({ isLight = false }: { isLight?: boolean }) {
-    const [registry, setRegistry] = useState<Registry | null>(null);
+    const [mergedProofs, setMergedProofs] = useState<Proof[]>([]);
     const [loading, setLoading] = useState(true);
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
     const [selectedProof, setSelectedProof] = useState<Proof | null>(null);
 
     useEffect(() => {
-        const fetchRegistry = async () => {
+        const fetchData = async () => {
             try {
                 const baseUrl = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
-                const response = await fetch(`${baseUrl}assets/data/registry.json`);
-                if (response.ok) {
-                    const data = await response.json();
-                    setRegistry(data);
+                
+                const [registryRes, tpsRes] = await Promise.all([
+                    fetch(`${baseUrl}data/registry.json?v=${Date.now()}`),
+                    fetch(`${baseUrl}data/tps.json?v=${Date.now()}`).catch(() => null)
+                ]);
+
+                let proofs: Proof[] = [];
+
+                if (registryRes.ok) {
+                    const data = await registryRes.json();
+                    proofs = [...data.proofs];
                 }
+
+                if (tpsRes && tpsRes.ok) {
+                    const tpsData = await tpsRes.json();
+                    const pdfProofs: Proof[] = tpsData.map((tp: any) => ({
+                        title: tp.titre,
+                        module: tp.ressource,
+                        techs: ['PDF'],
+                        date: tp.date.split('/').reverse().join('-'), // Convert DD/MM/YYYY to YYYY-MM-DD for sorting
+                        path: tp.fichier,
+                        isPDF: true
+                    }));
+                    proofs = [...proofs, ...pdfProofs];
+                }
+
+                // Sort by date descending
+                proofs.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+                setMergedProofs(proofs);
+
             } catch (error) {
-                console.error("Erreur lors du chargement du registre:", error);
+                console.error("Erreur lors du chargement des données:", error);
             } finally {
                 setLoading(false);
             }
         };
 
-        fetchRegistry();
+        fetchData();
     }, []);
 
     const handleProofClick = (proof: Proof) => {
-        setSelectedProof(proof);
-        onOpen();
+        readDocument(proof.path, () => {
+            setSelectedProof(proof);
+            onOpen();
+        });
     };
 
-    if (loading || !registry || registry.proofs.length === 0) return null;
+    const handleDownload = (e: React.MouseEvent, proof: Proof) => {
+        e.stopPropagation();
+        exportToPDF(proof.title, proof.path);
+    };
+
+    if (loading || mergedProofs.length === 0) return null;
 
     // Prendre les 4 derniers
-    const latestProofs = registry.proofs.slice(0, 4);
+    const latestProofs = mergedProofs.slice(0, 4);
 
     return (
         <section id="flux-lab-section" className={`w-full py-24 relative overflow-hidden transition-colors duration-500 ${isLight ? 'bg-white' : 'bg-black'}`}>
@@ -143,9 +178,21 @@ export default function FluxLabSection({ isLight = false }: { isLight?: boolean 
                                         </div>
                                         
                                         <div className={`flex items-center justify-between pt-4 border-t ${isLight ? 'border-black/5' : 'border-white/5'}`}>
-                                            <span className="text-[10px] font-black uppercase tracking-[0.1em] text-zinc-400 italic">Voir le rapport</span>
-                                            <ChevronRight size={16} className="text-blue-500 group-hover:translate-x-1 transition-transform" />
-                                        </div>
+                                             <div className="flex items-center gap-2">
+                                                 <span className="text-[10px] font-black uppercase tracking-[0.1em] text-zinc-400 italic">Voir le rapport</span>
+                                                 <ChevronRight size={16} className="text-blue-500 group-hover:translate-x-1 transition-transform" />
+                                             </div>
+                                             <Button
+                                                 isIconOnly
+                                                 size="sm"
+                                                 variant="light"
+                                                 onPress={(e) => handleDownload(e as any, proof)}
+                                                 className="text-zinc-400 hover:text-emerald-500 min-w-0 w-8 h-8 rounded-full"
+                                                 title="Télécharger en PDF"
+                                             >
+                                                 <Download size={16} />
+                                             </Button>
+                                         </div>
                                     </div>
                                 </CardBody>
                             </Card>

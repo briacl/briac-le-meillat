@@ -9,21 +9,24 @@ import {
 } from "@heroui/react";
 import { 
     X,
-    ChevronRight
+    ChevronRight,
+    Download
 } from 'lucide-react';
 import ExPage from '../Pages/ExPage';
+import { exportToPDF, readDocument } from '../Utils/DocumentExporter';
 
 const APPLE_BEZIER = [0.21, 0.47, 0.32, 0.98];
 
 interface Proof {
     title: string;
     module: string;
-    competence: string;
-    ac_lies: string[];
+    competence?: string;
+    ac_lies?: string[];
     techs: string[];
     date: string;
-    status: string;
+    status?: string;
     path: string;
+    isPDF?: boolean;
 }
 
 interface Registry {
@@ -33,38 +36,70 @@ interface Registry {
 }
 
 export default function FieldNotes() {
-    const [registry, setRegistry] = useState<Registry | null>(null);
+    const [mergedProofs, setMergedProofs] = useState<Proof[]>([]);
     const [loading, setLoading] = useState(true);
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
     const [selectedProof, setSelectedProof] = useState<Proof | null>(null);
 
     useEffect(() => {
-        const fetchRegistry = async () => {
+        const fetchData = async () => {
             try {
                 const baseUrl = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
-                const response = await fetch(`${baseUrl}assets/data/registry.json`);
-                if (response.ok) {
-                    const data = await response.json();
-                    setRegistry(data);
+                
+                const [registryRes, tpsRes] = await Promise.all([
+                    fetch(`${baseUrl}data/registry.json?v=${Date.now()}`),
+                    fetch(`${baseUrl}data/tps.json?v=${Date.now()}`).catch(() => null)
+                ]);
+
+                let proofs: Proof[] = [];
+
+                if (registryRes.ok) {
+                    const data = await registryRes.json();
+                    proofs = [...data.proofs];
                 }
+
+                if (tpsRes && tpsRes.ok) {
+                    const tpsData = await tpsRes.json();
+                    const pdfProofs: Proof[] = tpsData.map((tp: any) => ({
+                        title: tp.titre,
+                        module: tp.ressource,
+                        techs: ['PDF'],
+                        date: tp.date.split('/').reverse().join('-'), 
+                        path: tp.fichier,
+                        isPDF: true
+                    }));
+                    proofs = [...proofs, ...pdfProofs];
+                }
+
+                // Sort by date descending
+                proofs.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+                setMergedProofs(proofs);
+
             } catch (error) {
-                console.error("Erreur lors du chargement du registre:", error);
+                console.error("Erreur lors du chargement des données:", error);
             } finally {
                 setLoading(false);
             }
         };
-        fetchRegistry();
+        fetchData();
     }, []);
 
     const handleProofClick = (proof: Proof) => {
-        setSelectedProof(proof);
-        onOpen();
+        readDocument(proof.path, () => {
+            setSelectedProof(proof);
+            onOpen();
+        });
     };
 
-    if (loading || !registry || registry.proofs.length === 0) return null;
+    const handleDownload = (e: React.MouseEvent, proof: Proof) => {
+        e.stopPropagation();
+        exportToPDF(proof.title, proof.path);
+    };
 
-    // Latest 4 proofs for the archive
-    const latestProofs = registry.proofs.slice(0, 4);
+    if (loading || mergedProofs.length === 0) return null;
+
+    // Display all proofs in Field Notes as requested
+    const latestProofs = mergedProofs;
 
     return (
         <section id="field-notes" className="w-full py-32 bg-black relative overflow-hidden border-t border-white/5">
@@ -122,13 +157,22 @@ export default function FieldNotes() {
                                 </div>
 
                                 {/* Data & Interaction */}
-                                <div className="flex items-center gap-12">
+                                <div className="flex items-center gap-6">
                                     <div className="hidden lg:flex flex-col items-end">
                                         <span className="text-[9px] font-mono uppercase tracking-[0.3em] text-white/20 mb-1">Index_Time</span>
                                         <span className="text-xs font-mono text-white/40">{new Date(proof.date).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })}</span>
                                     </div>
-                                    <div className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-blue-500 group-hover:border-blue-500 transition-all duration-500">
-                                        <ChevronRight className="text-white/20 group-hover:text-white group-hover:translate-x-0.5 transition-all" size={18} />
+                                    <div className="flex items-center gap-3">
+                                        <div 
+                                            onClick={(e) => handleDownload(e, proof)}
+                                            className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-emerald-500 hover:border-emerald-500 transition-all duration-500 group/dl"
+                                            title="Télécharger en PDF"
+                                        >
+                                            <Download className="text-white/20 group-hover/dl:text-white" size={18} />
+                                        </div>
+                                        <div className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-blue-500 group-hover:border-blue-500 transition-all duration-500">
+                                            <ChevronRight className="text-white/20 group-hover:text-white group-hover:translate-x-0.5 transition-all" size={18} />
+                                        </div>
                                     </div>
                                 </div>
                             </div>

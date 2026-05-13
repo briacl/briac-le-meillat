@@ -1,6 +1,16 @@
+---
+title: "Analyse des protocoles TCP & UDP"
+module: "R101"
+competence: "Connecter"
+ac_lies: ["AC11.01", "AC11.02"]
+techs: ["Wireshark", "TCP", "UDP", "Nmap", "Netcat"]
+date: "2026-05-04"
+status: "Terminé"
+---
+
 # 📄 Compte-Rendu de TP : Protocoles TCP & UDP
 
-**Étudiant :** Yanni Delattre Balcer  
+**Étudiant :** Briac Le Meillat
 **Date :** 04/05/2026  
 **Environnement :** Ubuntu 22.04 Desktop sur Oracle VirtualBox  
 **Infrastructure :** Réseau interne via passerelle RT-Box2  
@@ -10,6 +20,10 @@
 ## 🛠️ 1. Préparation de l'environnement
 
 ### Installation et lancement de Wireshark
+Pour installer wireshark
+```bash
+sudo apt install wireshark
+```
 Pour capturer le trafic sur l'interface de boucle locale (`lo`), des privilèges élevés sont nécessaires.
 
 ```bash

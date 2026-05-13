@@ -1,4 +1,16 @@
+---
+title: "Filtrage par ACL sur routeur Cisco"
+module: "R201"
+competence: "Connecter"
+ac_lies: ["AC12.01", "AC12.02"]
+techs: ["Cisco", "ACL", "Routage", "Packet Tracer"]
+date: "2026-05-06"
+status: "Terminé"
+---
+
 # 📄 Compte-Rendu de TP : Mise en place d'un filtrage par ACL sur routeur Cisco
+
+**Date :** 06/05/2026  
 
 **Objectif principal :** Configurer une topologie réseau fonctionnelle sous Cisco Packet Tracer, mettre en place un routage statique, puis appliquer des règles de sécurité via des Access Control Lists (ACL) Standards et Étendues.
 

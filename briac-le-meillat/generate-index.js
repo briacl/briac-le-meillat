@@ -6,7 +6,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const DOCUMENTS_DIR = path.join(__dirname, 'public/assets/documents/apprentissage');
-const OUTPUT_FILE = path.join(__dirname, 'public/assets/data/registry.json');
+const OUTPUT_FILE = path.join(__dirname, 'public/data/registry.json');
 
 /**
  * Extrait le frontmatter d'un fichier Markdown via Regex
@@ -108,7 +108,7 @@ function generateIndex() {
 
     fs.writeFileSync(OUTPUT_FILE, JSON.stringify(registry, null, 2));
     console.log(`✅ Indexation terminée : ${proofs.length} preuves trouvées.`);
-    console.log(`📂 Registre généré : public/assets/data/registry.json`);
+    console.log(`📂 Registre généré : public/data/registry.json`);
 }
 
 generateIndex();
