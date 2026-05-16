@@ -8,30 +8,32 @@
 ## TABLE DES MATIÈRES
 
 1. [Fondamentaux Numériques](#1-fondamentaux-numériques)
-2. [Modèles OSI et TCP/IP](#2-modèles-osi-et-tcpip)
-3. [Adressage IPv4](#3-adressage-ipv4)
-4. [Adressage IPv6](#4-adressage-ipv6)
-5. [Ethernet et ARP](#5-ethernet-et-arp)
-6. [IP et ICMP](#6-ip-et-icmp)
-7. [Transport : TCP et UDP](#7-transport--tcp-et-udp)
-8. [Protocoles Applicatifs](#8-protocoles-applicatifs)
-9. [Routage — Principes et Statique](#9-routage--principes-et-statique)
-10. [Routage Dynamique : RIP et OSPF](#10-routage-dynamique--rip-et-ospf)
-11. [VLAN et Trunk 802.1Q](#11-vlan-et-trunk-8021q)
-12. [Routage Inter-VLAN (Router-on-a-Stick)](#12-routage-inter-vlan-router-on-a-stick)
-13. [Spanning Tree Protocol (STP)](#13-spanning-tree-protocol-stp)
-14. [EtherChannel](#14-etherchannel)
-15. [Passerelle Linux (NAT & IP Forwarding)](#15-passerelle-linux-nat--ip-forwarding)
-16. [ACL — Listes de Contrôle d'Accès](#16-acl--listes-de-contrôle-daccès)
-17. [La Virtualisation](#17-la-virtualisation)
-18. [Les Clusters et la Haute Disponibilité](#18-les-clusters-et-la-haute-disponibilité)
-19. [Le Cloud et le Green Computing](#19-le-cloud-et-le-green-computing)
-20. [Serveurs Web : Apache2 et Nginx](#20-serveurs-web--apache2-et-nginx)
-21. [Téléphonie sur IP (VoIP / Asterisk)](#21-téléphonie-sur-ip-voip--asterisk)
-22. [Le Web : De l'URL à l'écran](#22-le-web--de-lurl-à-lécran)
-23. [La Programmation : PHP et Python](#23-la-programmation--php-et-python)
-24. [Administration Cisco IOS — Aide-mémoire](#24-administration-cisco-ios--aide-mémoire)
-25. [Commandes Réseau Linux — Aide-mémoire](#25-commandes-réseau-linux--aide-mémoire)
+2. [Architecture d'Internet](#2-architecture-dinternet)
+3. [Modèles OSI et TCP/IP](#3-modèles-osi-et-tcpip)
+4. [Adressage IPv4](#4-adressage-ipv4)
+5. [Adressage IPv6](#5-adressage-ipv6)
+6. [Ethernet et ARP](#6-ethernet-et-arp)
+7. [IP et ICMP](#7-ip-et-icmp)
+8. [Transport : TCP et UDP](#8-transport--tcp-et-udp)
+9. [Protocoles Applicatifs](#9-protocoles-applicatifs)
+10. [Routage — Principes et Statique](#10-routage--principes-et-statique)
+11. [Routage Dynamique : RIP et OSPF](#11-routage-dynamique--rip-et-ospf)
+12. [VLAN et Trunk 802.1Q](#12-vlan-et-trunk-8021q)
+13. [Routage Inter-VLAN (Router-on-a-Stick)](#13-routage-inter-vlan-router-on-a-stick)
+14. [Spanning Tree Protocol (STP)](#14-spanning-tree-protocol-stp)
+15. [EtherChannel](#15-etherchannel)
+16. [Passerelle Linux (NAT & IP Forwarding)](#16-passerelle-linux-nat--ip-forwarding)
+17. [ACL — Listes de Contrôle d'Accès](#17-acl--listes-de-contrôle-daccès)
+18. [La Virtualisation](#18-la-virtualisation)
+19. [Les Clusters et la Haute Disponibilité](#19-les-clusters-et-la-haute-disponibilité)
+20. [Le Cloud et le Green Computing](#20-le-cloud-et-le-green-computing)
+21. [Serveurs Web : Apache2 et Nginx](#21-serveurs-web--apache2-et-nginx)
+22. [Téléphonie sur IP (VoIP / Asterisk)](#22-téléphonie-sur-ip-voip--asterisk)
+23. [Le Web : De l'URL à l'écran](#23-le-web--de-lurl-à-lécran)
+24. [Anatomie d'un Navigateur Web](#24-anatomie-dun-navigateur-web)
+25. [La Programmation : PHP et Python](#25-la-programmation--php-et-python)
+26. [Administration Cisco IOS — Aide-mémoire](#26-administration-cisco-ios--aide-mémoire)
+27. [Commandes Réseau Linux — Aide-mémoire](#27-commandes-réseau-linux--aide-mémoire)
 
 ---
 
@@ -115,9 +117,133 @@ Utilisations en réseau :
 
 ---
 
-## 2. Modèles OSI et TCP/IP
+## 2. Architecture d'Internet
 
-### 2.1 Comparaison des deux modèles
+### 2.1 Internet : un réseau de réseaux
+
+Internet n'est pas un réseau centralisé géré par une entité unique. C'est l'interconnexion d'environ **80 000 Systèmes Autonomes (AS)** indépendants, reliés entre eux par des accords techniques et commerciaux.
+
+**Infrastructure physique :**
+- **Câbles sous-marins** : plus de 150 câbles en fibre optique posés au fond des océans, représentant ~1,3 million de kilomètres. Ils transportent plus de 95 % du trafic Internet intercontinental (et non les satellites).
+- **Points d'atterrissage (landing stations)** : installations côtières où les câbles sous-marins rejoignent le réseau terrestre.
+
+**Hiérarchie des opérateurs :**
+
+| Niveau | Nom | Description | Exemple |
+|:-:|---|---|---|
+| **Tier 1** | Opérateurs mondiaux | Possèdent des backbones planétaires. S'échangent le trafic gratuitement (peering). N'achètent de transit à personne. | AT&T, Lumen, NTT, Telia |
+| **Tier 2** | Opérateurs régionaux | Peerent avec certains Tier 1, achètent du transit pour le reste. | Orange (hors France), Zayo |
+| **Tier 3** | FAI locaux | Achètent du transit auprès des Tier 1/2. N'ont pas de backbone propre. | FAI locaux, hébergeurs |
+
+---
+
+### 2.2 Le Système Autonome (AS)
+
+Un **AS (Autonomous System)** est un ensemble de réseaux IP placé sous une même politique de routage et géré par une entité unique (entreprise, université, opérateur).
+
+- Chaque AS possède un numéro unique appelé **ASN** (Autonomous System Number)
+  - Format 16 bits (historique) : 1 – 65 535
+  - Format 32 bits (moderne, RFC 4893) : jusqu'à ~4,3 milliards
+- Attribution : par les RIR (Regional Internet Registries) — RIPE NCC pour l'Europe
+
+**Exemples d'ASN connus :**
+
+| ASN | Entité |
+|:-:|---|
+| AS3215 | Orange France |
+| AS5410 | Bouygues Telecom |
+| AS12322 | Free (Proxad) |
+| AS15169 | Google |
+| AS2200 | RENATER (réseau académique français) |
+| AS32934 | Meta (Facebook) |
+
+```bash
+# Vérifier l'ASN d'une adresse IP ou d'un réseau (Linux)
+whois -h whois.radb.net AS15169
+whois 8.8.8.8 | grep -i "origin\|as-name"
+```
+
+---
+
+### 2.3 BGP (Border Gateway Protocol)
+
+**BGP** est le protocole de routage qui relie les AS entre eux. C'est le seul protocole de routage inter-domaine utilisé sur Internet.
+
+**Différence fondamentale avec OSPF/RIP :**
+
+| Critère | OSPF / RIP (intra-AS) | BGP (inter-AS) |
+|---|---|---|
+| Portée | À l'intérieur d'un seul AS | Entre AS différents |
+| Métrique | Plus court chemin (coût/sauts) | Chemin politiquement/commercialement préféré |
+| Convergence | Rapide (secondes) | Lente (minutes) |
+| Encapsulation | IP (OSPF=89) / UDP (RIP=520) | TCP port **179** |
+
+**Deux variantes :**
+- **eBGP** (external BGP) : session entre routeurs de **deux AS différents**. Échangent les préfixes IP qu'ils annoncent.
+- **iBGP** (internal BGP) : session entre routeurs **à l'intérieur du même AS**, pour propager les routes BGP apprises en interne.
+
+**Attributs BGP clés :**
+
+| Attribut | Rôle |
+|---|---|
+| **AS_PATH** | Liste des AS traversés par l'annonce. Détecte les boucles (on n'accepte pas sa propre annonce). |
+| **NEXT_HOP** | Adresse IP du prochain routeur à joindre |
+| **LOCAL_PREF** | Préférence locale (plus élevé = préféré), utilisé en iBGP |
+| **MED** (Multi-Exit Discriminator) | Suggère au voisin quel chemin préférer pour entrer dans notre AS |
+
+---
+
+### 2.4 Les Points d'Échange Internet (IXP)
+
+Un **IXP (Internet Exchange Point)** est une infrastructure physique neutre — généralement un datacenter — où plusieurs AS se connectent directement via des **switches haute capacité** pour s'échanger du trafic local.
+
+**Avantages du peering en IXP :**
+- Trafic régional qui reste régional (pas besoin de passer par un Tier 1 américain)
+- Latence réduite et coût inférieur au transit payant
+- Résilience : si un opérateur tombe, le trafic peut passer par d'autres membres de l'IXP
+
+**IXP majeurs :**
+
+| IXP | Localisation | Trafic de pointe |
+|---|---|---|
+| **DE-CIX** | Francfort | > 14 Tbps (le plus grand au monde) |
+| **AMS-IX** | Amsterdam | > 10 Tbps |
+| **France-IX** | Paris | > 3 Tbps |
+| **LINX** | Londres | > 7 Tbps |
+
+**Route Servers** : équipements centraux gérés par l'IXP qui redistribuent automatiquement les annonces BGP entre tous les membres — chaque membre n'a besoin que d'une session BGP vers le route server, pas d'une session vers chaque autre membre.
+
+---
+
+### 2.5 Chemin d'un paquet à travers Internet
+
+```
+[Ton PC]
+    │ routage local (LAN)
+[Box FAI — Tier 3]
+    │ transit acheté au Tier 2
+[Routeur Tier 2 régional]
+    │ peering à l'IXP ou transit Tier 1
+[IXP / Routeur Tier 1]
+    │ backbone mondial (câbles sous-marins si intercontinental)
+[Routeur Tier 1 destination]
+    │ transit vers Tier 2/3 de destination
+[Serveur destination]
+```
+
+À chaque flèche : un routeur BGP prend une **décision autonome** basée sur ses tables de routage et ses politiques. Les IPs source/destination ne changent pas — seules les MACs changent à chaque saut.
+
+**Commandes utiles pour observer le chemin :**
+```bash
+traceroute -A 8.8.8.8   # -A affiche le numéro d'AS à chaque saut (Linux)
+mtr --aslookup 8.8.8.8  # vue en temps réel avec ASN (nécessite mtr)
+```
+
+---
+
+## 3. Modèles OSI et TCP/IP
+
+### 3.1 Comparaison des deux modèles
 
 | Couche OSI | N° | Couche TCP/IP | Protocoles/technologies |
 |---|:-:|---|---|
@@ -129,7 +255,7 @@ Utilisations en réseau :
 | Liaison de données | 2 | Accès réseau | Ethernet (802.3), Wi-Fi (802.11), ARP |
 | Physique | 1 | Accès réseau | Câbles, fibres, ondes radio |
 
-### 2.2 Principes d'encapsulation
+### 3.2 Principes d'encapsulation
 
 Chaque couche **encapsule** les données de la couche supérieure en ajoutant son propre en-tête (et éventuellement un pied de trame).
 
@@ -153,7 +279,7 @@ Physique     →  Bits sur le médium
 | Résolution MAC | ETH \| ARP |
 | Transfert fichier | ETH \| IP \| TCP \| FTP |
 
-### 2.3 Rôle des couches — ce que chaque couche "voit"
+### 3.3 Rôle des couches — ce que chaque couche "voit"
 
 **Couche Physique (1)** : transmet les bits bruts sur le support physique (signal électrique, optique, radio). Ne connaît que des 0 et des 1.
 
@@ -167,9 +293,9 @@ Physique     →  Bits sur le médium
 
 ---
 
-## 3. Adressage IPv4
+## 4. Adressage IPv4
 
-### 3.1 Structure d'une adresse IPv4
+### 4.1 Structure d'une adresse IPv4
 
 Une adresse IPv4 est un nombre de **32 bits** écrit en notation décimale pointée : 4 octets séparés par des points.
 
@@ -180,7 +306,7 @@ Binaire  : 11000000.10101000.00001010.11101010
 
 Chaque octet vaut entre 0 et 255. L'adresse IP est **toujours accompagnée d'un masque** pour être exploitable.
 
-### 3.2 Masque de sous-réseau
+### 4.2 Masque de sous-réseau
 
 Le masque est une suite de 32 bits qui divise l'adresse IP en deux parties :
 - Les bits à **1** → partie **RÉSEAU (NetID)** : identifie le groupe
@@ -202,7 +328,7 @@ Le masque est une suite de 32 bits qui divise l'adresse IP en deux parties :
 | `255.255.255.248` | `/29` | 29 | 3 |
 | `255.255.255.252` | `/30` | 30 | 2 |
 
-### 3.3 Calcul de l'adresse réseau (ET logique)
+### 4.3 Calcul de l'adresse réseau (ET logique)
 
 Pour trouver l'adresse réseau, on applique un **ET logique (AND) bit à bit** entre l'adresse IP et le masque.
 
@@ -223,7 +349,7 @@ AND    : 11000000.10101000.00001010.00000000  = 192.168.10.0
 
 **Raccourci pratique** : avec un `/24`, les 3 premiers octets constituent la partie réseau, le dernier est mis à 0. Avec un `/16`, les 2 premiers octets forment la partie réseau.
 
-### 3.4 Adresse réseau et adresse de broadcast
+### 4.4 Adresse réseau et adresse de broadcast
 
 Dans chaque réseau, **deux adresses sont réservées** et ne peuvent jamais être assignées à un hôte :
 
@@ -243,7 +369,7 @@ Dans chaque réseau, **deux adresses sont réservées** et ne peuvent jamais êt
 | `192.168.10.0/26` | `192.168.10.0` | `192.168.10.63` | `192.168.10.1` – `192.168.10.62` |
 | `10.1.4.32/27` | `10.1.4.32` | `10.1.4.63` | `10.1.4.33` – `10.1.4.62` |
 
-### 3.5 Calcul du nombre d'hôtes
+### 4.5 Calcul du nombre d'hôtes
 
 $$\text{Nombre d'hôtes utilisables} = 2^n - 2$$
 
@@ -269,7 +395,7 @@ Le `−2` exclut l'adresse réseau et l'adresse de broadcast.
 
 **Cas particulier `/30`** : seulement 2 hôtes utilisables. Utilisé pour les liaisons point-à-point entre routeurs (un réseau = les 2 routeurs + adresse réseau + broadcast).
 
-### 3.6 Classes IP historiques
+### 4.6 Classes IP historiques
 
 Avant le CIDR (Classless Inter-Domain Routing), les adresses étaient regroupées en classes rigides :
 
@@ -283,7 +409,7 @@ Avant le CIDR (Classless Inter-Domain Routing), les adresses étaient regroupée
 
 Le CIDR a remplacé ce système pour utiliser les adresses plus efficacement, permettant des masques de n'importe quelle longueur.
 
-### 3.7 Adresses privées (RFC 1918)
+### 4.7 Adresses privées (RFC 1918)
 
 Ces plages sont réservées aux réseaux internes (LAN). Elles ne sont **pas routables sur Internet**.
 
@@ -302,7 +428,7 @@ Ces plages sont réservées aux réseaux internes (LAN). Elles ne sont **pas rou
 | `255.255.255.255` | Broadcast limité (tout le réseau local) |
 | `169.254.x.x` | APIPA — adresse auto-assignée quand DHCP échoue |
 
-### 3.8 Stratégie d'adressage
+### 4.8 Stratégie d'adressage
 
 Dans la pratique, on organise la plage d'un réseau ainsi :
 
@@ -320,7 +446,7 @@ Dans la pratique, on organise la plage d'un réseau ainsi :
 192.168.1.255     Broadcast (réservé)
 ```
 
-### 3.9 Découpage en sous-réseaux
+### 4.9 Découpage en sous-réseaux
 
 Combien de sous-réseaux `/26` dans un `/24` ?  
 Chaque `/26` = 64 adresses. Un `/24` = 256 adresses. → 256 / 64 = **4 sous-réseaux**.
@@ -336,9 +462,9 @@ Règle générale : augmenter le préfixe de **n bits** crée **2ⁿ** sous-rés
 
 ---
 
-## 4. Adressage IPv6
+## 5. Adressage IPv6
 
-### 4.1 Pourquoi IPv6 ?
+### 5.1 Pourquoi IPv6 ?
 
 IPv4 offre ~4,3 milliards d'adresses (2³²). Face à la prolifération des objets connectés, ces adresses sont épuisées. IPv6 résout ce problème radicalement.
 
@@ -350,7 +476,7 @@ IPv4 offre ~4,3 milliards d'adresses (2³²). Face à la prolifération des obje
 | En-tête | Variable (20–60 octets) | Fixe (40 octets) |
 | NAT | Nécessaire | Inutile (assez d'adresses) |
 
-### 4.2 Notation IPv6
+### 5.2 Notation IPv6
 
 Format : **8 groupes de 4 caractères hexadécimaux** séparés par `:`.
 
@@ -372,9 +498,9 @@ Exemple complet : `2001:0db8:85a3:0000:0000:8a2e:0370:7334`
 
 ---
 
-## 5. Ethernet et ARP
+## 6. Ethernet et ARP
 
-### 5.1 Ethernet (IEEE 802.3)
+### 6.1 Ethernet (IEEE 802.3)
 
 Ethernet est le protocole dominant pour les réseaux locaux filaires. Il opère aux couches 1 et 2.
 
@@ -416,7 +542,7 @@ Ethernet est le protocole dominant pour les réseaux locaux filaires. Il opère 
 - Si la MAC de destination est inconnue → **flooding** (envoi sur tous les ports sauf source)
 - Si connue → **commutation sélective** (envoi uniquement vers le bon port)
 
-### 5.2 ARP (Address Resolution Protocol)
+### 6.2 ARP (Address Resolution Protocol)
 
 **Problème résolu** : on connaît l'IP de destination, mais on a besoin de sa MAC pour construire la trame Ethernet.
 
@@ -448,9 +574,9 @@ Commande Linux : `ip n` ou `arp -a` (Windows)
 
 ---
 
-## 6. IP et ICMP
+## 7. IP et ICMP
 
-### 6.1 En-tête IPv4
+### 7.1 En-tête IPv4
 
 Un paquet IPv4 commence très souvent par **`0x4500`** :
 - `4` = Version IPv4
@@ -474,7 +600,7 @@ Un paquet IPv4 commence très souvent par **`0x4500`** :
 
 **TTL** : valeur maximale = 255 (8 bits). Valeurs initiales typiques : 64 (Linux), 128 (Windows), 255 (Cisco IOS). Permet d'éviter les boucles de routage infinies. C'est la base du fonctionnement de **traceroute** (on envoie des paquets avec TTL 1, 2, 3... et on collecte les messages "Time Exceeded" pour tracer le chemin).
 
-### 6.2 ICMP (Internet Control Message Protocol)
+### 7.2 ICMP (Internet Control Message Protocol)
 
 ICMP est encapsulé dans IP (Protocol = 1). Il transporte des messages de contrôle et d'erreur.
 
@@ -501,9 +627,9 @@ ICMP est encapsulé dans IP (Protocol = 1). Il transporte des messages de contr�
 
 ---
 
-## 7. Transport : TCP et UDP
+## 8. Transport : TCP et UDP
 
-### 7.1 Numéros de port
+### 8.1 Numéros de port
 
 Les ports permettent le **multiplexage** : plusieurs applications peuvent utiliser le réseau simultanément sur la même machine.
 
@@ -533,7 +659,7 @@ Les ports permettent le **multiplexage** : plusieurs applications peuvent utilis
 | 520 | RIP | UDP |
 | 5060 | SIP (VoIP) | UDP |
 
-### 7.2 UDP (User Datagram Protocol)
+### 8.2 UDP (User Datagram Protocol)
 
 **Caractéristiques :**
 - **Non orienté connexion** : pas de phase d'établissement
@@ -549,7 +675,7 @@ Les ports permettent le **multiplexage** : plusieurs applications peuvent utilis
 
 **Usages** : DNS, DHCP, NTP, streaming vidéo/audio, VoIP (SIP, RTP), jeux en ligne.
 
-### 7.3 TCP (Transmission Control Protocol)
+### 8.3 TCP (Transmission Control Protocol)
 
 **Caractéristiques :**
 - **Orienté connexion** : établissement obligatoire avant envoi
@@ -620,9 +746,9 @@ En cas de perte, TCP double le délai d'attente avant chaque retransmission (1s,
 
 ---
 
-## 8. Protocoles Applicatifs
+## 9. Protocoles Applicatifs
 
-### 8.1 DNS (Domain Name System)
+### 9.1 DNS (Domain Name System)
 
 **Rôle** : résoudre les noms de domaine en adresses IP.  
 **Port** : UDP 53 (TCP 53 pour grandes réponses ou transferts de zone).  
@@ -647,7 +773,7 @@ dig iut-rt                     # Linux — sortie détaillée
 host iut-rt                    # Linux — simple
 ```
 
-### 8.2 DHCP (Dynamic Host Configuration Protocol)
+### 9.2 DHCP (Dynamic Host Configuration Protocol)
 
 **Rôle** : attribuer automatiquement une configuration IP à un client.  
 **Ports** : UDP 67 (serveur) / UDP 68 (client).  
@@ -700,7 +826,7 @@ subnet 192.168.20.0 netmask 255.255.255.0 {
 }
 ```
 
-### 8.3 HTTP / HTTPS
+### 9.3 HTTP / HTTPS
 
 **Rôle** : transfert de pages et ressources web.  
 **Ports** : 80 (HTTP), 443 (HTTPS = HTTP + TLS/SSL).
@@ -724,7 +850,7 @@ subnet 192.168.20.0 netmask 255.255.255.0 {
 | 403 | Forbidden — accès refusé |
 | 500 | Internal Server Error |
 
-### 8.4 SSH (Secure Shell)
+### 9.4 SSH (Secure Shell)
 
 **Rôle** : accès distant sécurisé (shell, transfert de fichiers, tunneling).  
 **Port** : TCP 22.  
@@ -744,7 +870,7 @@ line vty 0 4
  login local
 ```
 
-### 8.5 FTP (File Transfer Protocol)
+### 9.5 FTP (File Transfer Protocol)
 
 **Rôle** : transfert de fichiers.  
 **Ports** : TCP 21 (contrôle), TCP 20 (données en mode actif) ou port dynamique (mode passif).  
@@ -752,9 +878,9 @@ line vty 0 4
 
 ---
 
-## 9. Routage — Principes et Statique
+## 10. Routage — Principes et Statique
 
-### 9.1 Fonctionnement du routage
+### 10.1 Fonctionnement du routage
 
 Un **routeur** est un équipement de couche 3 qui achemine les paquets IP d'un réseau vers un autre. Il prend sa décision en consultant sa **table de routage**.
 
@@ -770,7 +896,7 @@ Un **routeur** est un équipement de couche 3 qui achemine les paquets IP d'un r
 - Quand un routeur reçoit un paquet, il réécrit la **MAC source** (avec sa propre MAC) et la **MAC destination** (avec la MAC du prochain équipement)
 - Les IPs source et destination **ne changent jamais** pendant le routage (sauf NAT)
 
-### 9.2 Table de routage Cisco
+### 10.2 Table de routage Cisco
 
 ```
 Codes: C = connected, L = local, S = static, R = RIP, O = OSPF
@@ -797,7 +923,7 @@ Format : `Protocole  Réseau/Préfixe  [DA/Métrique] via Next-Hop, Interface`
 
 Si deux protocoles annoncent la même destination, la route avec la **DA la plus basse** est choisie.
 
-### 9.3 Routage statique
+### 10.3 Routage statique
 
 On configure manuellement les routes sur chaque routeur. Simple mais ne s'adapte pas automatiquement aux pannes.
 
@@ -834,9 +960,9 @@ ip route 0.0.0.0 0.0.0.0 192.168.1.254
 
 ---
 
-## 10. Routage Dynamique : RIP et OSPF
+## 11. Routage Dynamique : RIP et OSPF
 
-### 10.1 Concepts communs
+### 11.1 Concepts communs
 
 Le routage dynamique permet aux routeurs d'**échanger automatiquement leurs informations de routage** et de **recalculer les routes en cas de panne**. Plus adapté aux réseaux complexes ou évolutifs.
 
@@ -844,7 +970,7 @@ Le routage dynamique permet aux routeurs d'**échanger automatiquement leurs inf
 - **Distance-vector** : chaque routeur ne connaît que ses voisins et envoie sa table complète → simples mais convergence lente.
 - **Link-state** : chaque routeur connaît la topologie complète du réseau → complexes mais convergence rapide.
 
-### 10.2 RIP v2 (Routing Information Protocol)
+### 11.2 RIP v2 (Routing Information Protocol)
 
 **Type** : Distance-vector.  
 **Métrique** : nombre de **sauts** (hop count).  
@@ -877,7 +1003,7 @@ R    10.2.0.0/16 [120/1] via 10.1.0.2
 - `R` = RIP
 - `[120/1]` = DA=120, métrique=1 saut
 
-### 10.3 OSPF (Open Shortest Path First)
+### 11.3 OSPF (Open Shortest Path First)
 
 **Type** : Link-state.  
 **Métrique** : **coût** (inversement proportionnel à la bande passante : coût = 10⁸ / débit_bps).  
@@ -913,7 +1039,7 @@ O    192.168.2.0/24 [110/129] via 10.1.0.2
 - `O` = OSPF
 - `[110/129]` = DA=110, coût=129 (64+64+1 = 2 liaisons série + 1 Ethernet)
 
-### 10.4 RIP vs OSPF — Tableau comparatif
+### 11.4 RIP vs OSPF — Tableau comparatif
 
 | Critère | RIP v2 | OSPF |
 |---|---|---|
@@ -930,7 +1056,7 @@ O    192.168.2.0/24 [110/129] via 10.1.0.2
 
 **Si RIP et OSPF coexistent pour la même destination** → OSPF est choisi (DA 110 < DA 120).
 
-### 10.5 Commandes de vérification
+### 11.5 Commandes de vérification
 
 ```cisco
 show ip route                ! Table de routage complète
@@ -949,9 +1075,9 @@ R1(config-if)# clock rate 128000
 
 ---
 
-## 11. VLAN et Trunk 802.1Q
+## 12. VLAN et Trunk 802.1Q
 
-### 11.1 Définition et intérêt des VLANs
+### 12.1 Définition et intérêt des VLANs
 
 Un **VLAN** (Virtual Local Area Network) est une segmentation logique d'un réseau physique en plusieurs domaines de diffusion (broadcast domains) indépendants.
 
@@ -969,7 +1095,7 @@ Un **VLAN** (Virtual Local Area Network) est une segmentation logique d'un rése
 
 **ID VLAN** : 1 à 4094 (champ de 12 bits dans 802.1Q, 0 et 4095 réservés).
 
-### 11.2 Types de ports
+### 12.2 Types de ports
 
 **Port d'accès (Access)** :
 - Appartient à **un seul VLAN**
@@ -983,7 +1109,7 @@ Un **VLAN** (Virtual Local Area Network) est une segmentation logique d'un rése
 - Les trames sont **taguées** avec l'ID du VLAN (802.1Q)
 - Configuration : `switchport mode trunk`
 
-### 11.3 Standard IEEE 802.1Q (Dot1q)
+### 12.3 Standard IEEE 802.1Q (Dot1q)
 
 Quand une trame traverse un lien trunk, un **tag de 4 octets** est inséré dans la trame Ethernet :
 
@@ -997,7 +1123,7 @@ Quand une trame traverse un lien trunk, un **tag de 4 octets** est inséré dans
 
 **VLAN natif** : VLAN dont les trames **ne sont pas taguées** sur un trunk. Par défaut = VLAN 1. Les deux extrémités d'un trunk doivent avoir le même VLAN natif configuré.
 
-### 11.4 Configuration Cisco complète
+### 12.4 Configuration Cisco complète
 
 **Création et nommage des VLANs :**
 ```cisco
@@ -1034,19 +1160,19 @@ SW1# show interfaces trunk        ! Liens trunk actifs et VLANs autorisés
 SW1# show mac address-table       ! Table MAC
 ```
 
-### 11.5 VTP (VLAN Trunking Protocol)
+### 12.5 VTP (VLAN Trunking Protocol)
 
 Protocole Cisco propriétaire permettant de **propager la base de données VLAN** d'un switch serveur vers les switchs clients sur les liens trunk. Évite de reconfigurer manuellement les VLANs sur chaque switch.
 
 ---
 
-## 12. Routage Inter-VLAN (Router-on-a-Stick)
+## 13. Routage Inter-VLAN (Router-on-a-Stick)
 
-### 12.1 Problématique
+### 13.1 Problématique
 
 Les VLANs sont des domaines de broadcast **isolés**. Pour qu'un hôte du VLAN 10 communique avec un hôte du VLAN 20, il faut **un équipement de couche 3** (routeur ou switch L3).
 
-### 12.2 Méthode Router-on-a-Stick
+### 13.2 Méthode Router-on-a-Stick
 
 Un seul câble physique entre le switch et le routeur, configuré en **trunk** côté switch. Le routeur crée des **sous-interfaces** (subinterfaces) logiques, une par VLAN.
 
@@ -1056,7 +1182,7 @@ Un seul câble physique entre le switch et le routeur, configuré en **trunk** c
                                                       |- Gi0/0.20 → VLAN 20
 ```
 
-### 12.3 Configuration
+### 13.3 Configuration
 
 **Côté Switch — lien vers routeur en trunk :**
 ```cisco
@@ -1105,16 +1231,16 @@ interface gigabitEthernet 0/0.30
 
 ---
 
-## 13. Spanning Tree Protocol (STP)
+## 14. Spanning Tree Protocol (STP)
 
-### 13.1 Problème des boucles de niveau 2
+### 14.1 Problème des boucles de niveau 2
 
 Si un réseau commétatif possède des **chemins redondants** (pour la tolérance aux pannes), cela crée des boucles au niveau 2. Une boucle L2 provoque :
 - Des **tempêtes de broadcast** (une trame de broadcast se reproduit indéfiniment)
 - La **multiplication des frames** dans la table MAC
 - La **saturation** du réseau en quelques secondes
 
-### 13.2 Fonctionnement de STP (IEEE 802.1D)
+### 14.2 Fonctionnement de STP (IEEE 802.1D)
 
 STP bloque **logiquement** certains ports pour éliminer les boucles, tout en conservant la redondance physique. Si un lien actif tombe, STP réactive le port bloqué.
 
@@ -1146,7 +1272,7 @@ STP bloque **logiquement** certains ports pour éliminer les boucles, tout en co
 
 **RSTP** (IEEE 802.1w) : version rapide, convergence quasi-instantanée (secondes vs 30-50s pour 802.1D).
 
-### 13.3 Commandes Cisco
+### 14.3 Commandes Cisco
 
 ```cisco
 ! Afficher l'état STP
@@ -1161,9 +1287,9 @@ SW1(config)# spanning-tree vlan 10 root primary
 
 ---
 
-## 14. EtherChannel
+## 15. EtherChannel
 
-### 14.1 Principe
+### 15.1 Principe
 
 L'**EtherChannel** (agrégation de liens / LAG) regroupe plusieurs **liens physiques parallèles** entre deux switches en un **seul lien logique**. Cela permet d'augmenter la bande passante et d'assurer la redondance.
 
@@ -1174,7 +1300,7 @@ L'**EtherChannel** (agrégation de liens / LAG) regroupe plusieurs **liens physi
 
 **Maximum** : 8 ports physiques par EtherChannel.
 
-### 14.2 Protocoles de négociation
+### 15.2 Protocoles de négociation
 
 | Protocole | Standard | Mode actif | Mode passif |
 |---|---|---|---|
@@ -1184,7 +1310,7 @@ L'**EtherChannel** (agrégation de liens / LAG) regroupe plusieurs **liens physi
 
 **Règle** : les deux extrémités doivent utiliser le même protocole. Le mode `On` force sans négociation.
 
-### 14.3 Configuration Cisco
+### 15.3 Configuration Cisco
 
 ```cisco
 ! Configurer les 2 interfaces physiques ensemble
@@ -1200,9 +1326,9 @@ SW1# show etherchannel 1 detail
 
 ---
 
-## 15. Passerelle Linux (NAT & IP Forwarding)
+## 16. Passerelle Linux (NAT & IP Forwarding)
 
-### 15.1 Architecture
+### 16.1 Architecture
 
 Une **passerelle Linux** est une machine Linux avec **deux interfaces réseau** :
 - **Interface WAN** (`enp0s3`) : connectée au réseau externe (IUT, Internet)
@@ -1218,7 +1344,7 @@ Une **passerelle Linux** est une machine Linux avec **deux interfaces réseau** 
 1. **IP Forwarding** : autoriser le noyau Linux à relayer les paquets entre les deux interfaces
 2. **NAT Masquerade** : remplacer les adresses IP privées par l'adresse IP publique de la passerelle (SNAT)
 
-### 15.2 IP Forwarding
+### 16.2 IP Forwarding
 
 Par défaut, Linux **jette** les paquets qui ne lui sont pas destinés. L'IP Forwarding lui indique de les retransmettre.
 
@@ -1244,7 +1370,7 @@ Puis appliquer :
 sudo sysctl -p
 ```
 
-### 15.3 NAT Masquerade (iptables)
+### 16.3 NAT Masquerade (iptables)
 
 **Pourquoi le NAT est nécessaire ?**
 
@@ -1270,7 +1396,7 @@ sudo iptables -t nat -A POSTROUTING -o enp0s3 -j MASQUERADE
 sudo iptables -t nat -L -v -n
 ```
 
-### 15.4 Configuration des interfaces
+### 16.4 Configuration des interfaces
 
 **Sur la passerelle :**
 ```bash
@@ -1295,7 +1421,7 @@ sudo ip route add default via 192.168.0.1    # Passerelle par défaut
 **Sur H3 (Windows) :** IP : `192.168.0.4` | Masque : `255.255.255.0` | Passerelle : `192.168.0.1`  
 ⚠️ Windows bloque les pings par défaut → activer via Pare-feu > Partage de fichiers et d'imprimantes.
 
-### 15.5 Configuration DNS sur les clients
+### 16.5 Configuration DNS sur les clients
 
 ans /etc:resolv.conf mettre :
 ```bash
@@ -1323,7 +1449,7 @@ Préférences > Réseau > Configuration manuelle du proxy :
 *Test final : Naviguer vers `https://www.wikipedia.org` => Doit s'afficher.*
 
 
-### 15.7 Protocole de validation
+### 16.7 Protocole de validation
 
 | Étape | Commande | Résultat attendu |
 |---|---|---|
@@ -1333,7 +1459,7 @@ Préférences > Réseau > Configuration manuelle du proxy :
 | 4. Vérifier le saut | `traceroute 8.8.8.8` | 1er saut = 192.168.0.1 |
 | 5. DNS | `nslookup iut-rt` | Résout correctement |
 
-### 15.7 Résolution de problèmes courants
+### 16.7 Résolution de problèmes courants
 
 | Symptôme | Cause probable | Solution |
 |---|---|---|
@@ -1344,9 +1470,9 @@ Préférences > Réseau > Configuration manuelle du proxy :
 
 ---
 
-## 16. ACL — Listes de Contrôle d'Accès
+## 17. ACL — Listes de Contrôle d'Accès
 
-### 16.1 Principe
+### 17.1 Principe
 
 Les ACL (Access Control Lists) sont des **listes de règles de filtrage** configurées sur les interfaces d'un routeur Cisco. Elles permettent d'autoriser ou refuser le trafic selon divers critères.
 
@@ -1354,7 +1480,7 @@ Les ACL (Access Control Lists) sont des **listes de règles de filtrage** config
 
 **Traitement** : les règles sont évaluées dans l'ordre, de haut en bas. Dès qu'une règle correspond, elle est appliquée et l'évaluation s'arrête.
 
-### 16.2 ACL Standard (numéros 1–99)
+### 17.2 ACL Standard (numéros 1–99)
 
 **Filtre uniquement sur l'IP source.**
 
@@ -1379,7 +1505,7 @@ interface fa0/0
 - `192.168.3.0 0.0.0.255` = tout le sous-réseau `/24`
 - `any` = toute adresse = `0.0.0.0 255.255.255.255`
 
-### 16.3 ACL Étendue (numéros 100–199)
+### 17.3 ACL Étendue (numéros 100–199)
 
 **Filtre sur : source, destination, protocole, port.**
 
@@ -1410,7 +1536,7 @@ interface fa0/1
 | `lt 1024` | Inférieur au port 1024 |
 | `range 20 21` | Entre les ports 20 et 21 |
 
-### 16.4 Gestion des ACL nommées
+### 17.4 Gestion des ACL nommées
 
 ```cisco
 ! ACL standard nommée (plus lisible)
@@ -1428,7 +1554,7 @@ show access-lists
 show ip interface fa0/0    ! voir quelles ACL sont appliquées
 ```
 
-### 16.5 Résumé des règles de placement
+### 17.5 Résumé des règles de placement
 
 | Type ACL | Filtre | Placement |
 |---|---|---|
@@ -1437,9 +1563,9 @@ show ip interface fa0/0    ! voir quelles ACL sont appliquées
 
 ---
 
-## 17. La Virtualisation
+## 18. La Virtualisation
 
-### 17.1 Concepts fondamentaux
+### 18.1 Concepts fondamentaux
 
 La **virtualisation** consiste à créer une couche d'abstraction logicielle entre le matériel physique et les systèmes d'exploitation. Une seule machine physique peut ainsi héberger plusieurs **machines virtuelles (VM)** complètement isolées.
 
@@ -1463,7 +1589,7 @@ La **virtualisation** consiste à créer une couche d'abstraction logicielle ent
 
 ---
 
-### 17.2 Types d'hyperviseurs
+### 18.2 Types d'hyperviseurs
 
 | Type | Description | Exemples |
 |---|---|---|
@@ -1485,7 +1611,7 @@ Type 1 :                          Type 2 :
 
 ---
 
-### 17.3 Modes réseau d'une VM
+### 18.3 Modes réseau d'une VM
 
 | Mode | Comportement | Usage |
 |---|---|---|
@@ -1496,7 +1622,7 @@ Type 1 :                          Type 2 :
 
 ---
 
-### 17.4 Conteneurisation — Docker
+### 18.4 Conteneurisation — Docker
 
 Les **conteneurs** ne virtualisent pas le matériel mais **partagent le noyau (kernel)** de l'OS hôte. Ils sont plus légers et démarrent en millisecondes.
 
@@ -1555,9 +1681,9 @@ CMD ["apache2ctl", "-D", "FOREGROUND"]
 
 ---
 
-## 18. Les Clusters et la Haute Disponibilité
+## 19. Les Clusters et la Haute Disponibilité
 
-### 18.1 Concepts
+### 19.1 Concepts
 
 La **haute disponibilité (HA — High Availability)** désigne la capacité d'un système à rester opérationnel malgré la défaillance d'un ou plusieurs composants.
 
@@ -1581,7 +1707,7 @@ La **haute disponibilité (HA — High Availability)** désigne la capacité d'u
 
 ---
 
-### 18.2 Architectures de cluster
+### 19.2 Architectures de cluster
 
 **Actif-Passif (Failover) :**
 
@@ -1620,7 +1746,7 @@ Clients → [Load Balancer]
 
 ---
 
-### 18.3 Scalabilité
+### 19.3 Scalabilité
 
 | Type | Description | Exemple |
 |---|---|---|
@@ -1631,7 +1757,7 @@ La scalabilité horizontale est préférée pour les architectures cloud-native 
 
 ---
 
-### 18.4 Outils et protocoles
+### 19.4 Outils et protocoles
 
 **VRRP (Virtual Router Redundancy Protocol)** : protocole standard (RFC 5798) permettant à plusieurs routeurs de partager une adresse IP virtuelle. Un **Master** détient la VIP, les **Backup** écoutent. Si le Master disparaît, le Backup avec la priorité la plus haute prend la VIP.
 
@@ -1655,9 +1781,9 @@ backend http_back
 
 ---
 
-## 19. Le Cloud et le Green Computing
+## 20. Le Cloud et le Green Computing
 
-### 19.1 Modèles de service
+### 20.1 Modèles de service
 
 Le cloud computing consiste à **louer des ressources informatiques à la demande** sur Internet, sans avoir à gérer l'infrastructure physique.
 
@@ -1682,7 +1808,7 @@ Responsabilités croissantes du fournisseur →
 
 ---
 
-### 19.2 Modèles de déploiement
+### 20.2 Modèles de déploiement
 
 | Modèle | Description | Usage |
 |---|---|---|
@@ -1693,7 +1819,7 @@ Responsabilités croissantes du fournisseur →
 
 ---
 
-### 19.3 Principaux fournisseurs
+### 20.3 Principaux fournisseurs
 
 | Fournisseur | Nom complet | Part de marché | Services phares |
 |---|---|:-:|---|
@@ -1713,7 +1839,7 @@ Responsabilités croissantes du fournisseur →
 
 ---
 
-### 19.4 Green Computing
+### 20.4 Green Computing
 
 Le **Green Computing** vise à réduire l'empreinte environnementale de l'informatique.
 
@@ -1743,9 +1869,9 @@ $$\text{PUE} = \frac{\text{Énergie totale du datacenter}}{\text{Énergie consom
 
 ---
 
-## 20. Serveurs Web : Apache2 et Nginx
+## 21. Serveurs Web : Apache2 et Nginx
 
-### 20.1 Apache2
+### 21.1 Apache2
 
 **Installation :**
 ```bash
@@ -1813,7 +1939,7 @@ Accès via : `http://IP/~administrateur/`
 192.31.25.12  vendeur.localhost client.localhost
 ```
 
-### 20.2 Nginx + LEMP
+### 21.2 Nginx + LEMP
 
 **LEMP = Linux + nginx + MariaDB + PHP**
 
@@ -1846,7 +1972,7 @@ sudo ln -s /usr/share/phpmyadmin /var/www/html/phpmyadmin
 error_log /var/log/nginx/error.log debug;
 ```
 
-### 20.3 Commandes de service
+### 21.3 Commandes de service
 
 ```bash
 sudo systemctl start|stop|restart|reload|status apache2
@@ -1858,9 +1984,9 @@ sudo nginx -t                     # Vérifier la syntaxe de la config Nginx
 
 ---
 
-## 21. Téléphonie sur IP (VoIP / Asterisk)
+## 22. Téléphonie sur IP (VoIP / Asterisk)
 
-### 21.1 Concepts VoIP
+### 22.1 Concepts VoIP
 
 **SIP (Session Initiation Protocol)** : protocole de signalisation pour établir, modifier et terminer des sessions VoIP.  
 **Port** : UDP 5060 (signalisation).  
@@ -1876,7 +2002,7 @@ sudo nginx -t                     # Vérifier la syntaxe de la config Nginx
 
 **Asterisk** : serveur IPBX open-source. Gère la signalisation SIP (via **PJSIP**) et le routage des appels via le **dialplan** (`extensions.conf`).
 
-### 21.2 Configuration IVR (Interactive Voice Response)
+### 22.2 Configuration IVR (Interactive Voice Response)
 
 ```asterisk
 ; extensions.conf — Contexte principal
@@ -1898,7 +2024,7 @@ exten => 3,1,SayUnixTime()
 exten => 0901,1,Record(/var/lib/asterisk/sounds/accueil.gsm)
 ```
 
-### 21.3 Trunk SIP entre deux serveurs Asterisk
+### 22.3 Trunk SIP entre deux serveurs Asterisk
 
 **`pjsip.conf` — blocs clés :**
 ```ini
@@ -1933,9 +2059,9 @@ pjsip show endpoints        # Statut : Reachable
 
 ---
 
-## 22. Le Web : De l'URL à l'écran
+## 23. Le Web : De l'URL à l'écran
 
-### 22.1 Structure d'une URL
+### 23.1 Structure d'une URL
 
 Une **URL (Uniform Resource Locator)** est l'adresse complète d'une ressource sur le Web.
 
@@ -1956,7 +2082,7 @@ schéma   nom de domaine port   chemin            paramètres     fragment
 
 ---
 
-### 22.2 Cycle complet d'une requête Web
+### 23.2 Cycle complet d'une requête Web
 
 **Étapes de l'ouverture de `https://www.example.com/page` :**
 
@@ -1991,7 +2117,7 @@ schéma   nom de domaine port   chemin            paramètres     fragment
 
 ---
 
-### 22.3 TLS/SSL — Chiffrement du Web
+### 23.3 TLS/SSL — Chiffrement du Web
 
 **TLS (Transport Layer Security)** encapsule HTTP pour créer HTTPS. Il assure :
 - **Confidentialité** : les données sont chiffrées (illisibles en cas d'interception)
@@ -2011,7 +2137,7 @@ Client                              Serveur
 
 ---
 
-### 22.4 HTTP/1.1, HTTP/2 et HTTP/3
+### 23.4 HTTP/1.1, HTTP/2 et HTTP/3
 
 | Version | Caractéristiques | Transport |
 |---|---|---|
@@ -2021,7 +2147,7 @@ Client                              Serveur
 
 ---
 
-### 22.5 En-têtes HTTP importants
+### 23.5 En-têtes HTTP importants
 
 | En-tête | Type | Description |
 |---|---|---|
@@ -2038,9 +2164,132 @@ Client                              Serveur
 
 ---
 
-## 23. La Programmation : PHP et Python
+## 24. Anatomie d'un Navigateur Web
 
-### 23.1 PHP — Langage côté serveur
+### 24.1 Les composants internes
+
+Un navigateur moderne n'est pas un programme simple — c'est un système divisé en plusieurs sous-systèmes spécialisés qui communiquent entre eux :
+
+| Composant | Rôle |
+|---|---|
+| **Interface Utilisateur (UI)** | Barre d'adresse, boutons précédent/suivant, onglets, favoris. Tout ce que voit l'utilisateur hors page. |
+| **Moteur du navigateur (Browser Engine)** | Chef d'orchestre. Coordonne les échanges entre l'UI et le moteur de rendu. |
+| **Moteur de rendu (Rendering Engine)** | Parse HTML + CSS, construit les arbres DOM/CSSOM, calcule la mise en page et dessine les pixels. |
+| **Couche réseau (Networking)** | Gère les requêtes HTTP/HTTPS, DNS, TCP, le cache réseau, les cookies. |
+| **Interpréteur JavaScript (JS Engine)** | Compile et exécute le code JS, interagit avec le DOM. |
+| **Stockage** | Cookies, LocalStorage, SessionStorage, IndexedDB, cache service worker. |
+
+**Moteurs de rendu et JS engines par navigateur :**
+
+| Navigateur | Moteur de rendu | JS Engine |
+|---|---|---|
+| Chrome, Edge, Opera | **Blink** | **V8** |
+| Firefox | **Gecko** | **SpiderMonkey** |
+| Safari | **WebKit** | **JavaScriptCore** |
+
+> **Note :** Node.js utilise également V8 — le même moteur que Chrome — ce qui explique que JavaScript puisse s'exécuter côté serveur.
+
+---
+
+### 24.2 La barre d'adresse : recherche vs navigation directe
+
+La barre d'adresse d'un navigateur fait deux métiers distincts selon ce que l'utilisateur tape :
+
+| Ce que l'utilisateur tape | Comportement du navigateur |
+|---|---|
+| `youtube.com` | Détecte un nom de domaine (présence d'un TLD, pas d'espaces). Résolution DNS → connexion directe. |
+| `youtube` | Mot-clé sans TLD. Envoie vers le moteur de recherche configuré. |
+| `ma recherche ici` | Espaces détectés → encodage URL → requête vers moteur de recherche. |
+
+**Logique de détection (simplifiée) :**
+```
+saisie contient un point ET pas d'espace
+    → probablement une URL → connexion directe
+sinon
+    → mots-clés → https://www.google.com/search?q=ma+recherche+ici
+```
+
+**Encodage des paramètres de recherche :**
+- Les espaces deviennent `+` ou `%20`
+- Les caractères spéciaux sont encodés en `%XX` (URL encoding, RFC 3986)
+- Exemple : `BUT R&T Artois` → `BUT+R%26T+Artois`
+
+---
+
+### 24.3 Le pipeline de rendu (De la requête au pixel)
+
+Une fois le HTML/CSS reçu du serveur, le navigateur enchaîne ces étapes :
+
+```text
+[Flux HTML] ──> Parsing ──> [ DOM Tree  ] ──┐
+                                             ├──> [ Render Tree ] ──> Layout ──> Painting
+[Flux CSS ] ──> Parsing ──> [ CSSOM Tree] ──┘
+```
+
+**Détail des étapes :**
+
+1. **Parsing HTML → DOM Tree**
+   Le moteur de rendu lit le HTML octet par octet, le tokenise (balises, texte, attributs), et construit un arbre de nœuds : le **DOM (Document Object Model)**. Chaque balise devient un nœud.
+
+2. **Parsing CSS → CSSOM**
+   Les feuilles de style sont analysées en parallèle pour construire le **CSSOM (CSS Object Model)** : un arbre de règles de style associées à des sélecteurs.
+
+3. **Render Tree**
+   Le navigateur fusionne DOM + CSSOM. Les éléments invisibles (`display: none`, `<head>`, `<script>`) sont exclus. Chaque nœud visible porte maintenant ses styles calculés.
+
+4. **Layout / Reflow**
+   Le moteur calcule la **position et la taille** exactes de chaque boîte en fonction de la taille du viewport. C'est l'étape la plus coûteuse en CPU pour les pages complexes.
+
+5. **Painting**
+   L'arbre de rendu est rastérisé en pixels. Le GPU est souvent utilisé pour cette phase (accélération matérielle).
+
+---
+
+### 24.4 JavaScript et le rendu bloquant
+
+Par défaut, un `<script>` dans le HTML **bloque** le parsing HTML le temps que le script soit téléchargé et exécuté — car JS peut modifier le DOM en cours de construction.
+
+**Solutions :**
+
+| Attribut | Comportement |
+|---|---|
+| `<script>` (aucun) | Bloque le parsing HTML. Mauvaise pratique pour les scripts externes. |
+| `<script defer>` | Téléchargé en parallèle, exécuté **après** la fin du parsing HTML. |
+| `<script async>` | Téléchargé en parallèle, exécuté **dès** que disponible (ordre non garanti). |
+
+**Reflow et Repaint :**
+- Modifier le DOM via JS (ajouter un élément, changer une taille) → déclenche un **reflow** (recalcul du layout) puis un **repaint**
+- Les animations CSS sont préférables aux animations JS pour éviter les reflows fréquents
+
+---
+
+### 24.5 Cache navigateur
+
+| Type de cache | Durée | Contenu |
+|---|---|---|
+| **Mémoire (RAM)** | Session en cours uniquement | Pages, images déjà consultées |
+| **Disque** | Persistant (jours/semaines) | Fichiers statiques (JS, CSS, images) |
+
+**En-têtes HTTP qui contrôlent le cache :**
+
+```http
+Cache-Control: max-age=86400        # Utiliser le cache pendant 24h
+Cache-Control: no-cache             # Toujours revalider avec le serveur
+Cache-Control: no-store             # Ne jamais mettre en cache
+ETag: "abc123"                      # Empreinte du fichier (version)
+Last-Modified: Mon, 12 May 2025 ...
+```
+
+**Comportements de rechargement :**
+- `F5` / Reload normal : utilise le cache si valide
+- `Ctrl+Shift+R` / Hard reload : ignore le cache, refetch tout
+- Vider le cache manuellement : supprime tous les fichiers mis en cache sur le disque
+
+---
+
+## 25. La Programmation : PHP et Python
+
+### 25.1 PHP — Langage côté serveur
 
 **PHP (PHP: Hypertext Preprocessor)** est un langage de script interprété exécuté côté serveur. Le code PHP génère du HTML qui est renvoyé au client.
 
@@ -2116,7 +2365,7 @@ try {
 
 ---
 
-### 23.2 Python — Le couteau suisse
+### 25.2 Python — Le couteau suisse
 
 Python est un langage interprété polyvalent : scripts réseau, développement web, data science, automatisation, IA.
 
@@ -2206,7 +2455,7 @@ if __name__ == "__main__":
 
 ---
 
-### 23.3 JavaScript et frameworks frontend
+### 25.3 JavaScript et frameworks frontend
 
 **JavaScript (JS)** s'exécute dans le navigateur (côté client). Il permet l'interactivité des pages sans rechargement.
 
@@ -2243,9 +2492,9 @@ function CarteEquipement({ nom, ip, vlan }) {
 
 ---
 
-## 24. Administration Cisco IOS — Aide-mémoire
+## 26. Administration Cisco IOS — Aide-mémoire
 
-### 24.1 Modes IOS
+### 26.1 Modes IOS
 
 ```
 >  : Mode utilisateur (User EXEC)
@@ -2265,7 +2514,7 @@ exit                      ! Remonter d'un niveau
 do show ip route          ! Exécuter une commande EXEC depuis le mode config
 ```
 
-### 24.2 Configuration de base
+### 26.2 Configuration de base
 
 ```cisco
 hostname SW1                        ! Nommer l'équipement
@@ -2282,7 +2531,7 @@ write memory                        ! Sauvegarder la configuration
 copy running-config startup-config
 ```
 
-### 24.3 Configuration IP d'une interface
+### 26.3 Configuration IP d'une interface
 
 **Routeur :**
 ```cisco
@@ -2311,7 +2560,7 @@ interface vlan 1                     ! Interface de gestion
 ip default-gateway 192.168.1.1
 ```
 
-### 24.4 Commandes de vérification essentielles
+### 26.4 Commandes de vérification essentielles
 
 ```cisco
 ! ─── Interfaces ───
@@ -2340,7 +2589,7 @@ ping 192.168.1.10                    ! Test de connectivité
 traceroute 192.168.2.10              ! Tracer le chemin
 ```
 
-### 24.5 Cisco Packet Tracer — spécificités
+### 26.5 Cisco Packet Tracer — spécificités
 
 - **Lien vert** = interface UP (couches 1 et 2 actives)
 - **Lien orange** = initialisation STP
@@ -2351,9 +2600,9 @@ traceroute 192.168.2.10              ! Tracer le chemin
 
 ---
 
-## 25. Commandes Réseau Linux — Aide-mémoire
+## 27. Commandes Réseau Linux — Aide-mémoire
 
-### 25.1 Gestion des interfaces (iproute2)
+### 27.1 Gestion des interfaces (iproute2)
 
 ```bash
 # ─── Afficher ───
@@ -2373,7 +2622,7 @@ sudo ip route add 10.0.0.0/8 via 192.168.1.254  # Route statique spécifique
 sudo dhclient enp0s3                         # Obtenir une IP via DHCP
 ```
 
-### 25.2 Test de connectivité
+### 27.2 Test de connectivité
 
 ```bash
 ping 8.8.8.8                    # Test ICMP
@@ -2391,7 +2640,7 @@ arp -a                           # Table ARP
 ip n flush dev enp0s3            # Vider le cache ARP d'une interface
 ```
 
-### 25.3 Analyse de ports et connexions
+### 27.3 Analyse de ports et connexions
 
 ```bash
 ss -tnp                          # Connexions TCP actives avec PID
@@ -2406,7 +2655,7 @@ nc -u -l 9000                    # Mode UDP serveur
 nc -u localhost 9000              # Mode UDP client
 ```
 
-### 25.4 Wireshark / Capture de trafic
+### 27.4 Wireshark / Capture de trafic
 
 ```bash
 sudo wireshark &                  # Lancer Wireshark en arrière-plan
@@ -2426,7 +2675,7 @@ sudo tcpdump -i enp0s3 port 80    # Filtrer par port
 | `ip.addr == 192.168.1.1` | Trafic de/vers cette IP |
 | `tcp.flags.syn == 1` | Paquets SYN (début de connexion) |
 
-### 25.5 Scans Nmap
+### 27.5 Scans Nmap
 
 ```bash
 sudo nmap -sS localhost           # Scan SYN Stealth (discret)
@@ -2446,7 +2695,7 @@ nmap -p 80,443,22 192.168.1.1    # Scanner des ports spécifiques
 
 ⚠️ Scanner des machines tiers sans autorisation est illégal.
 
-### 25.6 Gestion des services systemd
+### 27.6 Gestion des services systemd
 
 ```bash
 sudo systemctl start apache2
@@ -2458,7 +2707,7 @@ sudo systemctl disable apache2
 sudo systemctl status apache2     # État du service
 ```
 
-### 25.7 Configuration DNS client
+### 27.7 Configuration DNS client
 
 ```bash
 # Fichier /etc/resolv.conf
@@ -2473,7 +2722,7 @@ echo '192.168.1.10  serveur.local' >> /etc/hosts
 # Proxy HTTP : cache-etu.univ-artois.fr  Port : 3128
 ```
 
-### 25.8 IP Forwarding et iptables
+### 27.8 IP Forwarding et iptables
 
 ```bash
 # IP Forwarding
@@ -2489,8 +2738,6 @@ sudo iptables -t nat -L -v -n                # Lister les règles NAT
 sudo iptables-save > /etc/iptables/rules.v4
 sudo iptables-restore < /etc/iptables/rules.v4
 ```
-
----
 
 ## Annexe A — Tableau des protocoles de référence
 
