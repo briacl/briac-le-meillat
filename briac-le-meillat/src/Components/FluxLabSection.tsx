@@ -227,7 +227,7 @@ export default function FluxLabSection({ isLight = false }: { isLight?: boolean 
                 size="full"
                 scrollBehavior="inside"
                 backdrop="blur"
-                className={`m-0 p-0 rounded-none shadow-none ${isLight ? 'bg-slate-50' : 'bg-[#0a0a0a]'}`}
+                className="m-0 p-0 rounded-none shadow-none bg-slate-50"
                 motionProps={{
                     variants: {
                         enter: { opacity: 1, scale: 1, transition: { duration: 0.3, ease: "easeOut" } },
@@ -243,7 +243,7 @@ export default function FluxLabSection({ isLight = false }: { isLight?: boolean 
                                     isIconOnly
                                     variant="flat"
                                     onPress={onClose}
-                                    className={`rounded-full backdrop-blur-xl w-14 h-14 border shadow-2xl transition-all ${isLight ? 'bg-white/40 border-black/5 text-zinc-500 hover:bg-white/60' : 'bg-white/10 border-white/10 text-zinc-400 hover:bg-white/20'}`}
+                                    className="rounded-full backdrop-blur-xl w-14 h-14 border shadow-2xl transition-all bg-white/70 border-black/5 text-zinc-650 hover:bg-white hover:text-black hover:scale-105 active:scale-95"
                                 >
                                     <X size={28} />
                                 </Button>
@@ -254,7 +254,7 @@ export default function FluxLabSection({ isLight = false }: { isLight?: boolean 
                                     initial={{ opacity: 0, y: 40 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ duration: 0.4, ease: "easeOut" }}
-                                    className={`border rounded-[3rem] shadow-[0_40px_100px_-20px_rgba(0,0,0,0.15)] overflow-hidden ${isLight ? 'bg-white border-slate-100' : 'bg-slate-900 border-slate-800'}`}
+                                    className="border rounded-[3rem] shadow-[0_40px_100px_-20px_rgba(0,0,0,0.08)] overflow-hidden bg-white border-slate-200/50"
                                 >
                                     <div className="p-8 md:p-20">
                                         {selectedProof && (
@@ -265,11 +265,11 @@ export default function FluxLabSection({ isLight = false }: { isLight?: boolean 
                                             />
                                         )}
 
-                                        <div className={`mt-24 pt-12 border-t flex justify-center ${isLight ? 'border-slate-50' : 'border-slate-800'}`}>
+                                        <div className="mt-24 pt-12 border-t flex justify-center border-slate-100">
                                             <Button 
                                                 variant="solid"
                                                 onPress={onClose}
-                                                className={`font-bold rounded-2xl px-16 h-16 shadow-xl hover:scale-[1.02] active:scale-95 transition-all text-lg ${isLight ? 'bg-zinc-900 text-white' : 'bg-white text-black'}`}
+                                                className="font-bold rounded-2xl px-16 h-16 shadow-xl hover:scale-[1.02] active:scale-95 transition-all text-lg bg-zinc-900 text-white hover:bg-zinc-800"
                                             >
                                                 Terminer la lecture
                                             </Button>

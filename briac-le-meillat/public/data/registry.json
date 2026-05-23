@@ -1,7 +1,64 @@
 {
-  "lastUpdated": "2026-05-14T09:02:00.000Z",
-  "total": 20,
+  "lastUpdated": "2026-05-19T12:49:27.415Z",
+  "total": 30,
   "proofs": [
+    {
+      "title": "Filtrage et Pare-feu sous Linux (iptables & nftables)",
+      "module": "R201",
+      "competence": "Connecter",
+      "ac_lies": [
+        "AC12.01",
+        "AC12.02"
+      ],
+      "techs": [
+        "Linux",
+        "Netfilter",
+        "iptables",
+        "nftables",
+        "Sécurité"
+      ],
+      "date": "2026-05-19",
+      "status": "Terminé",
+      "path": "assets/documents/apprentissage/tech-internet/tp9-filtrage-linux.md"
+    },
+    {
+      "title": "Configuration du NAT et PAT sur routeur Cisco",
+      "module": "R201",
+      "competence": "Connecter",
+      "ac_lies": [
+        "AC12.01",
+        "AC12.02"
+      ],
+      "techs": [
+        "Cisco",
+        "NAT",
+        "PAT",
+        "Routage",
+        "Packet Tracer"
+      ],
+      "date": "2026-05-19",
+      "status": "Terminé",
+      "path": "assets/documents/apprentissage/tech-internet/tp8-NAT.md"
+    },
+    {
+      "title": "Factorisation de Templates & Persistance avec Jinja2 et Flask (TP3)",
+      "module": "R209",
+      "competence": "Programmer",
+      "ac_lies": [
+        "AC13.01",
+        "AC13.02"
+      ],
+      "techs": [
+        "Flask",
+        "Python",
+        "Jinja2",
+        "SQLAlchemy",
+        "MVC"
+      ],
+      "date": "2026-05-18",
+      "status": "Terminé",
+      "path": "assets/documents/apprentissage/dev-web/tp3/tp-flask-3.md"
+    },
     {
       "title": "Cheat Sheet : Setup PostgreSQL (CTP R207)",
       "module": "R207",
@@ -39,18 +96,23 @@
       "path": "assets/documents/apprentissage/bases-services-reseaux/tp-dhcp-tftp-pxe.md"
     },
     {
-      "title": "Quiz Réseaux : Synthèse de l'Adressage, OSI et Protocoles",
-      "date": "2026-05-10",
-      "module": "R201",
-      "techs": [],
-      "path": "assets/documents/apprentissage/tech-internet/quiz-reseaux.md"
-    },
-    {
-      "title": "Synthèse R103 : Réseaux Locaux et Équipements Actifs",
-      "date": "2026-05-10",
-      "module": "R103",
-      "techs": [],
-      "path": "assets/documents/apprentissage/tech-internet/synthese.md"
+      "title": "API REST avec Flask & MySQL — Guide de Code Ligne par Ligne (TP2)",
+      "module": "R209",
+      "competence": "Programmer",
+      "ac_lies": [
+        "AC13.01",
+        "AC13.05"
+      ],
+      "techs": [
+        "Flask",
+        "MySQL",
+        "JWT",
+        "Postman",
+        "Regex"
+      ],
+      "date": "2026-05-07",
+      "status": "Terminé",
+      "path": "assets/documents/apprentissage/dev-web/tp2/tp2-flask-wsl.md"
     },
     {
       "title": "Filtrage par ACL sur routeur Cisco",
@@ -85,16 +147,27 @@
         "Nmap",
         "Netcat"
       ],
-      "date": "2026-04-07",
+      "date": "2026-05-04",
       "status": "Terminé",
       "path": "assets/documents/apprentissage/tech-internet/tp6-tcp_udp.md"
     },
     {
-      "title": "Compte-Rendu de TP : Routage RIP et OSPF en réel (Cisco physique)",
-      "date": "2026-03-31",
-      "module": "R103",
-      "techs": [],
-      "path": "assets/documents/apprentissage/tech-internet/tp4-routage_rip_ospf.md"
+      "title": "Fiche de Révision : Signaux et Systèmes (R205)",
+      "module": "R205",
+      "competence": "Connecter",
+      "ac_lies": [
+        "AC12.01",
+        "AC12.02"
+      ],
+      "techs": [
+        "Maths",
+        "Signal",
+        "Parseval",
+        "Bode"
+      ],
+      "date": "2026-04-01",
+      "status": "Terminé",
+      "path": "assets/documents/apprentissage/bordel/revisions.md"
     },
     {
       "title": "Administration de Serveurs Web : Apache2 & Nginx",
@@ -110,109 +183,173 @@
         "PHP",
         "MariaDB"
       ],
-      "date": "2026-03-30",
+      "date": "2026-03-15",
       "status": "Terminé",
       "path": "assets/documents/apprentissage/bases-services-reseaux/tp-apache-nginx.md"
     },
     {
-      "title": "Compte-Rendu de TP : Passerelle Linux (IP Forwarding + NAT)",
-      "date": "2026-03-30",
+      "title": "SAE 1.02 : Déploiement Infrastructure PME",
+      "module": "SAE102 / R103",
+      "competence": "Connecter",
+      "ac_lies": [
+        "AC11.01",
+        "AC11.02",
+        "AC11.05"
+      ],
+      "techs": [
+        "Cisco",
+        "VLAN",
+        "Trunk",
+        "SSH",
+        "Inter-VLAN"
+      ],
+      "date": "2026-01-28",
+      "status": "Terminé",
+      "path": "assets/documents/apprentissage/sae102/livrable_sae12FINALE/compte-rendu.md"
+    },
+    {
+      "title": "Mise en place d'un IVR et Trunk SIP",
+      "module": "R204",
+      "competence": "Connecter",
+      "ac_lies": [
+        "AC12.03",
+        "AC12.04"
+      ],
+      "techs": [
+        "Asterisk",
+        "SIP",
+        "IVR",
+        "VoIP"
+      ],
+      "date": "2026-01-20",
+      "status": "Terminé",
+      "path": "assets/documents/apprentissage/telephonie/tp2.md"
+    },
+    {
+      "title": "📄 Compte-Rendu de TP : Routage RIP et OSPF en réel (Cisco physique)",
+      "date": "1970-01-01",
+      "module": "R103",
+      "techs": [],
+      "path": "assets/documents/apprentissage/tech-internet/tp4-routage_rip_ospf.md"
+    },
+    {
+      "title": "📄 Compte-Rendu de TP : Passerelle Linux (IP Forwarding + NAT)",
+      "date": "1970-01-01",
       "module": "R103",
       "techs": [],
       "path": "assets/documents/apprentissage/tech-internet/tp2-passerelle_linux.md"
     },
     {
-      "title": "Compte-Rendu de TP : Switchs et Routeurs : utilisations de base",
-      "date": "2026-03-30",
+      "title": "📄 Compte-Rendu de TP : Switchs et Routeurs : utilisations de base",
+      "date": "1970-01-01",
       "module": "R103",
       "techs": [],
       "path": "assets/documents/apprentissage/tech-internet/tp1-switch_routeurs.md"
     },
     {
-      "title": "Compte-Rendu de TP : Virtualisation avec VMware",
-      "date": "2026-03-20",
-      "module": "R202",
-      "techs": [
-        "VMware",
-        "Virtualisation"
-      ],
-      "path": "assets/documents/apprentissage/virtualisation/tpvmware.pdf"
-    },
-    {
-      "title": "Compte-Rendu de TP : Virtualisation avec VirtualBox",
-      "date": "2026-03-19",
-      "module": "R202",
-      "techs": [
-        "VirtualBox",
-        "Virtualisation"
-      ],
-      "path": "assets/documents/apprentissage/virtualisation/tpvirtualbox.pdf"
-    },
-    {
-      "title": "Compte-Rendu de TP : Conteneurisation avec Docker",
-      "date": "2026-03-18",
-      "module": "R202",
-      "techs": [
-        "Docker",
-        "Containers"
-      ],
-      "path": "assets/documents/apprentissage/virtualisation/tpdocker.pdf"
-    },
-    {
-      "title": "TP Windows Server 2016 : Machines Virtuelles et Client W10",
-      "date": "2026-03-10",
-      "module": "R202",
-      "techs": [
-        "Windows Server",
-        "W10"
-      ],
-      "path": "assets/documents/apprentissage/admin system windows/TP W2016-MachinesVirtuelles-clientW10.pdf"
-    },
-    {
-      "title": "Compte-Rendu de TP 3, 4 et 5 : Administration Windows",
-      "date": "2026-03-09",
-      "module": "R202",
-      "techs": [
-        "Windows Server"
-      ],
-      "path": "assets/documents/apprentissage/admin system windows/compte-rendu-tp3-4-5.pdf"
-    },
-    {
-      "title": "Compte-Rendu d'Administration Système",
-      "date": "2026-03-08",
-      "module": "R202",
-      "techs": [
-        "Windows Server"
-      ],
-      "path": "assets/documents/apprentissage/admin system windows/compte-rendu-admin-system.pdf"
-    },
-    {
-      "title": "Compte-Rendu de TP : Agrégation de liens (EtherChannel - LACP)",
-      "date": "2026-02-13",
+      "title": "Synthèse R103 : Réseaux Locaux et Équipements Actifs",
+      "date": "1970-01-01",
       "module": "R103",
       "techs": [],
-      "path": "assets/documents/apprentissage/admin-reseau/etherchannel/tp4.md"
+      "path": "assets/documents/apprentissage/tech-internet/synthese.md"
     },
     {
-      "title": "Compte-Rendu de TP : Étude du protocole Spanning Tree (STP)",
-      "date": "2026-02-12",
+      "title": "Quiz Réseaux : Synthèse de l'Adressage, OSI et Protocoles",
+      "date": "1970-01-01",
       "module": "R103",
       "techs": [],
-      "path": "assets/documents/apprentissage/admin-reseau/spanning-tree/tp3.md"
+      "path": "assets/documents/apprentissage/tech-internet/quiz-reseaux.md"
+    },
+    {
+      "title": "SAE 1.02 : Déploiement d'une infrastructure réseau segmentée",
+      "date": "1970-01-01",
+      "module": "R103",
+      "techs": [],
+      "path": "assets/documents/apprentissage/sae102/sae102.md"
+    },
+    {
+      "title": "SAE 1.02 - TP3 (Partie 2)",
+      "date": "1970-01-01",
+      "module": "R103",
+      "techs": [],
+      "path": "assets/documents/apprentissage/sae102/livrable_tp3_pt2_briac_lemeillat/compte-rendu.md"
+    },
+    {
+      "title": "Documentation Technique - SAE 1.02",
+      "date": "1970-01-01",
+      "module": "R103",
+      "techs": [],
+      "path": "assets/documents/apprentissage/sae102/livrable_tp3_Briac_lemeillat/compte-rendu.md"
+    },
+    {
+      "title": "TP2 - SAE 1.02",
+      "date": "1970-01-01",
+      "module": "R103",
+      "techs": [],
+      "path": "assets/documents/apprentissage/sae102/livrable_tp2_Briac_lemeillat/compte-rendu.md"
+    },
+    {
+      "title": "SAE 102 : Briac Le Meillat",
+      "date": "1970-01-01",
+      "module": "R103",
+      "techs": [],
+      "path": "assets/documents/apprentissage/sae102/livrable_briac/comptebriac.md"
+    },
+    {
+      "title": "prompt-moodle",
+      "date": "1970-01-01",
+      "module": "R103",
+      "techs": [],
+      "path": "assets/documents/apprentissage/bordel/prompt-moodle.md"
+    },
+    {
+      "title": "map",
+      "date": "1970-01-01",
+      "module": "R103",
+      "techs": [],
+      "path": "assets/documents/apprentissage/bordel/map.md"
+    },
+    {
+      "title": "BIBLE RÉSEAUX — R&T BUT 1ère Année",
+      "date": "1970-01-01",
+      "module": "R103",
+      "techs": [],
+      "path": "assets/documents/apprentissage/BIBLE_RESEAUX.md"
+    },
+    {
+      "title": "💡 LA BIBLE RÉSEAUX (Version Vulgarisée)",
+      "date": "1970-01-01",
+      "module": "R103",
+      "techs": [],
+      "path": "assets/documents/apprentissage/bible_reseaux_vulga.md"
+    },
+    {
+      "title": "Compte-Rendu de TP : Segmentation par VLAN et Trunking (Cisco)",
+      "date": "1970-01-01",
+      "module": "R103",
+      "techs": [],
+      "path": "assets/documents/apprentissage/admin-reseau/vlan/tp1.md"
     },
     {
       "title": "Compte-Rendu de TP : Routage Inter-VLAN (Router-on-a-Stick)",
-      "date": "2026-02-11",
+      "date": "1970-01-01",
       "module": "R103",
       "techs": [],
       "path": "assets/documents/apprentissage/admin-reseau/vlan-router/tp2.md"
     },
     {
-      "title": "Compte-Rendu de TP : Segmentation par VLAN et Trunking (Cisco)",
-      "date": "2026-02-10",
+      "title": "Compte-Rendu de TP : Étude du protocole Spanning Tree (STP)",
+      "date": "1970-01-01",
       "module": "R103",
       "techs": [],
-      "path": "assets/documents/apprentissage/admin-reseau/vlan/tp1.md"
+      "path": "assets/documents/apprentissage/admin-reseau/spanning-tree/tp3.md"
+    },
+    {
+      "title": "Compte-Rendu de TP : Agrégation de liens (EtherChannel - LACP)",
+      "date": "1970-01-01",
+      "module": "R103",
+      "techs": [],
+      "path": "assets/documents/apprentissage/admin-reseau/etherchannel/tp4.md"
     }
   ]
 }

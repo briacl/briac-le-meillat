@@ -11,6 +11,8 @@ status: "Terminé"
 # Cheat Sheet : Setup PostgreSQL
 > **CTP BDD R207** — *Configuration pour le compte guest*
 
+Auteur : Briac Le Meillat
+
 Ce guide vous accompagne dans l'installation et la configuration de PostgreSQL sur votre VM pour l'examen.
 
 ---
@@ -18,9 +20,17 @@ Ce guide vous accompagne dans l'installation et la configuration de PostgreSQL s
 ## 🛠 1. Configuration de la VM
 *À effectuer avant le démarrage de la machine virtuelle.*
 
-1. **Carte Réseau** : Accédez aux réglages de la VM > **Réseau**.
-2. **Mode** : Sélectionnez **Accès par pont (Bridge)**.
-3. **Interface** : Choisissez `eth0` (ou l'interface reliée au réseau de l'IUT).
+Dans les réglages de votre VM, accédez à la section **Réseau** et configurez deux cartes distinctes :
+
+### 🎴 Carte Réseau 1 : Accès Extérieur (Pont)
+* **Mode de l'accès réseau** : `Accès par pont` (Bridge)
+* **Nom (Interface)** : Sélectionnez l'interface connectée au réseau physique (généralement `eth0` ou votre interface active).
+* **Adresse MAC** : Renseignez l'une des deux adresses MAC qui vous ont été spécifiquement attribuées pour l'évaluation.
+
+### 🎴 Carte Réseau 2 : Réseau Local Virtuel (Interne)
+* **Mode de l'accès réseau** : `Réseau interne` (Réseau local/Internal Network)
+* **Nom** : Conservez le nom par défaut.
+* **Adresse MAC** : Générez une nouvelle adresse MAC aléatoire (en cliquant sur le bouton de rafraîchissement) ou conservez la valeur générée par défaut.
 
 ---
 
@@ -93,6 +103,106 @@ CREATE SCHEMA votre_nom;
 
 -- Définition du chemin de recherche par défaut
 SET search_path TO votre_nom;
+```
+
+## 🛠️ 5. Attribution des droits de création de base de données (`CREATEDB`)
+Par défaut, un utilisateur standard n'a pas les droits pour créer une base de données. Pour attribuer cette permission à votre utilisateur, vous devez temporairement autoriser l'accès de l'administrateur `postgres` sans mot de passe (`trust`).
+
+### 1. Éditer à nouveau `pg_hba.conf`
+Ouvrez le fichier de configuration des accès réseau :
+```bash
+sudo nano /etc/postgresql/14/main/pg_hba.conf
+```
+
+Modifiez la toute première règle de socket Unix concernant l'utilisateur `postgres` pour la passer en `trust` :
+```text
+# Database administrative login by Unix domain socket
+local   all             postgres                                trust
+```
+
+Voici le contenu exact que doit afficher la fin de votre fichier `/etc/postgresql/14/main/pg_hba.conf` :
+```text
+# Database administrative login by Unix domain socket
+local   all             postgres                                trust
+
+# TYPE  DATABASE        USER            ADDRESS                 METHOD
+
+# "local" is for Unix domain socket connections only
+local   all             all                                     scram-sha-256
+# IPv4 local connections:
+host    all             all             127.0.0.1/32            scram-sha-256
+# IPv6 local connections:
+host    all             all             ::1/128                 scram-sha-256
+# Allow replication connections from localhost, by a user with the
+# replication privilege.
+local   replication     all                                     peer
+host    replication     all             127.0.0.1/32            scram-sha-256
+host    replication     all             ::1/128                 scram-sha-256
+host    all             all             172.31.0.0/16           scram-sha-256
+```
+
+> [!NOTE]
+> Vous pouvez conserver la ligne concernant les autres utilisateurs locaux (`local all all`) en `scram-sha-256` ou en `trust`, l'essentiel est que l'utilisateur administrateur `postgres` dispose de la méthode `trust` sur les sockets locaux pour exécuter les commandes sans mot de passe.
+
+### 2. Appliquer les changements et accorder les droits
+1. Sauvegardez le fichier (`Ctrl+O`, `Entrée`, puis `Ctrl+X`).
+2. Redémarrez le service PostgreSQL afin d'appliquer la nouvelle configuration :
+   ```bash
+   sudo systemctl restart postgresql
+   ```
+3. Octroyez le privilège `CREATEDB` à votre compte utilisateur (remplacez `votre_nom` par votre identifiant) :
+   ```bash
+   psql -U postgres -c "ALTER USER votre_nom CREATEDB;"
+   ```
+
+---
+
+## 🛠️ 6. Création de la Base de Données d'Exercice (`tp_users`)
+Maintenant que votre propre utilisateur dispose des droits nécessaires pour administrer des bases, connectez-vous pour initialiser votre base d'évaluation.
+
+1. Connectez-vous à PostgreSQL avec votre compte :
+   ```bash
+   psql -U votre_nom -d votre_nom -W
+   # Entrez le mot de passe : bdrt00
+   ```
+2. Dans le prompt PostgreSQL, définissez votre schéma puis créez la nouvelle base de données :
+   ```sql
+   SET search_path TO votre_nom;
+   
+   -- création bdd
+   CREATE DATABASE tp_users;
+   ```
+3. Connectez-vous à la base de données fraîchement créée :
+   ```sql
+   \c tp_users
+   ```
+
+> [!TIP]
+> Une fois connecté, vous remarquerez que le prompt de votre console passe de `votre_nom=>` à `tp_users=>`, ce qui confirme que vous êtes bien positionné sur la bonne base de données d'exercice !
+
+---
+
+### 📥 Comment coller et exécuter le contenu d'un fichier `.sql`
+Tu as deux méthodes très simples pour injecter le contenu de ton fichier :
+
+#### 🔤 Méthode A : Le copier-coller classique (dans le prompt)
+1. Connecte-toi à la base de données que tu viens de créer :
+   ```bash
+   psql -U votre_nom -d tp_users -W
+   ```
+2. Ouvre ton fichier `users.sql` sur ton PC, puis copie tout son contenu (`Ctrl+A`, `Ctrl+C`).
+3. Colle-le directement dans ton terminal Linux là où le prompt `tp_users=>`.
+4. Appuie sur **Entrée**. PostgreSQL va exécuter toutes les lignes d'un coup.
+
+#### ⚡ Méthode B : L'import direct en une seule ligne (le plus propre)
+Au lieu de t'embêter à ouvrir le fichier et à tout copier, tu peux demander à `psql` de lire directement le fichier `.sql` s'il est présent sur ta VM grâce à l'option `-f` :
+```bash
+psql -U votre_nom -d tp_users -W -f /chemin/vers/ton/fichier/users.sql
+```
+
+Ou si tu es déjà connecté au prompt `tp_users=>`, tu peux l'importer directement avec la méta-commande `\i` :
+```sql
+\i /chemin/vers/ton/fichier/users.sql
 ```
 
 ---

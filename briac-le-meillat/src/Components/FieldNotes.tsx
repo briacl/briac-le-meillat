@@ -198,7 +198,7 @@ export default function FieldNotes() {
                 size="full"
                 scrollBehavior="inside"
                 backdrop="blur"
-                className="bg-black/95 m-0 p-0 rounded-none"
+                className="bg-slate-50 m-0 p-0 rounded-none"
             >
                 <ModalContent className="bg-transparent shadow-none border-none">
                     {(onClose) => (
@@ -207,7 +207,7 @@ export default function FieldNotes() {
                                 <Button 
                                     isIconOnly
                                     onPress={onClose}
-                                    className="rounded-full bg-white/5 hover:bg-red-500/20 backdrop-blur-xl text-white/50 hover:text-white w-14 h-14 border border-white/10 transition-all"
+                                    className="rounded-full bg-white/70 hover:bg-white backdrop-blur-xl text-zinc-650 hover:text-black w-14 h-14 border border-black/5 hover:scale-105 active:scale-95 shadow-2xl transition-all"
                                 >
                                     <X size={24} />
                                 </Button>
@@ -218,7 +218,7 @@ export default function FieldNotes() {
                                     initial={{ opacity: 0, y: 50, filter: 'blur(20px)' }}
                                     animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
                                     transition={{ duration: 1, ease: APPLE_BEZIER as any }}
-                                    className="bg-zinc-950 border border-white/10 rounded-[3rem] shadow-[0_40px_100px_rgba(0,0,0,0.8)] overflow-hidden"
+                                    className="bg-white border border-slate-200/50 rounded-[3rem] shadow-[0_40px_100px_rgba(0,0,0,0.08)] overflow-hidden"
                                 >
                                     <div className="p-10 md:p-24 relative">
                                         {selectedProof && (
@@ -228,6 +228,16 @@ export default function FieldNotes() {
                                                 title={selectedProof.title} 
                                             />
                                         )}
+
+                                        <div className="mt-24 pt-12 border-t flex justify-center border-slate-100">
+                                            <Button 
+                                                variant="solid"
+                                                onPress={onClose}
+                                                className="font-bold rounded-2xl px-16 h-16 shadow-xl hover:scale-[1.02] active:scale-95 transition-all text-lg bg-zinc-900 text-white hover:bg-zinc-800"
+                                            >
+                                                Terminer la lecture
+                                            </Button>
+                                        </div>
                                     </div>
                                 </motion.div>
                             </div>

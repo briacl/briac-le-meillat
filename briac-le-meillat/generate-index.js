@@ -15,28 +15,28 @@ const OUTPUT_FILE = path.join(__dirname, 'public/data/registry.json');
 function parseFrontmatter(content, fileName = '') {
     const regex = /^---\s*\n([\s\S]*?)\n---\s*\n/;
     const match = content.match(regex);
-    
+
     if (!match) {
         // Fallback: extract title from first # header
         const h1Match = content.match(/^#\s+(.+)$/m);
         const title = h1Match ? h1Match[1].trim() : fileName.replace('.md', '');
         return {
             title,
-            date: new Date().toISOString().split('T')[0],
+            date: "1970-01-01",
             module: "R103", // Default module
             techs: []
         };
     }
-    
+
     const yamlContent = match[1];
     const data = {};
-    
+
     yamlContent.split('\n').forEach(line => {
         const [key, ...valueParts] = line.split(':');
         if (key && valueParts.length > 0) {
             let value = valueParts.join(':').trim();
             value = value.replace(/^["']|["']$/g, '');
-            
+
             if (value.startsWith('[') && value.endsWith(']')) {
                 data[key.trim()] = value
                     .slice(1, -1)
@@ -47,33 +47,35 @@ function parseFrontmatter(content, fileName = '') {
             }
         }
     });
-    
+
     return data;
 }
+
+const EXCLUDED_FILES = ['tp2-flask.md', 'tp-flask-lama.md'];
 
 /**
  * Parcourt récursivement les dossiers pour trouver les .md
  */
 function getMarkdownFiles(dir, fileList = []) {
     const files = fs.readdirSync(dir);
-    
+
     files.forEach(file => {
         const filePath = path.join(dir, file);
         const stat = fs.statSync(filePath);
-        
+
         if (stat.isDirectory()) {
             getMarkdownFiles(filePath, fileList);
-        } else if (file.endsWith('.md') && file !== 'data.json') {
+        } else if (file.endsWith('.md') && file !== 'data.json' && !EXCLUDED_FILES.includes(file)) {
             fileList.push(filePath);
         }
     });
-    
+
     return fileList;
 }
 
 function generateIndex() {
     console.log('🚀 Démarrage de l\'indexation des preuves...');
-    
+
     if (!fs.existsSync(DOCUMENTS_DIR)) {
         console.error('❌ Dossier documents/apprentissage introuvable.');
         return;
@@ -85,11 +87,11 @@ function generateIndex() {
     files.forEach(filePath => {
         const content = fs.readFileSync(filePath, 'utf8');
         const metadata = parseFrontmatter(content, path.basename(filePath));
-        
+
         if (metadata && metadata.title) {
             // Calcul du chemin relatif pour le frontend
             const relativePath = path.relative(path.join(__dirname, 'public'), filePath);
-            
+
             proofs.push({
                 ...metadata,
                 path: relativePath
@@ -98,7 +100,12 @@ function generateIndex() {
     });
 
     // Tri par date décroissante
-    proofs.sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0));
+    proofs.sort((a, b) => {
+        const dateDiff = new Date(b.date || 0) - new Date(a.date || 0);
+        if (dateDiff !== 0) return dateDiff;
+        // En cas d'égalité de date, trier par chemin dans l'ordre inverse pour avoir tp9 avant tp8
+        return b.path.localeCompare(a.path);
+    });
 
     const registry = {
         lastUpdated: new Date().toISOString(),
