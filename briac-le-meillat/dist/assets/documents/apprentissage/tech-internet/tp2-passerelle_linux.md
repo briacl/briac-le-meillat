@@ -130,11 +130,12 @@ ping 172.31.25.9   # iut-rt : doit répondre
 ## 🌍 Partie 3 : DNS et Proxy
 
 ### 🔤 8. Configurer le DNS sur H1 et H2
-**Sur H1 et H2 (Ubuntu) :**
+**Sur H1 et H2 (Ubuntu) :**  
+Dans /etc:resolv.conf mettre :
 ```bash
-echo 'nameserver 172.18.26.101' > /etc/resolv.conf
-echo 'nameserver 172.18.26.102' >> /etc/resolv.conf
-echo 'nameserver 172.18.50.101' >> /etc/resolv.conf
+search univ-artois.fr
+nameserver 172.18.26.101
+nameserver 172.18.26.102
 ```
 *Tests :*
 ```bash
@@ -150,5 +151,7 @@ ping iut-rt                         # doit répondre
 Préférences > Réseau > Configuration manuelle du proxy :
 *   **Proxy HTTP :** `cache-etu.univ-artois.fr`
 *   **Port :** `3128`
+*   **also use this proxy for https :** cochée
+*   **No proxy for :** `iut-rt, 172.31.25.9`
 
 *Test final : Naviguer vers `https://www.wikipedia.org` => Doit s'afficher.*

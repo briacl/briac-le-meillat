@@ -6,6 +6,7 @@ import { CryptoModal } from './Contexts/CryptoContext';
 
 import LandingPage from './Pages/LandingPage';
 import LandingPageOriginal from './Pages/LandingPageOriginal';
+import LandingPageOldOld from './Pages/LandingPageOldOld';
 import Subscribe from './Pages/Subscribe';
 import Dashboard from './Pages/Dashboard';
 import Devop from './Pages/Devop';
@@ -22,6 +23,7 @@ import AdminDashboard from './Pages/Admin/AdminDashboard';
 import ExPage from './Pages/ExPage';
 import ChatWidget from './Components/ChatWidget';
 import ProjectsVisualisation from './Pages/ProjectsVisualisation';
+import BlogPage from './Pages/BlogPage';
 
 // Reference Pages from Caisse Automatique 2026
 import CaisseLandingPage from './Pages/Referentiel/CaisseLandingPage';
@@ -38,7 +40,8 @@ function App() {
                 <Routes>
                     <Route path="/" element={<LandingPage />} />
                     <Route path="/original" element={<LandingPageOriginal />} />
-                    <Route path="/test" element={<LandingPage />} />
+                    <Route path="/oldold" element={<LandingPageOldOld />} />
+                    <Route path="/test" element={<LandingPageOldOld />} />
                     <Route path="/subscribe" element={<Subscribe />} />
                     <Route path="/dashboard" element={<Dashboard />} />
                     <Route path="/login" element={<SignInSide />} />
@@ -49,6 +52,7 @@ function App() {
                     <Route path="/devop" element={<Devop />} />
                     <Route path="/cv" element={<CVPage />} />
                     <Route path="/contact" element={<Contact />} />
+                    <Route path="/blog" element={<BlogPage />} />
                     <Route path="/admin" element={<AdminPanel />} />
                     <Route path="/briac-admin" element={<AdminDashboard />} />
                     <Route path="/ex" element={<ExPage />} />

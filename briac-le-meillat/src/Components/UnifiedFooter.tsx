@@ -33,7 +33,7 @@ export default function UnifiedFooter() {
                 <div className="flex flex-col gap-4">
                     <span className="text-[10px] font-bold uppercase tracking-widest text-zinc-600">Entreprise</span>
                     <a href="#support" className="text-sm font-medium text-zinc-400 hover:text-white transition-colors">Support</a>
-                    <a href="#" className="text-sm font-medium text-zinc-400 hover:text-white transition-colors">Blog</a>
+                    <Link to="/blog" target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-zinc-400 hover:text-white transition-colors">Blog</Link>
                 </div>
 
                 {/* Légal */}

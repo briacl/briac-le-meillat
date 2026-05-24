@@ -73,7 +73,7 @@ export default function TheFoundation() {
                     >
                         {/* <h2 className="text-[10px] font-['Paris2024'] uppercase tracking-[0.6em] text-blue-500 mb-2">The Foundation</h2> */}
                         <h3 className="text-4xl md:text-6xl font-['Paris2024'] text-white uppercase tracking-tight">
-                            L'Évidence par <span className="opacity-40">Design</span>
+                            <span className="opacity-40">La</span> Fondation
                         </h3>
                     </motion.div>
                 </div>

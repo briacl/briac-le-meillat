@@ -1,7 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MessageCircle, X, Send, Mail } from 'lucide-react';
+import { X, Send, Mail } from 'lucide-react';
+import { useChatWidget } from '@/Contexts/ChatContext';
 
 const SYSTEM_PROMPT = `Tu es l'assistant intégré du portfolio de Briac Le Meillat.
 Tu aides les utilisateurs à naviguer et utiliser l'interface.
@@ -20,7 +21,7 @@ interface Message {
 }
 
 export default function ChatWidget() {
-    const [isOpen, setIsOpen] = useState(false);
+    const { isOpen, setIsOpen } = useChatWidget();
     const [messages, setMessages] = useState<Message[]>([]);
     const [input, setInput] = useState('');
     const [isLoading, setIsLoading] = useState(false);
@@ -233,18 +234,6 @@ export default function ChatWidget() {
                 )}
             </AnimatePresence>
 
-            {/* Toggle Button */}
-            <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => setIsOpen(!isOpen)}
-                className={`w-14 h-14 rounded-full flex items-center justify-center shadow-lg border border-white/10
-                          backdrop-blur-md transition-colors ${
-                              isOpen ? 'bg-white/10 text-white hover:bg-white/20' : 'bg-blue-600 text-white hover:bg-blue-500'
-                          }`}
-            >
-                {isOpen ? <X size={24} /> : <MessageCircle size={24} />}
-            </motion.button>
         </div>
     );
 }

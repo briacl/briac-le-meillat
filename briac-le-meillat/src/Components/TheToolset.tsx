@@ -1,6 +1,7 @@
-import React, { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
-import { Terminal, BrainCircuit, Layers, ArrowUpRight } from 'lucide-react';
+import React, { useRef, useState } from 'react';
+import { motion, useInView, AnimatePresence } from 'framer-motion';
+import { Terminal, BrainCircuit, Layers, X, Github } from 'lucide-react';
+import staticProjects from '@/data/projects.json';
 
 const APPLE_BEZIER = [0.21, 0.47, 0.32, 0.98];
 
@@ -107,10 +108,98 @@ const pillars: Pillar[] = [
     },
 ];
 
+/* ── Helper: find project data by name slug ── */
+const findProject = (name: string) => {
+    const normalize = (s: string) => s.toLowerCase().replace(/[_\s]/g, '-').normalize('NFD').replace(/[̀-ͯ]/g, '');
+    return staticProjects.find(p => normalize(p.id) === normalize(name) || normalize(p.title) === normalize(name)) ?? null;
+};
+
+/* ── Project Modal ── */
+interface ProjectModalProps {
+    projectName: string;
+    accentColor: string;
+    onClose: () => void;
+}
+
+const ProjectModal = ({ projectName, accentColor, onClose }: ProjectModalProps) => {
+    const project = findProject(projectName);
+    const hasGithub = project?.link && project.link !== '#';
+    const origins: string[] = (project as any)?.origin ?? [];
+
+    return (
+        <div className="fixed inset-0 z-[200] flex items-center justify-center p-4">
+            <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={onClose} />
+            <motion.div
+                initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95, y: 20 }}
+                transition={{ duration: 0.25, ease: [0.21, 0.47, 0.32, 0.98] }}
+                className="relative z-10 w-full max-w-lg bg-[#0a0a0a] border border-white/10 rounded-[2.5rem] p-10 shadow-2xl"
+            >
+                <button
+                    onClick={onClose}
+                    className="absolute top-6 right-8 text-white/30 hover:text-white transition-colors text-2xl font-light"
+                >
+                    <X size={20} />
+                </button>
+
+                {/* Origin badges */}
+                {origins.length > 0 && (
+                    <div className="flex gap-2 mb-6">
+                        {origins.map(o => (
+                            <span key={o} className={`text-[9px] font-mono uppercase tracking-[0.3em] px-2.5 py-1 rounded-full border ${o === 'iut' ? 'bg-[#0075FF]/15 text-[#0075FF] border-[#0075FF]/30' : 'bg-[#8B5CF6]/15 text-[#8B5CF6] border-[#8B5CF6]/30'}`}>
+                                {o === 'iut' ? 'IUT' : 'Perso'}
+                            </span>
+                        ))}
+                    </div>
+                )}
+
+                {/* Title */}
+                <h3 className="font-['Paris2024'] text-2xl uppercase tracking-widest mb-4" style={{ color: accentColor }}>
+                    {project?.title ?? projectName}
+                </h3>
+
+                {/* Description */}
+                <p className="text-zinc-400 font-sans text-sm leading-relaxed mb-8">
+                    {project?.description ?? 'Projet en cours de documentation.'}
+                </p>
+
+                {/* Stack */}
+                {(project?.languages ?? []).length > 0 && (
+                    <div className="flex flex-wrap gap-2 mb-8">
+                        {(project?.languages ?? []).map((l, i) => (
+                            <span key={i} className="text-[9px] font-mono uppercase tracking-[0.2em] text-white/50 px-2 py-1 border border-white/10 rounded-md bg-white/[0.04]">
+                                {l}
+                            </span>
+                        ))}
+                    </div>
+                )}
+
+                {/* GitHub link */}
+                {hasGithub && (
+                    <a
+                        href={project!.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 text-[11px] font-mono uppercase tracking-[0.3em] px-5 py-3 rounded-full border transition-all duration-300 hover:bg-white/5"
+                        style={{ color: accentColor, borderColor: `${accentColor}40` }}
+                    >
+                        <Github size={14} />
+                        Voir sur GitHub
+                    </a>
+                )}
+            </motion.div>
+        </div>
+    );
+};
+
 /* ── Card Component ── */
-const PillarCard = ({ pillar, index }: { pillar: Pillar; index: number }) => {
+export { pillars, sharedStyles };
+
+export const PillarCard = ({ pillar, index }: { pillar: Pillar; index: number }) => {
     const cardRef = useRef<HTMLDivElement>(null);
     const isInView = useInView(cardRef, { once: true, margin: '-80px' });
+    const [selectedProject, setSelectedProject] = useState<string | null>(null);
 
     return (
         <motion.div
@@ -215,14 +304,18 @@ const PillarCard = ({ pillar, index }: { pillar: Pillar; index: number }) => {
                         />
 
                         {/* Projects list */}
-                        <div className="flex flex-col items-center gap-1.5">
+                        <div className="flex flex-col items-center gap-2">
                             {pillar.projects.map((proj) => (
-                                <span
+                                <button
                                     key={proj}
-                                    className="text-[9px] font-mono tracking-[0.3em] text-zinc-500 uppercase"
+                                    onClick={() => setSelectedProject(proj)}
+                                    className="text-[9px] font-mono tracking-[0.3em] uppercase transition-colors duration-200 hover:underline underline-offset-2 cursor-pointer"
+                                    style={{ color: pillar.accentColor, opacity: 0.7 }}
+                                    onMouseEnter={e => (e.currentTarget.style.opacity = '1')}
+                                    onMouseLeave={e => (e.currentTarget.style.opacity = '0.7')}
                                 >
                                     {proj}
-                                </span>
+                                </button>
                             ))}
                         </div>
                     </div>
@@ -278,6 +371,17 @@ const PillarCard = ({ pillar, index }: { pillar: Pillar; index: number }) => {
             >
                 {pillar.tagline}
             </motion.p>
+
+            {/* ── Project Modal ── */}
+            <AnimatePresence>
+                {selectedProject && (
+                    <ProjectModal
+                        projectName={selectedProject}
+                        accentColor={pillar.accentColor}
+                        onClose={() => setSelectedProject(null)}
+                    />
+                )}
+            </AnimatePresence>
         </motion.div>
     );
 };
@@ -347,18 +451,15 @@ export default function TheToolset() {
                         viewport={{ once: true }}
                         className="mt-48 max-w-4xl mx-auto border border-white/5 rounded-3xl px-10 py-12 bg-white/[0.02] backdrop-blur-sm text-center space-y-6"
                     >
-                        <p
-                            className="text-xs font-mono uppercase tracking-[0.4em] text-zinc-600"
-                        >
-                            En construction
+                        <p className="text-xs font-mono uppercase tracking-[0.4em] text-zinc-600">
+                            Projet solo · En construction permanente
                         </p>
                         <p className="text-xl md:text-2xl font-['Paris2024'] leading-relaxed tracking-tight">
                             <span className="text-white">
-                                Bérangère • Development travaille activement avec Nexus sur des architectures
-                                de nouvelle génération,{' '}
+                                Je travaille sur des architectures de nouvelle génération —{' '}
                             </span>
                             <span className="text-zinc-500">
-                                qui redéfiniront l'expérience utilisateur dès 2027.
+                                seul, à mon rythme, en parallèle de mes études.
                             </span>
                         </p>
 
@@ -383,10 +484,10 @@ export default function TheToolset() {
                             initial={{ opacity: 0 }}
                             whileInView={{ opacity: 1 }}
                             transition={{ delay: 0.5, duration: 1 }}
-                            href="#code-poetics"
+                            href="#showcase-willkommen"
                             onClick={(e) => {
                                 e.preventDefault();
-                                document.getElementById('code-poetics')?.scrollIntoView({ behavior: 'smooth' });
+                                document.getElementById('showcase-willkommen')?.scrollIntoView({ behavior: 'smooth' });
                             }}
                             className="border border-white/10 rounded-full w-[60px] h-[60px] flex items-center justify-center cursor-pointer transition-all duration-300 animate-bounce hover:border-blue-500/50 hover:shadow-[0_0_20px_rgba(59,130,246,0.2)] group"
                         >

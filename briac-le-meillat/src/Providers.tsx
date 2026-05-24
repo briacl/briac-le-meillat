@@ -8,6 +8,7 @@ import { WebProjectProvider } from './Contexts/WebProjectContext';
 import { CookieConsentProvider } from './Contexts/CookieConsentContext';
 import { CookieConsent } from './Components/CookieConsent';
 import { CryptoProvider } from './Contexts/CryptoContext';
+import { ChatProvider } from './Contexts/ChatContext';
 
 /**
  * Providers.tsx — centralise tous les providers React de l'application.
@@ -25,6 +26,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
         <CookieConsentProvider>
             {/* La bannière cookie est rendue ici, au-dessus de tout le reste */}
             <CookieConsent />
+            <ChatProvider>
             <ThemeProvider>
                 <AuthProvider>
                     <CryptoProvider>
@@ -40,6 +42,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
                     </CryptoProvider>
                 </AuthProvider>
             </ThemeProvider>
+            </ChatProvider>
         </CookieConsentProvider>
     );
 }

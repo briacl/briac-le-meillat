@@ -1,23 +1,27 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { 
-    Modal, 
-    ModalContent, 
-    ModalBody, 
-    Button, 
+import { motion, AnimatePresence } from 'framer-motion';
+import {
+    Modal,
+    ModalContent,
+    ModalBody,
+    Button,
     useDisclosure,
     Card,
     CardBody
 } from "@heroui/react";
-import { 
-    Clock, 
+import {
+    Clock,
     X,
     ChevronRight,
     Zap,
-    Download
+    Download,
+    Github,
+    ExternalLink
 } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import ExPage from '../Pages/ExPage';
 import { exportToPDF, readDocument } from '../Utils/DocumentExporter';
+import staticProjects from '@/data/projects.json';
 
 interface Proof {
     title: string;
@@ -37,11 +41,14 @@ interface Registry {
     proofs: Proof[];
 }
 
+const normalize = (s: string) => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+
 export default function FluxLabSection({ isLight = false }: { isLight?: boolean }) {
     const [mergedProofs, setMergedProofs] = useState<Proof[]>([]);
     const [loading, setLoading] = useState(true);
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
     const [selectedProof, setSelectedProof] = useState<Proof | null>(null);
+    const [selectedPersoProject, setSelectedPersoProject] = useState<typeof staticProjects[0] | null>(null);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -88,10 +95,21 @@ export default function FluxLabSection({ isLight = false }: { isLight?: boolean 
     }, []);
 
     const handleProofClick = (proof: Proof) => {
-        readDocument(proof.path, () => {
-            setSelectedProof(proof);
-            onOpen();
-        });
+        // Check if it's a personal project (not IUT, not PDF)
+        const matched = staticProjects.find(p =>
+            normalize(p.title) === normalize(proof.title) || normalize(p.id) === normalize(proof.title)
+        );
+        const origins: string[] = (matched as any)?.origin ?? [];
+        const isPersoOnly = origins.length > 0 && !origins.includes('iut') && !proof.isPDF;
+
+        if (isPersoOnly && matched) {
+            setSelectedPersoProject(matched);
+        } else {
+            readDocument(proof.path, () => {
+                setSelectedProof(proof);
+                onOpen();
+            });
+        }
     };
 
     const handleDownload = (e: React.MouseEvent, proof: Proof) => {
@@ -281,6 +299,74 @@ export default function FluxLabSection({ isLight = false }: { isLight?: boolean 
                     )}
                 </ModalContent>
             </Modal>
+
+            {/* ── Modale projet perso ── */}
+            <AnimatePresence>
+                {selectedPersoProject && (
+                    <div className="fixed inset-0 z-[200] flex items-center justify-center p-4">
+                        <div className="absolute inset-0 bg-black/20 backdrop-blur-sm" onClick={() => setSelectedPersoProject(null)} />
+                        <motion.div
+                            initial={{ opacity: 0, y: 30, scale: 0.97 }}
+                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                            exit={{ opacity: 0, y: 30, scale: 0.97 }}
+                            transition={{ duration: 0.3, ease: [0.21, 0.47, 0.32, 0.98] }}
+                            className="relative z-10 w-full max-w-lg bg-white border border-zinc-100 rounded-[2.5rem] p-10 shadow-[0_40px_80px_rgba(0,0,0,0.12)]"
+                        >
+                            <button onClick={() => setSelectedPersoProject(null)} className="absolute top-6 right-8 text-zinc-300 hover:text-zinc-700 transition-colors">
+                                <X size={20} />
+                            </button>
+
+                            {/* Badge Perso */}
+                            <div className="flex gap-2 mb-6">
+                                <span className="text-[9px] font-mono uppercase tracking-[0.3em] px-2.5 py-1 rounded-full bg-[#8B5CF6]/10 text-[#8B5CF6] border border-[#8B5CF6]/20">
+                                    Perso
+                                </span>
+                            </div>
+
+                            <h3 className="font-['Paris2024'] text-xl uppercase tracking-widest text-zinc-900 mb-4">
+                                {selectedPersoProject.title}
+                            </h3>
+
+                            <p className="font-['Baskerville'] text-zinc-600 text-base leading-relaxed italic mb-8">
+                                {selectedPersoProject.description}
+                            </p>
+
+                            {/* Stack */}
+                            {selectedPersoProject.languages.length > 0 && (
+                                <div className="flex flex-wrap gap-2 mb-8">
+                                    {selectedPersoProject.languages.map((l, i) => (
+                                        <span key={i} className="text-[9px] font-mono uppercase tracking-[0.2em] text-zinc-400 px-2 py-1 border border-zinc-100 rounded-md bg-zinc-50">
+                                            {l}
+                                        </span>
+                                    ))}
+                                </div>
+                            )}
+
+                            <div className="flex items-center justify-between pt-6 border-t border-zinc-100">
+                                {selectedPersoProject.link && selectedPersoProject.link !== '#' ? (
+                                    <a
+                                        href={selectedPersoProject.link}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="inline-flex items-center gap-2 text-[11px] font-mono uppercase tracking-[0.3em] text-[#0075FF] hover:opacity-70 transition-opacity"
+                                    >
+                                        <Github size={14} />
+                                        Voir sur GitHub
+                                    </a>
+                                ) : <span />}
+                                <Link
+                                    to="/blog"
+                                    onClick={() => setSelectedPersoProject(null)}
+                                    className="inline-flex items-center gap-1.5 text-[10px] font-mono uppercase tracking-[0.3em] text-zinc-400 hover:text-zinc-700 transition-colors"
+                                >
+                                    Plus de détails dans le Blog
+                                    <ExternalLink size={11} />
+                                </Link>
+                            </div>
+                        </motion.div>
+                    </div>
+                )}
+            </AnimatePresence>
         </section>
     );
 }

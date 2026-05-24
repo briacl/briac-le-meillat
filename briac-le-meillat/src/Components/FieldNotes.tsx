@@ -96,10 +96,11 @@ export default function FieldNotes() {
         exportToPDF(proof.title, proof.path);
     };
 
+    const [visibleCount, setVisibleCount] = useState(5);
+
     if (loading || mergedProofs.length === 0) return null;
 
-    // Display all proofs in Field Notes as requested
-    const latestProofs = mergedProofs;
+    const latestProofs = mergedProofs.slice(0, visibleCount);
 
     return (
         <section id="field-notes" className="w-full py-32 bg-black relative overflow-hidden border-t border-white/5">
@@ -131,13 +132,13 @@ export default function FieldNotes() {
                             viewport={{ once: true }}
                             transition={{ duration: 0.8, delay: index * 0.1, ease: APPLE_BEZIER as any }}
                             onClick={() => handleProofClick(proof)}
-                            className="group relative flex flex-col md:flex-row items-center justify-between p-10 bg-white/[0.02] border border-white/5 hover:bg-white/[0.04] hover:border-blue-500/30 transition-all duration-700 cursor-pointer overflow-hidden first:rounded-t-[2.5rem] last:rounded-b-[2.5rem]"
+                            className="group relative flex flex-col md:flex-row items-center justify-between p-10 bg-white/[0.06] border border-white/10 hover:bg-white/[0.09] hover:border-blue-500/40 transition-all duration-700 cursor-pointer overflow-hidden first:rounded-t-[2.5rem] last:rounded-b-[2.5rem]"
                         >
                             <div className="flex flex-col md:flex-row md:items-center gap-8 md:gap-16 w-full relative z-10">
                                 {/* Module Reference */}
                                 <div className="flex flex-col min-w-[120px]">
-                                    <span className="text-[9px] font-mono text-white/20 tracking-[0.3em] uppercase mb-1">Module_Ref</span>
-                                    <span className="text-lg font-mono text-white/70 group-hover:text-blue-400 transition-colors">
+                                    <span className="text-[9px] font-mono text-white/35 tracking-[0.3em] uppercase mb-1">Module_Ref</span>
+                                    <span className="text-lg font-mono text-white/80 group-hover:text-blue-400 transition-colors">
                                         {proof.module}
                                     </span>
                                 </div>
@@ -149,7 +150,7 @@ export default function FieldNotes() {
                                     </h3>
                                     <div className="flex flex-wrap gap-2">
                                         {proof.techs.map((tech, i) => (
-                                            <span key={i} className="text-[9px] font-mono uppercase tracking-[0.2em] text-white/30 px-2 py-1 border border-white/10 rounded-md bg-white/[0.02]">
+                                            <span key={i} className="text-[9px] font-mono uppercase tracking-[0.2em] text-white/50 px-2 py-1 border border-white/20 rounded-md bg-white/[0.05]">
                                                 {tech}
                                             </span>
                                         ))}
@@ -159,8 +160,8 @@ export default function FieldNotes() {
                                 {/* Data & Interaction */}
                                 <div className="flex items-center gap-6">
                                     <div className="hidden lg:flex flex-col items-end">
-                                        <span className="text-[9px] font-mono uppercase tracking-[0.3em] text-white/20 mb-1">Index_Time</span>
-                                        <span className="text-xs font-mono text-white/40">{new Date(proof.date).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })}</span>
+                                        <span className="text-[9px] font-mono uppercase tracking-[0.3em] text-white/35 mb-1">Index_Time</span>
+                                        <span className="text-xs font-mono text-white/60">{new Date(proof.date).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })}</span>
                                     </div>
                                     <div className="flex items-center gap-3">
                                         <div 
@@ -180,15 +181,20 @@ export default function FieldNotes() {
                     ))}
                 </div>
 
-                {/* Explorer Call to Action */}
-                <div className="mt-20 flex justify-center">
-                    <button className="group flex flex-col items-center gap-4 transition-all duration-500">
-                        <div className="w-12 h-[1px] bg-white/10 group-hover:w-24 group-hover:bg-blue-500 transition-all duration-500" />
-                        <span className="text-[10px] font-['Paris2024'] uppercase tracking-[0.4em] text-white/30 group-hover:text-white transition-colors">
-                            Accéder au Registre Complet
-                        </span>
-                    </button>
-                </div>
+                {/* Pagination */}
+                {visibleCount < mergedProofs.length && (
+                    <div className="mt-12 flex justify-center">
+                        <button
+                            onClick={() => setVisibleCount(c => c + 5)}
+                            className="group flex flex-col items-center gap-4 transition-all duration-500"
+                        >
+                            <div className="w-12 h-[1px] bg-white/10 group-hover:w-24 group-hover:bg-blue-500 transition-all duration-500" />
+                            <span className="text-[10px] font-['Paris2024'] uppercase tracking-[0.4em] text-white/40 group-hover:text-white transition-colors">
+                                Afficher 5 de plus ({mergedProofs.length - visibleCount} restants)
+                            </span>
+                        </button>
+                    </div>
+                )}
             </div>
 
             {/* Modal Detail Viewer */}

@@ -2,31 +2,50 @@ import React, { useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import Navbar from '@/Components/Navbar';
 import Newsbar from '@/Components/Newsbar';
-import NeuralNetworkBackground from '@/Components/NeuralNetworkBackground';
 import ManifestoSection from '@/Components/ManifestoSection';
-import FluxLabSection from '@/Components/FluxLabSection';
-import TheFoundation from '@/Components/TheFoundation';
-import BlueprintTransition from '@/Components/BlueprintTransition';
-import { PureStructure, CodePoetics, LogicAsCanvas, FinalCTA, TheCoreHeader } from '@/Components/ArchitectSpecs';
-import TheToolset from '@/Components/TheToolset';
-import NexusCollection from '@/Components/NexusCollection';
+import BlueprintFoundation from '@/Components/BlueprintFoundation';
+import { PillarCard, pillars, sharedStyles } from '@/Components/TheToolset';
+import {
+    ShowcaseWillkommen,
+    ShowcaseReseau,
+    ShowcaseLyrae,
+    TheCoreHeader,
+    FinalCTA,
+} from '@/Components/ArchitectSpecs';
+import NeuralNetworkBackground from '@/Components/NeuralNetworkBackground';
 import FieldNotes from '@/Components/FieldNotes';
 import UnifiedFooter from '@/Components/UnifiedFooter';
 
-const APPLE_BEZIER = [0.21, 0.47, 0.32, 0.98];
+/* ── Séparateur de pilier — carte centrée avant chaque showcase ── */
+function PilierBridge({ index }: { index: number }) {
+    const pillar = pillars[index];
+    if (!pillar) return null;
+    return (
+        <>
+            <style>{sharedStyles}</style>
+            <section className="w-full py-32 flex flex-col items-center justify-center bg-black overflow-hidden relative">
+                {/* Halo de fond */}
+                <div
+                    className="pointer-events-none absolute inset-0"
+                    style={{
+                        background: `radial-gradient(ellipse at 50% 60%, ${pillar.auraColor} 0%, transparent 60%)`,
+                        filter: 'blur(80px)',
+                    }}
+                />
+                <div className="relative z-10 w-full max-w-sm mx-auto px-6">
+                    <PillarCard pillar={pillar} index={0} />
+                </div>
+            </section>
+        </>
+    );
+}
 
-/**
- * LandingPageTest - Restructuring for Apple-Inspired Storytelling
- * Structure in 4 Movements
- */
 export default function LandingPage() {
     useEffect(() => {
-        document.title = "Briac Le Meillat";
+        document.title = 'Briac Le Meillat';
     }, []);
 
     const { scrollY } = useScroll();
-
-    // Hero Animations
     const heroOpacity = useTransform(scrollY, [0, 300], [1, 0]);
     const blurValue = useTransform(scrollY, [0, 300], [0, 10]);
     const heroBlur = useTransform(blurValue, v => `blur(${v}px)`);
@@ -34,26 +53,24 @@ export default function LandingPage() {
     return (
         <div className="relative w-full min-h-screen font-sans bg-black selection:bg-blue-500 overflow-x-hidden">
 
-            {/* FIXED Navbar */}
+            {/* Navbar fixe */}
             <div className="pointer-events-none fixed top-0 left-0 w-full flex justify-center z-[100]">
                 <div className="pointer-events-auto w-full flex justify-center">
                     <Navbar />
                 </div>
             </div>
 
-            {/* FIXED Newsbar */}
+            {/* Newsbar fixe */}
             <div className="fixed top-28 left-0 w-full pointer-events-auto z-[50] mix-blend-difference">
                 <Newsbar />
             </div>
 
             <main className="relative w-full">
 
-                {/* ──────────────────────────────────────────────────────────── */}
-                {/* MOUVEMENT I : L'ÉMOTION (Le Monde Blanc)                     */}
-                {/* ──────────────────────────────────────────────────────────── */}
+                {/* ── I. L'ÉMOTION — fond blanc ─────────────────────────── */}
                 <div className="relative bg-white z-20">
 
-                    {/* 1. HERO SECTION */}
+                    {/* 1. Hero */}
                     <section className="min-h-screen flex flex-col items-center justify-center p-4 w-full relative">
                         <motion.div
                             style={{ opacity: heroOpacity, filter: heroBlur }}
@@ -64,12 +81,12 @@ export default function LandingPage() {
                                     className="font-['Baskerville']"
                                     initial={{ opacity: 0, y: 20 }}
                                     animate={{ opacity: 1, y: 0 }}
-                                    transition={{ duration: 1.2, ease: "easeOut" }}
+                                    transition={{ duration: 1.2, ease: 'easeOut' }}
                                     style={{
                                         fontSize: 'clamp(3rem, 10vw, 8rem)',
                                         fontWeight: 400,
                                         letterSpacing: '-0.02em',
-                                        textShadow: '0 8px 30px rgba(0, 0, 0, 0.52)'
+                                        textShadow: '0 8px 30px rgba(0,0,0,0.52)',
                                     }}
                                 >
                                     Build Harmony.
@@ -78,7 +95,7 @@ export default function LandingPage() {
 
                             <div
                                 onClick={() => document.getElementById('manifesto-section')?.scrollIntoView({ behavior: 'smooth' })}
-                                className="mt-20 border border-white/10 rounded-full w-[60px] h-[60px] flex items-center justify-center cursor-pointer transition-all duration-300 animate-bounce hover:border-blue-500/50 hover:shadow-[0_0_20px_rgba(59,130,246,0.2)] group"
+                                className="mt-20 border border-black/10 rounded-full w-[60px] h-[60px] flex items-center justify-center cursor-pointer transition-all duration-300 animate-bounce hover:border-blue-500/50 hover:shadow-[0_0_20px_rgba(59,130,246,0.2)] group"
                             >
                                 <svg viewBox="0 0 24 24" className="w-8 h-8 fill-blue-500 transition-transform group-hover:scale-110">
                                     <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" />
@@ -87,80 +104,66 @@ export default function LandingPage() {
                         </motion.div>
                     </section>
 
-                    {/* 2. MANIFESTO */}
+                    {/* 2. Manifesto */}
                     <div id="manifesto-section">
                         <ManifestoSection />
                     </div>
-
-                    {/* 3. FLUX LAB (Light variant) */}
-                    <div className="pb-32">
-                        <FluxLabSection isLight={true} />
-                    </div>
                 </div>
 
 
-                {/* ──────────────────────────────────────────────────────────── */}
-                {/* MOUVEMENT II : LA RÉVÉLATION DE L'INGÉNIERIE (Le Pivot)      */}
-                {/* ──────────────────────────────────────────────────────────── */}
-                <div className="relative z-10 bg-black">
-
-                    {/* 4. BLUEPRINT TRANSITION (White to Dark Pivot) */}
-                    <div className="bg-white">
-                        <BlueprintTransition />
-                    </div>
-
-                    {/* 5. PURE STRUCTURE */}
-                    <div className="text-white">
-                        <PureStructure />
-                    </div>
-
-                    {/* 6. THE FOUNDATION (Academic Background) */}
-                    <TheFoundation />
+                {/* ── II. LA RÉVÉLATION — pivot blanc → noir (scroll-driven) ── */}
+                <div className="relative z-10">
+                    <BlueprintFoundation />
                 </div>
 
 
-                {/* ──────────────────────────────────────────────────────────── */}
-                {/* MOUVEMENT III : THE TOOLSET (Les Instruments)               */}
-                {/* ──────────────────────────────────────────────────────────── */}
+                {/* ── III. APPLE SILICON — Pilier → Showcase → Pilier → … ─ */}
                 <div id="the-toolset" className="relative z-10 bg-black text-white">
 
-                    {/* 7. THE TOOLSET — 3 piliers de projets personnels */}
-                    <TheToolset />
+                    {/* Pilier I — Automation & Workflow */}
+                    <PilierBridge index={0} />
+
+                    {/* Showcase 1 — willkommen_v2 */}
+                    <ShowcaseWillkommen />
+
+                    {/* Pilier II — Intelligence & Data */}
+                    <PilierBridge index={1} />
+
+                    {/* Showcase 2 — Visualisation réseau */}
+                    <ShowcaseReseau />
+
+                    {/* Pilier III — Shared Infrastructure */}
+                    <PilierBridge index={2} />
+
+                    {/* Showcase 3 — lyrae-shared */}
+                    <ShowcaseLyrae />
 
                 </div>
 
 
-                {/* ──────────────────────────────────────────────────────────── */}
-                {/* MOUVEMENT IV : L'EXPLORATION (L'Infini)                      */}
-                {/* ──────────────────────────────────────────────────────────── */}
-                <div id="the-ecosystem" className="relative z-10 bg-black text-white min-h-screen">
+                {/* ── IV. LE CLIMAX & L'ARCHIVE ─────────────────────────── */}
+                <div id="the-ecosystem" className="relative z-10 bg-black text-white">
 
-                    {/* 8. CODE POETICS & LOGIC AS CANVAS — Humanisation des projets */}
-                    <CodePoetics />
-                    <LogicAsCanvas />
-
-                    {/* 9. NEXUS COLLECTION — Vitrine des produits finis */}
-                    {/* <NexusCollection /> */}
-
-                    {/* 10. THE CORE HEADER */}
+                    {/* The Ecosystem header */}
                     <TheCoreHeader />
 
-                    {/* 11. NEURAL NETWORK BACKGROUND (The Ecosystem Visual) */}
+                    {/* Réseau de neurones interactif */}
                     <div id="the-core-visual" className="relative h-screen w-full overflow-hidden flex flex-col items-center justify-center">
                         <NeuralNetworkBackground className="opacity-60" />
                     </div>
 
-                    {/* 12. FIELD NOTES (Archive Finale) */}
-                    <FieldNotes />
+                    {/* Archive complète */}
+                    <div id="field-notes">
+                        <FieldNotes />
+                    </div>
 
-                    {/* 13. FINAL CTA */}
+                    {/* CTA final */}
                     <FinalCTA />
 
-                    {/* 14. FOOTER */}
                     <UnifiedFooter />
                 </div>
 
-                <div className="h-[20vh] bg-black"></div>
+                <div className="h-[20vh] bg-black" />
 
             </main>
         </div>

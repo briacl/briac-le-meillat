@@ -104,10 +104,10 @@ export default function ManifestoSection() {
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     transition={{ delay: 1.0, duration: 1 }}
-                    href="#flux-lab-section"
+                    href="#blueprint-transition"
                     onClick={(e) => {
                         e.preventDefault();
-                        document.getElementById('flux-lab-section')?.scrollIntoView({ behavior: 'smooth' });
+                        document.getElementById('blueprint-transition')?.scrollIntoView({ behavior: 'smooth' });
                     }}
                     className="mt-16 border border-white/10 rounded-full w-[60px] h-[60px] flex items-center justify-center cursor-pointer transition-all duration-300 animate-bounce hover:border-blue-500/50 hover:shadow-[0_0_20px_rgba(59,130,246,0.2)] group"
                 >

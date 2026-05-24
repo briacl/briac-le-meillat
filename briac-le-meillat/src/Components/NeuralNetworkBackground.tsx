@@ -106,6 +106,9 @@ export default function NeuralNetworkBackground({ className = "" }: { className?
         let width = canvas.width = canvas.parentElement?.clientWidth || window.innerWidth;
         let height = canvas.height = canvas.parentElement?.clientHeight || window.innerHeight;
 
+        const TOP_MARGIN = 120;   // espace sous la navbar fixe
+        const X_PADDING = 110;    // marge latérale pour les labels larges
+
         // Ensure camera is initialized
         if (cameraRef.current.targetZoom === 1) {
             cameraRef.current.targetX = width / 2;
@@ -133,9 +136,9 @@ export default function NeuralNetworkBackground({ className = "" }: { className?
                 this.category = type;
                 this.partners = [];
 
-                // Position initialization
-                this.x = Math.random() * width;
-                this.y = Math.random() * height;
+                // Position initialization — spawn dans la zone safe (hors navbar, hors bords)
+                this.x = X_PADDING + Math.random() * (width - X_PADDING * 2);
+                this.y = TOP_MARGIN + Math.random() * (height - TOP_MARGIN - 20);
 
                 // Velocity
                 const speedMulti = type === 'major' ? 0.2 : (type === 'minor' ? 0.4 : 0.6);
@@ -163,9 +166,9 @@ export default function NeuralNetworkBackground({ className = "" }: { className?
                 this.x += this.vx;
                 this.y += this.vy;
 
-                // Bounce off edges
-                if (this.x < 0 || this.x > width) this.vx *= -1;
-                if (this.y < 0 || this.y > height) this.vy *= -1;
+                // Bounce dans la zone safe
+                if (this.x < X_PADDING || this.x > width - X_PADDING) this.vx *= -1;
+                if (this.y < TOP_MARGIN || this.y > height - 20) this.vy *= -1;
 
                 // ATTRACTION LOGIC FOR MINOR NODES
                 if (this.category === 'minor' && this.targetId) {
@@ -397,13 +400,13 @@ export default function NeuralNetworkBackground({ className = "" }: { className?
 
             // Find clicked particle
             let clickedInfo: string | null = null;
-            const hitRadius = 30; // 30px radius around node
 
             for (const p of particles) {
                 if (p.label) {
                     const dx = p.x - worldX;
                     const dy = p.y - worldY;
                     const dist = Math.sqrt(dx * dx + dy * dy);
+                    const hitRadius = p.category === 'major' ? 50 : 30;
                     if (dist < hitRadius) {
                         clickedInfo = p.label;
                         break;
@@ -553,6 +556,11 @@ export default function NeuralNetworkBackground({ className = "" }: { className?
                                                                     <div className="absolute bottom-4 left-4 right-4 transition-opacity duration-300 group-hover:opacity-0">
                                                                         <div className="flex gap-2 mb-2 flex-wrap">
                                                                             <span className="text-[9px] uppercase font-bold px-2 py-0.5 rounded-full bg-[#0075FF]/30 text-white backdrop-blur-sm border border-[#0075FF]/30">RÉCENT</span>
+                                                                            {((project as any).origin ?? []).map((o: string) => (
+                                                                                <span key={o} className={`text-[9px] uppercase font-bold px-2 py-0.5 rounded-full backdrop-blur-sm border ${o === 'iut' ? 'bg-[#0075FF]/30 text-white border-[#0075FF]/30' : 'bg-[#8B5CF6]/30 text-white border-[#8B5CF6]/30'}`}>
+                                                                                    {o === 'iut' ? 'IUT' : 'Perso'}
+                                                                                </span>
+                                                                            ))}
                                                                         </div>
                                                                         <h3 className="text-white font-['Paris2024'] text-xl tracking-wider leading-tight">{project.title}</h3>
                                                                     </div>
@@ -603,6 +611,11 @@ export default function NeuralNetworkBackground({ className = "" }: { className?
                                                                             {(project.languages ?? []).slice(0, 3).map((l, idx) => (
                                                                                 <span key={idx} className="text-[9px] uppercase font-bold px-2 py-0.5 rounded-full bg-white/20 text-white backdrop-blur-sm border border-white/10">
                                                                                     {l}
+                                                                                </span>
+                                                                            ))}
+                                                                            {((project as any).origin ?? []).map((o: string) => (
+                                                                                <span key={o} className={`text-[9px] uppercase font-bold px-2 py-0.5 rounded-full backdrop-blur-sm border ${o === 'iut' ? 'bg-[#0075FF]/30 text-white border-[#0075FF]/30' : 'bg-[#8B5CF6]/30 text-white border-[#8B5CF6]/30'}`}>
+                                                                                    {o === 'iut' ? 'IUT' : 'Perso'}
                                                                                 </span>
                                                                             ))}
                                                                         </div>
@@ -667,6 +680,11 @@ export default function NeuralNetworkBackground({ className = "" }: { className?
                                                                                 {(project.languages ?? []).slice(0, 3).map((l, idx) => (
                                                                                     <span key={idx} className="text-[9px] uppercase font-bold px-2 py-0.5 rounded-full bg-white/20 text-white backdrop-blur-sm border border-white/10">
                                                                                         {l}
+                                                                                    </span>
+                                                                                ))}
+                                                                                {((project as any).origin ?? []).map((o: string) => (
+                                                                                    <span key={o} className={`text-[9px] uppercase font-bold px-2 py-0.5 rounded-full backdrop-blur-sm border ${o === 'iut' ? 'bg-[#0075FF]/30 text-white border-[#0075FF]/30' : 'bg-[#8B5CF6]/30 text-white border-[#8B5CF6]/30'}`}>
+                                                                                        {o === 'iut' ? 'IUT' : 'Perso'}
                                                                                     </span>
                                                                                 ))}
                                                                             </div>

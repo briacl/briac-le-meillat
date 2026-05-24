@@ -1,7 +1,8 @@
 import React from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Menu, X, LogOut, Settings, User } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
+import { Sparkles } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useChatWidget } from '@/Contexts/ChatContext';
 
 /**
  * Navbar - Nexus Styled Floating Navbar
@@ -9,9 +10,7 @@ import { motion, AnimatePresence } from 'framer-motion';
  */
 export default function Navbar() {
     const location = useLocation();
-    const navigate = useNavigate();
-
-    // Mobile Menu State
+    const { setIsOpen: openChat } = useChatWidget();
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
     return (
@@ -96,12 +95,11 @@ export default function Navbar() {
             {/* Right: Actions */}
             <div className="flex items-center gap-4 text-gray-400 relative">
                 <button
-                    onClick={() => {
-                        navigate('/contact');
-                    }}
-                    className="hidden md:flex text-[#0071e3] font-bold text-sm h-10 px-4 items-center hover:opacity-70 transition-opacity"
+                    onClick={() => openChat(true)}
+                    className="hidden md:flex items-center gap-2 text-[#0071e3] font-bold text-sm h-10 px-4 hover:opacity-70 transition-opacity"
                 >
-                    Démarrer
+                    <Sparkles size={15} />
+                    AI Assistance
                 </button>
 
                 {/* Mobile Menu Trigger */}
