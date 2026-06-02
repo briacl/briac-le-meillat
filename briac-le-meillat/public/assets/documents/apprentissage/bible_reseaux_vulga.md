@@ -16,20 +16,25 @@
 7.  [**ICMP** : Le jeu du Marco Polo](#7-ip-et-icmp)
 8.  [**TCP vs UDP** : Le recommandé vs la radio](#8-transport--tcp-et-udp)
 9.  [**DNS & DHCP** : Les services de la ville](#9-protocoles-applicatifs)
-10. [**Routage** : L'aiguilleur du ciel](#10-routage--principes-et-statique)
-11. [**Routage Dynamique** : Le GPS du réseau](#11-routage-dynamique-rip-et-ospf)
-12. [**VLANs** : Les murs invisibles](#12-vlan-et-trunk-8021q)
-13. [**STP** : Éviter de tourner en rond](#13-spanning-tree-protocol-stp)
-14. [**NAT** : Le réceptionniste d'hôtel](#14-passerelle-linux-nat)
-15. [**ACL** : Le videur de boîte de nuit](#15-acl--listes-de-contrôle-daccès)
-16. [**La Virtualisation** : La colocation](#16-la-virtualisation)
-17. [**Les Clusters** : L'équipe de relais](#17-les-clusters-et-la-haute-disponibilité)
-18. [**Le Cloud** : Louer plutôt qu'acheter](#18-le-cloud-et-le-green-computing)
-19. [**Serveurs Web** : Le bibliothécaire](#19-serveurs-web--apache2-et-nginx)
-20. [**VoIP** : Transformer la voix en Lego](#20-téléphonie-sur-ip-voip)
-21. [**Le Web** : De l'URL à l'écran](#21-le-web--de-lurl-à-lécran)
-22. [**Le Navigateur** : L'architecte et le traducteur](#22-le-navigateur-web--le-traducteur-universel)
-23. [**La Programmation** : PHP et Python](#23-la-programmation--php-et-python)
+10. [**PXE Boot** : La télé-commande universelle des machines](#10-pxe--démarrage-réseau)
+11. [**Routage** : L'aiguilleur du ciel](#11-routage--principes-et-statique)
+12. [**Routage Dynamique** : Le GPS du réseau](#12-routage-dynamique-rip-et-ospf)
+13. [**VLANs** : Les murs invisibles](#13-vlan-et-trunk-8021q)
+14. [**Router-on-a-Stick** : Le manager qui parle à tout le monde](#14-routage-inter-vlan-router-on-a-stick)
+15. [**STP** : Éviter de tourner en rond](#15-spanning-tree-protocol-stp)
+16. [**EtherChannel** : La voie express à plusieurs files](#16-etherchannel)
+17. [**NAT** : Le réceptionniste d'hôtel](#17-passerelle-linux-nat)
+18. [**Filtrage Linux** : Le portier à l'entrée de ta machine](#18-filtrage-réseau-linux-iptables--nftables)
+19. [**ACL** : Le videur de boîte de nuit](#19-acl--listes-de-contrôle-daccès)
+20. [**La Virtualisation** : La colocation](#20-la-virtualisation)
+21. [**Les Clusters** : L'équipe de relais](#21-les-clusters-et-la-haute-disponibilité)
+22. [**Le Cloud** : Louer plutôt qu'acheter](#22-le-cloud-et-le-green-computing)
+23. [**Serveurs Web** : Le bibliothécaire](#23-serveurs-web--apache2-et-nginx)
+24. [**VoIP** : Transformer la voix en Lego](#24-téléphonie-sur-ip-voip)
+25. [**Le Web** : De l'URL à l'écran](#25-le-web--de-lurl-à-lécran)
+26. [**Le Navigateur** : L'architecte et le traducteur](#26-le-navigateur-web--le-traducteur-universel)
+27. [**La Programmation** : PHP et Python](#27-la-programmation--php-et-python)
+28. [**Windows Server / AD** : Le maire de la ville numérique](#28-windows-server--active-directory)
 
 ---
 
@@ -38,8 +43,6 @@
 Les ordinateurs sont stupides : ils ne connaissent que deux états, comme un interrupteur de lumière : **Allumé (1)** ou **Éteint (0)**. C'est le **Bit**.
 - **L'Octet (Byte)** : C'est une boîte de 8 interrupteurs. Ça permet de compter jusqu'à 255.
 - **L'Hexadécimal** : C'est un raccourci. Au lieu d'écrire `11111111`, on écrit `FF`. C'est comme utiliser des abréviations pour aller plus vite.
-
----
 
 ---
 
@@ -52,6 +55,8 @@ Recréer Internet de zéro, c'est comprendre que ce n'est rien d'autre qu'un imm
 - **La Route (La fibre optique)** : Internet, ce n'est pas magique, ce n'est pas "dans les nuages". Ce sont de vrais câbles en verre, gros comme des tuyaux d'arrosage, posés au fond des océans pour relier les continents.
 - **Les Camions (Les Paquets IP)** : Quand tu regardes une vidéo, elle est découpée en millions de petits morceaux de Lego mis dans des camions. Chaque camion prend la route la plus rapide. Ils peuvent arriver dans le désordre, mais ton ordinateur les réassemble à l'arrivée.
 - **Les Panneaux de signalisation (Les Routeurs)** : Ce sont les ronds-points d'Internet. Ils regardent l'adresse sur le camion et lui disent : "Prends la sortie à droite pour aller aux États-Unis".
+
+---
 
 ## 3. Modèles OSI et TCP/IP
 
@@ -116,7 +121,24 @@ Imagine une salle de classe. Tu connais le nom de quelqu'un (IP) mais tu ne sais
 
 ---
 
-## 10. Routage — Principes et Statique
+## 10. PXE — Démarrage Réseau
+
+### 💡 La vulgarisation : La télé-commande universelle des machines
+
+Imagine que tu dois allumer 30 ordinateurs identiques pour en faire des postes de travail. Tu n'as pas envie d'installer Windows ou Linux 30 fois manuellement.
+
+**Le PXE**, c'est comme si tous ces ordinateurs avaient une "antenne" qui dit au démarrage : *"Je suis allumé, mais je n'ai pas d'OS. Dis-moi quoi faire."*
+
+1. **Le DHCP** répond : *"Voici ton IP, et voici l'adresse du serveur qui a ton système."*
+2. **Le TFTP** envoie le bootloader (le "programme de démarrage") via le réseau.
+3. **Le NFS** fournit le système de fichiers complet, comme si le disque dur était dans le réseau.
+4. La machine démarre — sans toucher aucun disque local.
+
+**L'avantage** : un seul serveur peut "démarrer" 50 machines identiques en même temps. C'est ce qu'on utilise dans les salles de TP, les datacenters, et les terminaux légers.
+
+---
+
+## 11. Routage — Principes et Statique
 
 ### 💡 La vulgarisation : L'aiguilleur du ciel
 Un **routeur** est un panneau de direction.
@@ -126,7 +148,7 @@ Un **routeur** est un panneau de direction.
 
 ---
 
-## 11. Routage Dynamique (RIP et OSPF)
+## 12. Routage Dynamique (RIP et OSPF)
 
 ### 💡 La vulgarisation : Le GPS (Waze) du réseau
 Au lieu de régler les panneaux à la main, les routeurs se parlent entre eux :
@@ -135,7 +157,7 @@ Au lieu de régler les panneaux à la main, les routeurs se parlent entre eux :
 
 ---
 
-## 12. VLAN et Trunk 802.1Q
+## 13. VLAN et Trunk 802.1Q
 
 ### 💡 La vulgarisation : Les murs invisibles
 Imagine un immense bureau en open-space.
@@ -143,7 +165,24 @@ Les **VLANs**, c'est comme si on installait des murs invisibles et insonorisés.
 
 ---
 
-## 13. Spanning Tree Protocol (STP)
+## 14. Routage Inter-VLAN (Router-on-a-Stick)
+
+### 💡 La vulgarisation : Le manager qui parle à tout le monde
+
+Dans l'analogie des murs invisibles (VLAN), les comptables et les commerciaux ne peuvent pas se parler directement. Mais parfois, ils ont besoin de coopérer.
+
+**Le Router-on-a-Stick**, c'est comme si la direction avait un interphone unique connecté à toutes les salles. Pour qu'un commercial parle à un comptable, le message passe obligatoirement par la direction (le routeur), qui valide et retransmet.
+
+**Concrètement :**
+- Le switch envoie tout le trafic inter-VLAN vers **une seule interface physique** du routeur.
+- Le routeur crée des **sous-interfaces virtuelles** (une par VLAN) sur ce lien unique.
+- Il route les paquets d'un VLAN à l'autre, en appliquant les règles de sécurité.
+
+**"On a qu'un seul câble entre le switch et le routeur"** — c'est ça le "stick". Un seul fil, mais plusieurs "couloirs" virtuels tagués 802.1Q.
+
+---
+
+## 15. Spanning Tree Protocol (STP)
 
 ### 💡 La vulgarisation : Éviter de tourner en rond
 Si tu branches deux câbles entre deux switches pour être sûr que ça marche, les données risquent de tourner en boucle à l'infini (comme une voiture dans un rond-point sans sortie).
@@ -151,7 +190,22 @@ Si tu branches deux câbles entre deux switches pour être sûr que ça marche, 
 
 ---
 
-## 14. Passerelle Linux (NAT)
+## 16. EtherChannel
+
+### 💡 La vulgarisation : La voie express à plusieurs files
+
+Imagine que tu as une autoroute à 1 file entre deux villes (deux switches). En heure de pointe, ça embouteille.
+
+**EtherChannel**, c'est décider de construire une autoroute à 3 files en parallèle — et de les faire se comporter comme **une seule grande voie**. Les conducteurs ne voient qu'une autoroute, mais la capacité est triplée.
+
+- **Sans EtherChannel** : si tu branches 3 câbles entre deux switches, le STP va en bloquer 2 (il a peur des boucles).
+- **Avec EtherChannel** : les 3 câbles sont **agrégés en un seul lien logique**. STP les voit comme un seul câble. Pas de blocage, bande passante multipliée.
+
+**Bonus** : si un des 3 câbles se coupe, les 2 autres continuent. C'est de la redondance **sans interruption** de service — contrairement à STP qui prend quelques secondes à reconverger.
+
+---
+
+## 17. Passerelle Linux (NAT)
 
 ### 💡 La vulgarisation : Le réceptionniste d'hôtel
 Le **NAT** permet à tout un immeuble d'utiliser une seule adresse postale officielle.
@@ -162,7 +216,26 @@ Le **NAT** permet à tout un immeuble d'utiliser une seule adresse postale offic
 
 ---
 
-## 15. ACL — Listes de Contrôle d'Accès
+## 18. Filtrage Réseau Linux (iptables & nftables)
+
+### 💡 La vulgarisation : Le portier à l'entrée de ta machine
+
+Le **NAT** (section précédente) gérait qui peut *sortir*. Le **filtrage**, c'est contrôler qui peut *entrer*.
+
+Imagine ta machine Linux comme un immeuble avec plusieurs portes :
+- **La chaîne INPUT** : c'est le portier à l'entrée principale. Il regarde chaque visiteur (paquet entrant) et décide : *"Toi, tu peux monter (ACCEPT). Toi, tu dégages sans explication (DROP). Toi, je te dis clairement que c'est interdit (REJECT)."*
+- **La chaîne FORWARD** : le portier qui gère les gens qui traversent l'immeuble pour aller ailleurs — le trafic en transit (rôle de passerelle).
+- **La chaîne OUTPUT** : le portier qui contrôle ce qui sort de l'immeuble.
+
+**DROP vs REJECT** :
+- `DROP` : le portier fait semblant de ne pas voir. Le visiteur attend indéfiniment, sans savoir si la porte existe. Adapté contre les scanners.
+- `REJECT` : le portier dit clairement "interdit d'entrer". Le visiteur comprend et s'en va. Adapté en réseau interne.
+
+**iptables vs nftables** : iptables, c'est l'ancien gardien (encore partout, toujours valide). nftables, c'est le nouveau, avec un carnet de règles mieux organisé. Sur Debian récent, c'est nftables qui est installé par défaut.
+
+---
+
+## 19. ACL — Listes de Contrôle d'Accès
 
 ### 💡 La vulgarisation : Le videur de boîte de nuit
 Le routeur a une liste d'invités (les **ACL**) :
@@ -172,17 +245,17 @@ Le routeur a une liste d'invités (les **ACL**) :
 
 ---
 
-## 16. La Virtualisation
+## 20. La Virtualisation
 
 ### 💡 La vulgarisation : La colocation informatique
-Avant, c’était "une maison pour une personne". La **Virtualisation**, c’est transformer ta maison en **immeuble de colocation** :
+Avant, c'était "une maison pour une personne". La **Virtualisation**, c'est transformer ta maison en **immeuble de colocation** :
 - **L'Hôte (La machine physique)** : C'est l'immeuble. Il possède les ressources (CPU, RAM).
 - **L'Hyperviseur (Le gestionnaire)** : C'est le syndic qui distribue l'eau et l'électricité aux appartements.
 - **Les Invités (Machines Virtuelles - VM)** : Ce sont les locataires. Chaque appartement est indépendant (cloisonnement) et le locataire croit être dans sa propre maison (**transparence**).
 
 ---
 
-## 17. Les Clusters et la Haute Disponibilité
+## 21. Les Clusters et la Haute Disponibilité
 
 ### 💡 La vulgarisation : L'équipe de relais
 Un **Cluster**, c'est quand plusieurs machines travaillent ensemble comme une seule équipe.
@@ -193,7 +266,7 @@ Un **Cluster**, c'est quand plusieurs machines travaillent ensemble comme une se
 
 ---
 
-## 18. Le Cloud et le Green Computing
+## 22. Le Cloud et le Green Computing
 
 ### 💡 La vulgarisation : Louer plutôt qu'acheter
 - **Cloud Computing** : Au lieu d'acheter ton propre groupe électrogène, tu te branches sur la prise de la ville et tu ne payes que ce que tu consommes.
@@ -201,7 +274,7 @@ Un **Cluster**, c'est quand plusieurs machines travaillent ensemble comme une se
 
 ---
 
-## 19. Serveurs Web : Apache2 et Nginx
+## 23. Serveurs Web : Apache2 et Nginx
 
 ### 💡 La vulgarisation : Le bibliothécaire
 - **Apache** : Le bibliothécaire traditionnel, robuste, capable de gérer des demandes très complexes.
@@ -209,14 +282,14 @@ Un **Cluster**, c'est quand plusieurs machines travaillent ensemble comme une se
 
 ---
 
-## 20. Téléphonie sur IP (VoIP)
+## 24. Téléphonie sur IP (VoIP)
 
 ### 💡 La vulgarisation : Transformer la voix en Lego
 La **VoIP**, c'est découper ta voix en millions de petits blocs de Lego, les envoyer sur Internet comme des mails, et les reconstruire à l'autre bout. **Asterisk** est le standardiste qui gère les branchements.
 
 ---
 
-## 21. Le Web : De l'URL à l'écran
+## 25. Le Web : De l'URL à l'écran
 
 ### 💡 La vulgarisation : Commander une Pizza
 1.  **L'URL** : Tu passes la commande. Le **DNS** trouve le numéro de la pizzeria.
@@ -224,7 +297,9 @@ La **VoIP**, c'est découper ta voix en millions de petits blocs de Lego, les en
 3.  **La Réponse** : Le serveur renvoie le code (**HTML/CSS**).
 4.  **Le Navigateur** : Il traduit le code bizarre en une belle page visuelle.
 
-## 22. Le Navigateur Web : Le traducteur universel
+---
+
+## 26. Le Navigateur Web : Le traducteur universel
 ### 💡 La vulgarisation : L'architecte et le traducteur
 
 Quand tu ouvres une page web, ton navigateur (Chrome, Firefox, Safari) ne reçoit pas une image magique. Il reçoit du texte brut, un code bizarre incompréhensible pour un humain. Le rôle du navigateur, c'est d'agir comme un **architecte de chantier** :
@@ -253,10 +328,36 @@ Là, tu donnes une directive exacte. C'est l'équivalent de monter dans un taxi 
 
 ---
 
-## 23. La Programmation : PHP et Python
+## 27. La Programmation : PHP et Python
 
 ### 💡 La vulgarisation : Les cerveaux
 - **PHP** : Le chef spécialisé dans la "cuisine web" (générer des pages personnalisées).
 - **Python** : Le chef "couteau suisse" (site web, IA, robots, calculs).
 - **React** : La technologie qui permet de ne changer qu'une ampoule sans raser la maison (fluidité Facebook).
 - **Tailwind/Bootstrap** : La boîte de Legos vs le meuble en kit IKEA pour le design.
+
+---
+
+## 28. Windows Server & Active Directory
+
+### 💡 La vulgarisation : Le maire de la ville numérique
+
+Imagine une ville (ton réseau d'entreprise) avec des centaines d'habitants (les utilisateurs) et des bâtiments (les ordinateurs, les imprimantes, les serveurs).
+
+Sans organisation, c'est le chaos : chaque habitant a son propre trousseau de clés, ses propres règles, ses propres mots de passe. Si quelqu'un part, personne ne sait quelles portes il pouvait ouvrir.
+
+**Windows Server avec Active Directory**, c'est comme élire un **maire avec une mairie centrale** :
+
+- **L'Active Directory** : c'est le **registre officiel de la ville**. Il recense chaque habitant (utilisateur), chaque bâtiment (ordinateur), chaque groupe (service RH, service info...). Une seule fiche par personne, modifiable en un seul endroit.
+
+- **Le Contrôleur de Domaine** : c'est la **mairie elle-même**. Quand un habitant arrive devant une porte, la porte appelle la mairie : *"Il dit s'appeler etu01, est-ce qu'il a le droit d'entrer ?"* La mairie vérifie et répond.
+
+- **Les GPO** : ce sont les **règlements municipaux distribués automatiquement**. Le maire décide : *"Tous les ordinateurs de l'école doivent avoir Notepad++ installé"* ou *"Les élèves ne peuvent pas changer leur fond d'écran"*. Ces règles s'appliquent toutes seules au démarrage ou à l'ouverture de session, sans que personne n'ait besoin d'aller configurer chaque machine à la main.
+
+- **Les droits NTFS** : ce sont les **serrures sur chaque tiroir**. Même si tu rentres dans le bâtiment (accès réseau), tu ne peux ouvrir que les tiroirs qui ont ton nom dessus.
+
+- **Le profil itinérant** : c'est ta **mallette personnelle stockée à la mairie**. Peu importe le bureau où tu t'installes dans la ville, tu retrouves ta mallette avec tous tes affaires dedans.
+
+- **Le script NETLOGON** : c'est le **gardien à l'accueil** qui, chaque matin à ton arrivée, te prépare automatiquement ton poste de travail (monte ton lecteur réseau, ouvre tes outils habituels).
+
+**Pourquoi le DNS est vital ?** C'est l'annuaire de la ville. Sans lui, les habitants ne savent même pas où se trouve la mairie. Si le DNS tombe, personne ne peut se connecter au domaine — même si la mairie est physiquement allumée.

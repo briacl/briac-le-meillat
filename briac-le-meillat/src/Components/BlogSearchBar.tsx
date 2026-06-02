@@ -1,20 +1,10 @@
-import { useState, useRef, FormEvent } from 'react';
+import { useState, FormEvent } from 'react';
 import { Sparkles, Search } from 'lucide-react';
-
-const SYSTEM_PROMPT = `Tu es l'assistant IA du portfolio de Briac Le Meillat, intégré à la page Blog/Recherche.
-Tu aides les visiteurs à explorer les travaux, projets et apprentissages de Briac.
-RÈGLES STRICTES :
-1. Réponds uniquement à partir du contexte fourni.
-2. Guide vers le contenu concret : cite le titre exact, sa page ou section.
-3. Pour les TPs → indique qu'ils sont consultables dans le Blog (/blog).
-4. Pour les projets perso → indique qu'ils sont dans TheToolset ou le NeuralNetworkBackground (/).
-5. Quand on demande les "derniers apprentissages" → cite les 3 TPs les plus récents avec module et date.
-6. Si une info manque → dis-le clairement puis propose exactement : "voulez-vous envoyer cette suggestion au support ?"
-7. Sois concis, en français. 2-3 éléments clés max par réponse.
-`;
+import { searchEngine, Proof } from '@/Utils/searchEngine';
 
 interface BlogSearchBarProps {
-    onResult: (query: string, response: string) => void;
+    onResult: (query: string, response: string, filtered: Proof[] | null) => void;
+    proofs: Proof[];
     isLoading: boolean;
     setIsLoading: (v: boolean) => void;
     compact?: boolean;
@@ -23,65 +13,19 @@ interface BlogSearchBarProps {
 
 export default function BlogSearchBar({
     onResult,
+    proofs,
     isLoading,
     setIsLoading,
     compact = false,
     initialValue = '',
 }: BlogSearchBarProps) {
     const [query, setQuery] = useState(initialValue);
-    const contextCacheRef = useRef<string | null>(null);
 
-    const fetchContext = async () => {
-        if (contextCacheRef.current) return contextCacheRef.current;
-        try {
-            const res = await fetch('/docs/context.md');
-            if (!res.ok) throw new Error();
-            const text = await res.text();
-            contextCacheRef.current = text;
-            return text;
-        } catch {
-            return '';
-        }
-    };
-
-    const handleSubmit = async (e: FormEvent) => {
+    const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
         if (!query.trim() || isLoading) return;
-
-        const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
-        if (!apiKey) {
-            onResult(query, "Erreur : clé API Gemini non configurée.");
-            return;
-        }
-
-        setIsLoading(true);
-        const ctx = await fetchContext();
-
-        const systemInstruction = {
-            role: 'system',
-            parts: [{ text: `${SYSTEM_PROMPT}\n\nCONTEXTE :\n${ctx}` }],
-        };
-
-        try {
-            const res = await fetch(
-                `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`,
-                {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        contents: [{ role: 'user', parts: [{ text: query.trim() }] }],
-                        systemInstruction,
-                    }),
-                }
-            );
-            const data = await res.json();
-            const text = data.candidates?.[0]?.content?.parts?.[0]?.text ?? "";
-            onResult(query.trim(), text);
-        } catch {
-            onResult(query.trim(), "Une erreur s'est produite. Réessayez.");
-        } finally {
-            setIsLoading(false);
-        }
+        const result = searchEngine(query.trim(), proofs);
+        onResult(query.trim(), result.response, result.filtered);
     };
 
     if (compact) {
@@ -108,7 +52,7 @@ export default function BlogSearchBar({
                         style={{ borderRadius: '8px' }}
                     >
                         <Sparkles size={10} />
-                        {isLoading ? 'Recherche…' : 'Go'}
+                        Go
                     </button>
                 </div>
             </form>
@@ -117,7 +61,6 @@ export default function BlogSearchBar({
 
     return (
         <form onSubmit={handleSubmit} className="w-full">
-            {/* Ombre portée douce comme Gemini, bords à 16px */}
             <div
                 className="flex items-center bg-white"
                 style={{
@@ -147,7 +90,7 @@ export default function BlogSearchBar({
                 >
                     <Sparkles
                         size={18}
-                        className={isLoading ? 'text-[#f336f0] animate-spin' : 'text-zinc-400 hover:text-zinc-600'}
+                        className="text-zinc-400 hover:text-zinc-600"
                     />
                 </button>
             </div>

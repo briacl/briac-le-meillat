@@ -23,17 +23,19 @@
 14. [Spanning Tree Protocol (STP)](#14-spanning-tree-protocol-stp)
 15. [EtherChannel](#15-etherchannel)
 16. [Passerelle Linux (NAT & IP Forwarding)](#16-passerelle-linux-nat--ip-forwarding)
-17. [ACL — Listes de Contrôle d'Accès](#17-acl--listes-de-contrôle-daccès)
-18. [La Virtualisation](#18-la-virtualisation)
-19. [Les Clusters et la Haute Disponibilité](#19-les-clusters-et-la-haute-disponibilité)
-20. [Le Cloud et le Green Computing](#20-le-cloud-et-le-green-computing)
-21. [Serveurs Web : Apache2 et Nginx](#21-serveurs-web--apache2-et-nginx)
-22. [Téléphonie sur IP (VoIP / Asterisk)](#22-téléphonie-sur-ip-voip--asterisk)
-23. [Le Web : De l'URL à l'écran](#23-le-web--de-lurl-à-lécran)
-24. [Anatomie d'un Navigateur Web](#24-anatomie-dun-navigateur-web)
-25. [La Programmation : PHP et Python](#25-la-programmation--php-et-python)
-26. [Administration Cisco IOS — Aide-mémoire](#26-administration-cisco-ios--aide-mémoire)
-27. [Commandes Réseau Linux — Aide-mémoire](#27-commandes-réseau-linux--aide-mémoire)
+17. [Filtrage Réseau Linux (iptables & nftables)](#17-filtrage-réseau-linux-iptables--nftables)
+18. [ACL — Listes de Contrôle d'Accès](#18-acl--listes-de-contrôle-daccès)
+19. [La Virtualisation](#19-la-virtualisation)
+20. [Les Clusters et la Haute Disponibilité](#20-les-clusters-et-la-haute-disponibilité)
+21. [Le Cloud et le Green Computing](#21-le-cloud-et-le-green-computing)
+22. [Serveurs Web : Apache2 et Nginx](#22-serveurs-web--apache2-et-nginx)
+23. [Téléphonie sur IP (VoIP / Asterisk)](#23-téléphonie-sur-ip-voip--asterisk)
+24. [Le Web : De l'URL à l'écran](#24-le-web--de-lurl-à-lécran)
+25. [Anatomie d'un Navigateur Web](#25-anatomie-dun-navigateur-web)
+26. [La Programmation : PHP et Python](#26-la-programmation--php-et-python)
+27. [Administration Cisco IOS — Aide-mémoire](#27-administration-cisco-ios--aide-mémoire)
+28. [Commandes Réseau Linux — Aide-mémoire](#28-commandes-réseau-linux--aide-mémoire)
+29. [Administration Windows Server & Active Directory](#29-administration-windows-server--active-directory)
 
 ---
 
@@ -876,6 +878,66 @@ line vty 0 4
 **Ports** : TCP 21 (contrôle), TCP 20 (données en mode actif) ou port dynamique (mode passif).  
 **Non chiffré** par défaut → préférer **SFTP** (via SSH) ou **FTPS** (FTP + TLS).
 
+### 9.6 PXE — Démarrage Réseau
+
+**Rôle** : permettre à un client sans OS local de démarrer depuis le réseau en chargeant un noyau et un système de fichiers via TFTP.  
+**Composants** : DHCP (options 66/67) + TFTP + NFS.  
+**Cas d'usage** : déploiement en masse, terminaux légers (diskless), maintenance système.
+
+**Flux de démarrage PXE :**
+
+```
+Client PXE
+  │
+  ├─ 1. DHCP DISCOVER ─────────────► Serveur DHCP
+  │      (demande IP + option PXE)
+  │
+  ◄─ 2. DHCP OFFER ────────────────┤
+  │      IP + option 66 (TFTP server IP)
+  │      option 67 (boot filename, ex: pxelinux.0)
+  │
+  ├─ 3. TFTP GET pxelinux.0 ───────► Serveur TFTP
+  │
+  ◄─ 4. Transfert du bootloader ───┤
+  │
+  ├─ 5. Montage NFS ───────────────► Serveur NFS
+  │      (root filesystem ou image OS)
+  │
+  └─ 6. Démarrage OS ✓
+```
+
+**Configuration isc-dhcp-server pour PXE :**
+```text
+# /etc/dhcp/dhcpd.conf — section PXE
+subnet 192.168.1.0 netmask 255.255.255.0 {
+    range 192.168.1.100 192.168.1.200;
+    option routers 192.168.1.1;
+
+    next-server 192.168.1.1;       # IP du serveur TFTP
+    filename "pxelinux.0";          # Bootloader PXE
+}
+```
+
+**Configuration Dnsmasq (alternative tout-en-un DHCP + TFTP) :**
+```text
+# /etc/dnsmasq.conf
+interface=eth0
+dhcp-range=192.168.1.100,192.168.1.200,1h
+dhcp-boot=pxelinux.0,pxeserver,192.168.1.1
+enable-tftp
+tftp-root=/var/lib/tftpboot
+```
+
+**Protocoles impliqués :**
+
+| Étape | Protocole | Port | Rôle |
+|---|---|:-:|---|
+| Découverte IP | DHCP | UDP 67/68 | Attribution d'adresse + options boot |
+| Transfert bootloader | TFTP | UDP 69 | Téléchargement du fichier de démarrage |
+| Montage filesystem | NFS | TCP 2049 | Accès au rootfs distant |
+
+**Avantage** : un seul serveur peut déployer des dizaines de machines identiques simultanément. Aucun disque local requis côté client.
+
 ---
 
 ## 10. Routage — Principes et Statique
@@ -1468,9 +1530,225 @@ Préférences > Réseau > Configuration manuelle du proxy :
 | Ping OK, web KO | DNS non configuré | Modifier `/etc/resolv.conf` |
 | Ping Windows bloqué | Pare-feu Windows | Activer règle ICMP entrant |
 
+### 16.8 NAT/PAT Cisco — Traduction d'adresses
+
+Le NAT sur routeur Cisco translate des adresses privées (inside) vers des adresses publiques (outside). Trois variantes existent, à choisir selon le besoin.
+
+**Vocabulaire Cisco NAT :**
+
+| Terme | Signification |
+|---|---|
+| **inside local** | IP privée d'un hôte interne |
+| **inside global** | IP publique vue de l'extérieur |
+| **outside local** | IP destination vue de l'intérieur |
+| **outside global** | IP publique de la destination réelle |
+
+**NAT Statique** — une IP privée ↔ une IP publique fixe (exposer un serveur) :
+```cisco
+ip nat inside source static 192.168.1.10 203.0.113.10
+
+interface GigabitEthernet0/0
+ ip address 203.0.113.1 255.255.255.0
+ ip nat outside
+
+interface GigabitEthernet0/1
+ ip address 192.168.1.254 255.255.255.0
+ ip nat inside
+```
+
+**NAT Dynamique** — pool d'adresses publiques :
+```cisco
+ip nat pool PUBLIC_POOL 203.0.113.10 203.0.113.20 netmask 255.255.255.0
+access-list 1 permit 192.168.1.0 0.0.0.255
+ip nat inside source list 1 pool PUBLIC_POOL
+```
+
+**PAT / NAT Overload** — toute une plage → une seule IP publique (cas le plus courant) :
+```cisco
+access-list 1 permit 192.168.0.0 0.0.0.255
+ip nat inside source list 1 interface GigabitEthernet0/0 overload
+```
+
+**Vérification :**
+```cisco
+show ip nat translations        ! Table de traduction active
+show ip nat statistics           ! Compteurs hits/misses
+clear ip nat translation *       ! Vider la table (test)
+```
+
+**Différence Linux / Cisco :**
+
+| Aspect | Linux (iptables) | Cisco IOS |
+|---|---|---|
+| Commande | `iptables -t nat -j MASQUERADE` | `ip nat inside source list … overload` |
+| Persistance | `/etc/sysctl.conf` + script | NVRAM (sauvegarde auto) |
+| Granularité | Par interface / règle | Par ACL / pool |
+
 ---
 
-## 17. ACL — Listes de Contrôle d'Accès
+## 17. Filtrage Réseau Linux (iptables & nftables)
+
+### 17.1 Architecture Netfilter
+
+**Netfilter** est le sous-système du noyau Linux qui intercepte et traite les paquets réseau. `iptables` et `nftables` sont les interfaces en espace utilisateur pour configurer ses règles.
+
+**Points d'accroche (hooks) dans le chemin des paquets :**
+
+```
+Réseau ──► [PREROUTING] ──► [INPUT] ──► Processus local
+                        ↘
+                       [FORWARD]
+                        ↗
+Réseau ◄── [POSTROUTING] ◄── [OUTPUT] ◄── Processus local
+```
+
+**Les trois chaînes principales :**
+
+| Chaîne | Paquets concernés | Usage typique |
+|---|---|---|
+| **INPUT** | Destinés à la machine locale | Protéger la machine elle-même |
+| **OUTPUT** | Générés par la machine locale | Contrôler les sorties |
+| **FORWARD** | Transitent par la machine (routage) | Pare-feu passerelle |
+
+**Les tables iptables :**
+
+| Table | Rôle |
+|---|---|
+| **filter** | Filtrage (ACCEPT / DROP / REJECT) — par défaut |
+| **nat** | Traduction d'adresses (MASQUERADE, DNAT, SNAT) |
+| **mangle** | Modification des champs IP (TTL, TOS…) |
+
+### 17.2 Syntaxe iptables
+
+```bash
+iptables [-t TABLE] -A|-I|-D CHAINE [critères] -j CIBLE
+#
+# -t filter          : table (optionnel, filter par défaut)
+# -A INPUT           : Append — ajouter en fin de chaîne
+# -I INPUT 1         : Insert — insérer en position 1
+# -D INPUT 3         : Delete — supprimer la règle n°3
+# -p tcp             : protocole (tcp, udp, icmp)
+# --dport 22         : port destination
+# --sport 1024:65535 : plage de ports sources
+# -s 192.168.0.0/24  : adresse source
+# -d 10.0.0.1        : adresse destination
+# -i eth0            : interface entrante
+# -o eth1            : interface sortante
+# -j ACCEPT|DROP|REJECT|LOG : cible
+```
+
+**Cibles principales :**
+
+| Cible | Comportement | Note |
+|---|---|---|
+| **ACCEPT** | Laisser passer | — |
+| **DROP** | Jeter silencieusement | L'expéditeur ne reçoit aucune réponse |
+| **REJECT** | Refuser avec notification ICMP | L'expéditeur reçoit "port unreachable" |
+| **LOG** | Journaliser et continuer | Doit être suivi d'une règle DROP ou ACCEPT |
+
+> **DROP vs REJECT** : `DROP` est invisible — adapté contre les scanners. `REJECT` est courtois — adapté en réseau interne où le client doit comprendre le refus.
+
+### 17.3 Politique par défaut et exemples pratiques
+
+**Stratégie "tout fermer, puis ouvrir" :**
+```bash
+# Politique par défaut : tout bloquer en entrée et transit
+sudo iptables -P INPUT DROP
+sudo iptables -P FORWARD DROP
+sudo iptables -P OUTPUT ACCEPT
+
+# Loopback (indispensable)
+sudo iptables -A INPUT -i lo -j ACCEPT
+
+# Connexions établies / liées (stateful)
+sudo iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+
+# SSH
+sudo iptables -A INPUT -p tcp --dport 22 -j ACCEPT
+
+# HTTP / HTTPS
+sudo iptables -A INPUT -p tcp --dport 80 -j ACCEPT
+sudo iptables -A INPUT -p tcp --dport 443 -j ACCEPT
+
+# ICMP (pings)
+sudo iptables -A INPUT -p icmp -j ACCEPT
+```
+
+**Chaîne personnalisée :**
+```bash
+sudo iptables -N SCAN_FILTER
+sudo iptables -A SCAN_FILTER -p tcp --tcp-flags ALL NONE -j DROP   # NULL scan
+sudo iptables -A SCAN_FILTER -p tcp --tcp-flags ALL ALL -j DROP    # XMAS scan
+sudo iptables -A INPUT -j SCAN_FILTER
+```
+
+**Journalisation avant blocage :**
+```bash
+sudo iptables -A INPUT -p tcp --dport 23 -j LOG --log-prefix "TELNET-BLOCKED: " --log-level 4
+sudo iptables -A INPUT -p tcp --dport 23 -j DROP
+```
+
+### 17.4 Commandes de gestion
+
+```bash
+sudo iptables -L -v -n --line-numbers   # Lister avec numéros
+sudo iptables -F                         # Flush — supprimer toutes les règles
+sudo iptables -P INPUT ACCEPT            # Reset politique (avant flush total)
+sudo iptables-save > /etc/iptables/rules.v4    # Sauvegarder
+sudo iptables-restore < /etc/iptables/rules.v4 # Restaurer
+```
+
+### 17.5 nftables — Le successeur moderne
+
+**nftables** remplace iptables depuis Linux 3.13 (défaut Debian 10+). Syntaxe plus lisible, performances améliorées (sets kernel-space).
+
+**Script nftables type (pare-feu passerelle) :**
+```bash
+#!/usr/sbin/nft -f
+flush ruleset
+
+table ip filter {
+    chain input {
+        type filter hook input priority 0; policy drop;
+
+        iif "lo" accept
+        ct state established,related accept
+        ip protocol icmp accept
+        tcp dport 22 accept
+        tcp dport { 80, 443 } accept
+        log prefix "nft-DROP: " drop
+    }
+
+    chain forward {
+        type filter hook forward priority 0; policy drop;
+        ct state established,related accept
+    }
+
+    chain output {
+        type filter hook output priority 0; policy accept;
+    }
+}
+```
+
+**Ensembles (blacklists dynamiques) :**
+```bash
+nft add set ip filter BLACKLIST { type ipv4_addr; }
+nft add element ip filter BLACKLIST { 203.0.113.50, 198.51.100.0/24 }
+nft add rule ip filter input ip saddr @BLACKLIST drop
+```
+
+**Comparaison rapide :**
+
+| Aspect | iptables | nftables |
+|---|---|---|
+| Syntaxe | `iptables -A INPUT -p tcp --dport 22 -j ACCEPT` | `tcp dport 22 accept` |
+| Organisation | Tables séparées (filter, nat, mangle) | Un seul fichier structuré |
+| Performances | Règle par règle | Sets en espace noyau |
+| Statut | Legacy (maintenu) | Recommandé Debian 10+ |
+
+---
+
+## 18. ACL — Listes de Contrôle d'Accès
 
 ### 17.1 Principe
 
@@ -1563,7 +1841,7 @@ show ip interface fa0/0    ! voir quelles ACL sont appliquées
 
 ---
 
-## 18. La Virtualisation
+## 19. La Virtualisation
 
 ### 18.1 Concepts fondamentaux
 
@@ -1681,7 +1959,7 @@ CMD ["apache2ctl", "-D", "FOREGROUND"]
 
 ---
 
-## 19. Les Clusters et la Haute Disponibilité
+## 20. Les Clusters et la Haute Disponibilité
 
 ### 19.1 Concepts
 
@@ -1781,7 +2059,7 @@ backend http_back
 
 ---
 
-## 20. Le Cloud et le Green Computing
+## 21. Le Cloud et le Green Computing
 
 ### 20.1 Modèles de service
 
@@ -1869,7 +2147,7 @@ $$\text{PUE} = \frac{\text{Énergie totale du datacenter}}{\text{Énergie consom
 
 ---
 
-## 21. Serveurs Web : Apache2 et Nginx
+## 22. Serveurs Web : Apache2 et Nginx
 
 ### 21.1 Apache2
 
@@ -1984,7 +2262,7 @@ sudo nginx -t                     # Vérifier la syntaxe de la config Nginx
 
 ---
 
-## 22. Téléphonie sur IP (VoIP / Asterisk)
+## 23. Téléphonie sur IP (VoIP / Asterisk)
 
 ### 22.1 Concepts VoIP
 
@@ -2059,7 +2337,7 @@ pjsip show endpoints        # Statut : Reachable
 
 ---
 
-## 23. Le Web : De l'URL à l'écran
+## 24. Le Web : De l'URL à l'écran
 
 ### 23.1 Structure d'une URL
 
@@ -2164,7 +2442,7 @@ Client                              Serveur
 
 ---
 
-## 24. Anatomie d'un Navigateur Web
+## 25. Anatomie d'un Navigateur Web
 
 ### 24.1 Les composants internes
 
@@ -2287,7 +2565,7 @@ Last-Modified: Mon, 12 May 2025 ...
 
 ---
 
-## 25. La Programmation : PHP et Python
+## 26. La Programmation : PHP et Python
 
 ### 25.1 PHP — Langage côté serveur
 
@@ -2492,7 +2770,7 @@ function CarteEquipement({ nom, ip, vlan }) {
 
 ---
 
-## 26. Administration Cisco IOS — Aide-mémoire
+## 27. Administration Cisco IOS — Aide-mémoire
 
 ### 26.1 Modes IOS
 
@@ -2600,7 +2878,7 @@ traceroute 192.168.2.10              ! Tracer le chemin
 
 ---
 
-## 27. Commandes Réseau Linux — Aide-mémoire
+## 28. Commandes Réseau Linux — Aide-mémoire
 
 ### 27.1 Gestion des interfaces (iproute2)
 
@@ -2738,6 +3016,204 @@ sudo iptables -t nat -L -v -n                # Lister les règles NAT
 sudo iptables-save > /etc/iptables/rules.v4
 sudo iptables-restore < /etc/iptables/rules.v4
 ```
+
+## 29. Administration Windows Server & Active Directory
+
+### 29.1 Vue d'ensemble de l'architecture
+
+Windows Server est un système d'exploitation serveur de Microsoft, utilisé pour centraliser l'administration des ressources d'un réseau d'entreprise. Les rôles principaux installables sont :
+
+| Rôle | Fonction |
+|---|---|
+| AD DS (Active Directory Domain Services) | Annuaire centralisé : utilisateurs, groupes, ordinateurs |
+| DHCP Server | Attribution automatique d'adresses IP |
+| DNS Server | Résolution de noms dans le domaine |
+| File Services | Partage de fichiers et gestion NTFS |
+| Print Services | Déploiement d'imprimantes réseau |
+
+### 29.2 Active Directory Domain Services (AD DS)
+
+**Concepts fondamentaux :**
+
+- **Domaine** : unité administrative de base. Exemple : `dom-LeMeillat.local`. Tous les objets (utilisateurs, machines) appartiennent à un domaine.
+- **Contrôleur de domaine (DC)** : serveur qui héberge la base de données AD et authentifie les utilisateurs.
+- **Unité d'Organisation (OU)** : dossier logique permettant de regrouper des objets et d'y appliquer des GPO.
+- **Groupe Sécurité / Étendue Globale** : type pour gestion de droits NTFS et partages, visible dans tout le domaine.
+
+**Dépendance critique : le DNS**
+
+L'AD repose entièrement sur le DNS. Le client doit pointer son DNS vers l'IP du contrôleur de domaine pour résoudre `dom-exemple.local`. Si le DNS est mal configuré, la jonction au domaine échoue.
+
+```dos
+:: Vérifier la résolution DNS du domaine
+nslookup dom-LeMeillat.local
+```
+
+---
+
+### 29.3 Stratégies de Groupe (GPO)
+
+Les **GPO** (Group Policy Objects) sont des ensembles de règles poussées automatiquement par le DC lors de chaque ouverture de session ou démarrage.
+
+**Hiérarchie d'application (du moins au plus prioritaire) :**
+
+```
+Local → Site → Domaine → OU
+```
+
+**GPO courantes :**
+
+| Paramètre | Chemin dans GPMC |
+|---|---|
+| Complexité mot de passe | Config. Ordinateur > Stratégies > Paramètres Windows > Sécurité > Stratégie de compte |
+| Droit de session locale (`SeInteractiveLogonRight`) | Config. Ordinateur > Stratégies > Paramètres Windows > Droits utilisateur |
+| Déploiement de logiciels (MSI) | Config. Ordinateur > Stratégies > Paramètres logiciel > Installation de logiciel |
+| Scripts de connexion | Config. Utilisateur > Stratégies > Paramètres Windows > Scripts |
+
+```dos
+:: Forcer l'application immédiate des GPO sur le client
+gpupdate /force
+```
+
+---
+
+### 29.4 Partages réseau et sécurité NTFS
+
+**Deux niveaux de permissions coexistent :**
+
+| Niveau | Portée | Outil |
+|---|---|---|
+| Permissions de **partage** (SMB) | Accès réseau uniquement | Onglet "Partage" / `New-SmbShare` |
+| Permissions **NTFS** | Local ET réseau | Onglet "Sécurité" / `icacls` |
+
+> La permission effective est **l'intersection** (la plus restrictive) entre les deux niveaux.
+
+**Partage masqué** : le suffixe `$` (`etu01$`) rend le dossier invisible dans le parcours réseau standard. Accès direct toujours possible via UNC :
+
+```
+\\srv-LeMeillat\etu01$
+```
+
+**Commandes icacls :**
+
+```dos
+:: Contrôle total avec héritage (fichiers + sous-dossiers)
+icacls C:\volume\Utilisateurs\etu01 /grant "DOM\etu01:(OI)(CI)F"
+
+:: Lecture seule
+icacls C:\volume\Utilisateurs\etu01 /grant "DOM\Profs:(OI)(CI)R"
+```
+
+| Drapeau | Signification |
+|---|---|
+| `(OI)` | Object Inherit — héritage sur les fichiers |
+| `(CI)` | Container Inherit — héritage sur les sous-dossiers |
+| `F` | Full Control |
+| `R` | Read |
+| `M` | Modify |
+
+---
+
+### 29.5 Profils Itinérants et NETLOGON
+
+**Profil itinérant** : le profil de l'utilisateur est stocké sur le serveur. Quelle que soit la machine d'ouverture de session, il retrouve son environnement complet.
+
+Chemin configuré dans les propriétés du compte AD :
+
+```
+\\srv-LeMeillat\Utilisateurs\%username%\profil
+```
+
+**NETLOGON** : partage spécial du DC contenant les scripts de connexion. Chemin physique :
+
+```
+C:\Windows\SYSVOL\sysvol\<domaine>\scripts\
+```
+
+Script générique `common.bat` monté à chaque ouverture de session :
+
+```dos
+@echo off
+net use R: /delete /yes
+net use R: \\srv-LeMeillat\Utilisateurs\%USERNAME%
+```
+
+La variable `%USERNAME%` est résolue dynamiquement — un seul script pour tous les utilisateurs.
+
+---
+
+### 29.6 Automatisation PowerShell
+
+PowerShell est le shell natif de Windows Server pour l'automatisation de masse.
+
+**Commandes AD essentielles :**
+
+```powershell
+# Créer un utilisateur
+New-ADUser -Name "Prenom Nom" -SamAccountName "nom" `
+           -UserPrincipalName "nom@domaine.local" `
+           -AccountPassword (ConvertTo-SecureString "Password1" -AsPlainText -Force) `
+           -Enabled $true -Path "CN=Users,DC=domaine,DC=local" `
+           -ScriptPath "common.bat"
+
+# Ajouter à un groupe
+Add-ADGroupMember -Identity "Groupe" -Members "nom"
+
+# Supprimer un utilisateur
+Remove-ADUser -Identity "nom" -Confirm:$false
+
+# Lister les membres d'un groupe
+Get-ADGroupMember -Identity "Groupe"
+```
+
+**Commandes SMB + NTFS (script complet) :**
+
+```powershell
+# Créer le répertoire physique
+New-Item -Path "C:\volume\Utilisateurs\nom" -ItemType Directory -Force
+
+# Créer le partage masqué
+New-SmbShare -Name "nom`$" -Path "C:\volume\Utilisateurs\nom" -FullAccess "Tout le monde"
+
+# Appliquer les droits NTFS
+icacls "C:\volume\Utilisateurs\nom" /grant "DOMAINE\nom:(OI)(CI)F"
+icacls "C:\volume\Utilisateurs\nom" /grant "Administrateurs:(OI)(CI)F"
+
+# Rollback complet
+Remove-ADUser -Identity "nom" -Confirm:$false
+Remove-SmbShare -Name "nom`$" -Force
+Remove-Item -Path "C:\volume\Utilisateurs\nom" -Recurse -Force
+```
+
+---
+
+### 29.7 Quotas de disque
+
+| Paramètre | Valeur |
+|---|---|
+| Limite disque | 1 Go |
+| Niveau d'avertissement | 900 Mo |
+| Comportement au dépassement | Écriture refusée |
+
+Activation : `Gestion des disques → Propriétés du volume → Onglet Quota`
+
+---
+
+### 29.8 Récapitulatif des commandes Windows Server
+
+| Commande | Rôle |
+|---|---|
+| `gpupdate /force` | Forcer l'application des GPO |
+| `gpresult /r` | Afficher les GPO appliquées à la session courante |
+| `ipconfig /all` | Afficher la configuration IP complète |
+| `net use` | Monter / démonter des lecteurs réseau |
+| `icacls <chemin>` | Afficher ou modifier les droits NTFS |
+| `nslookup <domaine>` | Tester la résolution DNS |
+| `Get-ADUser -Filter *` | Lister tous les utilisateurs AD |
+| `Get-SmbShare` | Lister les partages réseau actifs |
+| `Test-ComputerSecureChannel` | Vérifier la relation de confiance machine/domaine |
+
+---
 
 ## Annexe A — Tableau des protocoles de référence
 

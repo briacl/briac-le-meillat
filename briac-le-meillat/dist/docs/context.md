@@ -2,7 +2,7 @@
 
 ## Identité
 
-Briac Le Meillat est un étudiant en BUT Réseaux & Télécommunications (R&T), 1ère année, à l'IUT. Il développe en parallèle de ses études sa marque personnelle **Bérangère Development**, centrée sur des projets logiciels personnels (CLI, IA, infrastructure, web). Il ne cherche pas d'alternance.
+Briac Le Meillat est un étudiant en BUT Réseaux & Télécommunications (R&T), 1ère année, à l'IUT de Béthune. Il développe en parallèle de ses études son entreprise **Bérangère Development**, centrée sur des projets logiciels personnels (CLI, IA, infrastructure, web).
 
 ---
 

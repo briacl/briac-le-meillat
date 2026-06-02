@@ -121,7 +121,7 @@ interface ProjectModalProps {
     onClose: () => void;
 }
 
-const ProjectModal = ({ projectName, accentColor, onClose }: ProjectModalProps) => {
+export const ProjectModal = ({ projectName, accentColor, onClose }: ProjectModalProps) => {
     const project = findProject(projectName);
     const hasGithub = project?.link && project.link !== '#';
     const origins: string[] = (project as any)?.origin ?? [];

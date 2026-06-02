@@ -24,6 +24,7 @@ import ExPage from './Pages/ExPage';
 import ChatWidget from './Components/ChatWidget';
 import ProjectsVisualisation from './Pages/ProjectsVisualisation';
 import BlogPage from './Pages/BlogPage';
+import KeynoteBut1Page from './Pages/KeynoteBut1Page';
 
 // Reference Pages from Caisse Automatique 2026
 import CaisseLandingPage from './Pages/Referentiel/CaisseLandingPage';
@@ -53,6 +54,7 @@ function App() {
                     <Route path="/cv" element={<CVPage />} />
                     <Route path="/contact" element={<Contact />} />
                     <Route path="/blog" element={<BlogPage />} />
+                    <Route path="/keynote-but1" element={<KeynoteBut1Page />} />
                     <Route path="/admin" element={<AdminPanel />} />
                     <Route path="/briac-admin" element={<AdminDashboard />} />
                     <Route path="/ex" element={<ExPage />} />

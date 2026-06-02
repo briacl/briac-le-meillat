@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
+import { motion, useScroll, useTransform, AnimatePresence, useInView } from 'framer-motion';
 import { Layers, Target, Code, Plus, Minus } from 'lucide-react';
 import CompetencesBUT from './CompetencesBUT';
 
@@ -26,12 +26,13 @@ const pillars = [
     },
 ];
 
-export default function BlueprintFoundation() {
+export default function BlueprintFoundation({ defaultExpanded = false }: { defaultExpanded?: boolean }) {
     const containerRef = useRef<HTMLDivElement>(null);
     const expandedRef = useRef<HTMLDivElement>(null);
     const pillarsRef = useRef<HTMLDivElement>(null);
-    const [phase, setPhase] = useState<'blueprint' | 'foundation'>('blueprint');
-    const [isExpanded, setIsExpanded] = useState(false);
+    const [phase, setPhase] = useState<'blueprint' | 'foundation'>(defaultExpanded ? 'foundation' : 'blueprint');
+    const [isExpanded, setIsExpanded] = useState(defaultExpanded);
+    const isInView = useInView(containerRef, { once: true, margin: '-10% 0px -10% 0px' });
 
     const { scrollYProgress } = useScroll({
         target: containerRef,
@@ -108,7 +109,7 @@ export default function BlueprintFoundation() {
                                     <motion.div
                                         key="blueprint"
                                         initial={{ opacity: 0, scale: 0.9, filter: 'blur(20px)' }}
-                                        animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+                                        animate={isInView ? { opacity: 1, scale: 1, filter: 'blur(0px)' } : { opacity: 0, scale: 0.9, filter: 'blur(20px)' }}
                                         exit={{ opacity: 0, scale: 1.05, filter: 'blur(12px)' }}
                                         transition={{ duration: 1, ease: APPLE_BEZIER as any }}
                                     >
@@ -119,7 +120,7 @@ export default function BlueprintFoundation() {
                                         </h2>
                                         <motion.p
                                             initial={{ opacity: 0, y: 10 }}
-                                            animate={{ opacity: 0.4, y: 0 }}
+                                            animate={isInView ? { opacity: 0.4, y: 0 } : { opacity: 0, y: 10 }}
                                             transition={{ delay: 0.6, duration: 0.8 }}
                                             className="mt-6 text-black font-['Baskerville'] tracking-[0.5em] text-xl md:text-2xl"
                                         >

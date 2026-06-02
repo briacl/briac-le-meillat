@@ -434,11 +434,11 @@ function ShowcaseLayout({ textSlot, cardSlot, textLeft = true }: {
 
 // Couleurs exactes observées dans les screenshots du vrai terminal
 const TC = {
-    cyan:    '#06b6d4',
+    cyan: '#06b6d4',
     magenta: '#d946ef',
-    white:   '#e2e8f0',
-    dim:     'rgba(226,232,240,0.35)',
-    green:   '#22c55e',
+    white: '#e2e8f0',
+    dim: 'rgba(226,232,240,0.35)',
+    green: '#22c55e',
 };
 
 const MONO: React.CSSProperties = {
@@ -501,10 +501,10 @@ function TSelect({ label, choices, selectedIdx }: { label: string; choices: stri
 /* Panel Résumé (bordure + titre magenta, labels magenta, valeurs cyan) */
 function TResume({ nom, objectif, fichier }: { nom: string; objectif: string; fichier: string }) {
     const rows: [string, string][] = [
-        ['Langage',           'Markdown 📝'],
-        ['Dossier',           '/home/briacl/Development/willkommen_v2'],
-        ['Programme',         nom],
-        ['Objectif',          objectif],
+        ['Langage', 'Markdown 📝'],
+        ['Dossier', '/home/briacl/Development/willkommen_v2'],
+        ['Programme', nom],
+        ['Objectif', objectif],
         ['Fichier principal', fichier],
     ];
     return (
@@ -575,8 +575,8 @@ function WillkommenTerminalAnimation() {
             setPhase(-1); setTypedStr('');
             setCNom(''); setCObj(''); setCFic('');
 
-            at(50,   () => setPhase(0));                          // bannière
-            at(500,  () => setPhase(1));                          // select langage visible
+            at(50, () => setPhase(0));                          // bannière
+            at(500, () => setPhase(1));                          // select langage visible
 
             // Langage résolu + dossier
             at(1150, () => setPhase(2));
@@ -698,7 +698,21 @@ function WillkommenTerminalAnimation() {
 }
 
 export const ShowcaseWillkommen = () => (
-    <section id="showcase-willkommen" className="w-full min-h-screen bg-[#0d0d0d] flex items-center justify-center px-6 md:px-20 relative overflow-hidden border-t border-white/5">
+    <section id="showcase-willkommen" className="w-full min-h-screen bg-[#000000] flex items-center justify-center px-6 md:px-20 relative overflow-hidden border-t border-white/5">
+        {/* Effet de lumière bleu au centre du fond noir */}
+        <div
+            className="pointer-events-none absolute"
+            style={{
+                width: '700px',
+                height: '700px',
+                left: '50%',
+                top: '50%',
+                transform: 'translate(-50%, -50%)',
+                background: 'radial-gradient(circle, rgba(0, 117, 255, 0.16) 0%, transparent 70%)',
+                filter: 'blur(100px)',
+                zIndex: 0,
+            }}
+        />
         <ShowcaseLayout
             textLeft={true}
             textSlot={<>
@@ -721,10 +735,10 @@ export const ShowcaseWillkommen = () => (
 
 const RC = {
     magenta: '#d946ef',
-    cyan:    '#06b6d4',
-    yellow:  '#eab308',
-    white:   '#e2e8f0',
-    dim:     'rgba(226,232,240,0.28)',
+    cyan: '#06b6d4',
+    yellow: '#eab308',
+    white: '#e2e8f0',
+    dim: 'rgba(226,232,240,0.28)',
 };
 
 const RM: React.CSSProperties = {
@@ -752,10 +766,10 @@ function REthTable({ dest, src, type, data }: { dest: string; src: string; type:
     return (
         <div style={{ border: `1px solid ${b}`, margin: '3px 0', display: 'flex', flexDirection: 'column' }}>
             <div style={{ display: 'flex', borderBottom: `1px solid ${b}` }}>
-                <span style={cell(RC.cyan,   'DEST MAC')}>DEST MAC</span>
-                <span style={cell(RC.cyan,   'SRC MAC')}>SRC MAC</span>
+                <span style={cell(RC.cyan, 'DEST MAC')}>DEST MAC</span>
+                <span style={cell(RC.cyan, 'SRC MAC')}>SRC MAC</span>
                 <span style={cell(RC.yellow, 'TYPE')}>TYPE</span>
-                <span style={cell(RC.white,  'DONNÉES', true)}>DONNÉES</span>
+                <span style={cell(RC.white, 'DONNÉES', true)}>DONNÉES</span>
             </div>
             <div style={{ display: 'flex' }}>
                 <span style={cell(RC.white, dest)}>{dest}</span>
@@ -793,9 +807,9 @@ function ReseauTerminalAnimation() {
         function run() {
             if (animKey.current !== key) return;
             setPhase(-1); setTypedStr('');
-            at(50,   () => setPhase(0));
-            at(700,  () => { setPhase(1); setTypedStr(''); });
-            at(760,  () => setTypedStr('5'));
+            at(50, () => setPhase(0));
+            at(700, () => { setPhase(1); setTypedStr(''); });
+            at(760, () => setTypedStr('5'));
             at(1500, () => setPhase(2));
             at(2700, () => setPhase(3));
             at(4100, () => setPhase(4));
@@ -942,7 +956,21 @@ function ReseauTerminalAnimation() {
 }
 
 export const ShowcaseReseau = () => (
-    <section id="showcase-reseau" className="w-full min-h-screen bg-[#0d0d0d] flex items-center justify-center px-6 md:px-20 relative overflow-hidden border-t border-white/5">
+    <section id="showcase-reseau" className="w-full min-h-screen bg-[#000000] flex items-center justify-center px-6 md:px-20 relative overflow-hidden border-t border-white/5">
+        {/* Effet de lumière bleu au centre du fond noir */}
+        <div
+            className="pointer-events-none absolute"
+            style={{
+                width: '700px',
+                height: '700px',
+                left: '50%',
+                top: '50%',
+                transform: 'translate(-50%, -50%)',
+                background: 'radial-gradient(circle, rgba(0, 117, 255, 0.16) 0%, transparent 70%)',
+                filter: 'blur(100px)',
+                zIndex: 0,
+            }}
+        />
         <ShowcaseLayout
             textLeft={false}
             textSlot={<>
@@ -989,7 +1017,21 @@ const LYRAE_TERMINAL = [
 
 
 export const ShowcaseLyrae = () => (
-    <section id="showcase-lyrae" className="w-full min-h-screen bg-[#0d0d0d] flex items-center justify-center px-6 md:px-20 relative overflow-hidden border-t border-white/5">
+    <section id="showcase-lyrae" className="w-full min-h-screen bg-[#000000] flex items-center justify-center px-6 md:px-20 relative overflow-hidden border-t border-white/5">
+        {/* Effet de lumière bleu au centre du fond noir */}
+        <div
+            className="pointer-events-none absolute"
+            style={{
+                width: '700px',
+                height: '700px',
+                left: '50%',
+                top: '50%',
+                transform: 'translate(-50%, -50%)',
+                background: 'radial-gradient(circle, rgba(0, 117, 255, 0.16) 0%, transparent 70%)',
+                filter: 'blur(100px)',
+                zIndex: 0,
+            }}
+        />
         <ShowcaseLayout
             textLeft={true}
             textSlot={<>

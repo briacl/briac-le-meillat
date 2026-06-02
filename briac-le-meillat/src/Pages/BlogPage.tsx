@@ -1,21 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useDisclosure, Button } from '@heroui/react';
-import { X, ArrowLeft } from 'lucide-react';
+import { X, ArrowLeft, Download } from 'lucide-react';
+import { exportToPDF } from '@/Utils/DocumentExporter';
 import Navbar from '@/Components/Navbar';
 import UnifiedFooter from '@/Components/UnifiedFooter';
 import ExPage from '@/Pages/ExPage';
 import BlogSearchBar from '@/Components/BlogSearchBar';
 import { readDocument } from '@/Utils/DocumentExporter';
 
-interface Proof {
-    title: string;
-    module: string;
-    techs: string[];
-    date: string;
-    path: string;
-    isPDF?: boolean;
-}
+import { Proof } from '@/Utils/searchEngine';
 
 
 const OriginBadge = ({ label, color }: { label: string; color: string }) => (
@@ -61,10 +55,10 @@ export default function BlogPage() {
     const [selectedProof, setSelectedProof] = useState<Proof | null>(null);
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
-    // Search state
     const [searchQuery, setSearchQuery] = useState('');
     const [searchResult, setSearchResult] = useState<{ query: string; response: string } | null>(null);
     const [isSearching, setIsSearching] = useState(false);
+    const [filteredProofs, setFilteredProofs] = useState<Proof[] | null>(null);
 
     useEffect(() => {
         document.title = 'Blog · Bérangère Development';
@@ -78,7 +72,11 @@ export default function BlogPage() {
                 let merged: Proof[] = [];
                 if (registryRes.ok) {
                     const data = await registryRes.json();
-                    merged = [...data.proofs];
+                    const baseUrl2 = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
+                    merged = data.proofs.map((p: any) => ({
+                        ...p,
+                        image: p.image ? `${baseUrl2}${p.image}` : undefined,
+                    }));
                 }
                 if (tpsRes && tpsRes.ok) {
                     const tpsData = await tpsRes.json();
@@ -109,15 +107,17 @@ export default function BlogPage() {
         });
     };
 
-    const handleSearchResult = (query: string, response: string) => {
+    const handleSearchResult = (query: string, response: string, filtered: Proof[] | null) => {
         setSearchQuery(query);
         setSearchResult({ query, response });
+        setFilteredProofs(filtered);
         setVisibleCount(5);
     };
 
     const handleNavigate = (href: string) => {
         if (href === '/blog') {
             setSearchResult(null);
+            setFilteredProofs(null);
         } else {
             window.location.href = href;
         }
@@ -197,6 +197,7 @@ export default function BlogPage() {
                             >
                                 <BlogSearchBar
                                     onResult={handleSearchResult}
+                                    proofs={proofs}
                                     isLoading={isSearching}
                                     setIsLoading={setIsSearching}
                                 />
@@ -217,6 +218,7 @@ export default function BlogPage() {
                         <div className="mb-10">
                             <BlogSearchBar
                                 onResult={handleSearchResult}
+                                proofs={proofs}
                                 isLoading={isSearching}
                                 setIsLoading={setIsSearching}
                                 compact={true}
@@ -233,9 +235,9 @@ export default function BlogPage() {
                                 className="mb-14 rounded-3xl border border-zinc-100 bg-white shadow-sm overflow-hidden"
                             >
                                 <div className="flex items-center gap-2 px-6 py-4 border-b border-zinc-50">
-                                    <div className="w-1.5 h-1.5 rounded-full bg-[#0075FF] animate-pulse" />
+                                    <div className="w-1.5 h-1.5 rounded-full bg-[#0075FF]" />
                                     <span className="text-[10px] font-mono uppercase tracking-[0.3em] text-zinc-400">
-                                        Résultat IA · Bérangère Development
+                                        Recherche · Bérangère Development
                                     </span>
                                 </div>
                                 <div className="px-6 py-5 text-sm text-zinc-700 leading-relaxed whitespace-pre-wrap">
@@ -248,7 +250,9 @@ export default function BlogPage() {
                         <div className="flex items-center gap-4 mb-8">
                             <div className="h-px flex-1 bg-zinc-100" />
                             <span className="text-[10px] font-mono uppercase tracking-[0.35em] text-zinc-400">
-                                Tous les travaux
+                                {filteredProofs !== null
+                                    ? (filteredProofs.length > 0 ? `${filteredProofs.length} résultat(s)` : 'Aucun résultat')
+                                    : 'Tous les travaux'}
                             </span>
                             <div className="h-px flex-1 bg-zinc-100" />
                         </div>
@@ -258,7 +262,7 @@ export default function BlogPage() {
                             <p className="text-zinc-400 font-mono text-sm">Chargement…</p>
                         ) : (
                             <div>
-                                {visible.map((proof, i) => (
+                                {(filteredProofs !== null ? filteredProofs : visible).map((proof, i) => (
                                     <motion.div
                                         key={i}
                                         initial={{ opacity: 0, y: 8 }}
@@ -266,7 +270,18 @@ export default function BlogPage() {
                                         transition={{ delay: i * 0.04, duration: 0.3 }}
                                     >
                                         <button onClick={() => handleClick(proof)} className="w-full text-left py-7 group">
-                                            <div className="flex items-start justify-between gap-6">
+                                            <div className="flex items-start gap-5">
+                                                {/* Vignette */}
+                                                {proof.image && (
+                                                    <div className="flex-shrink-0 w-32 rounded-xl overflow-hidden bg-zinc-100">
+                                                        <img
+                                                            src={proof.image}
+                                                            alt={proof.title}
+                                                            className="w-full h-auto object-contain"
+                                                        />
+                                                    </div>
+                                                )}
+                                                <div className="flex-1 flex items-start justify-between gap-4">
                                                 <div className="flex-1 space-y-2">
                                                     <div className="flex items-center gap-3 flex-wrap">
                                                         <span className="text-[10px] font-mono text-zinc-400 tracking-[0.2em] uppercase">
@@ -291,16 +306,26 @@ export default function BlogPage() {
                                                         ))}
                                                     </div>
                                                 </div>
-                                                <span className="mt-2 text-zinc-300 group-hover:text-[#0075FF] group-hover:translate-x-1 transition-all text-lg flex-shrink-0">
-                                                    →
-                                                </span>
+                                                <div className="flex items-center gap-3 flex-shrink-0 mt-2">
+                                                    <button
+                                                        onClick={(e) => { e.stopPropagation(); exportToPDF(proof.title, proof.path); }}
+                                                        className="text-zinc-300 hover:text-[#0075FF] transition-colors p-1"
+                                                        title="Télécharger"
+                                                    >
+                                                        <Download size={15} />
+                                                    </button>
+                                                    <span className="text-zinc-300 group-hover:text-[#0075FF] group-hover:translate-x-1 transition-all text-lg">
+                                                        →
+                                                    </span>
+                                                </div>
+                                                </div>
                                             </div>
                                         </button>
-                                        {i < visible.length - 1 && <div className="h-px bg-zinc-100" />}
+                                        {i < (filteredProofs !== null ? filteredProofs : visible).length - 1 && <div className="h-px bg-zinc-100" />}
                                     </motion.div>
                                 ))}
 
-                                {visibleCount < proofs.length && (
+                                {filteredProofs === null && visibleCount < proofs.length && (
                                     <div className="mt-12 flex justify-center">
                                         <button
                                             onClick={() => setVisibleCount(c => c + 5)}
@@ -314,7 +339,7 @@ export default function BlogPage() {
                                     </div>
                                 )}
 
-                                {proofs.length === 0 && (
+                                {filteredProofs === null && proofs.length === 0 && (
                                     <p className="text-zinc-400 font-mono text-sm text-center py-20">Aucun document trouvé.</p>
                                 )}
                             </div>
@@ -323,7 +348,7 @@ export default function BlogPage() {
                         {/* Back to search */}
                         <div className="mt-16 flex justify-center">
                             <button
-                                onClick={() => setSearchResult(null)}
+                                onClick={() => { setSearchResult(null); setFilteredProofs(null); }}
                                 className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-[0.3em] text-zinc-400 hover:text-zinc-700 transition-colors"
                             >
                                 <ArrowLeft size={12} />

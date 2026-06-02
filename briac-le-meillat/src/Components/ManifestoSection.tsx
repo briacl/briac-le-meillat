@@ -41,17 +41,25 @@ const Word = ({
     );
 };
 
-export default function ManifestoSection() {
+interface ManifestoSectionProps {
+    text1?: string;
+    text2?: string;
+    quote?: string | null;
+}
+
+export default function ManifestoSection({
+    text1 = "Pour certains, un clavier n'est qu'un outil de saisie.",
+    text2 = "Pour moi, c'est un instrument.",
+    quote = '"Chaque ligne de code est une note, chaque projet une partition."',
+}: ManifestoSectionProps) {
     const container = useRef<HTMLDivElement>(null);
     const { scrollYProgress } = useScroll({
         target: container,
-        // "start 95%" = animation débute dès que le haut du bloc touche 95% du viewport (quasi hors écran)
-        // "start 20%" = animation FINIE quand le haut du bloc est à 20% du viewport (bien avant le centre)
         offset: ["start 95%", "start 20%"]
     });
 
-    const wordsPart1 = "Pour certains, un clavier n'est qu'un outil de saisie.".split(" ");
-    const wordsPart2 = "Pour moi, c'est un instrument.".split(" ");
+    const wordsPart1 = text1.split(" ");
+    const wordsPart2 = text2.split(" ");
     const allWords = [...wordsPart1, ...wordsPart2];
 
     return (
@@ -91,23 +99,29 @@ export default function ManifestoSection() {
                     })}
                 </h2>
 
-                <motion.p
-                    className="mt-12 text-2xl md:text-3xl lg:text-4xl font-serif italic text-gray-400 text-center max-w-4xl font-['Baskerville']"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.5, duration: 1.2 }}
-                >
-                    "Chaque ligne de code est une note, chaque projet une partition."
-                </motion.p>
+                {quote !== null && quote !== undefined && (
+                    <motion.p
+                        className="mt-12 text-2xl md:text-3xl lg:text-4xl font-serif italic text-gray-400 text-center max-w-4xl font-['Baskerville']"
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.5, duration: 1.2 }}
+                    >
+                        {quote}
+                    </motion.p>
+                )}
 
                 <motion.a
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     transition={{ delay: 1.0, duration: 1 }}
-                    href="#blueprint-transition"
+                    href="#last-project-spotlight"
                     onClick={(e) => {
                         e.preventDefault();
-                        document.getElementById('blueprint-transition')?.scrollIntoView({ behavior: 'smooth' });
+                        const el = document.getElementById('last-project-spotlight');
+                        if (el) {
+                            const offset = el.getBoundingClientRect().top + window.scrollY;
+                            window.scrollTo({ top: offset, behavior: 'smooth' });
+                        }
                     }}
                     className="mt-16 border border-white/10 rounded-full w-[60px] h-[60px] flex items-center justify-center cursor-pointer transition-all duration-300 animate-bounce hover:border-blue-500/50 hover:shadow-[0_0_20px_rgba(59,130,246,0.2)] group"
                 >

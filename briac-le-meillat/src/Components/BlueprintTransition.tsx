@@ -1,19 +1,16 @@
-import React, { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
+import React from 'react';
+import { motion } from 'framer-motion';
 
 const BlueprintTransition = () => {
-    const ref = useRef(null);
-    const isInView = useInView(ref, { margin: "-20% 0px -20% 0px" });
-
     return (
         <section
             id="blueprint-transition"
-            ref={ref}
             className="w-full min-h-screen flex items-center justify-center bg-white overflow-hidden relative z-20"
         >
             <motion.div
                 initial={{ opacity: 0, scale: 0.8, filter: 'blur(20px)' }}
-                animate={isInView ? { opacity: 1, scale: 1, filter: 'blur(0px)' } : { opacity: 0, scale: 1.1, filter: 'blur(20px)' }}
+                whileInView={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+                viewport={{ once: false, margin: "-35% 0px -35% 0px" }}
                 transition={{ duration: 1.5, ease: [0.21, 0.47, 0.32, 0.98] }}
                 className="text-center px-6"
             >
@@ -27,7 +24,8 @@ const BlueprintTransition = () => {
                 </h2>
                 <motion.p
                     initial={{ opacity: 0, y: 20 }}
-                    animate={isInView ? { opacity: 0.4, y: 0 } : { opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 0.4, y: 0 }}
+                    viewport={{ once: false, margin: "-35% 0px -35% 0px" }}
                     transition={{ delay: 0.8, duration: 1 }}
                     className="mt-8 text-black font-['Baskerville'] tracking-[0.5em] text-2xl md:text-3xl"
                     style={{ textShadow: '0 8px 30px rgba(0, 0, 0, 0.52)' }}

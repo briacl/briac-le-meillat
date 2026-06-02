@@ -2,7 +2,7 @@
 title: "Analyse des protocoles TCP & UDP"
 module: "R101"
 competence: "Connecter"
-ac_lies: ["AC11.01", "AC11.02"]
+ac_lies: ["AC12.01"]
 techs: ["Wireshark", "TCP", "UDP", "Nmap", "Netcat"]
 date: "2026-05-04"
 status: "Terminé"
