@@ -1,7 +1,26 @@
 {
-  "lastUpdated": "2026-06-02T18:35:00.000Z",
-  "total": 32,
+  "lastUpdated": "2026-06-07T00:00:00.000Z",
+  "total": 33,
   "proofs": [
+    {
+      "title": "Complément de Révision - Bases des services réseaux",
+      "module": "R203",
+      "competence": "Administrer",
+      "ac_lies": [
+        "AC11.01",
+        "AC11.02"
+      ],
+      "techs": [
+        "FTP",
+        "DNS",
+        "DHCP",
+        "HTTP",
+        "SSH"
+      ],
+      "date": "2026-06-07",
+      "status": "Terminé",
+      "path": "assets/documents/apprentissage/bases-services-reseaux/complement-revision.md"
+    },
     {
       "title": "Interopérabilité des Systèmes : Samba, Webmin & Rsync",
       "module": "R203",
@@ -463,7 +482,7 @@
         "Trunk",
         "IEEE 802.1Q"
       ],
-      "path": "assets/documents/apprentissage/admin-reseau/vlan/tp1.md",
+      "path": "assets/documents/apprentissage/admin-reseau/vlan/tp1-vlan.md",
       "competence": "Administrer",
       "ac_lies": [
         "AC11.01",
@@ -480,7 +499,7 @@
         "VLAN",
         "Inter-VLAN"
       ],
-      "path": "assets/documents/apprentissage/admin-reseau/vlan-router/tp2.md",
+      "path": "assets/documents/apprentissage/admin-reseau/vlan-router/tp2-vlan-router.md",
       "competence": "Administrer",
       "ac_lies": [
         "AC11.01",
@@ -497,7 +516,7 @@
         "IEEE 802.1D",
         "Boucles"
       ],
-      "path": "assets/documents/apprentissage/admin-reseau/spanning-tree/tp3.md",
+      "path": "assets/documents/apprentissage/admin-reseau/spanning-tree/tp3-spanning-tree.md",
       "competence": "Administrer",
       "ac_lies": [
         "AC11.01",
@@ -514,7 +533,7 @@
         "EtherChannel",
         "IEEE 802.3ad"
       ],
-      "path": "assets/documents/apprentissage/admin-reseau/etherchannel/tp4.md",
+      "path": "assets/documents/apprentissage/admin-reseau/etherchannel/tp4-etherchannel.md",
       "competence": "Administrer",
       "ac_lies": [
         "AC11.01",

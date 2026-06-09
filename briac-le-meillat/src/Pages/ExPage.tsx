@@ -296,6 +296,7 @@ const ExPage: React.FC<ExPageProps> = ({ embedded = false, file, title }) => {
     // Use props if embedded, otherwise use searchParams
     const fileParam = embedded ? file : searchParams.get('file');
     const titleParam = (embedded ? title : searchParams.get('title')) || "Filtrage et Pare-feu sous Linux (iptables & nftables)";
+    const printMode = !embedded && searchParams.get('print') === '1';
 
     useEffect(() => {
         const baseUrl = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
@@ -323,6 +324,12 @@ const ExPage: React.FC<ExPageProps> = ({ embedded = false, file, title }) => {
                 setLoading(false);
             });
     }, [fileParam]);
+
+    useEffect(() => {
+        if (printMode && !loading && content) {
+            setTimeout(() => window.print(), 400);
+        }
+    }, [printMode, loading, content]);
 
     const contentArea = (
         <main className={`${embedded ? 'py-0' : 'pt-24 pb-20'} px-4 md:px-8`}>
@@ -522,6 +529,14 @@ const ExPage: React.FC<ExPageProps> = ({ embedded = false, file, title }) => {
 
     if (embedded) {
         return contentArea;
+    }
+
+    if (printMode) {
+        return (
+            <div className="min-h-screen bg-white">
+                {contentArea}
+            </div>
+        );
     }
 
     return (

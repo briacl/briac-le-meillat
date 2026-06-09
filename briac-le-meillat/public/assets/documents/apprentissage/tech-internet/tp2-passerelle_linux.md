@@ -106,6 +106,10 @@ echo 1 > /proc/sys/net/ipv4/ip_forward
 # Vérification :
 cat /proc/sys/net/ipv4/ip_forward
 ```
+si jamais même avec sudo ça ne fonctionne pas, alors faire via cette commande :
+```bash
+sudo bash -c 'echo 1 > /proc/sys/net/ipv4/ip_forward'
+```
 
 ### 🔁 6. Configurer le NAT (MASQUERADE) sur la Passerelle
 **Pourquoi le NAT est nécessaire ?**
