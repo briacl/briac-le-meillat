@@ -159,3 +159,76 @@ Préférences > Réseau > Configuration manuelle du proxy :
 *   **No proxy for :** `iut-rt, 172.31.25.9`
 
 *Test final : Naviguer vers `https://www.wikipedia.org` => Doit s'afficher.*
+
+---
+
+## 🛡️ Partie 4 : Sécurisation de la Passerelle avec nftables
+
+> [!NOTE]
+> Ta passerelle route les paquets, mais elle est ouverte à tous les vents. L'objectif est d'appliquer un pare-feu strict par défaut, de maintenir ton NAT (Masquerade), et de n'autoriser l'administration SSH que depuis l'IP de ton poste.
+
+### ⚙️ 10. Créer le script de pare-feu
+Créer ou modifier le fichier de configuration de `nftables` :
+```bash
+sudo nano /etc/nftables.conf
+```
+*(Ou créer un fichier `parefeu.sh`)*
+
+### ⚙️ 11. Injecter la configuration
+Injecter la configuration exacte ci-dessous en remplaçant `192.168.0.X` par l'IP de ton client (Ubuntu ou Windows) pour le test SSH :
+
+```nft
+#!/sbin/nft -f
+
+flush ruleset
+
+table inet ma_securite {
+    chain input {
+        type filter hook input priority 0; policy drop;
+        
+        # Loopback autorisé
+        iifname "lo" accept
+        
+        # Suivi d'état (laisser revenir les réponses)
+        ct state established,related accept
+        
+        # Autoriser le ping depuis le réseau interne (enp0s8)
+        iifname "enp0s8" ip protocol icmp accept
+        
+        # Sécurité SSH : Autoriser uniquement ton PC Client
+        ip saddr 192.168.0.X tcp dport 22 accept
+        
+        # Log et Drop des autres tentatives SSH
+        tcp dport 22 log prefix "ALERTE_SSH: " drop
+    }
+
+    chain forward {
+        type filter hook forward priority 0; policy drop;
+        
+        # Autoriser la sortie (LAN -> WAN)
+        iifname "enp0s8" oifname "enp0s3" accept
+        
+        # Autoriser le retour (WAN -> LAN)
+        iifname "enp0s3" oifname "enp0s8" ct state established,related accept
+    }
+
+    chain srcnat {
+        type nat hook postrouting priority 100;
+        
+        # NAT Masquerade pour la sortie Internet
+        oifname "enp0s3" masquerade
+    }
+}
+```
+
+### ✅ 12. Appliquer et vérifier les règles
+Appliquer la configuration et lister les règles actives :
+```bash
+sudo nft -f /etc/nftables.conf
+sudo nft list ruleset
+```
+
+> [!TIP]
+> **Tests de validation :**
+> - Essaie de pinguer la passerelle depuis le client (doit marcher).
+> - Essaie de naviguer sur le web depuis le client (doit marcher).
