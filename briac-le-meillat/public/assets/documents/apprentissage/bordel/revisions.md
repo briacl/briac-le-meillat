@@ -9,6 +9,7 @@ status: "Terminé"
 ---
 
 # Fiche de Révision : Signaux et Systèmes (R205)
+> **R205 — Fiche de Révision : Signaux et Systèmes (R205)** — *Briac Le Meillat (01/04/2026)*
 
 **Auteur :** Briac Le Meillat
 

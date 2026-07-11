@@ -8,12 +8,17 @@ date: "2026-05-04"
 status: "Terminé"
 ---
 
-# 📄 Compte-Rendu de TP : Protocoles TCP & UDP
+# Protocoles TCP & UDP
+> **R101 — Analyse des protocoles TCP & UDP** — *Briac Le Meillat (04/05/2026)*
 
-**Étudiant :** Briac Le Meillat
-**Date :** 04/05/2026  
-**Environnement :** Ubuntu 22.04 Desktop sur Oracle VirtualBox  
-**Infrastructure :** Réseau interne via passerelle RT-Box2  
+**Objectif :** Analyser les protocoles TCP et UDP et les différences entre les deux.
+
+## 💡 C'est quoi TCP et UDP ?
+Vous êtes-vous déjà demandé comment les données voyagent sur Internet sans se perdre en route ? C'est le rôle des protocoles de transport. Imaginez que vous devez envoyer un livre de 1000 pages à un ami par la poste, mais que vous ne pouvez envoyer qu'une page par enveloppe.
+
+Avec **TCP**, c'est comme si vous envoyiez chaque lettre en recommandé avec accusé de réception. Vous attendez que votre ami vous dise *"J'ai bien reçu la page 1"* avant d'envoyer la page 2. S'il ne reçoit pas la page, vous la renvoyez. C'est un peu plus lent, mais c'est **100% fiable** ("fiable, orienté connexion" a dû vous dire/répéter M.Mercier). C'est parfait pour charger une page web ou envoyer un email.
+
+Avec **UDP**, c'est tout l'inverse. Vous prenez vos 1000 enveloppes et vous les balancez toutes dans la boîte aux lettres d'un coup, sans demander votre reste ni exiger de confirmation. Si la Poste perd la page 42, tant pis, le spectacle continue ! C'est **ultra rapide** ("rapide, non orienté connexion" a dû vous dire/répéter M.Mercier), mais sans garantie de livraison. C'est exactement ce qu'on utilise pour le streaming vidéo (Twitch, Netflix), les appels visio ou les jeux en ligne, où on préfère perdre un petit bout d'image plutôt que d'avoir un décalage de 3 secondes sur l'action en cours.
 
 ---
 
@@ -148,4 +153,4 @@ Ce TP a permis de valider les mécanismes de multiplexage via les ports. TCP se 
 > Note : Toutes les commandes et analyses ont été vérifiées sur machine virtuelle Ubuntu 22.04. Le scan de machines tierces sans autorisation demeure illégal.
 
 > [!TIP]
-> Un dernier point pour ton WU : n'oublie pas d'inclure les captures d'écran de ton "Flow Graph" que nous avons générées, elles illustrent parfaitement le handshake et les échanges PSH/ACK que tu as notés dans les tableaux.
+> Un dernier point pour votre WU : n'oubliez pas d'inclure les captures d'écran de votre "Flow Graph" que nous avons générées, elles illustrent parfaitement le handshake et les échanges PSH/ACK que vous avez notés dans les tableaux.

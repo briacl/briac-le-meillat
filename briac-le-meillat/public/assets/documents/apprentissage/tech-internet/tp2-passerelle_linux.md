@@ -1,13 +1,37 @@
-# 📄 Compte-Rendu de TP : Passerelle Linux (IP Forwarding + NAT)
+---
+title: "Mise en place d'une passerelle Linux"
+module: "R201"
+competence: "Connecter"
+ac_lies: ["AC12.01", "AC12.02"]
+techs: ["IPv4", "Ubuntu", "Linux", "IP Forwarding", "NAT", "DNS", "Proxy", "nftables"]
+date: "2026-06-08"
+status: "Terminé"
+image: "/assets/projects/tp2-passerelle-linux-visu.png"
+---
 
-**Objectif principal :** Créer et configurer des machines virtuelles sous Linux et Windows pour simuler un réseau local passant par une passerelle Linux permettant de faire de l'IP Forwarding et du NAT pour l'accès à internet.
+# Passerelle Linux
+> **R201 — Mise en place d'une passerelle Linux** — *Briac Le Meillat (08/06/2026)*
+
+**Objectif :** Créer et configurer des machines virtuelles sous Linux et Windows pour simuler un réseau local passant par une passerelle Linux permettant de faire de l'IP Forwarding et du NAT pour l'accès à internet.
+
+## 💡 Comment ça on peut transformer une ubuntu simple en passerelle ?
+Parmis les choses qui personnellement m'ont fait le plus kiffer durant ma 1ère année, ça a été quand j'ai découvert qu'on pouvait, à partir d'une simple machine ubuntu (desktop ou serve, qu'importe) la "transformer"/faire passer en une véritable passerelle.
+J'ai trouvé ça assez dingue, et j'ai tellement kiffé, que je l'ai refait 5 fois depuis.
+Mais quel est l'intérêt ?
+Et bien quand vous êtes dans une situation où vous n'avez pas de router à disposition mais qu'il faut que vous mettiez en place une passerelle pour faire la "jonction"/transition entre 2 réseaux différents, ce genre de manipulation peut être très utile.
+Grâce à de l'IP Forwarding et du NAT, on va pouvoir faire en sorte que notre machine ubuntu agisse comme un routeur, c'est à dire que lorsqu'une machine de notre réseau aura besoin d'aller à l'extérieur de notre réseau privé (par ex dans le cas d'une simple recherche internet), elle va envoyer sa requête à notre passerelle linux, qui va alors se charger de lui "prêter son ip" en masquant en réalité l'ip de la machine qui lui envoie la requête par mettre la sienne et envoyer la requête vers l'extérieur.
+C'est pourquoi, pour que ce système fonctionne, il va impérativement falloir que notre passerelle linux aie 2 cartes réseaux, l'une vers notre réseau privé, l'autre vers l'extérieur (par ex dans le cas de l'iut vers le réseau 172.31.x.x, d'où l'importance du mode bridge sur le réseau de l'iut que nous verrons dans quelques instants).
+Grâce à ça, on va pouvoir mettre en place un réseau privé, et faire en sorte que toutes les machines de ce réseau privé puissent accéder à internet en passant par notre passerelle linux.
+Bien pratique ;)
 
 ---
 
 ## 🛠️ Architecture
 
 > [!NOTE]
-> La Passerelle a 2 cartes réseau : enp0s3 (bridge vers IUT – DHCP, MAC réservée) et enp0s8 (réseau interne – IP fixe 192.168.0.1).
+> La Passerelle a 2 cartes réseau :
+- enp0s3 : bridge vers IUT - DHCP, MAC réservée
+- enp0s8 : réseau interne - IP fixe 192.168.0.1
 
 ### Adressage IP
 | Machine | Interface | IP / Masque | Passerelle par défaut |
@@ -156,7 +180,7 @@ Préférences > Réseau > Configuration manuelle du proxy :
 *   **Proxy HTTP :** `cache-etu.univ-artois.fr`
 *   **Port :** `3128`
 *   **also use this proxy for https :** cochée
-*   **No proxy for :** `iut-rt, 172.31.25.9`
+*   **No proxy for :** `iut-rt, 172.31.25.9` c'est important. Pourquoi ?, car je vous ferais remaruer que quand vous êtes sur un poste de l'iut, vous êtes donc sur le réseau de l'iut (département rt), donc vous pouvez accédez sans problème à `172.31.25.9`, et le server dns des rt vous permet de taper plutôt `iut-rt` que l'ip du server, car vous êtes dans le réseau de l'iut, mais faites le test depuis chez vous, vous remarquerez que vous ne pouvez pas y accéder. C'est normal, vous n'êtes pas sur le même réseau. Il vous faudrait un VPN pour ça. Tant que vous êtes sur le réseau de l'iut, et c'est le cas via les postes de l'iut, mettez bien qu'il n'y a pas besoin de proxy pour `iut-rt` et l'ip du server
 
 *Test final : Naviguer vers `https://www.wikipedia.org` => Doit s'afficher.*
 
@@ -165,7 +189,7 @@ Préférences > Réseau > Configuration manuelle du proxy :
 ## 🛡️ Partie 4 : Sécurisation de la Passerelle avec nftables
 
 > [!NOTE]
-> Ta passerelle route les paquets, mais elle est ouverte à tous les vents. L'objectif est d'appliquer un pare-feu strict par défaut, de maintenir ton NAT (Masquerade), et de n'autoriser l'administration SSH que depuis l'IP de ton poste.
+> Votre passerelle route les paquets, mais elle est ouverte à tous les vents. Pour un hacker c'est le pays des merveilles, l'idéal. L'objectif est donc d'appliquer un pare-feu strict par défaut afin de ruiner au max le paradis du hacker, de maintenir votre NAT (Masquerade), et de n'autoriser l'administration SSH que depuis l'IP de votre poste.
 
 ### ⚙️ 10. Créer le script de pare-feu
 Créer ou modifier le fichier de configuration de `nftables` :
@@ -175,7 +199,7 @@ sudo nano /etc/nftables.conf
 *(Ou créer un fichier `parefeu.sh`)*
 
 ### ⚙️ 11. Injecter la configuration
-Injecter la configuration exacte ci-dessous en remplaçant `192.168.0.X` par l'IP de ton client (Ubuntu ou Windows) pour le test SSH :
+Injecter la configuration exacte ci-dessous en remplaçant `192.168.0.X` par l'IP de votre client (Ubuntu ou Windows) pour le test SSH :
 
 ```nft
 #!/sbin/nft -f
@@ -195,7 +219,7 @@ table inet ma_securite {
         # Autoriser le ping depuis le réseau interne (enp0s8)
         iifname "enp0s8" ip protocol icmp accept
         
-        # Sécurité SSH : Autoriser uniquement ton PC Client
+        # Sécurité SSH : Autoriser uniquement votre PC Client
         ip saddr 192.168.0.X tcp dport 22 accept
         
         # Log et Drop des autres tentatives SSH
@@ -230,5 +254,6 @@ sudo nft list ruleset
 
 > [!TIP]
 > **Tests de validation :**
-> - Essaie de pinguer la passerelle depuis le client (doit marcher).
-> - Essaie de naviguer sur le web depuis le client (doit marcher).
+> - Essayez de pinguer la passerelle depuis le client (doit marcher).
+> - Essayez de naviguer sur le web depuis le client (doit marcher).
+> - Essayez de vous connecter à la passerelle en ssh depuis votre machine d'hacker ayant l'ip 192.168.100.2/24, vous devez vous prendre un vent magistral (il ne répondra tout simplement pas, le paquet sera détruit silencieusement), ce sera alors gagné

@@ -6,12 +6,21 @@ ac_lies: ["AC11.01", "AC11.02"]
 techs: ["Samba", "CUPS", "Webmin", "Rsync", "SSH"]
 date: "2026-06-01"
 status: "Terminé"
+image: "/assets/projects/samba-visu.png"
 ---
 
 # Compte-Rendu Technique : Interopérabilité des Systèmes (Samba, CUPS, Webmin)
 > **R203 — Administration Réseau** — *Briac Le Meillat*
 
-Ce compte-rendu détaille la mise en place d'un réseau hybride fonctionnel permettant le partage de fichiers et de périphériques (imprimantes) entre des machines Linux (Ubuntu) et Windows 10, tout en sécurisant les accès et en automatisant les sauvegardes.
+**Objectif :** Mise en place d'un réseau hybride fonctionnel permettant le partage de fichiers et de périphériques (imprimantes) entre des machines Linux (Ubuntu) et Windows 10, tout en sécurisant les accès et en automatisant les sauvegardes.
+
+## 💡 C'est quoi ce charabia de Samba, CUPS et Rsync ?
+Vous vous êtes déjà retrouvé avec votre magnifique PC sous Linux à côté de votre collègue sous Windows, et impossible de lui envoyer un fichier facilement par le réseau ? C'est frustrant, non ? C'est parce que Windows et Linux ne parlent pas la même langue nativement quand il s'agit de partager des fichiers.
+Et bien c'est là que **Samba** intervient ! C'est un traducteur universel. Grâce à lui, votre machine Linux va se déguiser et apparaître comme par magie dans l'onglet "Réseau" du PC Windows de votre collègue.
+
+Ensuite, imaginez que vous avez une seule imprimante pour tout le bureau. Vous n'allez pas la brancher et la débrancher à chaque fois que quelqu'un veut imprimer, si ? C'est là qu'on utilise **CUPS**. Ça permet de transformer votre petit serveur Linux en chef d'orchestre des impressions. L'imprimante est branchée dessus, et c'est lui qui gère la file d'attente pour tout le monde sur le réseau.
+
+Enfin, on va rajouter **Webmin** pour vous simplifier la vie en vous offrant une jolie interface web pour tout configurer à la souris au lieu de taper des lignes de commande, et **Rsync** pour être sûr de ne jamais perdre vos configurations (parce que bon, on connaît tous l'angoisse du "oups, j'ai tout cassé et j'ai pas de sauvegarde (ça aussi, s'est arrivé à la pépinière)"). Vous allez voir, c'est ultra pratique de faire communiquer tout ce beau monde !
 
 ---
 
@@ -35,22 +44,15 @@ Linux ne gère pas les imprimantes de la même façon que Windows. Il utilise un
 
 ---
 
-### B. Exécution technique
+### B. Exécution technique (Serveur Linux)
 
 #### 1.1 Installation et configuration graphique
-1.  **Ajout de l'imprimante** : Depuis l'interface graphique des paramètres d'Ubuntu, nous avons ajouté l'imprimante réseau (modèle de la salle : **Oki-C710**).
-2.  **Restriction des accès** : Dans les propriétés avancées de l'imprimante, l'accès a été restreint pour n'autoriser que les machines appartenant au sous-réseau **`192.31.25.0/24`**.
+1.  **Ajout de l'imprimante** : Depuis l'interface graphique des paramètres d'Ubuntu (`Paramètres` > `Imprimantes` > `Ajouter`), nous avons ajouté l'imprimante réseau (modèle de la salle : **Oki-C710**).
+2.  **Restriction des accès** : Dans les propriétés avancées de l'imprimante (`Propriétés` > `Contrôle d'accès`), l'accès a été restreint pour n'autoriser que les machines appartenant au sous-réseau **`192.31.25.0/24`**.
 
-#### 1.2 Vérification en ligne de commande
-Pour s'assurer du bon fonctionnement de l'imprimante et de son état :
-```bash
-# Permet de voir l'état de la file d'attente de l'imprimante
-lpq
-```
-
-#### 1.3 Fichiers de configuration et logs
+#### 1.2 Fichiers de configuration et logs
 Les modifications effectuées graphiquement modifient directement les fichiers système suivants :
-*   📄 **`/etc/cups/printers.conf`** : Contient la définition et l'état des imprimantes installées.
+*   📄 **`/etc/cups/printers.conf`** : Contient la définition et la configuration matérielle de l'imprimante installée.
 *   📄 **`/etc/cups/cupsd.conf`** : Gère les directives d'accès et les règles de sécurité du serveur CUPS.
 
 > [!NOTE]
@@ -58,6 +60,23 @@ Les modifications effectuées graphiquement modifient directement les fichiers s
 > En cas de dysfonctionnement, l'historique et les erreurs sont tracés en temps réel dans :
 > *   `access_log` : `/var/log/cups/access_log` (Qui a imprimé quoi ?)
 > *   `error_log` : `/var/log/cups/error_log` (Pourquoi ça n'a pas imprimé ?)
+
+#### 1.3 Commandes de vérification
+Pour s'assurer du bon fonctionnement de l'imprimante, de son état et de sa file d'attente :
+```bash
+# Vérifie l'état général et la disponibilité du service d'impression
+lpstat -p
+
+# Affiche l'état de la file d'attente pour l'imprimante Oki-C710
+lpq -P Oki-C710
+```
+
+---
+
+### C. Client Linux (Ubuntu)
+Pour connecter une autre machine Linux au serveur d'impression :
+1. **Ajout de l'imprimante** : Ajout de l'imprimante réseau via l'interface graphique en pointant vers l'adresse IP du serveur (`192.31.25.12`).
+2. **Validation** : Lancement d'une page de test pour confirmer la liaison et le traitement.
 
 ---
 
@@ -99,20 +118,19 @@ Le fichier de configuration principal est `/etc/samba/smb.conf`. Nous l'avons co
 > - `hosts allow = 192.31.25.` : Sécurise le serveur en limitant l'accès au seul réseau `192.31.25.0/24`.
 > - `wins support = yes` : Permet au serveur de résoudre les noms d'hôtes locaux.
 
-#### 2.3 Vérification des erreurs de syntaxe
-Avant de redémarrer, il est vital de valider la structure du fichier de configuration :
+#### 2.3 Validation et application
+Avant d'appliquer les modifications, on valide la syntaxe :
 ```bash
-# Commande indispensable pour valider la syntaxe sans erreur
+# Vérification syntaxique du fichier de configuration
 testparm
 ```
 
-#### 2.4 Redémarrage et tests de bon fonctionnement
-Une fois la configuration validée, nous redémarrons les démons et listons les partages actifs :
+Une fois validée, on redémarre les démons et on liste les partages actifs :
 ```bash
-# Redémarrage des deux démons Samba
+# Redémarrage des services Samba
 sudo systemctl restart smbd nmbd
 
-# Test de listing local des partages Samba
+# Liste les partages actifs sur la machine locale
 smbclient -L localhost
 ```
 
@@ -127,7 +145,7 @@ Une fois Samba actif, il faut déclarer quels dossiers nous souhaitons partager,
 
 ---
 
-### B. 3.1 Partage depuis le Serveur Linux vers le Client Windows
+### B. Export Serveur Linux vers Client Windows
 
 #### 1. Création de l'utilisateur système et Samba
 Samba a sa propre base de données d'utilisateurs. On doit d'abord créer l'utilisateur sur le système Linux, puis lui attribuer un mot de passe Samba :
@@ -140,7 +158,7 @@ sudo smbpasswd -a user5
 ```
 
 #### 2. Configuration des partages dans `smb.conf`
-Nous avons activé la section par défaut `[homes]` (qui partage automatiquement le `/home/utilisateur` de façon sécurisée) et créé un partage public en lecture seule pointant vers `/opt`.
+Nous avons décommenté la section par défaut `[homes]` (qui partage automatiquement le répertoire `/home/utilisateur` de façon sécurisée) et configuré le partage public en lecture seule pointant vers `/opt`.
 
 **Configuration du partage `/opt` dans `/etc/samba/smb.conf` :**
 ```ini
@@ -152,44 +170,55 @@ Nous avons activé la section par défaut `[homes]` (qui partage automatiquement
    read only = yes
 ```
 
+**Configuration avancée (masquage et liens symboliques) :**
+Pour affiner les permissions et le comportement du serveur Samba, les paramètres suivants ont été ajoutés sous le partage :
+```ini
+   hide local users = No
+   hide dot files = Yes
+   hide unreadable = No
+   wide links = Yes
+   follow symlinks = Yes
+```
+
 *   **Résultat** : Depuis l'explorateur Windows, en tapant **`\\192.31.25.12`** dans la barre d'adresse, on accède directement aux dossiers partagés de Linux !
 
 ---
 
-### C. 3.2 Partage depuis le Client Windows vers le Client Linux
+### C. Montage Client Windows vers Client Linux
 
-> [!WARNING]
-> **Le piège des droits Windows :**
-> Partager un dossier Windows "sans mot de passe" nécessite deux étapes de sécurité souvent oubliées :
-> 1.  Désactiver le *"partage protégé par mot de passe"* dans le Centre Réseau et Partage de Windows.
-> 2.  Assurer que l'onglet **Sécurité** (droits NTFS) du dossier autorise l'accès en lecture/écriture à l'utilisateur **"Tout le monde"** (*Everyone*).
+#### 1. Configuration côté Windows (Source)
+* **Partage du dossier** : Partager le dossier cible sur le réseau.
+* **Droits NTFS** : Associer les autorisations "Tout le monde" (*Everyone*) en lecture/écriture dans l'onglet *Sécurité*.
+* **Sécurité** : Désactiver le *partage protégé par mot de passe* dans les paramètres de partage avancés de Windows.
 
-#### 1. Installation des prérequis côté client Linux
-*Note : Les options d'installation prennent en compte le contournement du proxy réseau de l'IUT.*
+#### 2. Configuration et montage côté Linux (Destination)
 ```bash
+# Mise à jour des dépôts de paquets
 sudo apt-get update
-sudo apt-get install smbclient cifs-utils --fix-missing -y
-```
 
-#### 2. Montage réseau du dossier Windows
-Pour monter la ressource Windows dans le système de fichiers Linux :
-```bash
-# Création du point de montage
+# Installe les outils de montage CIFS
+sudo apt-get install smbclient cifs-utils --fix-missing -y
+
+# Crée le point de montage dans l'arborescence locale
 sudo mkdir -p /mnt/partagewin
 
-# Commande de montage CIFS
+# Vérifie la visibilité du partage Windows depuis Linux (sans mot de passe)
+smbclient -L 192.31.25.18 -U administrateur%
+
+# Effectue le montage réseau du dossier Windows
 sudo mount -t cifs //192.31.25.18/PartageWindows /mnt/partagewin -o username=guest,password=
+
+# Valide l'accès aux fichiers
+ls -l /mnt/partagewin
 ```
 
 > [!IMPORTANT]
 > **Pourquoi `username=guest` ?**
 > Même pour un partage public "sans mot de passe", les versions récentes de Windows 10 rejettent catégoriquement les connexions 100% anonymes (null sessions). L'argument `-o username=guest` force Windows à accepter la connexion sans requérir de mot de passe réel.
 
-*   **Résultat et validation** : La commande `ls -l /mnt/partagewin` affiche parfaitement le fichier `ligne42.txt` initialement créé sur l'OS Windows.
-
 ---
 
-## 🖨️ 4. Partage d'Imprimantes (Linux vers Windows)
+## 🖨️ 4. Partage d'Imprimantes Samba (Linux vers Windows)
 
 ### A. Le concept
 L'imprimante configurée localement sur le serveur avec CUPS (Partie 1) doit maintenant être distribuée à l'ensemble du parc via Samba pour que les clients Windows puissent imprimer dessus de façon transparente.
@@ -198,7 +227,7 @@ L'imprimante configurée localement sur le serveur avec CUPS (Partie 1) doit mai
 
 ### B. Exécution technique
 
-#### 4.1 Configuration de Samba (`smb.conf`)
+#### 4.1 Configuration du Serveur Linux (`smb.conf`)
 Nous avons vérifié et activé les sections spéciales de partage d'imprimante dans `/etc/samba/smb.conf` :
 ```ini
 [printers]
@@ -218,21 +247,14 @@ Nous avons vérifié et activé les sections spéciales de partage d'imprimante 
    guest ok = no
 ```
 
-#### 4.2 Installation côté Client Windows 10
-Sur la machine Windows 10, l'ajout s'effectue en spécifiant le chemin réseau exact :
-**`\\192.31.25.12\Oki-C710`**
-
-> [!CAUTION]
-> **Résolution de bug - Blocage de pilotes (printui) :**
-> Si Windows bloque ou refuse de récupérer le bon pilote réseau en silencieux :
-> Lancez une console `cmd` en administrateur sur Windows et exécutez la commande suivante pour forcer la purge complète des pilotes d'imprimante obsolètes :
-> ```cmd
-> printui.exe /s /t2
-> ```
-> Cela permet de réinstaller proprement le pilote depuis une base propre.
-
-#### 4.3 Validation
-Un envoi de page de test a été déclenché depuis le client Windows 10. La file d'attente CUPS sur le serveur Linux l'a parfaitement intercepté et transmis physiquement à l'imprimante.
+#### 4.2 Configuration du Client Windows 10
+1. **Purge du cache d'impression** : Si Windows bloque ou refuse de récupérer le bon pilote réseau :
+   ```cmd
+   printui.exe /s /t2
+   ```
+2. **Ajout manuel** : Ajout de l'imprimante via l'explorateur Windows en spécifiant le chemin réseau exact :
+   **`\\192.31.25.12\Oki-C710`**
+3. **Validation** : Impression d'une page de test pour confirmer la bonne transmission.
 
 ---
 
@@ -245,17 +267,27 @@ La gestion en ligne de commande peut s'avérer fastidieuse. **Webmin** résout c
 
 ### B. Exécution technique
 
-#### 5.1 Contournement du proxy & Installation locale
-En raison du proxy de l'IUT bloquant le téléchargement direct via la commande `wget`, nous avons téléchargé manuellement le paquet Debian (`.deb`) officiel de Webmin via Firefox, avant de l'installer localement :
+#### 5.1 Installation des prérequis
+Avant d'installer Webmin, on installe le serveur HTTP Apache :
 ```bash
-# Installation locale du paquet téléchargé en gérant les dépendances
-sudo apt-get install ~/Téléchargements/webmin_*_all.deb -y
+sudo apt-get install apache2 -y
 ```
 
-#### 5.2 Accès à l'interface
-L'accès s'effectue de manière sécurisée en HTTPS sur le port `10000` :
-👉 **`https://localhost:10000`** (ou `https://192.31.25.12:10000`)
-*(Authentification avec le compte et mot de passe de l'administrateur système).*
+#### 5.2 Déploiement de Webmin (Contournement du proxy)
+En raison du proxy de l'IUT bloquant le téléchargement direct via internet, nous téléchargeons le paquet Debian (`.deb`) officiel de Webmin via Firefox dans le dossier `Téléchargements`. 
+
+Avant de l'installer, nous effectuons une sauvegarde de notre configuration Samba :
+```bash
+# Sauvegarde préventive de la configuration Samba
+sudo cp /etc/samba/smb.conf /etc/samba/smb.conf.original
+
+# Installation locale du paquet téléchargé en gérant les dépendances
+sudo apt-get install /home/administrateur/Téléchargements/webmin_2.641_all.deb -y
+```
+
+#### 5.3 Utilisation et modification du partage
+* **Accès** : Connexion sécurisée sur **`https://localhost:10000`** (ou l'IP du serveur).
+* **Action** : Modification des paramètres du partage `[Dossier_Opt]` via l'interface graphique.
 
 ---
 
@@ -263,11 +295,13 @@ L'accès s'effectue de manière sécurisée en HTTPS sur le port `10000` :
 
 > [!WARNING]
 > **Le comportement destructeur de Webmin :**
-> Lors d'une modification (par exemple du partage `[Dossier_Opt]`) effectuée depuis l'interface graphique de Webmin :
-> Webmin va réécrire **intégralement** le fichier de configuration `/etc/samba/smb.conf`.
+> Lors d'une modification effectuée depuis l'interface graphique de Webmin, l'outil réécrit **intégralement** le fichier de configuration `/etc/samba/smb.conf`.
 > 
-> **Conséquence directe :**
-> Tous les commentaires humains (lignes commençant par `#` ou `;`) et les indentations esthétiques personnalisées sont **définitivement effacés**. Les outils graphiques d'administration imposent leur propre standardisation de code. Il convient donc de sauvegarder ses fichiers avant de basculer sur ce type d'outil.
+> Si vous affichez la configuration modifiée après coup :
+> ```bash
+> cat /etc/samba/smb.conf
+> ```
+> Vous constaterez la suppression totale des commentaires d'origine (lignes commençant par `#` ou `;`) et une réécriture structurelle totale imposée par Webmin. Il convient donc de sauvegarder ses fichiers avant de basculer sur ce type d'outil.
 
 ---
 
@@ -280,8 +314,8 @@ Un bon administrateur applique la règle d'or : *"Pas de sauvegarde, pas de piti
 
 ### B. Exécution technique
 
-#### 6.1 Lancement de la sauvegarde incrémentielle
-Nous sauvegardons l'intégralité du dossier de configuration Samba vers le serveur de stockage central de l'IUT (`172.31.25.9`) :
+#### 6.1 Transfert sécurisé des configurations (Rsync)
+Nous sauvegardons l'intégralité du dossier de configuration Samba vers le serveur de stockage distant de l'IUT (`172.31.25.9`) :
 ```bash
 rsync -avz /etc/samba/ briac_lemeillat@172.31.25.9:~/sauvegarde_samba_tp/
 ```
@@ -293,7 +327,7 @@ rsync -avz /etc/samba/ briac_lemeillat@172.31.25.9:~/sauvegarde_samba_tp/
 > - **`-z`** (*Zip*) : Active la compression des données lors du transfert réseau pour optimiser l'usage de la bande passante.
 
 #### 6.2 Validation
-Après l'échange initial de clés d'empreinte SSH (validation par `yes`) et la saisie du mot de passe étudiant, le transfert s'est exécuté rapidement et sans erreur. Le dossier `/etc/samba/` est désormais sauvegardé en lieu sûr à distance.
+Après saisie de **`yes`** pour valider l'empreinte de la clé SSH lors de la première connexion, puis du mot de passe de l'utilisateur distant, le transfert s'est exécuté rapidement et sans erreur. Le dossier `/etc/samba/` est désormais sauvegardé en lieu sûr à distance.
 
 ---
 

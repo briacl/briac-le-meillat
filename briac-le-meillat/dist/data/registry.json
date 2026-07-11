@@ -1,9 +1,48 @@
 {
-  "lastUpdated": "2026-06-02T18:35:00.000Z",
-  "total": 31,
+  "lastUpdated": "2026-06-07T00:00:00.000Z",
+  "total": 33,
   "proofs": [
     {
-      "title": "Introduction à la Cybersécurité Web",
+      "title": "Complément de Révision - Bases des services réseaux",
+      "module": "R203",
+      "competence": "Administrer",
+      "ac_lies": [
+        "AC11.01",
+        "AC11.02"
+      ],
+      "techs": [
+        "FTP",
+        "DNS",
+        "DHCP",
+        "HTTP",
+        "SSH"
+      ],
+      "date": "2026-06-07",
+      "status": "Terminé",
+      "path": "assets/documents/apprentissage/bases-services-reseaux/complement-revision.md"
+    },
+    {
+      "title": "Interopérabilité des Systèmes : Samba, Webmin & Rsync",
+      "module": "R203",
+      "competence": "Administrer",
+      "ac_lies": [
+        "AC11.01",
+        "AC11.02"
+      ],
+      "techs": [
+        "Samba",
+        "CUPS",
+        "Webmin",
+        "Rsync",
+        "SSH"
+      ],
+      "date": "2026-06-01",
+      "status": "Terminé",
+      "path": "assets/documents/apprentissage/bases-services-reseaux/tp-samba.md",
+      "image": "assets/projects/samba-visu.png"
+    },
+    {
+      "title": "Intro à la Cybersécurité Web",
       "module": "R209",
       "competence": "Sécuriser",
       "ac_lies": [
@@ -19,7 +58,7 @@
       "date": "2026-05-27",
       "status": "Terminé",
       "path": "assets/documents/apprentissage/dev-web/tp4/tp4-intro-cyber.md",
-      "image": ""
+      "image": "assets/projects/intro-cyber-visu.png"
     },
     {
       "title": "SAÉ 2.3 — MiniGPT : Interface de chat administrée",
@@ -38,7 +77,7 @@
       "date": "2026-05-25",
       "status": "Terminé",
       "path": "assets/documents/apprentissage/sae23/sae23-minigpt.md",
-      "image": "assets/projects/minigpt-hero.png"
+      "image": "assets/projects/minigpt-visu.png"
     },
     {
       "title": "Filtrage et Pare-feu sous Linux",
@@ -119,7 +158,7 @@
       "image": "assets/projects/cheat-sheet-postgresql-visu.png"
     },
     {
-      "title": "Introduction à Flask",
+      "title": "Intro à Flask",
       "module": "R209",
       "competence": "Programmer",
       "ac_lies": [
@@ -175,7 +214,7 @@
     },
     {
       "title": "Analyse des protocoles TCP & UDP",
-      "module": "R101",
+      "module": "R201",
       "competence": "Connecter",
       "ac_lies": [
         "AC12.01"
@@ -289,7 +328,7 @@
     {
       "title": "Routage RIP et OSPF en réel (Cisco physique)",
       "date": "",
-      "module": "R103",
+      "module": "R201",
       "techs": [
         "Cisco",
         "RIP",
@@ -304,9 +343,9 @@
       ]
     },
     {
-      "title": "Passerelle Linux (IP Forwarding + NAT)",
+      "title": "Passerelle Linux",
       "date": "",
-      "module": "R103",
+      "module": "R201",
       "techs": [
         "Linux",
         "IP Forwarding",
@@ -314,6 +353,7 @@
         "Passerelle"
       ],
       "path": "assets/documents/apprentissage/tech-internet/tp2-passerelle_linux.md",
+      "image": "assets/projects/tp2-passerelle-linux-visu.png",
       "competence": "Connecter",
       "ac_lies": [
         "AC12.01",
@@ -323,7 +363,7 @@
     {
       "title": "Switchs et Routeurs : utilisations de base",
       "date": "",
-      "module": "R103",
+      "module": "R201",
       "techs": [
         "Cisco",
         "Switchs",
@@ -443,7 +483,7 @@
         "Trunk",
         "IEEE 802.1Q"
       ],
-      "path": "assets/documents/apprentissage/admin-reseau/vlan/tp1.md",
+      "path": "assets/documents/apprentissage/admin-reseau/vlan/tp1-vlan.md",
       "competence": "Administrer",
       "ac_lies": [
         "AC11.01",
@@ -460,7 +500,7 @@
         "VLAN",
         "Inter-VLAN"
       ],
-      "path": "assets/documents/apprentissage/admin-reseau/vlan-router/tp2.md",
+      "path": "assets/documents/apprentissage/admin-reseau/vlan-router/tp2-vlan-router.md",
       "competence": "Administrer",
       "ac_lies": [
         "AC11.01",
@@ -477,7 +517,7 @@
         "IEEE 802.1D",
         "Boucles"
       ],
-      "path": "assets/documents/apprentissage/admin-reseau/spanning-tree/tp3.md",
+      "path": "assets/documents/apprentissage/admin-reseau/spanning-tree/tp3-spanning-tree.md",
       "competence": "Administrer",
       "ac_lies": [
         "AC11.01",
@@ -494,11 +534,49 @@
         "EtherChannel",
         "IEEE 802.3ad"
       ],
-      "path": "assets/documents/apprentissage/admin-reseau/etherchannel/tp4.md",
+      "path": "assets/documents/apprentissage/admin-reseau/etherchannel/tp4-etherchannel.md",
       "competence": "Administrer",
       "ac_lies": [
         "AC11.01",
         "AC11.03"
+      ]
+    },
+    {
+      "title": "Mise en place d'un réseau IPv6 : SLAAC et DHCPv6 Stateless",
+      "date": "2026-06-08",
+      "module": "R201",
+      "techs": [
+        "IPv6",
+        "Cisco",
+        "SLAAC",
+        "DHCPv6",
+        "Ubuntu",
+        "Netplan"
+      ],
+      "path": "assets/documents/apprentissage/tech-internet/tp10-ipv6.md",
+      "competence": "Connecter",
+      "ac_lies": [
+        "AC12.01",
+        "AC12.02"
+      ]
+    },
+    {
+      "title": "Routage inter-VLAN sur équipements Cisco",
+      "date": "2026-06-08",
+      "module": "R201",
+      "techs": [
+        "Cisco",
+        "VLAN",
+        "Trunk",
+        "SVI",
+        "Layer 3 Switch",
+        "Packet Tracer"
+      ],
+      "path": "assets/documents/apprentissage/tech-internet/tp11-routage-inter-vlan.md",
+      "competence": "Connecter",
+      "ac_lies": [
+        "AC12.01",
+        "AC12.02"
       ]
     }
   ]

@@ -6,6 +6,7 @@ ac_lies: ["AC14.01", "AC14.02"]
 techs: ["PHP", "SQL", "Flask"]
 date: "2026-05-27"
 status: "Terminé"
+image: "/assets/projects/intro-cyber-visu.png"
 ---
 
 # Compte-Rendu Technique : Introduction à la Cybersécurité Web

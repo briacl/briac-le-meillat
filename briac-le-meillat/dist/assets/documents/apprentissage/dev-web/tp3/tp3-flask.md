@@ -6,9 +6,11 @@ ac_lies: ["AC13.01", "AC13.02"]
 techs: ["Flask", "Python", "Jinja2", "SQLAlchemy", "MVC"]
 date: "2026-05-18"
 status: "Terminé"
+image: "/assets/projects/tp3-flask-visuel.png"
 ---
 
 # 🧪 TP3 : Factorisation de Templates & Persistance avec Jinja2 et Flask
+> **R209 — Factorisation de Templates & Persistance avec Jinja2 et Flask (TP3)** — *Briac Le Meillat (18/05/2026)*
 
 Ce TP3 porte sur un concept fondamental en développement web : la **factorisation** (ou le découpage en composants) avec le moteur de templates **Jinja2** de Flask. 
 

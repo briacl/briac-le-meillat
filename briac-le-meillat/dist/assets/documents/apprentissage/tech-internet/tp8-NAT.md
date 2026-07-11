@@ -6,12 +6,22 @@ ac_lies: ["AC12.01", "AC12.02"]
 techs: ["Cisco", "NAT", "PAT", "Routage", "Packet Tracer"]
 date: "2026-05-19"
 status: "Terminé"
+image: "/assets/projects/tp-natpat-visu.png"
 ---
 
-# Compte-Rendu Technique : NAT et PAT sur Routeur Cisco
-> **R201 — Technologies de l'Internet** — *Briac Le Meillat (19/05/2026)*
+![Visualisation](/assets/projects/tp-natpat-visu.png)
 
-Ce compte-rendu présente la mise en œuvre de la traduction d'adresses réseau (NAT) sur des routeurs Cisco IOS dans Packet Tracer. Le scénario met en jeu deux routeurs (Espagne et Portugal) reliés par un lien série, avec un LAN privé côté Espagne et un serveur web côté Portugal.
+# Compte-Rendu Technique : NAT et PAT sur Routeur Cisco
+> **R201 — Configuration du NAT et PAT sur routeur Cisco** — *Briac Le Meillat (19/05/2026)*
+
+**Objectif :** Mise en œuvre de la traduction d'adresses réseau (NAT) sur des routeurs Cisco IOS dans Packet Tracer. Le scénario met en jeu deux routeurs (Espagne et Portugal) reliés par un lien série, avec un LAN privé côté Espagne et un serveur web côté Portugal.
+
+## 💡 C'est quoi le NAT et le PAT ?
+Imaginez Internet comme un immense réseau postal mondial. Pour envoyer et recevoir du courrier, il faut une adresse unique reconnue par tout le monde (votre adresse IP publique). Le problème ? Il n'y a pas assez d'adresses pour tous les ordinateurs et smartphones de la planète !
+
+C'est là qu'intervient le **NAT** (Network Address Translation). C'est comme le service courrier d'une grande entreprise : à l'intérieur du bâtiment, vous utilisez de simples numéros de bureau (les IP privées, invisibles sur Internet). Mais quand vous envoyez une lettre à l'extérieur, le service courrier remplace votre numéro de bureau par l'adresse officielle de l'entreprise. 
+
+Le **PAT** (Port Address Translation ou NAT Overload), c'est l'astuce ultime : puisqu'il y a 200 employés mais une seule adresse postale pour l'entreprise, le service courrier ajoute un petit numéro de dossier (le "port") sur chaque lettre sortante. Quand la réponse revient, il regarde ce numéro pour savoir exactement à quel employé redistribuer le courrier ! C'est exactement ce qui permet à tous vos appareils à la maison de surfer sur Internet avec la seule IP de votre box internet.
 
 ---
 
@@ -22,7 +32,7 @@ Ce compte-rendu présente la mise en œuvre de la traduction d'adresses réseau 
 Avant de parler de NAT, il faut que les machines puissent communiquer localement et que les routeurs sachent où envoyer les paquets vers l'inconnu.
 
 - Les interfaces doivent avoir leurs IPs (les barrières d'octroi).
-- Une **route par défaut** indique à chaque routeur : "Tout ce que tu ne connais pas, envoie-le par ton interface série vers le voisin".
+- Une **route par défaut** indique à chaque routeur : "Tout ce que vous ne connaissez pas, envoyez-le par votre interface série vers le voisin".
 
 ---
 

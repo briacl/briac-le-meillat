@@ -69,7 +69,7 @@ export function searchEngine(query: string, proofs: Proof[]): SearchResult {
         if (found.length === 0) {
             return { response: `Aucun travail trouvé pour le module ${mod}.`, filtered: [] };
         }
-        const sliced = found.slice(0, 5);
+        const sliced = found;
         return {
             response: `${found.length} résultat(s) pour le module ${mod}. Clique sur un travail pour l'ouvrir.`,
             filtered: sliced,
@@ -94,7 +94,7 @@ export function searchEngine(query: string, proofs: Proof[]): SearchResult {
             }
             return {
                 response: `${found.length} résultat(s) trouvé(s) pour « ${q} ». Clique pour ouvrir.`,
-                filtered: found.slice(0, 5),
+                filtered: found,
             };
         }
     }
@@ -115,6 +115,6 @@ export function searchEngine(query: string, proofs: Proof[]): SearchResult {
     }
     return {
         response: `${found.length} résultat(s) correspondant à « ${q} ».`,
-        filtered: found.slice(0, 5),
+        filtered: found,
     };
 }

@@ -144,12 +144,18 @@ const LastTpSpotlight = () => {
                     </AnimatePresence>
 
                     {/* Toutes les images rendues une fois, visibilité CSS uniquement — pas de rechargement */}
-                    <div
-                        className="w-full mt-4 relative aspect-video cursor-pointer rounded-[3rem] transition-all duration-500 hover:scale-[1.015] border border-slate-100/80 overflow-hidden"
+                    <a
+                        href={`${import.meta.env.BASE_URL}ex?file=${encodeURIComponent(tp.path)}&title=${encodeURIComponent(tp.title)}`}
+                        className="block w-full mt-4 relative aspect-video cursor-pointer rounded-[3rem] transition-all duration-500 hover:scale-[1.015] border border-slate-100/80 overflow-hidden"
                         style={{
                             boxShadow: '0 20px 60px rgba(0, 0, 0, 0.12), 0 4px 16px rgba(0, 0, 0, 0.08)',
                         }}
-                        onClick={handleOpen}
+                        onClick={(e) => {
+                            if (e.button === 0 && !e.ctrlKey && !e.metaKey && !e.shiftKey) {
+                                e.preventDefault();
+                                handleOpen();
+                            }
+                        }}
                     >
                         {tps.map((t, i) => (
                             <motion.img
@@ -161,7 +167,7 @@ const LastTpSpotlight = () => {
                                 transition={{ duration: 0.5, ease: APPLE_BEZIER }}
                             />
                         ))}
-                    </div>
+                    </a>
 
                     {/* Dots */}
                     <div className="flex items-center gap-3 mt-4">

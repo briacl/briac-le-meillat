@@ -6,12 +6,15 @@ ac_lies: ["AC11.01", "AC11.02"]
 techs: ["PXE", "Dnsmasq", "NFS", "DHCP", "TFTP"]
 date: "2026-05-11"
 status: "Terminé"
+image: "/assets/projects/tp-dhcp-tftp-bootp-pxe-visu.png"
 ---
 
-# Compte-Rendu Technique : Mise en œuvre d'un serveur de boot PXE
-> **R203 — Administration Réseau** — *Briac Le Meillat (11/05/2026)*
+![Visualisation](/assets/projects/tp-dhcp-tftp-bootp-pxe-visu.png)
 
-Ce compte-rendu détaille le déploiement d'une infrastructure permettant le démarrage d'un client "diskless" via le réseau.
+# Compte-Rendu Technique : Mise en œuvre d'un serveur de boot PXE
+> **R203 — Mise en œuvre d'un serveur de boot PXE** — *Briac Le Meillat (11/05/2026)*
+
+**Objectif :** Déploiement d'une infrastructure permettant le démarrage d'un client "diskless" via le réseau.
 
 ---
 
@@ -19,9 +22,9 @@ Ce compte-rendu détaille le déploiement d'une infrastructure permettant le dé
 Voici concrètement à quoi sert le **PXE** (*Pre-boot eXecution Environment*) :
 
 ### 1. Le déploiement de masse (L'usine à PC)
-Imagine que tu reçois 200 nouveaux ordinateurs pour équiper des salles de TP.
-- **Sans PXE** : Tu dois préparer 200 clés USB, passer devant chaque PC, brancher la clé, démarrer, cliquer sur "Suivant", attendre... Tu y passes la semaine.
-- **Avec PXE** : Tu branches tous les PC au réseau, tu les allumes tous en même temps. Ils contactent ton serveur PXE, téléchargent l'installeur automatiquement et s'installent tout seuls pendant que tu vas boire un café.
+Imaginez que vous recevez 200 nouveaux ordinateurs pour équiper des salles de TP.
+- **Sans PXE** : Vous devez préparer 200 clés USB, passer devant chaque PC, brancher la clé, démarrer, cliquer sur "Suivant", attendre... Vous y passez la semaine.
+- **Avec PXE** : Vous branchez tous les PC au réseau, vous les allumez tous en même temps. Ils contactent votre serveur PXE, téléchargent l'installeur automatiquement et s'installent tout seuls pendant que vous allez boire un café.
 
 ### 2. Les terminaux "Diskless" (Sans disque dur)
 Dans certains milieux sécurisés (banques, armée) ou pour réduire les coûts, on utilise des ordinateurs qui n'ont pas de disque dur interne. Rien n'est stocké sur le PC.
@@ -30,7 +33,7 @@ Au démarrage, la carte réseau "va chercher" le système d'exploitation sur le 
 
 ### 3. La maintenance et le dépannage
 Si un parc informatique est infecté par un virus ou si un disque dur tombe en panne :
-Tu peux démarrer via le réseau sur un outil de diagnostic ou de récupération de données (comme Clonezilla ou un Live Linux) sans avoir besoin de support physique.
+Vous pouvez démarrer via le réseau sur un outil de diagnostic ou de récupération de données (comme Clonezilla ou un Live Linux) sans avoir besoin de support physique.
 
 ### 🎯 En résumé : le scénario de ce TP
 Dans ce TP, nous simulons exactement ce processus :
@@ -44,33 +47,36 @@ Dans ce TP, nous simulons exactement ce processus :
 ---
 
 ## 🛠 1. Préparation de l'environnement et services isolés
-Avant la centralisation, les briques de base ont été validées individuellement. Le rôle ici est de donner une IP au client et de lui dire : *"Hé, si tu veux booter, va voir le serveur TFTP"*.
-
-### Étape 0 : Fixer l'adresse IP du serveur
-Avant d'installer le DHCP, votre serveur doit passer d'une adresse dynamique à une adresse statique.
+Avant de tout centraliser, on va mettre en place les briques de base (DHCP, TFTP). Mais attention à l'ordre des opérations !
 
 > [!IMPORTANT]
-> **Le cycle de vie du serveur pour ce TP :**
-> 1. **Phase Installation** : On démarre la VM en mode **DHCP**. Elle contacte la **RT-Box** (le serveur de l'IUT qui a Internet) pour obtenir une IP. Cela nous permet de faire un `apt-get install` et de télécharger les dépendances.
-> 2. **Phase Serveur** : Une fois les outils installés, on n'a plus besoin de la RT-Box. On fixe alors l'adresse du serveur en **Statique** pour qu'il puisse à son tour distribuer des IPs aux autres.
+> **Le piège classique de ce TP (L'ordre des choses) :**
+> Pour que notre machine devienne un serveur (DHCP/TFTP), elle a besoin d'une IP **statique** (fixe). MAIS pour installer les paquets nécessaires à ces services (`apt-get install`), elle a besoin d'Internet, donc d'une IP **dynamique** fournie par la RT-Box de l'IUT. 
+> **L'ordre d'action est donc très strict :**
+> 1. On reste en dynamique (DHCP de la RT-Box) pour télécharger tout le matériel nécessaire (les paquets serveurs DHCP, TFTP, etc.).
+> 2. Une fois que c'est fait, on fixe notre IP en statique (veiller à ce que l'ip static ne soit pas dans le même réseau que celui de l'iut, sinon notre futur dhcp va entrer en conflit avec celui de l'iut et là M.Gombert va débarquer (c'est déjà arrivé, c'est pour ça que je vous le précise))pour pouvoir assumer notre rôle de serveur.
+
+### Étape 0 : Installation des paquets (Mode Dynamique)
+Vérifiez que votre machine a bien un accès Internet (elle a reçu une IP de la RT-Box). Ensuite, téléchargez d'un seul coup tous les services nécessaires pour ce TP (DHCP, TFTP, Syslinux, NFS) :
+```bash
+sudo apt-get update && sudo apt-get install isc-dhcp-server tftpd-hpa tftp-hpa net-tools syslinux pxelinux nfs-kernel-server -y
+```
+> [!NOTE]
+> Si vous avez un message d'erreur au démarrage du service juste après l'installation, c'est normal : il n'est pas encore configuré et cherche une IP statique qu'on n'a pas encore mise !
+
+### Étape 1 : Fixer l'adresse IP du serveur (Mode Statique)
+Maintenant que les paquets sont là, on peut s'isoler et devenir le serveur de notre réseau.
 
 **Procédure pour fixer l'IP :**
 1.  Vérifiez le nom de l'interface réseau : `ip a` (souvent `enp0s3` ou `eth0`).
-2.  Configurez l'adresse **`192.31.25.10`**.
+2.  Configurez l'adresse statique **`192.31.25.10`**.
     - *Méthode simple* : Utilisez l'interface graphique de la VM.
-    - *Méthode terminal* : Modifiez `/etc/network/interfaces` ou utilisez `ip addr add`.
+    - *Méthode terminal* : Tapez en mode `sudo` la commande `ip a add 192.31.25.10/24 dev enp0s3` ou Modifiez `/etc/network/interfaces`
 3.  Assurez-vous que l'IP est bien fixée avant de passer à la suite.
 
 ---
 
 ### A. Service DHCP (ISC-DHCP-Server)
-
-#### 1.1 Installation
-```bash
-sudo apt-get update && sudo apt-get install isc-dhcp-server
-```
-> [!NOTE]
-> Si vous avez un message d'erreur au démarrage du service juste après l'installation, c'est normal : il n'est pas encore configuré !
 
 #### 1.2 Configuration du fichier `dhcpd.conf`
 Édition du fichier de configuration principal : `sudo nano /etc/dhcp/dhcpd.conf`.
@@ -118,9 +124,8 @@ host rt-client {
 Le TFTP est utilisé pour envoyer le noyau Linux au client sans authentification.
 
 #### 2.1 Installation
-```bash
-sudo apt-get install tftpd-hpa tftp-hpa net-tools
-```
+> [!NOTE]
+> Nous avons déjà installé les paquets `tftpd-hpa` et `tftp-hpa` à l'Étape 0. Inutile de relancer l'installation !
 
 #### 2.2 Configuration
 1.  **Dossier racine** : `sudo mkdir -p /var/lib/tftpboot`
@@ -180,16 +185,17 @@ pxe-service=x86PC, "Install OS via PXE", pxelinux
 > - `interface=enp0s3` : Dit au service d'écouter uniquement sur cette carte réseau.
 > - `enable-tftp` : La commande magique qui active le serveur de transfert de fichiers intégré.
 > - `tftp-root=/netboot/tftp` : Le dossier où sont rangés les fichiers que les clients ont le droit de télécharger.
-> - `dhcp-boot=pxelinux.0` : **L'instruction cruciale**. Elle dit au client : *"Une fois que tu as ton IP, télécharge ce fichier pour savoir comment démarrer"*.
+> - `dhcp-boot=pxelinux.0` : **L'instruction cruciale**. Elle dit au client : *"Une fois que vous avez votre IP, téléchargez ce fichier pour savoir comment démarrer"*.
 
 ### C. Mise en place des fichiers de boot
 On crée les dossiers et on copie les fichiers vitaux pour que le PC puisse "réfléchir" au démarrage :
 
+> [!NOTE]
+> Nous avons déjà installé les paquets `syslinux` et `pxelinux` à l'Étape 0. 
+
 ```bash
 # On crée le dossier qui va contenir tous les fichiers de boot
 sudo mkdir -p /netboot/tftp/pxelinux.cfg
-# installation du serveur d'amorçage
-sudo apt-get install syslinux pxelinux
 
 # Copie du "cerveau" du boot
 sudo cp /usr/lib/PXELINUX/pxelinux.0 /netboot/tftp/
@@ -226,9 +232,11 @@ Voici ce qu'il se passe réellement pour le client une fois que `dnsmasq` est la
 ## 3. Déploiement du Système de Fichiers Réseau (NFS)
 Le protocole NFS permet au client de charger l'intégralité de l'OS (plusieurs Go) une fois le noyau démarré.
 
-### A. Installation et Partage
+#### 3.1 Installation du serveur NFS
+> [!NOTE]
+> Nous avons déjà installé le paquet `nfs-kernel-server` à l'Étape 0. 
+
 ```bash
-sudo apt-get install nfs-kernel-server
 sudo mkdir -p /netboot/nfs/ubuntu1804
 ```
 

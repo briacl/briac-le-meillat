@@ -4,6 +4,9 @@ import Navbar from '@/Components/Navbar';
 import Newsbar from '@/Components/Newsbar';
 import ManifestoSection from '@/Components/ManifestoSection';
 import LastProjectSpotlight from '@/Components/LastProjectSpotlight';
+import FavoriteProjects from '@/Components/FavoriteProjects';
+import AdminTodoList from '@/Components/AdminTodoList';
+import CertificationCards from '@/Components/CertificationCards';
 import LastTpSpotlight from '@/Components/LastTpSpotlight';
 import { PillarCard, pillars, sharedStyles } from '@/Components/TheToolset';
 import {
@@ -66,6 +69,9 @@ export default function LandingPage() {
                 {/* ── I. LES SPOTLIGHTS (fond blanc) ── */}
                 <div className="relative z-10 bg-white">
                     <LastProjectSpotlight />
+                    <FavoriteProjects />
+                    <AdminTodoList />
+                    <CertificationCards />
                     <LastTpSpotlight />
                 </div>
 

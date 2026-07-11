@@ -1,6 +1,18 @@
-# 📄 Compte-Rendu de TP : Switchs et Routeurs : utilisations de base
+---
+title: "Switchs et Routeurs : utilisations de base"
+module: "R201"
+competence: "Connecter"
+ac_lies: ["AC12.01", "AC12.02"]
+techs: ["IPv4", "Cisco IOS", "Switch", "Routeur", "Routage statique"]
+date: ""
+status: "Terminé"
+image: "/assets/projects/tp2-passerelle-linux-visu.png"
+---
 
-**Objectif principal :** Configurer des switchs et des routeurs pour des réseaux simples (1 routeur/2 réseaux et 2 routeurs/3 réseaux) et mettre en place le routage statique.
+# Switchs et Routeurs : utilisations de base
+> **R201 — Switchs et Routeurs : utilisations de base** — *Briac Le Meillat*
+
+**Objectif :** Réviser le tp du S1 sur la mise en place d'un router et de switchs.
 
 ---
 

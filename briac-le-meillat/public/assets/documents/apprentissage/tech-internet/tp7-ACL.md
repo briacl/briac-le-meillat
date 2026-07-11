@@ -9,10 +9,16 @@ status: "Terminé"
 ---
 
 # 📄 Compte-Rendu de TP : Mise en place d'un filtrage par ACL sur routeur Cisco
+> **R201 — Filtrage par ACL sur routeur Cisco** — *Briac Le Meillat (06/05/2026)*
 
-**Date :** 06/05/2026  
+**Objectif :** Configurer une topologie réseau fonctionnelle sous Cisco Packet Tracer, mettre en place un routage statique, puis appliquer des règles de sécurité via des Access Control Lists (ACL) Standards et Étendues.
 
-**Objectif principal :** Configurer une topologie réseau fonctionnelle sous Cisco Packet Tracer, mettre en place un routage statique, puis appliquer des règles de sécurité via des Access Control Lists (ACL) Standards et Étendues.
+## 💡 C'est quoi une ACL ?
+Imaginez que votre routeur est le videur d'une boîte de nuit. Pour l'instant, il laisse passer tous les paquets de données sans poser de questions (c'est le routage classique). Mais si vous voulez un peu de sécurité, il faut lui donner une liste d'invités (ou de personnes bannies) : c'est l'**ACL** (Access Control List) !
+
+Il existe deux types de videurs :
+- **L'ACL Standard**, c'est le videur basique. Il regarde juste la carte d'identité du paquet (l'adresse IP d'origine) : *"Ah, vous venez du réseau 192.168.3.0 ? Vous ne rentrez pas."* Comme il est un peu bourrin et ne regarde pas la destination, on doit le placer au plus près de la porte d'arrivée (la destination) pour ne pas bloquer les paquets s'ils voulaient juste aller voir un autre réseau en chemin.
+- **L'ACL Étendue**, c'est le videur VIP ultra précis. Il regarde d'où vous venez, où vous allez, et ce que vous voulez faire : *"Ah, vous venez du PC 2, vous allez vers le Serveur Web, et c'est pour du HTTP (port 80) ? OK, vous passez. Vous voulez faire un ping ? C'est interdit, dehors !"* Comme il est très précis, on le place dès l'entrée (au plus près de la source) pour jeter les paquets indésirables tout de suite et ne pas encombrer les câbles pour rien.
 
 ---
 

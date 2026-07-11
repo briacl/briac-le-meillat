@@ -59,11 +59,11 @@ function App() {
                     <Route path="/briac-admin" element={<AdminDashboard />} />
                     <Route path="/ex" element={<ExPage />} />
                     <Route path="/projects-visualisation" element={<ProjectsVisualisation />} />
-                    
+
                     {/* Reference Routes */}
                     <Route path="/ref/caisse-landing" element={<CaisseLandingPage />} />
                     <Route path="/ref/caisse-nexus-prop" element={<CaisseNexusPropPage />} />
-                    
+
                     {/* Bérangère routes - Protégées par chiffrement */}
                     <Route path="/berangere" element={
                         <React.Suspense fallback={<div>Loading...</div>}>
@@ -80,7 +80,7 @@ function App() {
                             <EpisodePage />
                         </React.Suspense>
                     } />
-                    
+
                     {/* Routes admin et réalisations - Actives en DEV uniquement */}
                     {import.meta.env.DEV && (
                         <>
@@ -90,7 +90,7 @@ function App() {
                         </>
                     )}
                 </Routes>
-                
+
                 {/* Modal de déchiffrement pour les routes Bérangère */}
                 <CryptoModal />
 

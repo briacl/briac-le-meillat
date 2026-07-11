@@ -9,21 +9,37 @@ status: "Terminé"
 ---
 
 # Administration de Serveurs Web : Apache2 & Nginx
- 
-**Auteur :** Briac Le Meillat
+> **R203 — Administration de Serveurs Web : Apache2 & Nginx** — *Briac Le Meillat (15/03/2026)*
 
-**Date :** Mars 2026
+**Objectif :** Installation, configuration et administration avancée de serveurs web sous environnement Linux (Ubuntu 22.04 LTS). Les travaux sont divisés en deux axes majeurs : d'une part, le déploiement d'**Apache2** incluant la sécurisation des accès (authentification par groupe), le contrôle du trafic (ratelimit), l'hébergement de pages personnelles (UserDir) et la gestion d'hôtes virtuels (Virtual Hosts). D'autre part, la mise en œuvre d'une pile **LEMP** utilisant **Nginx**, MariaDB et PHP-FPM, complétée par l'intégration de phpMyAdmin et la configuration des journaux en mode débogage.
 
-**Projet :** TP R2.03 - Administration de Serveurs Web (Apache2 & Nginx)
- 
- 
- ---
- 
+## 💡 Pourquoi Apache2 et Nginx ?
+Au quotidien, pratiquement toutes les heures en moyenne, nous sommes sur internet, nous faisons des recherches, nous allons sur des sites web, mais les sites web, ils sont où en fait ?
+Et bien ils sont hébergés sur des serveurs web, et parmis les plus connus et faciles on peut citer Apache et Nginx.
+Ce tp sert à vous montrer comment les installer, les configurer, afin d'avoir un serveur d'hébergement de page web (html, css, php,...)
+
+Voici concrètement comment fonctionnent ces serveurs web :
+
+### 1. Le rôle de serveur (Le restaurant)
+Imaginez le serveur web comme un restaurant :
+- **Le client** (votre navigateur web : Chrome, Firefox) passe une commande (une requête HTTP) en demandant par exemple la page d'accueil.
+- **Le serveur web** (Apache ou Nginx) est le serveur du restaurant. Il reçoit la commande, va chercher les fichiers demandés (HTML, CSS, images) en cuisine (sur le disque dur de la machine), et les rapporte au client sur un plateau (la réponse HTTP).
+
+### 2. Contenu statique vs dynamique (Plat préparé vs Sur-mesure)
+- **Statique (HTML/CSS/Images) :** Le fichier existe déjà tel quel sur le disque. Le serveur web n'a qu'à le lire et l'envoyer. C'est extrêmement rapide, comme servir une boisson fraîche déjà en bouteille.
+- **Dynamique (PHP) :** La page n'existe pas encore ou doit être personnalisée (comme afficher un profil utilisateur ou consulter une base de données). Le serveur web demande à un cuisinier spécialisé (le moteur PHP) de générer la page à la volée avant de la renvoyer. 
+
+### 3. Apache vs Nginx (Les deux philosophies)
+- **Apache2 :** Le grand classique, robuste et ultra-personnalisable (notamment avec les fameux fichiers `.htaccess`). Sa philosophie historique est d'allouer un processus (un serveur du restaurant) par client. Très bien pour la compatibilité, mais peut consommer beaucoup de mémoire si trop de monde arrive en même temps.
+- **Nginx :** Plus moderne et orienté performance. Sa philosophie est l'asynchronisme : un seul processus gère des milliers de clients en même temps en passant très vite d'une commande à l'autre. Il est extrêmement rapide, en particulier pour envoyer le contenu statique, d'où sa très forte popularité aujourd'hui.
+
+---
+
 ## 1. Mise en place du serveur Web Apache2
 
 ### 1.1 & 1.2 Installation et vérification
 
-L'objectif était d'installer le paquet de base et de vérifier le fonctionnement du service sur un environnement **Ubuntu 22.04 LTS**.
+**Objectif :** Installer le paquet de base et de vérifier le fonctionnement du service sur un environnement **Ubuntu 22.04 LTS**.
  
 **Commandes exécutées :**
 ```bash

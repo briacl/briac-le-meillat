@@ -6,12 +6,13 @@ ac_lies: ["AC11.01", "AC11.02", "AC11.05"]
 techs: ["Windows Server", "Active Directory", "DHCP", "GPO", "PowerShell", "NTFS"]
 date: "2026-02-01"
 status: "Terminé"
+image: "/assets/projects/windows-admin.webp"
 ---
 
 # Compte-Rendu Technique : Administration Windows Server 2016
 > **R202 — Administration Système** — *Briac Le Meillat (Janvier – Février 2026)*
 
-Ce compte-rendu retrace le déploiement complet d'une infrastructure centralisée sous Windows Server 2016. La topologie met en jeu deux machines virtuelles interconnectées en réseau interne : un **Contrôleur de domaine** `srv-LeMeillat` gérant le domaine `dom-LeMeillat.local`, et un **poste client** `client-LeMeillat` (Windows 10 Pro). Les travaux couvrent le DHCP, l'Active Directory, la sécurité NTFS, les profils itinérants, l'automatisation PowerShell et le déploiement de logiciels par GPO.
+**Objectif :** Mettre en place le déploiement complet d'une infrastructure centralisée sous Windows Server 2016. La topologie met en jeu deux machines virtuelles interconnectées en réseau interne : un **Contrôleur de domaine** `srv-LeMeillat` gérant le domaine `dom-LeMeillat.local`, et un **poste client** `client-LeMeillat` (Windows 10 Pro). Les travaux couvrent le DHCP, l'Active Directory, la sécurité NTFS, les profils itinérants, l'automatisation PowerShell et le déploiement de logiciels par GPO.
 
 ---
 

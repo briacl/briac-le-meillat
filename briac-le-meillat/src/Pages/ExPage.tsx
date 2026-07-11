@@ -115,7 +115,15 @@ const cleanMarkdownBody = (md: string): string => {
     let firstParaIndex = -1;
     for (let i = 0; i < lines.length; i++) {
         const trimmed = lines[i].trim();
-        if (trimmed && !trimmed.startsWith('#') && !trimmed.startsWith('>') && !trimmed.startsWith('!') && !trimmed.startsWith('-') && !trimmed.startsWith('*') && !trimmed.startsWith('`')) {
+        if (
+            trimmed && 
+            !trimmed.startsWith('#') && 
+            !trimmed.startsWith('>') && 
+            !trimmed.startsWith('!') && 
+            !(trimmed.startsWith('- ') || trimmed.startsWith('---')) && 
+            !(trimmed.startsWith('* ') && !trimmed.startsWith('**')) && 
+            !trimmed.startsWith('`')
+        ) {
             firstParaIndex = i;
             break;
         }
@@ -123,6 +131,21 @@ const cleanMarkdownBody = (md: string): string => {
 
     if (firstParaIndex !== -1) {
         lines.splice(firstParaIndex, 1);
+        
+        // Also remove a horizontal rule `---` if it's the very next non-empty line
+        let hrIndex = -1;
+        for (let i = firstParaIndex; i < lines.length; i++) {
+            const trimmed = lines[i].trim();
+            if (trimmed === '') continue;
+            if (trimmed.startsWith('---')) {
+                hrIndex = i;
+            }
+            break; // Stop at the first non-empty line
+        }
+        
+        if (hrIndex !== -1) {
+            lines.splice(hrIndex, 1);
+        }
     }
 
     return lines.join('\n');
@@ -133,7 +156,15 @@ const getObjectiveFromMarkdown = (md: string): string => {
     const lines = cleanMd.split('\n');
     for (let line of lines) {
         line = line.trim();
-        if (line && !line.startsWith('#') && !line.startsWith('>') && !line.startsWith('!') && !line.startsWith('-') && !line.startsWith('*') && !line.startsWith('`')) {
+        if (
+            line && 
+            !line.startsWith('#') && 
+            !line.startsWith('>') && 
+            !line.startsWith('!') && 
+            !(line.startsWith('- ') || line.startsWith('---')) && 
+            !(line.startsWith('* ') && !line.startsWith('**')) && 
+            !line.startsWith('`')
+        ) {
             return line;
         }
     }
@@ -371,6 +402,17 @@ const ExPage: React.FC<ExPageProps> = ({ embedded = false, file, title }) => {
                                     </div>
                                 </div>
 
+                                {/* Image if any */}
+                                {metadata?.image && (
+                                    <div className="w-full mb-8 rounded-xl overflow-hidden shadow-sm border border-slate-200/50 bg-slate-50 flex justify-center items-center">
+                                        <img 
+                                            src={metadata.image.startsWith('http') ? metadata.image : `${import.meta.env.BASE_URL}${metadata.image.startsWith('/') ? metadata.image.slice(1) : metadata.image}`} 
+                                            alt={metadata.title || "Couverture du document"} 
+                                            className="w-full h-auto max-h-[450px] object-contain" 
+                                        />
+                                    </div>
+                                )}
+
                                 {/* Centered Title formatted as - {title} - */}
                                 <div className="text-center my-6 py-2">
                                     <h1 className="text-2xl md:text-3xl font-normal tracking-tight text-slate-900 font-['Paris2024'] uppercase">
@@ -408,7 +450,6 @@ const ExPage: React.FC<ExPageProps> = ({ embedded = false, file, title }) => {
                             {/* Objectif Section: placing "Objectif :" just above and to the left of the objective text paragraph */}
                             {content && (
                                 <div className="mb-8 font-['Baskerville'] text-[15px] leading-relaxed border-b border-slate-200/50 pb-6 mt-2">
-                                    <span className="font-bold text-slate-950 block mb-1.5 text-[16px]">Objectif :</span>
                                     <div className="text-slate-750 font-['Baskerville'] text-[15.5px]">
                                         <ReactMarkdown
                                             remarkPlugins={[remarkGfm]}

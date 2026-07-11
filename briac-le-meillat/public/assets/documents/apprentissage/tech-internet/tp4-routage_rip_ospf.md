@@ -1,6 +1,26 @@
-# 📄 Compte-Rendu de TP : Routage RIP et OSPF en réel (Cisco physique)
+---
+title: "Routage RIP et OSPF en réel"
+module: "R201"
+competence: "Connecter"
+ac_lies: ["AC12.01", "AC12.02"]
+techs: ["IPv4", "Cisco", "RIP", "OSPF"]
+date: "2026-06-08"
+status: "Terminé"
+---
 
-**Objectif principal :** Configurer une topologie réseau réelle avec des switchs et routeurs Cisco (1941/2960) et mettre en place les protocoles de routage dynamique RIP et OSPF.
+# Routage RIP et OSPF en réel
+> **R201 — Routage RIP et OSPF en réel** — *Briac Le Meillat (08/06/2026)*
+
+**Objectif :** Configurer une topologie réseau réelle avec des switchs et routeurs Cisco (1941/2960) et mettre en place les protocoles de routage dynamique RIP et OSPF.
+
+## 💡 C'est quoi RIP et OSPF ?
+Dans le TP précédent, on a appris au routeur le chemin à prendre en tapant les routes à la main (le routage statique). C'est bien pour un petit réseau, mais imaginez Internet avec des milliers de routeurs : si on devait tout taper à la main, ce serait un cauchemar, sans parler de ce qui se passe si un câble est coupé !
+
+C'est là qu'entrent en jeu les protocoles de routage dynamique comme **RIP** ou **OSPF**. L'idée est simple : on dit juste à notre routeur quels réseaux lui sont directement connectés, et il va discuter tout seul avec ses copains routeurs voisins pour s'échanger leurs cartes du réseau. Si un lien tombe en panne, ils recalculent automatiquement un nouveau chemin. 
+- **RIP**, c'est l'ancêtre, il compte juste le nombre de routeurs à traverser (le nombre de sauts). 
+- **OSPF**, c'est le petit génie moderne, il prend en compte la vitesse (la bande passante) des câbles pour toujours choisir la route la plus rapide. 
+
+Dans ce TP, vous allez voir la magie du routage automatique opérer en direct !
 
 ---
 

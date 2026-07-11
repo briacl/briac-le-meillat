@@ -6,9 +6,11 @@ ac_lies: ["AC13.01", "AC13.05"]
 techs: ["PostgreSQL", "Linux", "SQL"]
 date: "2026-05-12"
 status: "Terminé"
+image: "/assets/projects/cheat-sheet-postgresql-visu.png"
 ---
 
 # Cheat Sheet : Setup PostgreSQL
+> **R207 — Cheat Sheet : Setup PostgreSQL (CTP R207)** — *Briac Le Meillat (12/05/2026)*
 > **CTP BDD R207** — *Configuration pour le compte guest*
 
 Auteur : Briac Le Meillat

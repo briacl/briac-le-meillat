@@ -8,7 +8,10 @@ date: "2026-01-28"
 status: "Terminé"
 ---
 
+![Visualisation](/assets/projects/lan-visu.webp)
+
 # Compte Rendu - TP Final
+> **SAE102 / R103 — SAE 1.02 : Déploiement Infrastructure PME** — *Briac Le Meillat (28/01/2026)*
 
 **Date :** 28 Janvier 2026 
 

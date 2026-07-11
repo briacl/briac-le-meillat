@@ -6,18 +6,21 @@ ac_lies: ["AC12.01", "AC12.02"]
 techs: ["Linux", "Netfilter", "iptables", "nftables", "Sécurité"]
 date: "2026-05-19"
 status: "Terminé"
+image: "/assets/projects/tp-filtrage-linux-visu.png"
 ---
 
-# Compte-Rendu Technique : Filtrage Réseau sous Linux (iptables & nftables)
-> **R201 — Technologies de l'Internet** — *Briac Le Meillat (12/05/2026)*
+![Visualisation](/assets/projects/image-illustration-ltspice.png)
 
-Ce compte-rendu détaille la mise en œuvre du filtrage de paquets sous Linux à l'aide de l'architecture Netfilter. Il présente les configurations historiques sous `iptables` (gestion des chaînes, blocages DROP vs REJECT, chaînes personnalisées, logs noyau) ainsi que la transition moderne vers le système `nftables` par le biais de scripts de filtrage structurés.
+# Filtrage Réseau sous Linux (iptables & nftables)
+> **R201 — Filtrage et Pare-feu sous Linux** — *Briac Le Meillat (19/05/2026)*
+
+**Objectif :** Mise en œuvre du filtrage de paquets sous Linux à l'aide de l'architecture Netfilter. Présentation les configurations historiques sous `iptables` (gestion des chaînes, blocages DROP vs REJECT, chaînes personnalisées, logs noyau) ainsi que la transition moderne vers le système `nftables` par le biais de scripts de filtrage structurés.
 
 ---
 
 ## 💡 1. Introduction à Netfilter et Architecture (iptables)
 
-### 💡 L'explication vulgarisée
+## 💡 Pourquoi un pare-feu Linux (Netfilter) ?
 Pour bien comprendre la gestion des flux réseaux sous Linux, prenons une analogie concrète :
 
 Imaginez le réseau de votre machine Linux comme un **grand aéroport international** :
@@ -25,9 +28,9 @@ Imaginez le réseau de votre machine Linux comme un **grand aéroport internatio
 *   **Les Chaînes** (`INPUT`, `OUTPUT`, `FORWARD`) : Ce sont les différents **points de contrôle physiques** (la douane à l'arrivée pour `INPUT`, la porte d'embarquement pour `OUTPUT`, et le couloir de transit pour `FORWARD`).
 *   **Les Tables** (`filter`, `nat`, `mangle`) : Ce sont les **brigades spécialisées** (la brigade des passeports/visas pour la table `filter`, la brigade des taxes de marchandises pour la table `nat`).
 *   **Les Cibles** (`ACCEPT`, `DROP`, `REJECT`) : Ce sont les **décisions finales du douanier** :
-    *   `ACCEPT` : Te laisser passer librement.
-    *   `DROP` : Te jeter discrètement à la poubelle, sans donner de nouvelles (l'expéditeur attend sans savoir pourquoi).
-    *   `REJECT` : Te fermer la porte au nez et te renvoyer instantanément chez toi avec un avis de refus.
+    *   `ACCEPT` : Vous laisser passer librement.
+    *   `DROP` : Vous jeter discrètement à la poubelle, sans donner de nouvelles (l'expéditeur attend sans savoir pourquoi).
+    *   `REJECT` : Vous fermer la porte au nez et vous renvoyer instantanément chez vous avec un avis de refus.
 
 ---
 

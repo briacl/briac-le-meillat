@@ -9,6 +9,7 @@ status: "Terminé"
 ---
 
 # 📘 Guide d'Explication Ligne par Ligne : `tp2/app.py`
+> **R209 — API REST avec Flask & MySQL — Guide de Code Ligne par Ligne (TP2)** — *Briac Le Meillat (07/05/2026)*
 
 Ce document propose une explication détaillée et structurée de chaque ligne de code de l'application Flask `tp2/app.py`. Il est conçu pour vous aider à comprendre comment fonctionne un serveur API RESTful sécurisé avec JWT (JSON Web Tokens) et interfacé avec une base de données MySQL.
 

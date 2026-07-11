@@ -214,7 +214,7 @@
     },
     {
       "title": "Analyse des protocoles TCP & UDP",
-      "module": "R101",
+      "module": "R201",
       "competence": "Connecter",
       "ac_lies": [
         "AC12.01"
@@ -328,7 +328,7 @@
     {
       "title": "Routage RIP et OSPF en réel (Cisco physique)",
       "date": "",
-      "module": "R103",
+      "module": "R201",
       "techs": [
         "Cisco",
         "RIP",
@@ -343,9 +343,9 @@
       ]
     },
     {
-      "title": "Passerelle Linux (IP Forwarding + NAT)",
+      "title": "Passerelle Linux",
       "date": "",
-      "module": "R103",
+      "module": "R201",
       "techs": [
         "Linux",
         "IP Forwarding",
@@ -353,6 +353,7 @@
         "Passerelle"
       ],
       "path": "assets/documents/apprentissage/tech-internet/tp2-passerelle_linux.md",
+      "image": "assets/projects/tp2-passerelle-linux-visu.png",
       "competence": "Connecter",
       "ac_lies": [
         "AC12.01",
@@ -362,7 +363,7 @@
     {
       "title": "Switchs et Routeurs : utilisations de base",
       "date": "",
-      "module": "R103",
+      "module": "R201",
       "techs": [
         "Cisco",
         "Switchs",
@@ -538,6 +539,44 @@
       "ac_lies": [
         "AC11.01",
         "AC11.03"
+      ]
+    },
+    {
+      "title": "Mise en place d'un réseau IPv6 : SLAAC et DHCPv6 Stateless",
+      "date": "2026-06-08",
+      "module": "R201",
+      "techs": [
+        "IPv6",
+        "Cisco",
+        "SLAAC",
+        "DHCPv6",
+        "Ubuntu",
+        "Netplan"
+      ],
+      "path": "assets/documents/apprentissage/tech-internet/tp10-ipv6.md",
+      "competence": "Connecter",
+      "ac_lies": [
+        "AC12.01",
+        "AC12.02"
+      ]
+    },
+    {
+      "title": "Routage inter-VLAN sur équipements Cisco",
+      "date": "2026-06-08",
+      "module": "R201",
+      "techs": [
+        "Cisco",
+        "VLAN",
+        "Trunk",
+        "SVI",
+        "Layer 3 Switch",
+        "Packet Tracer"
+      ],
+      "path": "assets/documents/apprentissage/tech-internet/tp11-routage-inter-vlan.md",
+      "competence": "Connecter",
+      "ac_lies": [
+        "AC12.01",
+        "AC12.02"
       ]
     }
   ]

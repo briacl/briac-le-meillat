@@ -269,7 +269,16 @@ export default function BlogPage() {
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{ delay: i * 0.04, duration: 0.3 }}
                                     >
-                                        <button onClick={() => handleClick(proof)} className="w-full text-left py-7 group">
+                                        <a
+                                            href={`${import.meta.env.BASE_URL}ex?file=${encodeURIComponent(proof.path)}&title=${encodeURIComponent(proof.title)}`}
+                                            onClick={(e) => {
+                                                if (e.button === 0 && !e.ctrlKey && !e.metaKey && !e.shiftKey) {
+                                                    e.preventDefault();
+                                                    handleClick(proof);
+                                                }
+                                            }}
+                                            className="block w-full text-left py-7 group"
+                                        >
                                             <div className="flex items-start gap-5">
                                                 {/* Vignette */}
                                                 {proof.image && (
@@ -320,7 +329,7 @@ export default function BlogPage() {
                                                 </div>
                                                 </div>
                                             </div>
-                                        </button>
+                                        </a>
                                         {i < (filteredProofs !== null ? filteredProofs : visible).length - 1 && <div className="h-px bg-zinc-100" />}
                                     </motion.div>
                                 ))}
