@@ -25,11 +25,6 @@ const MAJOR_NODES = [
         description: "L’intelligence artificielle est un domaine qui me passionne par sa capacité à transformer des données en décisions intelligentes. Je m’intéresse particulièrement au machine learning, au deep learning et aux LLM, avec une approche orientée compréhension des modèles, expérimentation et applications concrètes."
     },
     {
-        id: "telecom",
-        text: "TÉLÉCOMMUNICATIONS",
-        description: "Les télécommunications relient le monde. Je m'intéresse aux fondamentaux du traitement du signal, aux réseaux mobiles (4G/5G) et aux technologies de transmission moderne."
-    },
-    {
         id: "programmation",
         text: "PROGRAMMATION",
         description: "La programmation, notamment en Python, est pour moi un outil essentiel pour automatiser, analyser et concevoir des solutions efficaces. J’accorde une grande importance à la clarté du code, à la logique et à la résolution de problèmes."
@@ -55,14 +50,14 @@ const MINOR_NODES = [
     { text: "Machine Learning", target: "ia" },
     { text: "Data Science", target: "ia" },
 
-    // Telecom
-    { text: "5G/4G", target: "telecom" },
-    { text: "Signal Processing", target: "telecom" },
-    { text: "VoIP", target: "telecom" },
-    { text: "Optical Fiber", target: "telecom" }
+    // Programmation
+    { text: "Bash", target: "programmation" },
+    { text: "Git", target: "programmation" },
+    { text: "Algorithmique", target: "programmation" },
+    { text: "Linux", target: "programmation" }
 ];
 
-export default function NeuralNetworkBackground({ className = "" }: { className?: string }) {
+export default function NeuralNetworkBackground({ className = "", interactive = true }: { className?: string; interactive?: boolean }) {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const [selectedNode, setSelectedNode] = React.useState<string | null>(null);
     const { theme } = useTheme();
@@ -259,17 +254,20 @@ export default function NeuralNetworkBackground({ className = "" }: { className?
             particles = [];
 
             // Spawn Major Nodes
-            MAJOR_NODES.forEach(data => {
+            const majorToUse = interactive ? MAJOR_NODES : MAJOR_NODES.slice(0, 3);
+            majorToUse.forEach(data => {
                 particles.push(new Particle('major', data));
             });
 
             // Spawn Minor Nodes
-            MINOR_NODES.forEach(data => {
+            const minorToUse = interactive ? MINOR_NODES : MINOR_NODES.slice(0, 8);
+            minorToUse.forEach(data => {
                 particles.push(new Particle('minor', data));
             });
 
             // Spawn Background Particles
-            for (let i = 0; i < 40; i++) {
+            const bgCount = interactive ? 40 : 20;
+            for (let i = 0; i < bgCount; i++) {
                 particles.push(new Particle('background'));
             }
         };
@@ -428,26 +426,30 @@ export default function NeuralNetworkBackground({ className = "" }: { className?
             }
         };
 
-        canvas.addEventListener('click', handleCanvasClick);
+        if (interactive) {
+            canvas.addEventListener('click', handleCanvasClick);
+        }
         window.addEventListener('resize', handleResize);
 
         return () => {
             window.removeEventListener('resize', handleResize);
-            canvas.removeEventListener('click', handleCanvasClick);
+            if (interactive) {
+                canvas.removeEventListener('click', handleCanvasClick);
+            }
             cancelAnimationFrame(animationFrameId);
         };
-    }, [theme]);
+    }, [theme, interactive]);
 
     return (
         <>
             <canvas
                 ref={canvasRef}
-                className={`absolute top-0 left-0 w-full h-full cursor-pointer z-[0] ${className}`}
-                style={{ pointerEvents: 'auto' }}
+                className={`absolute top-0 left-0 w-full h-full z-[0] ${interactive ? 'cursor-pointer' : 'cursor-default pointer-events-none'} ${className}`}
+                style={{ pointerEvents: interactive ? 'auto' : 'none' }}
             />
 
-            {/* Overlay Card */}
-            {selectedNode && (
+            {/* Overlay Card — only in interactive mode */}
+            {interactive && selectedNode && (
                 <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8">
                     {/* Backdrop */}
                     <div 
@@ -508,7 +510,6 @@ export default function NeuralNetworkBackground({ className = "" }: { className?
                                         "DÉVELOPPEMENT WEB": ["DÉVELOPPEMENT WEB", "DÉVELOPPEMENT"],
                                         "RÉSEAUX INFORMATIQUES": ["RÉSEAU", "ADMINISTRATION RÉSEAU", "ADMINISTRATION"],
                                         "INTELLIGENCE ARTIFICIELLE": ["INTELLIGENCE ARTIFICIELLE"],
-                                        "TÉLÉCOMMUNICATIONS": ["TÉLÉCOMMUNICATION", "TÉLÉCOMMUNICATIONS"],
                                         "PROGRAMMATION": ["PROGRAMMATION"],
                                     };
                                     const domainList = DOMAIN_MAP[selectedNode || ''] ?? [selectedNode || ''];

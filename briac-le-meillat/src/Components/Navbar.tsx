@@ -45,47 +45,63 @@ export default function Navbar() {
             {/* Center: Links (Desktop) - Nexus Layout Style */}
             <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center gap-8 text-[13px] font-semibold text-gray-500">
                 <a 
-                    href="#manifesto-section" 
+                    href="#student-showcase" 
                     onClick={(e) => {
-                        e.preventDefault();
-                        document.getElementById('manifesto-section')?.scrollIntoView({ behavior: 'smooth' });
+                        if (location.pathname === '/') {
+                            e.preventDefault();
+                            document.getElementById('student-showcase')?.scrollIntoView({ behavior: 'smooth' });
+                        } else {
+                            window.location.href = import.meta.env.BASE_URL + '#student-showcase';
+                        }
                     }}
                     className="hover:text-gray-900 transition-colors"
                 >
-                    Philosophy
-                </a>
-                <a 
-                    href="#the-toolset" 
-                    onClick={(e) => {
-                        e.preventDefault();
-                        document.getElementById('the-toolset')?.scrollIntoView({ behavior: 'smooth' });
-                    }}
-                    className="hover:text-gray-900 transition-colors"
-                >
-                    Systems
-                </a>
-                <a 
-                    href="#the-ecosystem" 
-                    onClick={(e) => {
-                        e.preventDefault();
-                        document.getElementById('the-ecosystem')?.scrollIntoView({ behavior: 'smooth' });
-                    }}
-                    className="hover:text-gray-900 transition-colors"
-                >
-                    Ecosystem
-                </a>
-                <a 
-                    href="#field-notes" 
-                    onClick={(e) => {
-                        e.preventDefault();
-                        document.getElementById('field-notes')?.scrollIntoView({ behavior: 'smooth' });
-                    }}
-                    className="hover:text-gray-900 transition-colors"
-                >
-                    Registry
+                    Me
                 </a>
                 <Link 
+                    to="/blog"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-gray-900 transition-colors"
+                >
+                    Blog
+                </Link>
+                <Link 
+                    to="/scripts"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-gray-900 transition-colors"
+                >
+                    Scripts
+                </Link>
+                <Link 
+                    to="/web"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-gray-900 transition-colors"
+                >
+                    Web
+                </Link>
+                <Link 
+                    to="/net"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-gray-900 transition-colors"
+                >
+                    Net
+                </Link>
+                <Link 
+                    to="/thinking-about-ai"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-gray-900 transition-colors"
+                >
+                    AI
+                </Link>
+                <Link 
                     to="/contact"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="hover:text-gray-900 transition-colors"
                 >
                     Contact
@@ -128,51 +144,69 @@ export default function Navbar() {
                         className="absolute top-20 left-0 w-full bg-white/95 backdrop-blur-xl rounded-[2rem] shadow-2xl border border-gray-100 p-8 flex flex-col gap-6 md:hidden z-[110]"
                     >
                         <a 
-                            href="#manifesto-section" 
+                            href="#student-showcase" 
                             onClick={(e) => {
-                                e.preventDefault();
                                 setIsMenuOpen(false);
-                                document.getElementById('manifesto-section')?.scrollIntoView({ behavior: 'smooth' });
+                                if (location.pathname === '/') {
+                                    e.preventDefault();
+                                    document.getElementById('student-showcase')?.scrollIntoView({ behavior: 'smooth' });
+                                } else {
+                                    window.location.href = import.meta.env.BASE_URL + '#student-showcase';
+                                }
                             }} 
                             className="text-2xl font-bold text-gray-900"
                         >
-                            Philosophy
-                        </a>
-                        <a 
-                            href="#the-toolset" 
-                            onClick={(e) => {
-                                e.preventDefault();
-                                setIsMenuOpen(false);
-                                document.getElementById('the-toolset')?.scrollIntoView({ behavior: 'smooth' });
-                            }} 
-                            className="text-2xl font-bold text-gray-900"
-                        >
-                            Systems
-                        </a>
-                        <a 
-                            href="#the-ecosystem" 
-                            onClick={(e) => {
-                                e.preventDefault();
-                                setIsMenuOpen(false);
-                                document.getElementById('the-ecosystem')?.scrollIntoView({ behavior: 'smooth' });
-                            }} 
-                            className="text-2xl font-bold text-gray-900"
-                        >
-                            Ecosystem
-                        </a>
-                        <a 
-                            href="#field-notes" 
-                            onClick={(e) => {
-                                e.preventDefault();
-                                setIsMenuOpen(false);
-                                document.getElementById('field-notes')?.scrollIntoView({ behavior: 'smooth' });
-                            }} 
-                            className="text-2xl font-bold text-gray-900"
-                        >
-                            Registry
+                            Me
                         </a>
                         <Link 
+                            to="/blog"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={() => setIsMenuOpen(false)}
+                            className="text-2xl font-bold text-gray-900"
+                        >
+                            Blog
+                        </Link>
+                        <Link 
+                            to="/scripts"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={() => setIsMenuOpen(false)}
+                            className="text-2xl font-bold text-gray-900"
+                        >
+                            Scripts
+                        </Link>
+                        <Link 
+                            to="/web"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={() => setIsMenuOpen(false)}
+                            className="text-2xl font-bold text-gray-900"
+                        >
+                            Web
+                        </Link>
+                        <Link 
+                            to="/net"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={() => setIsMenuOpen(false)}
+                            className="text-2xl font-bold text-gray-900"
+                        >
+                            Net
+                        </Link>
+                        <Link 
+                            to="/thinking-about-ai"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={() => setIsMenuOpen(false)}
+                            className="text-2xl font-bold text-gray-900"
+                        >
+                            AI
+                        </Link>
+                        <Link 
                             to="/contact"
+                            target="_blank"
+                            rel="noopener noreferrer"
                             onClick={() => setIsMenuOpen(false)}
                             className="text-2xl font-bold text-gray-900"
                         >

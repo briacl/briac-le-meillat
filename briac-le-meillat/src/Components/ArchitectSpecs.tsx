@@ -38,9 +38,10 @@ export const PureStructure = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, ease: APPLE_BEZIER as any }}
                 viewport={{ once: true }}
+                style={{ willChange: 'transform, opacity' }}
                 className="max-w-4xl space-y-6"
             >
-                <h2 className="text-5xl md:text-7xl font-['Paris2024'] text-white tracking-tighter">
+                <h2 className="text-5xl md:text-7xl font-['Paris2024'] text-white tracking-tighter" style={{ textShadow: '0 0 40px rgba(255,255,255,0.15)' }}>
                     Pure Structure.
                 </h2>
                 <p className="text-xl md:text-2xl font-sans leading-relaxed max-w-3xl mx-auto">
@@ -89,6 +90,7 @@ export const CodePoetics = () => {
                     whileInView={{ opacity: 1, x: 0 }}
                     transition={{ duration: 1, ease: APPLE_BEZIER as any }}
                     viewport={{ once: true }}
+                    style={{ willChange: 'transform, opacity' }}
                     className="space-y-6"
                 >
                     <h2 className="text-5xl md:text-7xl font-['Paris2024'] tracking-tighter bg-gradient-to-r from-[#0075FF] via-white to-[#0075FF] bg-clip-text text-transparent">
@@ -170,6 +172,7 @@ export const LogicAsCanvas = () => {
                     whileInView={{ opacity: 1, scale: 1, x: 0 }}
                     transition={{ duration: 1.2, ease: APPLE_BEZIER as any }}
                     viewport={{ once: true }}
+                    style={{ willChange: 'transform, opacity' }}
                     className="order-2 md:order-1 relative flex items-center justify-center py-12"
                 >
                     <LogicGrid progress={scrollYProgress} />
@@ -180,6 +183,7 @@ export const LogicAsCanvas = () => {
                     whileInView={{ opacity: 1, x: 0 }}
                     transition={{ duration: 1, ease: APPLE_BEZIER as any }}
                     viewport={{ once: true }}
+                    style={{ willChange: 'transform, opacity' }}
                     className="order-1 md:order-2 space-y-6"
                 >
                     <h2 className="text-5xl md:text-7xl font-['Paris2024'] tracking-tighter bg-gradient-to-r from-white via-[#f336f0] to-[#0075FF] bg-clip-text text-transparent">
@@ -224,9 +228,10 @@ export const TheCoreHeader = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, ease: APPLE_BEZIER as any }}
                 viewport={{ once: true }}
+                style={{ willChange: 'transform, opacity' }}
                 className="max-w-5xl space-y-6"
             >
-                <h2 className="text-5xl md:text-8xl font-['Paris2024'] text-white tracking-tighter">
+                <h2 className="text-5xl md:text-8xl font-['Paris2024'] text-white tracking-tighter" style={{ textShadow: '0 0 60px rgba(255,255,255,0.1)' }}>
                     The Ecosystem.
                 </h2>
                 <p className="text-xl md:text-2xl text-zinc-400 font-sans leading-relaxed max-w-3xl mx-auto">
@@ -415,14 +420,14 @@ function ShowcaseLayout({ textSlot, cardSlot, textLeft = true }: {
 
     return (
         <div ref={ref} className="max-w-7xl w-full grid grid-cols-1 md:grid-cols-2 gap-16 items-start py-24">
-            <div ref={textScope} className={textLeft ? 'space-y-6 sticky top-[20vh]' : 'space-y-6 sticky top-[20vh] order-1 md:order-2'}>
+            <div ref={textScope} style={{ willChange: 'transform' }} className={textLeft ? 'space-y-6 sticky top-[20vh]' : 'space-y-6 sticky top-[20vh] order-1 md:order-2'}>
                 {textSlot}
             </div>
             <div
                 className={textLeft ? '' : 'order-2 md:order-1'}
                 style={{ perspective: '1000px' }}
             >
-                <div ref={cardScope} className="space-y-3">
+                <div ref={cardScope} style={{ willChange: 'transform' }} className="space-y-3">
                     {cardSlot}
                 </div>
             </div>
@@ -717,7 +722,7 @@ export const ShowcaseWillkommen = () => (
             textLeft={true}
             textSlot={<>
                 <div className="flex gap-2"><OriginTag label="Perso" color="bg-[#8B5CF6]/20 text-[#a78bfa] border-[#8B5CF6]/30" /></div>
-                <h2 className="text-4xl md:text-6xl font-['Paris2024'] tracking-tighter text-white">willkommen_v2</h2>
+                <h2 className="text-4xl md:text-6xl font-['Paris2024'] tracking-tighter text-white" style={{ textShadow: '0 0 30px rgba(0,117,255,0.4)' }}>willkommen_v2</h2>
                 <p className="text-lg md:text-xl font-sans leading-relaxed">
                     <span className="text-white">Un projet, une commande.</span>{' '}
                     <span className="text-zinc-400">Génère le squelette complet d'un projet dans n'importe quel langage avec une interface terminal guidée et stylée — opérationnel en 30 secondes.</span>

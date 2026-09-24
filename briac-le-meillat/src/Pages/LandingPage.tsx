@@ -2,47 +2,14 @@ import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Navbar from '@/Components/Navbar';
 import Newsbar from '@/Components/Newsbar';
-import ManifestoSection from '@/Components/ManifestoSection';
-import LastProjectSpotlight from '@/Components/LastProjectSpotlight';
 import FavoriteProjects from '@/Components/FavoriteProjects';
-import AdminTodoList from '@/Components/AdminTodoList';
 import CertificationCards from '@/Components/CertificationCards';
 import LastTpSpotlight from '@/Components/LastTpSpotlight';
-import { PillarCard, pillars, sharedStyles } from '@/Components/TheToolset';
-import {
-    ShowcaseWillkommen,
-    ShowcaseReseau,
-    ShowcaseLyrae,
-    TheCoreHeader,
-    FinalCTA,
-} from '@/Components/ArchitectSpecs';
-import NeuralNetworkBackground from '@/Components/NeuralNetworkBackground';
-// import FieldNotes from '@/Components/FieldNotes';
+import NetworkBriacSpotlight from '@/Components/NetworkBriacSpotlight';
+import DeepNetworkProjects from '@/Components/DeepNetworkProjects';
+import StudentShowcaseSection from '@/Components/StudentShowcaseSection';
+import { FinalCTA } from '@/Components/ArchitectSpecs';
 import UnifiedFooter from '@/Components/UnifiedFooter';
-
-/* ── Séparateur de pilier — carte centrée avant chaque showcase ── */
-function PilierBridge({ index }: { index: number }) {
-    const pillar = pillars[index];
-    if (!pillar) return null;
-    return (
-        <>
-            <style>{sharedStyles}</style>
-            <section className="w-full py-32 flex flex-col items-center justify-center bg-black overflow-hidden relative">
-                {/* Halo de fond */}
-                <div
-                    className="pointer-events-none absolute inset-0"
-                    style={{
-                        background: `radial-gradient(ellipse at 50% 60%, ${pillar.auraColor} 0%, transparent 60%)`,
-                        filter: 'blur(80px)',
-                    }}
-                />
-                <div className="relative z-10 w-full max-w-sm mx-auto px-6">
-                    <PillarCard pillar={pillar} index={0} />
-                </div>
-            </section>
-        </>
-    );
-}
 
 export default function LandingPage() {
     useEffect(() => {
@@ -60,7 +27,7 @@ export default function LandingPage() {
             </div>
 
             {/* Newsbar fixe */}
-            <div className="fixed top-28 left-0 w-full pointer-events-auto z-[50] mix-blend-difference">
+            <div className="fixed top-24 left-0 w-full pointer-events-auto z-[50] mix-blend-difference">
                 <Newsbar />
             </div>
 
@@ -68,75 +35,55 @@ export default function LandingPage() {
 
                 {/* ── I. LES SPOTLIGHTS (fond blanc) ── */}
                 <div className="relative z-10 bg-white">
-                    <LastProjectSpotlight />
+                    <NetworkBriacSpotlight />
+
                     <FavoriteProjects />
-                    <AdminTodoList />
-                    <CertificationCards />
+                    <DeepNetworkProjects />
+                    <StudentShowcaseSection />
                     <LastTpSpotlight />
+                    <CertificationCards />
                 </div>
 
-                {/* ── II. LE MANIFESTE (conservé mais non affiché / commenté) ── */}
-                {/*
-                <div id="manifesto-section" className="relative bg-white z-20">
-                    <ManifestoSection />
-                </div>
-                */}
-
-                {/* ── III. APPLE SILICON — Pilier → Showcase → Pilier → … ─ */}
+                {/* ── II. SECTION SOMBRE — CTAs + Conclusion ── */}
                 <div id="the-toolset" className="relative z-10 bg-black text-white">
 
-                    {/* Pilier I — Automation & Workflow */}
-                    <PilierBridge index={0} />
-
-                    {/* Showcase 1 — willkommen_v2 */}
-                    <ShowcaseWillkommen />
-
-                    {/* Pilier II — Intelligence & Data */}
-                    <PilierBridge index={1} />
-
-                    {/* Showcase 2 — Visualisation réseau */}
-                    <ShowcaseReseau />
-
-                    {/* Pilier III — Shared Infrastructure */}
-                    <PilierBridge index={2} />
-
-                    {/* Showcase 3 — lyrae-shared */}
-                    <ShowcaseLyrae />
-
-                </div>
-
-                {/* ── IV. LE CLIMAX, L'ARCHIVE & LA CONCLUSION ─────────────────────────── */}
-                <div id="the-ecosystem" className="relative z-10 bg-black text-white">
-
-                    {/* The Ecosystem header */}
-                    <TheCoreHeader />
-
-                    {/* Réseau de neurones interactif */}
-                    <div id="the-core-visual" className="relative h-screen w-full overflow-hidden flex flex-col items-center justify-center">
-                        <NeuralNetworkBackground className="opacity-60" />
-                    </div>
-
-                    {/* Archive complète */}
-                    <div id="field-notes" className="flex flex-col items-center justify-center py-24 px-6 text-center">
-                        <motion.p
+                    {/* 
+                    <div id="field-notes" className="flex flex-col items-center justify-center py-40 px-6 text-center">
+                        <motion.a
+                            href={`${import.meta.env.BASE_URL}blog`}
+                            target="_blank"
+                            rel="noopener noreferrer"
                             initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            transition={{ duration: 1, ease: [0.21, 0.47, 0.32, 0.98] }}
-                            className="text-xl md:text-2xl font-sans leading-relaxed max-w-3xl mx-auto"
+                            whileHover={{ scale: 1.02 }}
+                            transition={{ duration: 1.2, ease: [0.21, 0.47, 0.32, 0.98] }}
+                            className="group relative flex flex-col items-center justify-center w-full max-w-lg p-10 rounded-[3rem] overflow-hidden"
+                            style={{
+                                backgroundColor: 'rgba(255,255,255,0.02)',
+                                border: '1px solid rgba(255,255,255,0.05)',
+                                boxShadow: 'inset 0 1px 1px rgba(255,255,255,0.05), 0 20px 40px rgba(0,0,0,0.5)',
+                                backdropFilter: 'blur(20px)',
+                                WebkitBackdropFilter: 'blur(20px)'
+                            }}
                         >
-                            <span className="text-white">L'ensemble des travaux pratiques et compte-rendus</span>{' '}
-                            <span className="text-zinc-400">est consultable et téléchargeable sur le </span>
-                            <a
-                                href="/blog"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-white underline underline-offset-4 hover:text-[#0075FF] transition-colors"
-                            >
-                                blog →
-                            </a>
-                        </motion.p>
+                            <div className="absolute inset-0 bg-gradient-to-b from-white/[0.04] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+                            
+                            <p className="font-['Paris2024'] text-2xl md:text-3xl text-white mb-3 tracking-wide drop-shadow-md">
+                                Explorer l'Archive
+                            </p>
+                            <p className="text-zinc-400 font-sans text-sm mb-8 max-w-sm leading-relaxed">
+                                Plongez dans les détails techniques, travaux pratiques et cas d'étude concrets.
+                            </p>
+                            <div className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-white/40 group-hover:text-white group-hover:border-white/30 transition-all duration-500 transform group-hover:translate-x-1">
+                                <svg viewBox="0 0 24 24" className="w-4 h-4" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    <polyline points="12 5 19 12 12 19"></polyline>
+                                </svg>
+                            </div>
+                        </motion.a>
                     </div>
+                    */}
 
                     {/* CTA final */}
                     <FinalCTA />
@@ -152,12 +99,12 @@ export default function LandingPage() {
                         >
                             <h1 className="m-0 flex flex-col items-center select-none leading-tight z-10">
                                 <span
-                                    className="font-['Baskerville']"
+                                    className="font-['Baskerville'] text-zinc-900"
                                     style={{
                                         fontSize: 'clamp(3rem, 10vw, 8rem)',
                                         fontWeight: 400,
                                         letterSpacing: '-0.02em',
-                                        textShadow: '0 8px 30px rgba(0,0,0,0.12)',
+                                        textShadow: '0 4px 10px rgba(0,0,0,0.05), 0 10px 20px rgba(0,0,0,0.1), 0 25px 50px rgba(0,0,0,0.15)',
                                     }}
                                 >
                                     Build Harmony.
@@ -168,8 +115,6 @@ export default function LandingPage() {
 
                     <UnifiedFooter />
                 </div>
-
-                <div className="h-[20vh] bg-black" />
 
             </main>
         </div>

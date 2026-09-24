@@ -1,6 +1,7 @@
 import { useState, FormEvent } from 'react';
 import { Sparkles, Search } from 'lucide-react';
-import { searchEngine, Proof } from '@/Utils/searchEngine';
+import { searchEngine } from '@/Utils/searchEngine';
+import { Proof } from '@/utils/tpsProvider';
 
 interface BlogSearchBarProps {
     onResult: (query: string, response: string, filtered: Proof[] | null) => void;

@@ -8,8 +8,8 @@ import UnifiedFooter from '@/Components/UnifiedFooter';
 import ExPage from '@/Pages/ExPage';
 import BlogSearchBar from '@/Components/BlogSearchBar';
 import { readDocument } from '@/Utils/DocumentExporter';
-
-import { Proof } from '@/Utils/searchEngine';
+import { searchEngine } from '@/Utils/searchEngine';
+import { getAllTps, Proof } from '@/utils/tpsProvider';
 
 
 const OriginBadge = ({ label, color }: { label: string; color: string }) => (
@@ -64,33 +64,8 @@ export default function BlogPage() {
         document.title = 'Blog · Bérangère Development';
         const fetchData = async () => {
             try {
-                const baseUrl = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
-                const [registryRes, tpsRes] = await Promise.all([
-                    fetch(`${baseUrl}data/registry.json?v=${Date.now()}`),
-                    fetch(`${baseUrl}data/tps.json?v=${Date.now()}`).catch(() => null),
-                ]);
-                let merged: Proof[] = [];
-                if (registryRes.ok) {
-                    const data = await registryRes.json();
-                    const baseUrl2 = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
-                    merged = data.proofs.map((p: any) => ({
-                        ...p,
-                        image: p.image ? `${baseUrl2}${p.image}` : undefined,
-                    }));
-                }
-                if (tpsRes && tpsRes.ok) {
-                    const tpsData = await tpsRes.json();
-                    merged = [...merged, ...tpsData.map((tp: any) => ({
-                        title: tp.titre,
-                        module: tp.ressource,
-                        techs: ['PDF'],
-                        date: tp.date.split('/').reverse().join('-'),
-                        path: tp.fichier,
-                        isPDF: true,
-                    }))];
-                }
-                merged.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-                setProofs(merged);
+                const proofsData = getAllTps();
+                setProofs(proofsData);
             } catch (e) {
                 console.error(e);
             } finally {

@@ -3,39 +3,27 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Modal, ModalContent, ModalBody, Button, useDisclosure } from '@heroui/react';
 import { X } from 'lucide-react';
 import ExPage from '@/Pages/ExPage';
-
-const INITIAL_TPS = [
-    {
-        title: 'Filtrage et Pare-feu sous Linux',
-        image: '/briac-le-meillat/assets/projects/tp-filtrage-linux-visu.png',
-        path: 'assets/documents/apprentissage/tech-internet/tp9-filtrage-linux.md',
-    },
-    {
-        title: 'Configuration du NAT et PAT sur routeur Cisco',
-        image: '/briac-le-meillat/assets/projects/tp-natpat-visu.png',
-        path: 'assets/documents/apprentissage/tech-internet/tp8-NAT.md',
-    },
-    {
-        title: 'Factorisation de Templates & Persistance avec Flask',
-        image: '/briac-le-meillat/assets/projects/tp3-flask-visuel.png',
-        path: 'assets/documents/apprentissage/dev-web/tp3/tp-flask-3.md',
-    },
-    {
-        title: 'Cheat Sheet : Setup PostgreSQL',
-        image: '/briac-le-meillat/assets/projects/cheat-sheet-postgresql-visu.png',
-        path: 'assets/documents/apprentissage/r207-source_donnees/cheet-sheet.md',
-    },
-    {
-        title: "Mise en œuvre d'un serveur de boot PXE",
-        image: '/briac-le-meillat/assets/projects/tp-dhcp-tftp-bootp-pxe-visu.png',
-        path: 'assets/documents/apprentissage/bases-services-reseaux/tp-dhcp-tftp-pxe.md',
-    },
-];
+import { getAllTps } from '@/utils/tpsProvider';
 
 const APPLE_BEZIER: [number, number, number, number] = [0.21, 0.47, 0.32, 0.98];
 
 const LastTpSpotlight = () => {
-    const [tps, setTps] = useState(INITIAL_TPS);
+    const [tps, setTps] = useState(() => {
+        try {
+            const data = getAllTps();
+            const validProofs = data.filter((p: any) => p.path && p.image);
+            const top5 = validProofs.slice(0, 5).map((p: any) => ({
+                title: p.title,
+                image: p.image, // URL is already resolved by Vite in tpsProvider
+                path: p.path,
+            }));
+            return top5;
+        } catch (err) {
+            console.error("Error loading dynamic TPs:", err);
+            return [];
+        }
+    });
+    
     const [current, setCurrent] = useState(0);
     const [userControlled, setUserControlled] = useState(false);
     const [isVisible, setIsVisible] = useState(false);
@@ -51,35 +39,6 @@ const LastTpSpotlight = () => {
         setUserControlled(false);
         onClose();
     };
-
-    // Fetch dynamic registry on mount
-    useEffect(() => {
-        const baseUrl = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
-        fetch(`${baseUrl}data/registry.json?v=${Date.now()}`)
-            .then((res) => res.json())
-            .then((data) => {
-                if (data && Array.isArray(data.proofs)) {
-                    // Filter proofs that have a path and an image, sorted by date (registry.json is already sorted, but let's sort to be sure)
-                    const validProofs = data.proofs
-                        .filter((p: any) => p.path && p.image)
-                        .sort((a: any, b: any) => new Date(b.date).getTime() - new Date(a.date).getTime());
-                    
-                    // Take the first 5
-                    const top5 = validProofs.slice(0, 5).map((p: any) => ({
-                        title: p.title,
-                        image: p.image.startsWith('/') 
-                            ? p.image 
-                            : `${baseUrl}${p.image}`,
-                        path: p.path,
-                    }));
-
-                    if (top5.length > 0) {
-                        setTps(top5);
-                    }
-                }
-            })
-            .catch((err) => console.error("Error loading dynamic TPs:", err));
-    }, []);
 
     // Préchargement unique de toutes les images
     useEffect(() => {
@@ -108,12 +67,14 @@ const LastTpSpotlight = () => {
 
     // Timer actif uniquement si visible et non contrôlé par l'user
     useEffect(() => {
-        if (userControlled || !isVisible) return;
+        if (userControlled || !isVisible || tps.length === 0) return;
         const timer = setInterval(() => {
             setCurrent(c => (c + 1) % tps.length);
         }, 5000);
         return () => clearInterval(timer);
     }, [userControlled, isVisible, tps.length]);
+
+    if (tps.length === 0) return null;
 
     const tp = tps[current];
 

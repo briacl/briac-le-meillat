@@ -1,9 +1,22 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import Navbar from '../Components/Navbar';
 import Newsbar from '../Components/Newsbar';
 import UnifiedFooter from '../Components/UnifiedFooter';
 
-const projects = [
+const projectImages = import.meta.glob('/src/assets/*.{png,jpg,jpeg,svg,webp,gif}', { query: '?url', eager: true });
+
+function resolveLogoUrl(rawImagePath: string | null): string | null {
+    if (!rawImagePath) return null;
+    const parts = rawImagePath.split('/');
+    const filename = parts[parts.length - 1];
+    const matchingKey = Object.keys(projectImages).find(k => k.endsWith(`/${filename}`));
+    if (matchingKey) {
+        return (projectImages as any)[matchingKey].default;
+    }
+    return rawImagePath;
+}
+
+const rawProjects = [
     {
         name: "Heryze",
         logo: "/briac-le-meillat/assets/projects/heryze-logo.jpg",
@@ -69,6 +82,13 @@ const projects = [
 export default function ProjectsVisualisation() {
     useEffect(() => {
         document.title = "Visualisation des Projets - Briac Le Meillat";
+    }, []);
+
+    const projects = useMemo(() => {
+        return rawProjects.map(p => ({
+            ...p,
+            logo: resolveLogoUrl(p.logo)
+        }));
     }, []);
 
     return (

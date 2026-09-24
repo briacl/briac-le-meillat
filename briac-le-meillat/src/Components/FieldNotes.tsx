@@ -14,26 +14,11 @@ import {
 } from 'lucide-react';
 import ExPage from '../Pages/ExPage';
 import { exportToPDF, readDocument } from '../Utils/DocumentExporter';
+import { getAllTps, Proof } from '@/utils/tpsProvider';
 
 const APPLE_BEZIER = [0.21, 0.47, 0.32, 0.98];
 
-interface Proof {
-    title: string;
-    module: string;
-    competence?: string;
-    ac_lies?: string[];
-    techs: string[];
-    date: string;
-    status?: string;
-    path: string;
-    isPDF?: boolean;
-}
 
-interface Registry {
-    lastUpdated: string;
-    total: number;
-    proofs: Proof[];
-}
 
 export default function FieldNotes() {
     const [mergedProofs, setMergedProofs] = useState<Proof[]>([]);
@@ -44,37 +29,8 @@ export default function FieldNotes() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const baseUrl = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
-                
-                const [registryRes, tpsRes] = await Promise.all([
-                    fetch(`${baseUrl}data/registry.json?v=${Date.now()}`),
-                    fetch(`${baseUrl}data/tps.json?v=${Date.now()}`).catch(() => null)
-                ]);
-
-                let proofs: Proof[] = [];
-
-                if (registryRes.ok) {
-                    const data = await registryRes.json();
-                    proofs = [...data.proofs];
-                }
-
-                if (tpsRes && tpsRes.ok) {
-                    const tpsData = await tpsRes.json();
-                    const pdfProofs: Proof[] = tpsData.map((tp: any) => ({
-                        title: tp.titre,
-                        module: tp.ressource,
-                        techs: ['PDF'],
-                        date: tp.date.split('/').reverse().join('-'), 
-                        path: tp.fichier,
-                        isPDF: true
-                    }));
-                    proofs = [...proofs, ...pdfProofs];
-                }
-
-                // Sort by date descending
-                proofs.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-                setMergedProofs(proofs);
-
+                const proofsData = getAllTps();
+                setMergedProofs(proofsData);
             } catch (error) {
                 console.error("Erreur lors du chargement des données:", error);
             } finally {

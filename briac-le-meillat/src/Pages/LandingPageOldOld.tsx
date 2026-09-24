@@ -9,7 +9,7 @@ import TheFoundation from '@/Components/TheFoundation';
 import BlueprintTransition from '@/Components/BlueprintTransition';
 import { PureStructure, CodePoetics, LogicAsCanvas, FinalCTA, TheCoreHeader, ShowcaseWillkommen, ShowcaseReseau, ShowcaseLyrae } from '@/Components/ArchitectSpecs';
 import TheToolset from '@/Components/TheToolset';
-import NexusCollection from '@/Components/NexusCollection';
+// import NexusCollection from '@/Components/NexusCollection'; // Déplacé dans common-lab
 import FieldNotes from '@/Components/FieldNotes';
 import UnifiedFooter from '@/Components/UnifiedFooter';
 

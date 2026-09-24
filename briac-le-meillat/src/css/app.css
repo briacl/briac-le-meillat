@@ -41,54 +41,54 @@
 
 @font-face {
     font-family: 'Monad';
-    src: url('/briac-le-meillat/fonts/Monad.otf') format('opentype');
+    src: url('../assets/fonts/Monad.otf') format('opentype');
 }
 
 @font-face {
     font-family: 'Montserrat';
-    src: url('/briac-le-meillat/fonts/Montserrat-Regular.ttf') format('truetype');
+    src: url('../assets/fonts/Montserrat-Regular.ttf') format('truetype');
 }
 
 @font-face {
     font-family: 'Montserrat Alternates';
-    src: url('/briac-le-meillat/fonts/MontserratAlternates-Regular.otf') format('opentype');
+    src: url('../assets/fonts/MontserratAlternates-Regular.otf') format('opentype');
 }
 
 @font-face {
     font-family: 'Baskerville';
-    src: url('/briac-le-meillat/fonts/Baskervville-Regular.ttf') format('truetype');
+    src: url('../assets/fonts/Baskervville-Regular.ttf') format('truetype');
 }
 
 @font-face {
     font-family: 'Paris2024';
-    src: url('/briac-le-meillat/fonts/Paris2024-Variable.ttf') format('truetype');
+    src: url('../assets/fonts/Paris2024-Variable.ttf') format('truetype');
 }
 
 @font-face {
     font-family: 'Roboto Mono';
-    src: url('/briac-le-meillat/fonts/RobotoMono-Regular.ttf') format('truetype');
+    src: url('../assets/fonts/RobotoMono-Regular.ttf') format('truetype');
 }
 
 @font-face {
     font-family: 'Plus Jakarta Sans';
-    src: url('/briac-le-meillat/fonts/PlusJakartaSans.ttf') format('truetype');
+    src: url('../assets/fonts/PlusJakartaSans.ttf') format('truetype');
 }
 
 @font-face {
     font-family: 'NeutrafaceText';
-    src: url('/briac-le-meillat/fonts/NeutrafaceText-LightItalic.otf') format('opentype');
+    src: url('../assets/fonts/NeutrafaceText-LightItalic.otf') format('opentype');
     font-weight: 300;
     font-style: italic;
 }
 
 @font-face {
     font-family: 'NeutrafaceTextDemiSC';
-    src: url('/briac-le-meillat/fonts/NeutrafaceText-DemiSC.otf') format('opentype');
+    src: url('../assets/fonts/NeutrafaceText-DemiSC.otf') format('opentype');
 }
 
 @font-face {
     font-family: 'NeutrafaceText';
-    src: url('/briac-le-meillat/fonts/NeutrafaceText-Book.otf') format('opentype');
+    src: url('../assets/fonts/NeutrafaceText-Book.otf') format('opentype');
     font-weight: 400;
     font-style: normal;
 }

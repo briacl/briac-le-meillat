@@ -276,7 +276,7 @@ export default function LandingPageOriginal() {
 
                             <div className="mt-2 z-10">
                                 <Typewriter
-                                    text="par Briac Le Meillat, étudiant de 1ère année en Réseaux et Télécommunications"
+                                    text="par Briac Le Meillat, étudiant de 2ème année en Réseaux et Télécommunications"
                                     delay={1.5}
                                     className="text-xl tracking-wide text-black dark:text-white font-['Baskerville']"
                                 />

@@ -24,7 +24,7 @@ const Newsbar = () => {
         2: {
             prefix: "par",
             main: "Briac Le Meillat",
-            suffix: ", étudiant en 1ère année de Réseaux et Télécommunications"
+            suffix: ", étudiant en 2ème année de Réseaux et Télécommunications"
         }
     };
 

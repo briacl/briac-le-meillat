@@ -108,6 +108,45 @@
             "autrement": "...",
             "preuves": []
           }
+        },
+        {
+          "code": "AC21.01",
+          "titre": "Déployer et administrer une architecture réseau d'entreprise complexe",
+          "reflexion": {
+            "fait": "...",
+            "pourquoi": "...",
+            "comment": "...",
+            "difficultes": "...",
+            "appris": "...",
+            "autrement": "...",
+            "preuves": []
+          }
+        },
+        {
+          "code": "AC21.02",
+          "titre": "Mettre en œuvre le routage intra-domaine (OSPF, etc.)",
+          "reflexion": {
+            "fait": "...",
+            "pourquoi": "...",
+            "comment": "...",
+            "difficultes": "...",
+            "appris": "...",
+            "autrement": "...",
+            "preuves": []
+          }
+        },
+        {
+          "code": "AC21.03",
+          "titre": "Sécuriser les infrastructures (Règles QoS, Pare-feu avancés, sécurité de commutation)",
+          "reflexion": {
+            "fait": "...",
+            "pourquoi": "...",
+            "comment": "...",
+            "difficultes": "...",
+            "appris": "...",
+            "autrement": "...",
+            "preuves": []
+          }
         }
       ]
     },

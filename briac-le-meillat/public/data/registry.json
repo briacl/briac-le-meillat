@@ -1,64 +1,213 @@
 {
-  "lastUpdated": "2026-06-07T00:00:00.000Z",
-  "total": 33,
+  "lastUpdated": "2026-09-20T10:08:38.710Z",
+  "total": 65,
   "proofs": [
+    {
+      "title": "Étude de Cas : Un Développeur Peut-il Vider Votre Carte Bancaire ?",
+      "module": "Cybersécurité & E-Commerce",
+      "competence": [
+        "Comprendre",
+        "Sécuriser"
+      ],
+      "techs": [
+        "Paiement en ligne",
+        "3D Secure",
+        "Tokenisation",
+        "Stripe Radar"
+      ],
+      "date": "2026-09-16",
+      "status": "Expérience",
+      "path": "assets/documents/apprentissage/cb-etude.md"
+    },
+    {
+      "title": "Introduction à QoS",
+      "module": "Réseaux",
+      "competence": [
+        "Administrer",
+        "Connecter"
+      ],
+      "ac_lies": [
+        "AC21.01"
+      ],
+      "techs": [
+        "Cisco",
+        "QoS",
+        "OSPF",
+        "NAT",
+        "DSCP",
+        "IPP",
+        "Wi-Fi"
+      ],
+      "date": "2026-09-15",
+      "status": "Terminé",
+      "image": "/assets/projects/tp-qos-visu.png",
+      "path": "assets/documents/apprentissage/r301/qos/tp-qos.md"
+    },
+    {
+      "title": "Réseaux de Campus",
+      "module": "R301",
+      "competence": [
+        "Connecter",
+        "Administrer"
+      ],
+      "ac_lies": [
+        "AC21.01"
+      ],
+      "techs": [
+        "Cisco",
+        "VLAN",
+        "HSRP",
+        "OSPF",
+        "NAT",
+        "DHCP",
+        "Relay"
+      ],
+      "date": "2026-09-14",
+      "status": "Terminé",
+      "image": "/assets/projects/tp-reseaux-campus-visu.png",
+      "path": "assets/documents/apprentissage/r301/reseaux-campus/tp-reseaux-campus.md"
+    },
+    {
+      "title": "Cisco Packet Tracer Revision Complete",
+      "module": "R201",
+      "competence": "Connecter",
+      "ac_lies": [
+        "AC11.03"
+      ],
+      "techs": [
+        "Spanning Tree",
+        "Bash",
+        "Ubuntu",
+        "OSPF",
+        "Linux"
+      ],
+      "date": "2026-06-11",
+      "status": "Terminé",
+      "image": "",
+      "path": "assets/documents/apprentissage/tech-internet/CTP-Cisco-PacketTracer-RevisionComplete.md"
+    },
     {
       "title": "Complément de Révision - Bases des services réseaux",
       "module": "R203",
-      "competence": "Administrer",
+      "competence": [
+        "Administrer"
+      ],
       "ac_lies": [
-        "AC11.01",
-        "AC11.02"
+        "AC11.04"
       ],
       "techs": [
-        "FTP",
-        "DNS",
-        "DHCP",
-        "HTTP",
-        "SSH"
+        "Linux",
+        "Services"
       ],
-      "date": "2026-06-07",
+      "date": "2026-06-09",
       "status": "Terminé",
+      "image": "",
       "path": "assets/documents/apprentissage/bases-services-reseaux/complement-revision.md"
     },
     {
-      "title": "Interopérabilité des Systèmes : Samba, Webmin & Rsync",
-      "module": "R203",
-      "competence": "Administrer",
+      "title": "Routage RIP et OSPF en réel (Cisco physique)",
+      "module": "R201",
+      "competence": [
+        "Administrer",
+        "Connecter"
+      ],
       "ac_lies": [
-        "AC11.01",
+        "AC11.03",
         "AC11.02"
       ],
       "techs": [
-        "Samba",
-        "CUPS",
-        "Webmin",
-        "Rsync",
-        "SSH"
+        "OSPF",
+        "RIP",
+        "Cisco",
+        "Routage Dynamique"
       ],
-      "date": "2026-06-01",
+      "date": "2026-06-08",
       "status": "Terminé",
-      "path": "assets/documents/apprentissage/bases-services-reseaux/tp-samba.md",
-      "image": "assets/projects/samba-visu.png"
+      "image": "",
+      "path": "assets/documents/apprentissage/tech-internet/tp4-routage_rip_ospf.md"
     },
     {
-      "title": "Intro à la Cybersécurité Web",
-      "module": "R209",
-      "competence": "Sécuriser",
+      "title": "Passerelle Linux",
+      "module": "R201",
+      "competence": [
+        "Administrer",
+        "Connecter"
+      ],
       "ac_lies": [
-        "AC14.01",
-        "AC14.02"
+        "AC11.04",
+        "AC11.03"
       ],
       "techs": [
-        "PHP",
-        "Python",
-        "Flask",
-        "MySQL"
+        "Linux",
+        "Passerelle",
+        "Routage",
+        "NAT"
       ],
-      "date": "2026-05-27",
+      "date": "2026-06-08",
       "status": "Terminé",
-      "path": "assets/documents/apprentissage/dev-web/tp4/tp4-intro-cyber.md",
-      "image": "assets/projects/intro-cyber-visu.png"
+      "image": "/assets/projects/tp2-passerelle-linux-visu.png",
+      "path": "assets/documents/apprentissage/tech-internet/tp2-passerelle_linux.md"
+    },
+    {
+      "title": "Routage inter-VLAN sur équipements Cisco",
+      "module": "R201",
+      "competence": [
+        "Administrer",
+        "Connecter"
+      ],
+      "ac_lies": [
+        "AC11.03"
+      ],
+      "techs": [
+        "Cisco",
+        "VLAN",
+        "Routage Inter-VLAN"
+      ],
+      "date": "2026-06-08",
+      "status": "Terminé",
+      "image": "",
+      "path": "assets/documents/apprentissage/tech-internet/tp11-routage-inter-vlan.md"
+    },
+    {
+      "title": "Mise en place d'un réseau IPv6 : SLAAC et DHCPv6 Stateless",
+      "module": "R201",
+      "competence": [
+        "Administrer",
+        "Connecter"
+      ],
+      "ac_lies": [
+        "AC11.03",
+        "AC11.02"
+      ],
+      "techs": [
+        "IPv6",
+        "Cisco",
+        "Adressage"
+      ],
+      "date": "2026-06-08",
+      "status": "Terminé",
+      "image": "",
+      "path": "assets/documents/apprentissage/tech-internet/tp10-ipv6.md"
+    },
+    {
+      "title": "CCNA SRWE Project NetworkBriac",
+      "module": "R201",
+      "competence": "Connecter",
+      "ac_lies": [
+        "AC11.03"
+      ],
+      "project_type": "perso",
+      "techs": [
+        "Shell",
+        "DHCP",
+        "VLAN",
+        "Cisco",
+        "NAT"
+      ],
+      "date": "2026-06-04",
+      "status": "Terminé",
+      "image": "",
+      "path": "assets/documents/apprentissage/tech-internet/ccna-srwe/networkbriac-project-ccna-srwe.md"
     },
     {
       "title": "SAÉ 2.3 — MiniGPT : Interface de chat administrée",
@@ -74,38 +223,243 @@
         "Docker",
         "Jinja2"
       ],
-      "date": "2026-05-25",
+      "date": "2026-06-02",
       "status": "Terminé",
-      "path": "assets/documents/apprentissage/sae23/sae23-minigpt.md",
-      "image": "assets/projects/minigpt-visu.png"
+      "image": "",
+      "path": "assets/documents/apprentissage/sae23/sae23-minigpt.md"
+    },
+    {
+      "title": "Virtualisation ESXi - Infrastructure St Bernard",
+      "module": "R103",
+      "competence": [
+        "Administrer"
+      ],
+      "ac_lies": [
+        "AC11.01"
+      ],
+      "project_type": "perso",
+      "techs": [
+        "ESXi",
+        "Virtualisation"
+      ],
+      "reference_tp": "Inspiré par les SAEs et TPs de Virtualisation",
+      "date": "2026-06-01",
+      "status": "Terminé",
+      "image": "",
+      "path": "assets/documents/apprentissage/NetworkBriac/stbernard.md"
+    },
+    {
+      "title": "Partage Réseau Local (Samba/SMB)",
+      "module": "R103",
+      "competence": [
+        "Administrer"
+      ],
+      "ac_lies": [
+        "AC11.04"
+      ],
+      "project_type": "perso",
+      "techs": [
+        "Samba",
+        "SMB",
+        "Linux"
+      ],
+      "reference_tp": "Inspiré par le TP Interopérabilité des systèmes (Samba)",
+      "date": "2026-06-01",
+      "status": "Terminé",
+      "image": "",
+      "path": "assets/documents/apprentissage/NetworkBriac/partage-reseau.md"
+    },
+    {
+      "title": "Passerelle Linux et Serveur Central",
+      "module": "R103",
+      "competence": [
+        "Administrer"
+      ],
+      "ac_lies": [
+        "AC11.04"
+      ],
+      "project_type": "perso",
+      "techs": [
+        "Linux",
+        "Routage",
+        "Passerelle"
+      ],
+      "reference_tp": "Inspiré par le TP Passerelle Linux (R201)",
+      "date": "2026-06-01",
+      "status": "Terminé",
+      "image": "",
+      "path": "assets/documents/apprentissage/NetworkBriac/NetworkBriacRoomGtw.md"
+    },
+    {
+      "title": "Proxy Squid Forward & SSL-Bump",
+      "module": "R103",
+      "competence": [
+        "Administrer"
+      ],
+      "ac_lies": [
+        "AC11.04"
+      ],
+      "project_type": "perso",
+      "techs": [
+        "Squid",
+        "Proxy",
+        "SSL"
+      ],
+      "reference_tp": "Inspiré par les TPs de Bases des Services Réseaux",
+      "date": "2026-06-01",
+      "status": "Terminé",
+      "image": "",
+      "path": "assets/documents/apprentissage/NetworkBriac/NetworkBriacProxy.md"
+    },
+    {
+      "title": "Déploiement Automatique PXE",
+      "module": "R103",
+      "competence": [
+        "Administrer"
+      ],
+      "ac_lies": [
+        "AC11.03"
+      ],
+      "project_type": "perso",
+      "techs": [
+        "PXE",
+        "DHCP",
+        "TFTP"
+      ],
+      "reference_tp": "Inspiré par le TP Serveur de Boot PXE",
+      "date": "2026-06-01",
+      "status": "Terminé",
+      "image": "",
+      "path": "assets/documents/apprentissage/NetworkBriac/NBPXE.md"
+    },
+    {
+      "title": "Windows Server (AD DS) - Domaine Établissement",
+      "module": "R103",
+      "competence": [
+        "Administrer"
+      ],
+      "ac_lies": [
+        "AC11.04"
+      ],
+      "project_type": "perso",
+      "techs": [
+        "Windows Server",
+        "AD DS"
+      ],
+      "reference_tp": "Inspiré par le TP Administration Système Windows Server 2016",
+      "date": "2026-06-01",
+      "status": "Terminé",
+      "image": "",
+      "path": "assets/documents/apprentissage/NetworkBriac/NBDomain-Etablissement.md"
+    },
+    {
+      "title": "Interopérabilité des Systèmes : Samba, Webmin & Rsync",
+      "module": "R203",
+      "competence": [
+        "Administrer"
+      ],
+      "ac_lies": [
+        "AC11.04"
+      ],
+      "techs": [
+        "Linux",
+        "Samba",
+        "Partage Réseau",
+        "SMB"
+      ],
+      "date": "2026-06-01",
+      "status": "Terminé",
+      "image": "/assets/projects/samba-visu.png",
+      "path": "assets/documents/apprentissage/bases-services-reseaux/tp-samba.md"
+    },
+    {
+      "title": "Intro à la Cybersécurité Web",
+      "module": "R209",
+      "competence": [
+        "Sécuriser"
+      ],
+      "ac_lies": [
+        "AC13.04"
+      ],
+      "techs": [
+        "Cybersécurité",
+        "Web",
+        "Vulnérabilités",
+        "OWASP"
+      ],
+      "date": "2026-05-27",
+      "status": "Terminé",
+      "image": "/assets/projects/intro-cyber-visu.png",
+      "path": "assets/documents/apprentissage/dev-web/tp4/tp4-intro-cyber.md"
+    },
+    {
+      "title": "Intro à la Cybersécurité Web",
+      "module": "R209",
+      "competence": [
+        "Sécuriser"
+      ],
+      "ac_lies": [
+        "AC13.04"
+      ],
+      "techs": [
+        "Cybersécurité",
+        "Web",
+        "Vulnérabilités",
+        "OWASP"
+      ],
+      "date": "2026-05-27",
+      "status": "Terminé",
+      "image": "/assets/projects/intro-cyber-visu.png",
+      "path": "assets/documents/apprentissage/dev-web/tp4/tp4-intro-cyber-v2.md"
+    },
+    {
+      "title": "Factorisation Jinja2 & Persistance avec Flask",
+      "module": "R209",
+      "competence": [
+        "Programmer"
+      ],
+      "ac_lies": [
+        "AC13.04",
+        "AC13.05"
+      ],
+      "techs": [
+        "Python",
+        "Flask",
+        "Web",
+        "Développement"
+      ],
+      "date": "2026-05-23",
+      "status": "Terminé",
+      "image": "",
+      "path": "assets/documents/apprentissage/dev-web/tp3/perso/tp-flask-lama.md"
     },
     {
       "title": "Filtrage et Pare-feu sous Linux",
       "module": "R201",
-      "competence": "Connecter",
+      "competence": [
+        "Administrer",
+        "Sécuriser"
+      ],
       "ac_lies": [
-        "AC12.01",
-        "AC12.02"
+        "AC11.04"
       ],
       "techs": [
         "Linux",
-        "Netfilter",
         "iptables",
-        "nftables",
-        "Sécurité"
+        "Filtrage",
+        "Pare-feu"
       ],
       "date": "2026-05-19",
       "status": "Terminé",
-      "path": "assets/documents/apprentissage/tech-internet/tp9-filtrage-linux.md",
-      "image": "assets/projects/tp-filtrage-linux-visu.png"
+      "image": "/assets/projects/tp-filtrage-linux-visu.png",
+      "path": "assets/documents/apprentissage/tech-internet/tp9-filtrage-linux.md"
     },
     {
       "title": "NAT/PAT sur routeur Cisco",
       "module": "R201",
       "competence": "Connecter",
       "ac_lies": [
-        "AC12.01",
-        "AC12.02"
+        "AC11.03"
       ],
       "techs": [
         "Cisco",
@@ -116,119 +470,321 @@
       ],
       "date": "2026-05-19",
       "status": "Terminé",
-      "path": "assets/documents/apprentissage/tech-internet/tp8-NAT.md",
-      "image": "assets/projects/tp-natpat-visu.png"
+      "image": "/assets/projects/tp-natpat-visu.png",
+      "path": "assets/documents/apprentissage/tech-internet/tp8-NAT.md"
     },
     {
-      "title": "Flask et Jinja2",
-      "module": "R209",
-      "competence": "Programmer",
+      "title": "LA BIBLE RÉSEAUX (Version Vulgarisée)",
+      "module": "R103",
+      "competence": "Administrer",
       "ac_lies": [
-        "AC13.01",
-        "AC13.02"
+        "AC11.02"
       ],
       "techs": [
-        "Flask",
-        "Python",
-        "Jinja2",
-        "SQLAlchemy",
-        "MVC"
+        ""
       ],
-      "date": "2026-05-18",
+      "date": "2026-05-15",
       "status": "Terminé",
-      "path": "assets/documents/apprentissage/dev-web/tp3/tp3-flask.md",
-      "image": "assets/projects/tp3-flask-visuel.png"
+      "image": "",
+      "path": "assets/documents/apprentissage/r101-r102/bible_reseaux_vulga.md"
     },
     {
       "title": "Cheat Sheet : Setup PostgreSQL",
       "module": "R207",
-      "competence": "Programmer",
+      "competence": [
+        "Programmer"
+      ],
       "ac_lies": [
-        "AC13.01",
         "AC13.05"
       ],
       "techs": [
-        "PostgreSQL",
-        "Linux",
-        "SQL"
+        "SQL",
+        "Bases de Données",
+        "Requêtes"
       ],
       "date": "2026-05-12",
       "status": "Terminé",
-      "path": "assets/documents/apprentissage/r207-source_donnees/cheat-sheet.md",
-      "image": "assets/projects/cheat-sheet-postgresql-visu.png"
-    },
-    {
-      "title": "Intro à Flask",
-      "module": "R209",
-      "competence": "Programmer",
-      "ac_lies": [
-        "AC13.01",
-        "AC13.02"
-      ],
-      "techs": [
-        "Python",
-        "Flask"
-      ],
-      "date": "2026-05-11",
-      "status": "Terminé",
-      "path": "assets/documents/apprentissage/dev-web/tp2/tp2-flask.md",
-      "image": "assets/projects/tp2-flask-visuel.png"
+      "image": "/assets/projects/cheat-sheet-postgresql-visu.png",
+      "path": "assets/documents/apprentissage/r207-source_donnees/cheat-sheet.md"
     },
     {
       "title": "Serveur de boot PXE",
       "module": "R203",
-      "competence": "Administrer",
+      "competence": [
+        "Administrer",
+        "Connecter"
+      ],
       "ac_lies": [
-        "AC11.01",
-        "AC11.02"
+        "AC11.03",
+        "AC11.04"
       ],
       "techs": [
-        "PXE",
-        "Dnsmasq",
-        "NFS",
         "DHCP",
-        "TFTP"
+        "TFTP",
+        "PXE",
+        "Linux"
       ],
       "date": "2026-05-11",
       "status": "Terminé",
-      "path": "assets/documents/apprentissage/bases-services-reseaux/tp-dhcp-tftp-pxe.md",
-      "image": "assets/projects/tp-dhcp-tftp-bootp-pxe-visu.png"
+      "image": "/assets/projects/tp-dhcp-tftp-bootp-pxe-visu.png",
+      "path": "assets/documents/apprentissage/bases-services-reseaux/tp-dhcp-tftp-pxe.md"
+    },
+    {
+      "title": "Synthèse R103 : Réseaux Locaux et Équipements Actifs",
+      "module": "R201",
+      "competence": "Connecter",
+      "ac_lies": [
+        "AC11.03"
+      ],
+      "techs": [
+        "Spanning Tree",
+        "VLAN",
+        "Cisco",
+        "EtherChannel",
+        "LACP"
+      ],
+      "date": "2026-05-10",
+      "status": "Terminé",
+      "image": "",
+      "path": "assets/documents/apprentissage/tech-internet/synthese.md"
+    },
+    {
+      "title": "Quiz Réseaux : Synthèse de l'Adressage, OSI et Protocoles",
+      "module": "R201",
+      "competence": "Connecter",
+      "ac_lies": [
+        "AC11.03"
+      ],
+      "techs": [
+        "Shell",
+        "OSPF",
+        "Linux",
+        "DHCP",
+        "VLAN"
+      ],
+      "date": "2026-05-10",
+      "status": "Terminé",
+      "image": "",
+      "path": "assets/documents/apprentissage/tech-internet/quiz-reseaux.md"
+    },
+    {
+      "title": "BIBLE RÉSEAUX — R&T BUT 1ère Année",
+      "module": "R103",
+      "competence": "Connecter",
+      "ac_lies": [
+        "AC11.02"
+      ],
+      "techs": [
+        "OSI",
+        "TCP/IP",
+        "Protocoles",
+        "R&T"
+      ],
+      "date": "2026-05-10",
+      "status": "Terminé",
+      "image": "",
+      "path": "assets/documents/apprentissage/r101-r102/BIBLE_RESEAUX.md"
+    },
+    {
+      "title": "API REST avec Flask & MySQL",
+      "module": "R209",
+      "competence": [
+        "Programmer"
+      ],
+      "ac_lies": [
+        "AC13.04",
+        "AC13.05"
+      ],
+      "techs": [
+        "Python",
+        "Flask",
+        "Jinja2",
+        "Web"
+      ],
+      "date": "2026-05-07",
+      "status": "Terminé",
+      "image": "",
+      "path": "assets/documents/apprentissage/dev-web/tp2/perso/tp2-flask-wsl.md"
+    },
+    {
+      "title": "prompt-moodle",
+      "module": "R103",
+      "competence": "",
+      "ac_lies": [
+        ""
+      ],
+      "techs": [
+        ""
+      ],
+      "date": "2026-05-07",
+      "status": "Terminé",
+      "image": "",
+      "path": "assets/documents/apprentissage/bordel/prompt-moodle.md"
     },
     {
       "title": "Filtrage par ACL sur routeur Cisco",
       "module": "R201",
-      "competence": "Connecter",
+      "competence": [
+        "Administrer",
+        "Sécuriser"
+      ],
       "ac_lies": [
-        "AC12.01",
-        "AC12.02"
+        "AC11.03"
       ],
       "techs": [
-        "Cisco",
         "ACL",
-        "Routage",
-        "Packet Tracer"
+        "Cisco",
+        "Filtrage",
+        "Sécurité"
       ],
       "date": "2026-05-06",
       "status": "Terminé",
+      "image": "",
       "path": "assets/documents/apprentissage/tech-internet/tp7-ACL.md"
     },
     {
       "title": "Analyse des protocoles TCP & UDP",
       "module": "R201",
-      "competence": "Connecter",
+      "competence": [
+        "Administrer",
+        "Connecter"
+      ],
       "ac_lies": [
-        "AC12.01"
+        "AC11.02",
+        "AC11.05"
       ],
       "techs": [
-        "Wireshark",
         "TCP",
         "UDP",
-        "Nmap",
-        "Netcat"
+        "Wireshark",
+        "Analyse Réseau"
       ],
       "date": "2026-05-04",
       "status": "Terminé",
+      "image": "",
       "path": "assets/documents/apprentissage/tech-internet/tp6-tcp_udp.md"
+    },
+    {
+      "title": "Fondations du Web & Bootstrap",
+      "module": "R209",
+      "competence": [
+        "Programmer"
+      ],
+      "ac_lies": [
+        "AC13.04"
+      ],
+      "techs": [
+        "HTML5",
+        "CSS3",
+        "Web"
+      ],
+      "date": "2026-05-02",
+      "status": "Terminé",
+      "image": "",
+      "path": "assets/documents/apprentissage/dev-web/tp1/tp1-intro-html-css.md"
+    },
+    {
+      "title": "map",
+      "module": "R103",
+      "competence": "",
+      "ac_lies": [
+        ""
+      ],
+      "techs": [
+        ""
+      ],
+      "date": "2026-04-21",
+      "status": "Terminé",
+      "image": "",
+      "path": "assets/documents/apprentissage/bordel/map.md"
+    },
+    {
+      "title": "Segmentation par VLAN et Trunking (Cisco)",
+      "module": "R103",
+      "competence": [
+        "Administrer",
+        "Connecter"
+      ],
+      "ac_lies": [
+        "AC11.03",
+        "AC11.05"
+      ],
+      "techs": [
+        "Cisco",
+        "Switch",
+        "VLAN",
+        "CLI"
+      ],
+      "date": "2026-04-21",
+      "status": "Terminé",
+      "image": "",
+      "path": "assets/documents/apprentissage/admin-reseau/vlan/tp1-vlan.md"
+    },
+    {
+      "title": "Routage Inter-VLAN (Router-on-a-Stick)",
+      "module": "R103",
+      "competence": [
+        "Administrer",
+        "Connecter"
+      ],
+      "ac_lies": [
+        "AC11.03",
+        "AC11.05"
+      ],
+      "techs": [
+        "Cisco",
+        "Routeur",
+        "VLAN",
+        "Routage"
+      ],
+      "date": "2026-04-21",
+      "status": "Terminé",
+      "image": "",
+      "path": "assets/documents/apprentissage/admin-reseau/vlan-router/tp2-vlan-router.md"
+    },
+    {
+      "title": "Étude du protocole Spanning Tree (STP)",
+      "module": "R103",
+      "competence": [
+        "Administrer",
+        "Connecter"
+      ],
+      "ac_lies": [
+        "AC11.03",
+        "AC11.05"
+      ],
+      "techs": [
+        "Cisco",
+        "Switch",
+        "STP",
+        "Redondance"
+      ],
+      "date": "2026-04-21",
+      "status": "Terminé",
+      "image": "",
+      "path": "assets/documents/apprentissage/admin-reseau/spanning-tree/tp3-spanning-tree.md"
+    },
+    {
+      "title": "Agrégation de liens (EtherChannel - LACP)",
+      "module": "R103",
+      "competence": [
+        "Administrer",
+        "Connecter"
+      ],
+      "ac_lies": [
+        "AC11.03",
+        "AC11.05"
+      ],
+      "techs": [
+        "Cisco",
+        "Switch",
+        "Etherchannel",
+        "LACP"
+      ],
+      "date": "2026-04-21",
+      "status": "Terminé",
+      "image": "",
+      "path": "assets/documents/apprentissage/admin-reseau/etherchannel/tp4-etherchannel.md"
     },
     {
       "title": "Fiche de Révision : Signaux et Systèmes (R205)",
@@ -246,34 +802,142 @@
       ],
       "date": "2026-04-01",
       "status": "Terminé",
+      "image": "",
       "path": "assets/documents/apprentissage/bordel/revisions.md"
+    },
+    {
+      "title": "Switchs et Routeurs : utilisations de base",
+      "module": "R201",
+      "competence": [
+        "Administrer",
+        "Connecter"
+      ],
+      "ac_lies": [
+        "AC11.03",
+        "AC11.05",
+        "AC11.02"
+      ],
+      "techs": [
+        "Cisco",
+        "Switchs",
+        "Routeurs",
+        "CLI"
+      ],
+      "date": "2026-03-31",
+      "status": "Terminé",
+      "image": "/assets/projects/tp2-passerelle-linux-visu.png",
+      "path": "assets/documents/apprentissage/tech-internet/tp1-switch_routeurs.md"
+    },
+    {
+      "title": "SAE 1.02 : Déploiement d'une infrastructure réseau segmentée",
+      "module": "R103",
+      "competence": "Administrer",
+      "ac_lies": [
+        "AC11.01",
+        "AC11.02"
+      ],
+      "techs": [
+        "Cisco",
+        "VLAN",
+        "Routage",
+        "Infrastructure"
+      ],
+      "date": "2026-03-31",
+      "status": "Terminé",
+      "image": "",
+      "path": "assets/documents/apprentissage/sae102/sae102.md"
+    },
+    {
+      "title": "SAE 1.02 - TP3 (Partie 2)",
+      "module": "R103",
+      "competence": "",
+      "ac_lies": [
+        ""
+      ],
+      "techs": [
+        ""
+      ],
+      "date": "2026-03-31",
+      "status": "Terminé",
+      "image": "",
+      "path": "assets/documents/apprentissage/sae102/livrable_tp3_pt2_briac_lemeillat/compte-rendu.md"
+    },
+    {
+      "title": "Documentation Technique - SAE 1.02",
+      "module": "R103",
+      "competence": "",
+      "ac_lies": [
+        ""
+      ],
+      "techs": [
+        ""
+      ],
+      "date": "2026-03-31",
+      "status": "Terminé",
+      "image": "",
+      "path": "assets/documents/apprentissage/sae102/livrable_tp3_Briac_lemeillat/compte-rendu.md"
+    },
+    {
+      "title": "TP2 - SAE 1.02",
+      "module": "R103",
+      "competence": "",
+      "ac_lies": [
+        ""
+      ],
+      "techs": [
+        ""
+      ],
+      "date": "2026-03-31",
+      "status": "Terminé",
+      "image": "",
+      "path": "assets/documents/apprentissage/sae102/livrable_tp2_Briac_lemeillat/compte-rendu.md"
+    },
+    {
+      "title": "SAE 102 : Briac Le Meillat",
+      "module": "R103",
+      "competence": "",
+      "ac_lies": [
+        ""
+      ],
+      "techs": [
+        ""
+      ],
+      "date": "2026-03-31",
+      "status": "Terminé",
+      "image": "",
+      "path": "assets/documents/apprentissage/sae102/livrable_briac/comptebriac.md"
     },
     {
       "title": "Administration de Serveurs Web : Apache2 & Nginx",
       "module": "R203",
-      "competence": "Connecter",
+      "competence": [
+        "Administrer"
+      ],
       "ac_lies": [
-        "AC12.03",
-        "AC12.04"
+        "AC11.04"
       ],
       "techs": [
-        "Apache2",
+        "Linux",
+        "Apache",
         "Nginx",
-        "PHP",
-        "MariaDB"
+        "Serveur Web"
       ],
       "date": "2026-03-15",
       "status": "Terminé",
+      "image": "",
       "path": "assets/documents/apprentissage/bases-services-reseaux/tp-apache-nginx.md"
     },
     {
       "title": "Administration Système Windows Server 2016",
       "module": "R202",
-      "competence": "Administrer",
+      "competence": [
+        "Administrer",
+        "Sécuriser"
+      ],
       "ac_lies": [
-        "AC11.01",
-        "AC11.02",
-        "AC11.05"
+        "AC11.04",
+        "AC11.05",
+        "AC11.06"
       ],
       "techs": [
         "Windows Server",
@@ -285,8 +949,8 @@
       ],
       "date": "2026-02-01",
       "status": "Terminé",
-      "path": "assets/documents/apprentissage/admin system windows/tp-admin-system-windows-server.md",
-      "image": "assets/projects/windows-admin.webp"
+      "image": "/assets/projects/windows-admin.webp",
+      "path": "assets/documents/apprentissage/admin-reseau-windows/tp-admin-system-windows-server.md"
     },
     {
       "title": "SAE 1.02 : Déploiement Infrastructure PME",
@@ -305,14 +969,19 @@
       ],
       "date": "2026-01-28",
       "status": "Terminé",
+      "image": "",
       "path": "assets/documents/apprentissage/sae102/livrable_sae12FINALE/compte-rendu.md"
     },
     {
       "title": "Mise en place d'un IVR et Trunk SIP",
       "module": "R204",
-      "competence": "Connecter",
+      "competence": [
+        "Administrer",
+        "Programmer",
+        "Connecter"
+      ],
       "ac_lies": [
-        "AC12.03",
+        "AC11.04",
         "AC12.04"
       ],
       "techs": [
@@ -323,261 +992,113 @@
       ],
       "date": "2026-01-20",
       "status": "Terminé",
+      "image": "",
       "path": "assets/documents/apprentissage/telephonie/tp2.md"
     },
     {
-      "title": "Routage RIP et OSPF en réel (Cisco physique)",
-      "date": "",
-      "module": "R201",
-      "techs": [
-        "Cisco",
-        "RIP",
-        "OSPF",
-        "Routage dynamique"
-      ],
-      "path": "assets/documents/apprentissage/tech-internet/tp4-routage_rip_ospf.md",
-      "competence": "Connecter",
-      "ac_lies": [
-        "AC12.01",
-        "AC12.02"
-      ]
-    },
-    {
-      "title": "Passerelle Linux",
-      "date": "",
-      "module": "R201",
-      "techs": [
-        "Linux",
-        "IP Forwarding",
-        "NAT",
-        "Passerelle"
-      ],
-      "path": "assets/documents/apprentissage/tech-internet/tp2-passerelle_linux.md",
-      "image": "assets/projects/tp2-passerelle-linux-visu.png",
-      "competence": "Connecter",
-      "ac_lies": [
-        "AC12.01",
-        "AC12.02"
-      ]
-    },
-    {
-      "title": "Switchs et Routeurs : utilisations de base",
-      "date": "",
-      "module": "R201",
-      "techs": [
-        "Cisco",
-        "Switchs",
-        "Routeurs",
-        "CLI"
-      ],
-      "path": "assets/documents/apprentissage/tech-internet/tp1-switch_routeurs.md",
-      "competence": "Connecter",
-      "ac_lies": [
-        "AC12.01"
-      ]
-    },
-    {
-      "title": "Synthèse R103 : Réseaux Locaux et Équipements Actifs",
-      "date": "",
+      "title": "Architecture du Système de Contact (Serverless)",
+      "date": "1970-01-01",
       "module": "R103",
       "techs": [],
-      "path": "assets/documents/apprentissage/tech-internet/synthese.md"
+      "path": "assets/documents/apprentissage/NetworkBriac/website/systeme_contact.md"
     },
     {
-      "title": "Quiz Réseaux : Synthèse de l'Adressage, OSI et Protocoles",
-      "date": "",
+      "title": "Référentiel des Compétences & Projets Associés",
+      "date": "1970-01-01",
       "module": "R103",
       "techs": [],
-      "path": "assets/documents/apprentissage/tech-internet/quiz-reseaux.md"
+      "path": "assets/documents/apprentissage/NetworkBriac/website/competences-et-projets.md"
     },
     {
-      "title": "SAE 1.02 : Déploiement d'une infrastructure réseau segmentée",
-      "date": "",
-      "module": "R103",
-      "techs": [
-        "Cisco",
-        "VLAN",
-        "Routage",
-        "Infrastructure"
-      ],
-      "path": "assets/documents/apprentissage/sae102/sae102.md",
-      "competence": "Administrer",
-      "ac_lies": [
-        "AC11.01",
-        "AC11.02"
-      ]
-    },
-    {
-      "title": "SAE 1.02 - TP3 (Partie 2)",
-      "date": "",
+      "title": "Hébergement et configuration de son propre VPN (WireGuard)",
+      "date": "1970-01-01",
       "module": "R103",
       "techs": [],
-      "path": "assets/documents/apprentissage/sae102/livrable_tp3_pt2_briac_lemeillat/compte-rendu.md"
+      "path": "assets/documents/apprentissage/NetworkBriac/waiting/VPNB.md"
     },
     {
-      "title": "Documentation Technique - SAE 1.02",
-      "date": "",
+      "title": "TP4 - Ajout impression réseau (NetworkBriac)",
+      "date": "1970-01-01",
       "module": "R103",
       "techs": [],
-      "path": "assets/documents/apprentissage/sae102/livrable_tp3_Briac_lemeillat/compte-rendu.md"
+      "path": "assets/documents/apprentissage/NetworkBriac/waiting/TP4-Impression-Reseau.md"
     },
     {
-      "title": "TP2 - SAE 1.02",
-      "date": "",
+      "title": "Mise en place du serveur NAS (Lenovo2 - TrueNAS)",
+      "date": "1970-01-01",
       "module": "R103",
       "techs": [],
-      "path": "assets/documents/apprentissage/sae102/livrable_tp2_Briac_lemeillat/compte-rendu.md"
+      "path": "assets/documents/apprentissage/NetworkBriac/waiting/Procedure-TrueNAS-Lenovo2.md"
     },
     {
-      "title": "SAE 102 : Briac Le Meillat",
-      "date": "",
+      "title": "Bilan de TP : Infrastructure SSL locale et Autorité de Certification (CA) Maison",
+      "date": "1970-01-01",
       "module": "R103",
       "techs": [],
-      "path": "assets/documents/apprentissage/sae102/livrable_briac/comptebriac.md"
+      "path": "assets/documents/apprentissage/NetworkBriac/waiting/own-ssl-system.md"
     },
     {
-      "title": "prompt-moodle",
-      "date": "",
+      "title": "Mise en place Windows Server (AD DS) - VM Roubaix + Test client domaine local",
+      "date": "1970-01-01",
       "module": "R103",
       "techs": [],
-      "path": "assets/documents/apprentissage/bordel/prompt-moodle.md"
+      "path": "assets/documents/apprentissage/NetworkBriac/research-thinking/Windows-Server-AD-Roubaix.md"
     },
     {
-      "title": "map",
-      "date": "",
+      "title": "valet",
+      "date": "1970-01-01",
       "module": "R103",
       "techs": [],
-      "path": "assets/documents/apprentissage/bordel/map.md"
+      "path": "assets/documents/apprentissage/NetworkBriac/research-thinking/valet.md"
     },
     {
-      "title": "BIBLE RÉSEAUX — R&T BUT 1ère Année",
-      "date": "",
-      "module": "R103",
-      "techs": [
-        "OSI",
-        "TCP/IP",
-        "Protocoles",
-        "R&T"
-      ],
-      "path": "assets/documents/apprentissage/BIBLE_RESEAUX.md",
-      "competence": "Connecter",
-      "ac_lies": [
-        "AC12.01",
-        "AC12.02"
-      ]
-    },
-    {
-      "title": "LA BIBLE RÉSEAUX (Version Vulgarisée)",
-      "date": "",
+      "title": "Configuration d'un Serveur de TPME",
+      "date": "1970-01-01",
       "module": "R103",
       "techs": [],
-      "path": "assets/documents/apprentissage/bible_reseaux_vulga.md"
+      "path": "assets/documents/apprentissage/NetworkBriac/research-thinking/README.md"
     },
     {
-      "title": "Segmentation par VLAN et Trunking (Cisco)",
-      "date": "",
+      "title": "Créer une VM Ubuntu Server Gateway sur VMware ESXi Roubaix",
+      "date": "1970-01-01",
       "module": "R103",
-      "techs": [
-        "Cisco",
-        "VLAN",
-        "Trunk",
-        "IEEE 802.1Q"
-      ],
-      "path": "assets/documents/apprentissage/admin-reseau/vlan/tp1-vlan.md",
-      "competence": "Administrer",
-      "ac_lies": [
-        "AC11.01",
-        "AC11.02"
-      ]
+      "techs": [],
+      "path": "assets/documents/apprentissage/NetworkBriac/research-thinking/Guide-Ubuntu-Passerelle-ESXi-old.md"
     },
     {
-      "title": "Routage Inter-VLAN (Router-on-a-Stick)",
-      "date": "",
+      "title": "TP : Hébergement Web local et publication via Cloudflare Tunnel (VirtualHost & cloudflared)",
+      "date": "1970-01-01",
       "module": "R103",
-      "techs": [
-        "Cisco",
-        "Router-on-a-Stick",
-        "VLAN",
-        "Inter-VLAN"
-      ],
-      "path": "assets/documents/apprentissage/admin-reseau/vlan-router/tp2-vlan-router.md",
-      "competence": "Administrer",
-      "ac_lies": [
-        "AC11.01",
-        "AC11.03"
-      ]
+      "techs": [],
+      "path": "assets/documents/apprentissage/NetworkBriac/research-thinking/domain.md"
     },
     {
-      "title": "Étude du protocole Spanning Tree (STP)",
-      "date": "",
+      "title": "Bilan : Environnement VMware ESXi à Roubaix",
+      "date": "1970-01-01",
       "module": "R103",
-      "techs": [
-        "Cisco",
-        "STP",
-        "IEEE 802.1D",
-        "Boucles"
-      ],
-      "path": "assets/documents/apprentissage/admin-reseau/spanning-tree/tp3-spanning-tree.md",
-      "competence": "Administrer",
-      "ac_lies": [
-        "AC11.01",
-        "AC11.03"
-      ]
+      "techs": [],
+      "path": "assets/documents/apprentissage/NetworkBriac/research-thinking/Bilan-VMware-ESXi-Roubaix-v2-corrigee-par-papa.md"
     },
     {
-      "title": "Agrégation de liens (EtherChannel - LACP)",
-      "date": "",
+      "title": "Bilan : Environnement VMware ESXi à Roubaix",
+      "date": "1970-01-01",
       "module": "R103",
-      "techs": [
-        "Cisco",
-        "LACP",
-        "EtherChannel",
-        "IEEE 802.3ad"
-      ],
-      "path": "assets/documents/apprentissage/admin-reseau/etherchannel/tp4-etherchannel.md",
-      "competence": "Administrer",
-      "ac_lies": [
-        "AC11.01",
-        "AC11.03"
-      ]
+      "techs": [],
+      "path": "assets/documents/apprentissage/NetworkBriac/research-thinking/Bilan-VMware-ESXi-Roubaix v2.md"
     },
     {
-      "title": "Mise en place d'un réseau IPv6 : SLAAC et DHCPv6 Stateless",
-      "date": "2026-06-08",
-      "module": "R201",
-      "techs": [
-        "IPv6",
-        "Cisco",
-        "SLAAC",
-        "DHCPv6",
-        "Ubuntu",
-        "Netplan"
-      ],
-      "path": "assets/documents/apprentissage/tech-internet/tp10-ipv6.md",
-      "competence": "Connecter",
-      "ac_lies": [
-        "AC12.01",
-        "AC12.02"
-      ]
+      "title": "Guide 3 — Dual boot Windows 11 + Ubuntu sur la VM déployée (esprit R&T)",
+      "date": "1970-01-01",
+      "module": "R103",
+      "techs": [],
+      "path": "assets/documents/apprentissage/NetworkBriac/research-thinking/3-Plan-DualBoot-Windows11-Ubuntu-PXE.md"
     },
     {
-      "title": "Routage inter-VLAN sur équipements Cisco",
-      "date": "2026-06-08",
-      "module": "R201",
-      "techs": [
-        "Cisco",
-        "VLAN",
-        "Trunk",
-        "SVI",
-        "Layer 3 Switch",
-        "Packet Tracer"
-      ],
-      "path": "assets/documents/apprentissage/tech-internet/tp11-routage-inter-vlan.md",
-      "competence": "Connecter",
-      "ac_lies": [
-        "AC12.01",
-        "AC12.02"
-      ]
+      "title": "Guide 2 — Déploiement Windows 11 automatique + jonction domaine (WDS)",
+      "date": "1970-01-01",
+      "module": "R103",
+      "techs": [],
+      "path": "assets/documents/apprentissage/NetworkBriac/research-thinking/2-Plan-Deploiement-Windows11-WDS-JonctionDomaine.md"
     }
   ]
 }

@@ -19,13 +19,11 @@ export default function UnifiedFooter() {
                 </div>
             </div>
 
-            <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-3 gap-12 text-center md:text-left">
+            <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-12 text-center md:text-left">
                 {/* Écosystème */}
                 <div className="flex flex-col gap-4">
                     <span className="text-[10px] font-bold uppercase tracking-widest text-zinc-600">Écosystème</span>
                     <Link to="/" className="text-sm font-medium text-zinc-400 hover:text-white transition-colors">Nexus</Link>
-                    <a href="#synapseo" className="text-sm font-medium text-zinc-400 hover:text-white transition-colors">Synapseo</a>
-                    <Link to="/" className="text-sm font-medium text-zinc-400 hover:text-white transition-colors">Heryze</Link>
                     <a href="#store" className="text-sm font-medium text-zinc-400 hover:text-white transition-colors">Store</a>
                 </div>
 
@@ -41,6 +39,11 @@ export default function UnifiedFooter() {
                     <span className="text-[10px] font-bold uppercase tracking-widest text-zinc-600">Légal</span>
                     <a href="#" className="text-sm font-medium text-zinc-400 hover:text-white transition-colors">Confidentialité</a>
                     <a href="#" className="text-sm font-medium text-zinc-400 hover:text-white transition-colors">Conditions</a>
+                </div>
+                {/* À propos */}
+                <div className="flex flex-col gap-4">
+                    <span className="text-[10px] font-bold uppercase tracking-widest text-zinc-600">À propos</span>
+                    <Link to="/parcours" className="text-sm font-medium text-zinc-400 hover:text-white transition-colors">Mon Parcours</Link>
                 </div>
             </div>
 

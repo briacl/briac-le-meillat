@@ -10,6 +10,9 @@ export default defineConfig({
         VitePWA({
             registerType: 'autoUpdate',
             includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg'],
+            workbox: {
+                maximumFileSizeToCacheInBytes: 5000000 // 5 MiB limit
+            },
             manifest: {
                 name: 'Briac Le Meillat - Portfolio',
                 short_name: 'Briac Portfolio',

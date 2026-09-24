@@ -1,15 +1,4 @@
-export interface Proof {
-    title: string;
-    module: string;
-    competence?: string;
-    ac_lies?: string[];
-    techs: string[];
-    date: string;
-    path: string;
-    status?: string;
-    isPDF?: boolean;
-    image?: string;
-}
+import { Proof } from '@/utils/tpsProvider';
 
 export interface SearchResult {
     response: string;

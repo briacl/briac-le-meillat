@@ -51,7 +51,7 @@ function parseFrontmatter(content, fileName = '') {
     return data;
 }
 
-const EXCLUDED_FILES = ['tp2-flask.md', 'tp-flask-lama.md'];
+const EXCLUDED_FILES = ['tp2-flask.md', 'tp3-flask.md'];
 
 /**
  * Parcourt récursivement les dossiers pour trouver les .md

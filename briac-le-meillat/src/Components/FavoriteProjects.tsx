@@ -3,35 +3,30 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Modal, ModalContent, ModalBody, Button, useDisclosure } from '@heroui/react';
 import { X } from 'lucide-react';
 import ExPage from '@/Pages/ExPage';
+import { getAllTps } from '@/utils/tpsProvider';
 
-const FAVORITE_PROJECTS = [
-    {
-        title: 'NetworkBriac',
-        image: '/briac-le-meillat/assets/projects/networkbriac-visu.png',
-        path: 'assets/documents/apprentissage/NetworkBriac.md',
-    },
-    {
-        title: 'Passerelle Linux',
-        image: '/briac-le-meillat/assets/projects/tp2-passerelle-linux-visu.png',
-        path: 'assets/documents/apprentissage/tech-internet/tp2-passerelle_linux.md',
-    },
-    {
-        title: 'NotGoogle',
-        image: '/briac-le-meillat/assets/projects/notgoogle-visu.png',
-        path: 'https://briacl.github.io/notgoogle/',
-        isExternal: true,
-    },
-    {
-        title: 'Interopérabilité Samba',
-        image: '/briac-le-meillat/assets/projects/samba-visu.png',
-        path: 'assets/documents/apprentissage/bases-services-reseaux/tp-samba.md',
-    },
-    {
-        title: 'Flask & SQLAlchemy',
-        image: '/briac-le-meillat/assets/projects/tp3-flask-visuel.png',
-        path: 'assets/documents/apprentissage/dev-web/tp3/tp3-flask.md',
-    },
+const FAVORITE_PATHS = [
+    'assets/documents/apprentissage/tech-internet/tp2-passerelle_linux.md',
+    'assets/documents/apprentissage/tech-internet/ccna-srwe/networkbriac-project-ccna-srwe.md',
+    'assets/documents/apprentissage/bases-services-reseaux/tp-samba.md',
+    'assets/documents/apprentissage/tech-internet/tp9-filtrage-linux.md',
+    'assets/documents/apprentissage/bases-services-reseaux/tp-dhcp-tftp-pxe.md',
 ];
+
+const allTps = getAllTps();
+const BASE_URL = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
+
+const FAVORITE_PROJECTS = FAVORITE_PATHS.map(path => {
+    const tp = allTps.find(p => p.path === path);
+    // On nettoie l'image si elle commence par un / pour éviter les doublons avec le BASE_URL
+    const imagePath = tp?.image ? tp.image.replace(/^\//, '') : '';
+    return {
+        title: tp?.title || path,
+        image: imagePath ? `${BASE_URL}${imagePath}` : '',
+        path: path,
+        isExternal: false
+    };
+});
 
 const APPLE_BEZIER: [number, number, number, number] = [0.21, 0.47, 0.32, 0.98];
 
@@ -55,7 +50,7 @@ export default function FavoriteProjects() {
 
     return (
         <>
-            <section className="w-full bg-white flex flex-col items-center justify-center py-24 px-6 relative z-20">
+            <section className="w-full bg-white flex flex-col items-center justify-center py-32 lg:py-48 px-6 relative z-20">
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -65,7 +60,7 @@ export default function FavoriteProjects() {
                 >
                     <h2 className="text-3xl md:text-5xl font-normal tracking-tighter leading-none font-['Paris2024'] text-center">
                         <span className="text-zinc-900">
-                            Projets Préférés
+                            Projets Préférés de l'IUT
                         </span>
                     </h2>
 
@@ -81,9 +76,9 @@ export default function FavoriteProjects() {
                                 onClick={() => handleOpen(project)}
                             >
                                 <div className="w-full aspect-[4/3] rounded-3xl overflow-hidden bg-zinc-100 border border-slate-200/60 shadow-[0_8px_30px_rgba(0,0,0,0.04)] group-hover:shadow-[0_20px_40px_rgba(0,0,0,0.12)] transition-all duration-500 group-hover:scale-[1.03] group-hover:-translate-y-1 relative">
-                                    <img 
-                                        src={project.image} 
-                                        alt={project.title} 
+                                    <img
+                                        src={project.image}
+                                        alt={project.title}
                                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                                         onError={(e) => {
                                             (e.target as HTMLImageElement).src = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHZpZXdCb3g9IjAgMCAxMDAgMTAwIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjRmNGY1Ii8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjEycHgiIGZpbGw9IiNhMWExYWEiIGRvbWluYW50LWJhc2VsaW5lPSJtaWRkbGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkF1Y3VuZSBpbWFnZTwvdGV4dD48L3N2Zz4='; // Fallback SVG "Aucune image"
@@ -97,6 +92,24 @@ export default function FavoriteProjects() {
                             </motion.div>
                         ))}
                     </div>
+
+                    <motion.div 
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.8, duration: 1 }}
+                        className="w-full flex justify-center mt-12"
+                    >
+                        <button 
+                            onClick={() => document.getElementById('student-showcase')?.scrollIntoView({ behavior: 'smooth' })}
+                            className="w-12 h-12 rounded-full border border-zinc-200 flex items-center justify-center text-zinc-400 hover:text-black hover:border-black transition-all hover:-translate-y-1 shadow-sm"
+                            title="Voir les compétences"
+                        >
+                            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                            </svg>
+                        </button>
+                    </motion.div>
                 </motion.div>
             </section>
 

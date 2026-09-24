@@ -20,15 +20,20 @@ import RealisationsAdmin from './Pages/Admin/RealisationsAdmin';
 import TextesAdmin from './Pages/Admin/TextesAdmin';
 import AdminPanel from './Components/AdminPanel';
 import AdminDashboard from './Pages/Admin/AdminDashboard';
+import DevTodoListPage from './Pages/Admin/DevTodoListPage';
 import ExPage from './Pages/ExPage';
 import ChatWidget from './Components/ChatWidget';
 import ProjectsVisualisation from './Pages/ProjectsVisualisation';
 import BlogPage from './Pages/BlogPage';
 import KeynoteBut1Page from './Pages/KeynoteBut1Page';
+import ScriptsPage from './Pages/ScriptsPage';
+import ThinkingAboutAi from './Pages/ThinkingAboutAi';
+import JourneyPage from './Pages/JourneyPage';
+import WebPage from './Pages/WebPage';
 
 // Reference Pages from Caisse Automatique 2026
 import CaisseLandingPage from './Pages/Referentiel/CaisseLandingPage';
-import CaisseNexusPropPage from './Pages/Referentiel/CaisseNexusPropPage';
+// import CaisseNexusPropPage from './Pages/Referentiel/CaisseNexusPropPage'; // Déplacé dans common-lab
 
 const BerangerePage = React.lazy(() => import('./Pages/BerangerePage').catch(() => ({ default: () => <div className="p-10 text-white text-center">Fichier introuvable sur cette machine. Clonez BerangerePage.tsx !</div> })));
 const BerangerEditionPage = React.lazy(() => import('./Pages/BerangerEditionPage').catch(() => ({ default: () => <div className="p-10 text-white text-center">Fichier introuvable sur cette machine. Clonez BerangerEditionPage.tsx !</div> })));
@@ -55,14 +60,19 @@ function App() {
                     <Route path="/contact" element={<Contact />} />
                     <Route path="/blog" element={<BlogPage />} />
                     <Route path="/keynote-but1" element={<KeynoteBut1Page />} />
+                    <Route path="/scripts" element={<ScriptsPage />} />
+                    <Route path="/web" element={<WebPage />} />
+                    <Route path="/thinking-about-ai" element={<ThinkingAboutAi />} />
+                    <Route path="/parcours" element={<JourneyPage />} />
                     <Route path="/admin" element={<AdminPanel />} />
                     <Route path="/briac-admin" element={<AdminDashboard />} />
+                    <Route path="/dev-todo" element={<DevTodoListPage />} />
                     <Route path="/ex" element={<ExPage />} />
                     <Route path="/projects-visualisation" element={<ProjectsVisualisation />} />
 
                     {/* Reference Routes */}
                     <Route path="/ref/caisse-landing" element={<CaisseLandingPage />} />
-                    <Route path="/ref/caisse-nexus-prop" element={<CaisseNexusPropPage />} />
+                    {/* <Route path="/ref/caisse-nexus-prop" element={<CaisseNexusPropPage />} /> */}
 
                     {/* Bérangère routes - Protégées par chiffrement */}
                     <Route path="/berangere" element={

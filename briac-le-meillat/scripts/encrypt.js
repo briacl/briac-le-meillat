@@ -36,11 +36,13 @@ if (!SECRET_KEY || SECRET_KEY.trim() === '') {
 const ALGORITHM = 'aes-256-gcm';
 
 // Chemins des dossiers
-const SRC_DATA_DIR = path.resolve(PROJECT_ROOT, 'src/data');
-const PUBLIC_ASSETS_DIR = path.resolve(PROJECT_ROOT, 'public/assets/berangere');
+const SRC_DATA_DIR = path.resolve(PROJECT_ROOT, '../Bérangère/donnees');
+const PUBLIC_ASSETS_DIR = path.resolve(PROJECT_ROOT, '../Bérangère/medias');
+const COMMON_LAB_DIR = path.resolve(PROJECT_ROOT, '../common-lab');
 
 const DEST_DATA_DIR = path.resolve(PROJECT_ROOT, 'public/encrypted_data/data');
 const DEST_ASSETS_DIR = path.resolve(PROJECT_ROOT, 'public/encrypted_data/assets/berangere');
+const DEST_COMMON_LAB_DIR = path.resolve(PROJECT_ROOT, 'public/encrypted_data/common-lab');
 
 /**
  * Fonction de chiffrement d'un fichier source vers une destination `.enc`
@@ -118,6 +120,10 @@ if (fs.existsSync(path.resolve(SRC_DATA_DIR, 'articles.json'))) { // Si Textes e
 // 2. Chiffrement des assets Bérangère
 console.log('\n--- Chiffrement des médias (Images/Vidéos) ---');
 encryptDirectory(PUBLIC_ASSETS_DIR, DEST_ASSETS_DIR);
+
+// 3. Chiffrement de common-lab
+console.log('\n--- Chiffrement de common-lab ---');
+encryptDirectory(COMMON_LAB_DIR, DEST_COMMON_LAB_DIR);
 
 console.log('\n--- TERMINÉ ---');
 console.log(`Vous pouvez maintenant vérifier le dossier : ${DEST_DATA_DIR.replace(PROJECT_ROOT, '')}`);

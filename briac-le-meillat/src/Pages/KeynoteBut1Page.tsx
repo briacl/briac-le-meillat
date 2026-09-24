@@ -3,7 +3,7 @@ import { AnimatePresence, motion, useScroll, useTransform } from 'framer-motion'
 import { BookOpen, CheckCircle2, Database, Eye, ExternalLink, FileText, GitBranch, Globe, Home, Key, LayoutGrid, Monitor, Network, Package, Phone, Router, Search, Server, Shield, ShieldCheck, Terminal, Users, X, Zap } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import ExPage from '@/Pages/ExPage';
-import { Proof } from '@/Utils/searchEngine';
+import { Proof } from '@/utils/tpsProvider';
 
 const EASE: [number, number, number, number] = [0.21, 0.47, 0.32, 0.98];
 const TOTAL = 24;
@@ -140,7 +140,7 @@ const ACS_CONNECTER: ACEntry[] = [
     { code: 'AC12.02', title: 'Caractériser des systèmes de transmissions élémentaires et modélisation',   ressources: ['R205'] },
     { code: 'AC12.03', title: 'Déployer des supports de transmission',                                     ressources: ['HomeLab'] },
     { code: 'AC12.04', title: 'Connecter les systèmes de ToIP',                                            ressources: ['R204'] },
-    { code: 'AC12.05', title: 'Communiquer avec un tiers (client, collaborateur…) et adapter son discours', ressources: ['Bibles Réseaux'] },
+    { code: 'AC12.05', title: 'Communiquer avec un tiers (client, collaborateur…) et adapter son discours', ressources: ['Communication', 'Anglais'] },
 ];
 
 const ACS_PROGRAMMER: ACEntry[] = [
@@ -231,10 +231,10 @@ const CAROUSEL_CONNECTER: CarouselImage[] = [
       icon: <Zap size={24} />, title: 'LTSpice · Signaux', vulgaTagline: 'La forme des ondes', specs: ['R105', 'AC12.01', 'SAÉ 103'] },
     { src: `${BASE}assets/projects/Wireshark-Marquer-des-paquets-dans-une-capture.jpg.webp`,
       caption: 'Wireshark — analyse de trames en temps réel',
-      icon: <Search size={24} />, title: 'Wireshark', vulgaTagline: 'Voir l\'invisible', specs: ['R101', 'AC12.01'] },
+      icon: <Search size={24} />, title: 'Wireshark', vulgaTagline: 'Voir l\'invisible', specs: ['R101', 'AC11.02'] },
     { src: `${BASE}assets/projects/tp-filtrage-linux-visu.png`,
       caption: 'iptables / nftables — filtrage Linux',
-      icon: <ShieldCheck size={24} />, title: 'Pare-feu Linux', vulgaTagline: 'Le videur intraitable', specs: ['R201', 'AC12.02'],
+      icon: <ShieldCheck size={24} />, title: 'Pare-feu Linux', vulgaTagline: 'Le videur intraitable', specs: ['R201', 'AC11.04'],
       docPath: 'assets/documents/apprentissage/tech-internet/tp9-filtrage-linux.md' },
     { src: `${BASE}assets/projects/tp-natpat-visu.png`,
       caption: 'NAT/PAT — passerelle Linux',
@@ -1764,12 +1764,12 @@ export default function KeynoteBut1Page() {
 
     const openReader = (img: CarouselImage) => {
         if (!img.docPath) return;
-        setSelectedProof({ title: img.title ?? img.caption, module: img.specs?.[0] ?? '', techs: img.specs ?? [], date: '', path: img.docPath });
+        setSelectedProof({ title: img.title ?? img.caption, module: img.specs?.[0] ?? '', techs: img.specs ?? [], date: '', path: img.docPath } as unknown as Proof);
         setReaderOpen(true);
     };
 
     const openDoc = (path: string, title: string) => {
-        setSelectedProof({ title, module: '', techs: [], date: '', path });
+        setSelectedProof({ title, module: '', techs: [], date: '', path } as unknown as Proof);
         setReaderOpen(true);
     };
 
