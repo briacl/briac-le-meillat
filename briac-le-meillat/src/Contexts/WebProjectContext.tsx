@@ -25,7 +25,7 @@ interface WebProjectContextType {
 
 const WebProjectContext = createContext<WebProjectContextType | undefined>(undefined);
 
-const projectImages = import.meta.glob('/src/assets/*.{png,jpg,jpeg,svg,webp,gif}', { query: '?url', eager: true });
+const projectImages = import.meta.glob('/src/assets/**/*.{png,jpg,jpeg,svg,webp,gif}', { query: '?url', eager: true });
 
 function resolveLogoUrl(rawImagePath: string): string {
     if (!rawImagePath) return rawImagePath;

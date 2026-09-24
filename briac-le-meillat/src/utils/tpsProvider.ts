@@ -25,7 +25,7 @@ const rawFiles = { ...rawFilesRT, ...rawFilesNB };
 const urlFiles = { ...urlFilesRT, ...urlFilesNB };
 
 // Load all project images to map their hashed URLs
-const projectImages = import.meta.glob('/src/assets/*.{png,jpg,jpeg,svg,webp,gif}', { query: '?url', eager: true });
+const projectImages = import.meta.glob('/src/assets/**/*.{png,jpg,jpeg,svg,webp,gif}', { query: '?url', eager: true });
 
 function parseYamlList(lines: string[], startIndex: number): { list: string[], nextIndex: number } {
     const list: string[] = [];
@@ -47,7 +47,7 @@ function parseYamlList(lines: string[], startIndex: number): { list: string[], n
 }
 
 function parseFrontmatter(rawContent: string): Partial<Proof> {
-    const match = rawContent.match(/^---\n([\s\S]*?)\n---/);
+    const match = rawContent.match(/^---\r?\n([\s\S]*?)\r?\n---/);
     if (!match) return {};
     
     const yamlStr = match[1];
