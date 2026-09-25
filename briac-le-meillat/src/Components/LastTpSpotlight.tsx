@@ -14,8 +14,9 @@ const LastTpSpotlight = () => {
             const validProofs = data.filter((p: any) => p.path && p.image);
             const top5 = validProofs.slice(0, 5).map((p: any) => ({
                 title: p.title,
-                image: p.image, // URL is already resolved by Vite in tpsProvider
+                image: p.image,
                 path: p.path,
+                content: p.content,
             }));
             return top5;
         } catch (err) {
@@ -23,7 +24,7 @@ const LastTpSpotlight = () => {
             return [];
         }
     });
-    
+
     const [current, setCurrent] = useState(0);
     const [userControlled, setUserControlled] = useState(false);
     const [isVisible, setIsVisible] = useState(false);
@@ -74,7 +75,11 @@ const LastTpSpotlight = () => {
         return () => clearInterval(timer);
     }, [userControlled, isVisible, tps.length]);
 
-    if (tps.length === 0) return null;
+    if (tps.length === 0) {
+        console.warn('CLIENT DEBUG (LastTpSpotlight) - tps array is empty! Component will return null.');
+        return null;
+    }
+    console.log('CLIENT DEBUG (LastTpSpotlight) - tps data to render:', JSON.stringify(tps, null, 2));
 
     const tp = tps[current];
 
@@ -198,7 +203,7 @@ const LastTpSpotlight = () => {
                                     className="bg-white border border-slate-200/50 rounded-[3rem] shadow-[0_40px_100px_rgba(0,0,0,0.08)] overflow-hidden"
                                 >
                                     <div className="p-10 md:p-24 relative">
-                                        <ExPage embedded={true} file={tp.path} title={tp.title} />
+                                        <ExPage embedded={true} file={tp.path} title={tp.title} rawContent={tp.content} />
                                         <div className="mt-24 pt-12 border-t flex justify-center border-slate-100">
                                             <Button
                                                 variant="solid"

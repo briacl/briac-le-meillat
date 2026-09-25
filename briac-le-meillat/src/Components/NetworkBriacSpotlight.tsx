@@ -3,12 +3,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 
 const TIMELINE_DOCS = [
-    { title: "NetworkBriacRoomGtw", path: "assets/documents/apprentissage/NetworkBriac/NetworkBriacRoomGtw.md" },
-    { title: "partage-reseau", path: "assets/documents/apprentissage/NetworkBriac/partage-reseau.md" },
-    { title: "NetworkBriacProxy", path: "assets/documents/apprentissage/NetworkBriac/NetworkBriacProxy.md" },
-    { title: "stbernard", path: "assets/documents/apprentissage/NetworkBriac/stbernard.md" },
-    { title: "NBDomain-Etablissement", path: "assets/documents/apprentissage/NetworkBriac/NBDomain-Etablissement.md" },
-    { title: "NBPXE", path: "assets/documents/apprentissage/NetworkBriac/NBPXE.md" },
+    { title: "NetworkBriacRoomGtw", path: "src/content/NetworkBriac/NetworkBriacRoomGtw.md" },
+    { title: "partage-reseau", path: "src/content/NetworkBriac/partage-reseau.md" },
+    { title: "NetworkBriacProxy", path: "src/content/NetworkBriac/NetworkBriacProxy.md" },
+    { title: "stbernard", path: "src/content/NetworkBriac/stbernard.md" },
+    { title: "NBDomain-Etablissement", path: "src/content/NetworkBriac/NBDomain-Etablissement.md" },
+    { title: "NBPXE", path: "src/content/NetworkBriac/NBPXE.md" },
 ];
 
 function PaperVector() {
@@ -61,7 +61,7 @@ const NetworkBriacSpotlight = () => {
                             onClick={() => setIsExpanded(true)}
                         >
                             <img
-                                src={`${BASE_URL}assets/documents/apprentissage/NetworkBriac/visuel/Gemini_Generated_Image_uwwkdbuwwkdbuwwk.png`}
+                                src={`${BASE_URL}src/content/NetworkBriac/visuel/Gemini_Generated_Image_uwwkdbuwwkdbuwwk.png`}
                                 alt="NetworkBriac"
                                 className="w-full object-cover rounded-[2rem]"
                             />

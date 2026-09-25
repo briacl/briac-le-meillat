@@ -18,7 +18,7 @@ export default function DeepNetworkProjects() {
                     {/* Image principale avec coins arrondis */}
                     <div className="w-full aspect-[4/3] rounded-[2rem] overflow-hidden bg-zinc-900 mb-8 relative border border-white/5 transition-transform duration-700 group-hover:scale-[1.02]">
                         <img 
-                            src={`${import.meta.env.BASE_URL}assets/projects/notgoogle-visu.png`} 
+                            src={`${import.meta.env.BASE_URL}src/assets/projects/notgoogle-visu.png`} 
                             alt="NotGoogle Interface" 
                             className="w-full h-full object-cover object-top"
                         />

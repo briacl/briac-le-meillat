@@ -1,5 +1,5 @@
 
-import React, { createContext, useContext, useState, useMemo } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import projectsData from '../data/projects.json';
 
@@ -33,20 +33,19 @@ function resolveLogoUrl(rawImagePath: string): string {
     const filename = parts[parts.length - 1];
     const matchingKey = Object.keys(projectImages).find(k => k.endsWith(`/${filename}`));
     if (matchingKey) {
-        return (projectImages as any)[matchingKey].default;
+        const imgModule = (projectImages as any)[matchingKey];
+        return typeof imgModule === 'string' ? imgModule : imgModule.default;
     }
     return rawImagePath;
 }
 
 export function WebProjectProvider({ children }: { children: React.ReactNode }) {
-    // Initialiser les projets en résolvant directement leurs URLs d'images compilées par Vite
     const [projects, setProjects] = useState<WebProject[]>(() => {
         return (projectsData as WebProject[]).map(p => ({
             ...p,
             imageUrl: resolveLogoUrl(p.imageUrl)
         }));
     });
-    
     console.log('WebProjectProvider initialized. Projects:', projects);
 
     const saveProjects = async (newProjects: WebProject[]) => {

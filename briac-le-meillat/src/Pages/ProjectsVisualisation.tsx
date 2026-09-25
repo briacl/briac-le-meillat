@@ -3,7 +3,7 @@ import Navbar from '../Components/Navbar';
 import Newsbar from '../Components/Newsbar';
 import UnifiedFooter from '../Components/UnifiedFooter';
 
-const projectImages = import.meta.glob('/src/assets/*.{png,jpg,jpeg,svg,webp,gif}', { query: '?url', eager: true });
+const projectImages = import.meta.glob('/src/assets/**/*.{png,jpg,jpeg,svg,webp,gif}', { query: '?url', eager: true });
 
 function resolveLogoUrl(rawImagePath: string | null): string | null {
     if (!rawImagePath) return null;
@@ -11,7 +11,8 @@ function resolveLogoUrl(rawImagePath: string | null): string | null {
     const filename = parts[parts.length - 1];
     const matchingKey = Object.keys(projectImages).find(k => k.endsWith(`/${filename}`));
     if (matchingKey) {
-        return (projectImages as any)[matchingKey].default;
+        const imgModule = (projectImages as any)[matchingKey];
+        return typeof imgModule === 'string' ? imgModule : imgModule.default;
     }
     return rawImagePath;
 }

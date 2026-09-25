@@ -11,6 +11,20 @@ import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 import 'katex/dist/katex.min.css';
 
+const projectImages = import.meta.glob('/src/assets/**/*.{png,jpg,jpeg,svg,webp,gif}', { query: '?url', eager: true });
+
+function resolveImageUrl(rawPath: string): string {
+    if (!rawPath || rawPath.startsWith('http')) return rawPath;
+    const parts = rawPath.split('/');
+    const filename = parts[parts.length - 1];
+    const matchingKey = Object.keys(projectImages).find(k => k.endsWith(`/${filename}`));
+    if (matchingKey) {
+        const imgModule = (projectImages as any)[matchingKey];
+        return typeof imgModule === 'string' ? imgModule : imgModule.default;
+    }
+    return rawPath;
+}
+
 const PRINT_STYLES = `
 @media print {
     @page {
@@ -316,9 +330,10 @@ interface ExPageProps {
     embedded?: boolean;
     file?: string;
     title?: string;
+    rawContent?: string;
 }
 
-const ExPage: React.FC<ExPageProps> = ({ embedded = false, file, title }) => {
+const ExPage: React.FC<ExPageProps> = ({ embedded = false, file, title, rawContent }) => {
     const [searchParams] = useSearchParams();
     const [content, setContent] = useState<string>('');
     const [loading, setLoading] = useState<boolean>(true);
@@ -330,8 +345,17 @@ const ExPage: React.FC<ExPageProps> = ({ embedded = false, file, title }) => {
     const printMode = !embedded && searchParams.get('print') === '1';
 
     useEffect(() => {
+        // If rawContent is provided directly, use it (no fetch needed)
+        if (rawContent) {
+            setContent(rawContent);
+            const parsedMeta = parseFrontmatter(rawContent);
+            setMetadata(parsedMeta);
+            setLoading(false);
+            return;
+        }
+
         const baseUrl = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
-        const defaultFile = "assets/documents/apprentissage/tech-internet/tp9-filtrage-linux.md";
+        const defaultFile = "src/content/rt/tech-internet/tp9-filtrage-linux.md";
         const targetFile = fileParam || defaultFile;
 
         // Clean path to avoid double slashes
@@ -354,7 +378,7 @@ const ExPage: React.FC<ExPageProps> = ({ embedded = false, file, title }) => {
                 setMetadata(null);
                 setLoading(false);
             });
-    }, [fileParam]);
+    }, [fileParam, rawContent]);
 
     useEffect(() => {
         if (printMode && !loading && content) {
@@ -406,7 +430,7 @@ const ExPage: React.FC<ExPageProps> = ({ embedded = false, file, title }) => {
                                 {metadata?.image && (
                                     <div className="w-full mb-8 rounded-xl overflow-hidden shadow-sm border border-slate-200/50 bg-slate-50 flex justify-center items-center">
                                         <img 
-                                            src={metadata.image.startsWith('http') ? metadata.image : `${import.meta.env.BASE_URL}${metadata.image.startsWith('/') ? metadata.image.slice(1) : metadata.image}`} 
+                                            src={resolveImageUrl(metadata.image)} 
                                             alt={metadata.title || "Couverture du document"} 
                                             className="w-full h-auto max-h-[450px] object-contain" 
                                         />
@@ -479,7 +503,7 @@ const ExPage: React.FC<ExPageProps> = ({ embedded = false, file, title }) => {
                                     </h3>
                                     <div className="w-full rounded-xl overflow-hidden shadow-sm border border-slate-200/60 bg-slate-50/50 flex justify-center items-center p-1 md:p-3">
                                         <img 
-                                            src={metadata.schema_image.startsWith('http') ? metadata.schema_image : `${import.meta.env.BASE_URL}${metadata.schema_image.startsWith('/') ? metadata.schema_image.slice(1) : metadata.schema_image}`} 
+                                            src={resolveImageUrl(metadata.schema_image)} 
                                             alt="Schéma de la topologie réseau" 
                                             className="w-full h-auto object-contain rounded-lg shadow-sm border border-slate-200/50" 
                                         />
@@ -519,6 +543,16 @@ const ExPage: React.FC<ExPageProps> = ({ embedded = false, file, title }) => {
                                     ol: ({ node, ...props }) => <ol className="list-decimal pl-6 my-4 text-slate-800 space-y-2 font-serif text-[15px]" {...props} />,
                                     li: ({ node, ...props }) => <li className="leading-relaxed" {...props} />,
                                     a: ({ node, ...props }) => <a className="text-blue-650 hover:text-blue-700 underline font-semibold transition-colors font-serif" {...props} />,
+                                    img: ({ node, src, alt, ...props }) => (
+                                        <div className="flex justify-center my-6">
+                                            <img 
+                                                src={src ? resolveImageUrl(src) : undefined} 
+                                                alt={alt || "Image du document"} 
+                                                className="w-full h-auto max-w-3xl object-contain rounded-xl shadow-sm border border-slate-200/50 bg-slate-50 p-1" 
+                                                {...props} 
+                                            />
+                                        </div>
+                                    ),
                                     blockquote: ({ node, ...props }) => {
                                           const childrenText = getTextFromChildren(props.children);
                                           const trimmedText = childrenText.trim();

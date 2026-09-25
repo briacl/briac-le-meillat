@@ -2,20 +2,33 @@ import React, { useRef } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { Award } from 'lucide-react';
 
+const projectImages = import.meta.glob('/src/assets/**/*.{png,jpg,jpeg,svg,webp,gif}', { query: '?url', eager: true });
+
+function resolveImageUrl(rawPath: string): string {
+    const parts = rawPath.split('/');
+    const filename = parts[parts.length - 1];
+    const matchingKey = Object.keys(projectImages).find(k => k.endsWith(`/${filename}`));
+    if (matchingKey) {
+        const imgModule = (projectImages as any)[matchingKey];
+        return typeof imgModule === 'string' ? imgModule : imgModule.default;
+    }
+    return rawPath;
+}
+
 const CERTIFICATIONS = [
     {
         title: 'Python Essential 1',
-        image: '/briac-le-meillat/assets/certifications/certification-python-essential-1-from-cisco.png',
+        image: resolveImageUrl('/assets/certifications/certification-python-essential-1-from-cisco.png'),
         issuer: 'Cisco Networking Academy',
     },
     {
         title: 'Python Essential 2',
-        image: '/briac-le-meillat/assets/certifications/certification-python-essential-2-from-cisco.png',
+        image: resolveImageUrl('/assets/certifications/certification-python-essential-2-from-cisco.png'),
         issuer: 'Cisco Networking Academy',
     },
     {
         title: 'CCNA SRWE',
-        image: '/briac-le-meillat/assets/certifications/certification-ccna-srwe-from-cisco.png',
+        image: resolveImageUrl('/assets/certifications/certification-ccna-srwe-from-cisco.png'),
         issuer: 'Cisco Networking Academy',
     },
 ];

@@ -1,17 +1,17 @@
 export interface Proof {
-  title: string;
-  module: string;
-  competence: string | string[];
-  ac_lies?: string[];
-  techs: string[];
-  date: string;
-  status: string;
-  image: string;
-  path: string;
-  content: string;
-  link?: string;
-  isPDF?: boolean;
-  project_type?: string;
+    title: string;
+    module: string;
+    competence: string | string[];
+    ac_lies?: string[];
+    techs: string[];
+    date: string;
+    status: string;
+    image: string;
+    path: string;
+    content: string;
+    link?: string;
+    isPDF?: boolean;
+    project_type?: string;
 }
 
 // Load all markdown files at build time
@@ -26,6 +26,7 @@ const urlFiles = { ...urlFilesRT, ...urlFilesNB };
 
 // Load all project images to map their hashed URLs
 const projectImages = import.meta.glob('/src/assets/**/*.{png,jpg,jpeg,svg,webp,gif}', { query: '?url', eager: true });
+console.log('CLIENT DEBUG (tpsProvider) - rawFiles size:', Object.keys(rawFiles).length);
 
 function parseYamlList(lines: string[], startIndex: number): { list: string[], nextIndex: number } {
     const list: string[] = [];
@@ -47,22 +48,21 @@ function parseYamlList(lines: string[], startIndex: number): { list: string[], n
 }
 
 function parseFrontmatter(rawContent: string): Partial<Proof> {
-    const match = rawContent.match(/^---\r?\n([\s\S]*?)\r?\n---/);
+    const match = rawContent.match(/^\s*---\r?\n([\s\S]*?)\r?\n---/);
     if (!match) return {};
-    
+
     const yamlStr = match[1];
     const lines = yamlStr.split('\n');
     const result: any = { ac_lies: [], techs: [] };
-    
+
     for (let i = 0; i < lines.length; i++) {
         const line = lines[i];
-        
+
         // Parse inline arrays like `ac_lies: ["AC11.01", "AC11.02"]`
         const inlineArrayMatch = line.match(/^(\w+):\s*\[(.*)\]\s*$/);
         if (inlineArrayMatch) {
             const key = inlineArrayMatch[1];
             if (key === 'ac_lies' || key === 'techs') {
-                // If it's an empty array `[]`, values will be [''], so filter out empty strings
                 const rawValues = inlineArrayMatch[2].trim() ? inlineArrayMatch[2].split(',') : [];
                 result[key] = rawValues.map(s => s.trim().replace(/^["'](.*)["']$/, '$1'));
                 continue;
@@ -73,7 +73,7 @@ function parseFrontmatter(rawContent: string): Partial<Proof> {
         const kvMatch = line.match(/^(\w+):\s*["']?(.*?)["']?\s*$/);
         if (kvMatch && kvMatch[1] !== 'ac_lies' && kvMatch[1] !== 'techs') {
             result[kvMatch[1]] = kvMatch[2];
-        } 
+        }
         // Parse multiline arrays
         else if (line.startsWith('ac_lies:')) {
             const parsed = parseYamlList(lines, i + 1);
@@ -86,22 +86,21 @@ function parseFrontmatter(rawContent: string): Partial<Proof> {
             i = parsed.nextIndex - 1;
         }
     }
-    
+
     return result;
 }
 
 function resolveImageUrl(rawImagePath: string | undefined): string | undefined {
     if (!rawImagePath) return undefined;
     
-    // Extract the filename (e.g. from "/assets/projects/img.png" -> "img.png")
     const parts = rawImagePath.split('/');
     const filename = parts[parts.length - 1];
     
-    // Search in projectImages dict
     const matchingKey = Object.keys(projectImages).find(k => k.endsWith(`/${filename}`));
     
     if (matchingKey) {
-        return (projectImages as any)[matchingKey].default;
+        const imgModule = (projectImages as any)[matchingKey];
+        return typeof imgModule === 'string' ? imgModule : imgModule.default;
     }
     
     return rawImagePath; // Fallback to raw string if not found
@@ -109,30 +108,38 @@ function resolveImageUrl(rawImagePath: string | undefined): string | undefined {
 
 export function getAllTps(): Proof[] {
     const proofs: Proof[] = [];
-    
+
     for (const [path, moduleExports] of Object.entries(rawFiles)) {
         // EXCLUSION RULE: Hide anything in research-thinking or waiting, and hide standard tp2/tp3 to show perso versions instead
         if (
-            path.includes('/research-thinking/') || 
+            path.includes('/research-thinking/') ||
             path.includes('/waiting/') ||
             path.includes('/tp2-flask.md') ||
-            path.includes('/tp3-flask.md')
+            path.includes('/tp3-flask.md') ||
+            path.includes('/bordel/map.md') ||
+            path.includes('/bordel/prompt-moodle.md') ||
+            path.includes('/sae102/livrable_briac/') ||
+            path.includes('/sae102/livrable_tp2_Briac_lemeillat/') ||
+            path.includes('/sae102/livrable_tp3_Briac_lemeillat/') ||
+            path.includes('/sae102/livrable_tp3_pt2_briac_lemeillat/') ||
+            path.includes('/sae102/sae102.md')
         ) {
             continue;
         }
-        
+
         // Get the real generated URL for the markdown file
-        const finalUrl = (urlFiles as any)[path]?.default || path;
-        
+        const urlModule = (urlFiles as any)[path];
+        const finalUrl = urlModule ? (typeof urlModule === 'string' ? urlModule : urlModule.default) : path;
+
         const rawContent = (moduleExports as any).default || moduleExports;
         const contentStr = typeof rawContent === 'string' ? rawContent : '';
         const metadata = parseFrontmatter(contentStr);
-        
+
         // Only include if it has at least a module or a title
         if (metadata.module || metadata.title) {
             proofs.push({
-                title: metadata.title || '',
-                module: metadata.module || '',
+                title: metadata.title || 'Sans titre',
+                module: metadata.module || 'Non classé',
                 competence: metadata.competence || '',
                 ac_lies: metadata.ac_lies || [],
                 techs: metadata.techs || [],
@@ -145,7 +152,9 @@ export function getAllTps(): Proof[] {
             });
         }
     }
-    
+
     // Sort by date descending
-    return proofs.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    const sorted = proofs.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    console.log(`CLIENT DEBUG (tpsProvider) - getAllTps found ${sorted.length} valid proofs.`);
+    return sorted;
 }

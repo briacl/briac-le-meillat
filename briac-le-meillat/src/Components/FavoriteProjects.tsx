@@ -5,25 +5,25 @@ import { X } from 'lucide-react';
 import ExPage from '@/Pages/ExPage';
 import { getAllTps } from '@/utils/tpsProvider';
 
-const FAVORITE_PATHS = [
-    'assets/documents/apprentissage/tech-internet/tp2-passerelle_linux.md',
-    'assets/documents/apprentissage/tech-internet/ccna-srwe/networkbriac-project-ccna-srwe.md',
-    'assets/documents/apprentissage/bases-services-reseaux/tp-samba.md',
-    'assets/documents/apprentissage/tech-internet/tp9-filtrage-linux.md',
-    'assets/documents/apprentissage/bases-services-reseaux/tp-dhcp-tftp-pxe.md',
+// Filenames of the 5 favorite TPs — matched against the end of the path from tpsProvider
+const FAVORITE_FILENAMES = [
+    'tp2-passerelle_linux.md',
+    'networkbriac-project-ccna-srwe.md',
+    'tp-samba.md',
+    'tp9-filtrage-linux.md',
+    'tp-dhcp-tftp-pxe.md',
 ];
 
 const allTps = getAllTps();
 const BASE_URL = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
 
-const FAVORITE_PROJECTS = FAVORITE_PATHS.map(path => {
-    const tp = allTps.find(p => p.path === path);
-    // On nettoie l'image si elle commence par un / pour éviter les doublons avec le BASE_URL
-    const imagePath = tp?.image ? tp.image.replace(/^\//, '') : '';
+const FAVORITE_PROJECTS = FAVORITE_FILENAMES.map(filename => {
+    const tp = allTps.find(p => p.path.endsWith(filename));
     return {
-        title: tp?.title || path,
-        image: imagePath ? `${BASE_URL}${imagePath}` : '',
-        path: path,
+        title: tp?.title || filename,
+        image: tp?.image || '',
+        path: tp?.path || filename,
+        content: tp?.content || '',
         isExternal: false
     };
 });
@@ -143,7 +143,7 @@ export default function FavoriteProjects() {
                                 >
                                     <div className="p-10 md:p-24 relative">
                                         {selectedProject && (
-                                            <ExPage embedded={true} file={selectedProject.path} title={selectedProject.title} />
+                                            <ExPage embedded={true} file={selectedProject.path} title={selectedProject.title} rawContent={selectedProject.content} />
                                         )}
                                         <div className="mt-24 pt-12 border-t flex justify-center border-slate-100">
                                             <Button

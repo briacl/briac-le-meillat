@@ -116,6 +116,10 @@ export default function StudentShowcaseSection() {
         !p.title.toLowerCase().includes('sae102') &&
         !p.path.toLowerCase().includes('sae102')
     );
+    console.log('CLIENT DEBUG (StudentShowcase) - activeAc:', activeAc, '| proofs:', proofs.length, '| activeProofs:', activeProofs.length);
+    if (proofs.length > 0 && activeProofs.length === 0) {
+        console.log('CLIENT DEBUG (StudentShowcase) - Sample proof ac_lies:', proofs.slice(0, 3).map(p => ({ title: p.title, ac_lies: p.ac_lies, type: typeof p.ac_lies })));
+    }
 
     return (
         <section id="student-showcase" className="relative w-full h-[90vh] lg:h-screen bg-white flex flex-col lg:flex-row border-b border-black/5 overflow-hidden">
@@ -232,7 +236,7 @@ export default function StudentShowcaseSection() {
                                                     {proof.image && (
                                                         <div className="hidden sm:block flex-shrink-0 w-28 rounded-lg overflow-hidden bg-zinc-100 border border-zinc-50 shadow-sm mt-1">
                                                             <img
-                                                                src={`${BASE}${proof.image.replace(/^\//, '')}`}
+                                                                src={proof.image}
                                                                 alt={proof.title}
                                                                 className="w-full h-auto object-cover"
                                                             />
